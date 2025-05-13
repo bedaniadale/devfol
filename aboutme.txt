@@ -1,0 +1,40 @@
+    
+             <hr class="w-full my-2 px-4">
+             <!-- ABOUT ME SECTION -->
+             <div class="w-full rounded-lg py-4 flex flex-col items-center  p-4">
+                <div class="w-[70%] flex justify-center px-12">
+
+                    <p class="text-gray-600 text-sm text-justify mb-4">I started programming in 2015 at the age of 13, driven by curiosity and a love for building things with code. Over the years, I’ve grown into a dedicated developer with a passion for solving real-world problems through technology. Now a graduate, I continue to explore new challenges and refine my skills in software development.</p>
+                </div>
+
+                
+
+                <!-- about me and education-->
+                <div class="flex flex-col">
+
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#4B5563" viewBox="0 0 24 24" width="32" height="32">
+                            <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm0 13.17L5.74 11.6 4.26 12.4 12 16.83l7.74-4.43-1.48-.8L12 15.17zM6 13v4c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-4l-1.5.86V17H7.5v-3.14L6 13z"/>
+                          </svg>
+                          <h3 class="text-md text-gray-500 ">Graduated BSIT Web Development </h3>
+                          
+                    </div>
+                    <h3 class="text-sm mb-2 text-red-900 ">Class of 2025 — Holy Angel University </h3>
+                
+                    <h3 class="text-sm text-gray-500 "> 🎖️ Most Outstanding Graduating Student per Program </h3>
+                    <h3 class="text-sm text-gray-500 "> 🎖️ Most Outstanding On-the-Job Trainee per Program </h3>
+                    <h3 class="text-sm text-gray-500 "> 🎖️ Dean's Lister (2022-2024) </h3>
+                    <h3 class="text-sm text-gray-500 "> 🎖️ President's Lister </h3>
+                    <h3 class="text-sm text-gray-500 "> 🏆 Recipient of HAFRD - Academic Scholarship</h3>
+                    
+                    <h3 class="text-sm text-gray-500 "> 🎯 Code Geeks' President (A.Y 2023- 2024)</h3>
+
+
+                </div>
+
+
+                
+
+
+
+             </div>

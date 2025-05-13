@@ -1,0 +1,145 @@
+
+* { 
+    margin: 0; 
+    padding:0; 
+    box-sizing: border-box;
+   }
+
+   body { 
+    width: 100%; 
+    height: 100vh; 
+    background: linear-gradient(
+    135deg, /* angle: from top-left to bottom-right */
+    #2a2633 0%, /* dark purple */
+    #1b1821 40%, /* deeper dark */
+    #000000 100% /* black */
+  );
+    font-family: "Roboto", sans-serif;
+   }
+   
+
+   .hero { 
+    width: 100%; 
+    height: 100%; 
+
+    overflow: hidden;
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    
+   }
+
+   .name-title {
+    margin-top: 5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 1; /* ADD THIS to put text in front of image */
+    /* border: 1px solid red; */
+}
+  
+  .name-title h1 {
+    
+    margin: 0;
+    text-align: center;
+    
+    line-height: 15rem;
+}
+
+.dale {
+    font-size: 25rem; /* bigger */
+  }
+  
+  .bedania {
+    font-size: 14rem; /* smaller */
+  }
+  
+  /* Also update your .img */
+  .hero .img {
+    z-index: 999;
+    position: absolute;
+    width: 100%;
+    height: 110%;
+    top: 5%;
+    display: flex; 
+    justify-content: center;
+    z-index: 1; /* image behind the text */
+  }
+  
+  .hero img {
+    height: 100%;
+    transition: 300ms;
+  }
+
+  
+
+  .circle-container {
+    position: absolute; 
+    width: 100%; 
+    height: 50%;
+   
+    z-index: 1; 
+    display: flex; 
+    justify-content: center;
+    top: 80%;
+
+  }
+
+  .circle { 
+    width: 80%; 
+    height: 100%; 
+    border-radius: 100%;
+    box-shadow: 0 0 20px 3px white;
+
+  }
+
+  .text-popup { 
+    position: absolute;
+    top: 80%; 
+    z-index: 5;
+   
+    width: 100%; 
+    height:40%; 
+    display: flex;
+  }
+
+  .tp-left:hover { 
+    transform: scale(1.5) rotate(-10deg);
+  }
+
+
+  .tp-right:hover { 
+    transform: scale(1.5) rotate(10deg);
+  }
+  
+  .text-popup div { 
+    width: 50%; 
+    height: 100%; 
+
+    display: flex;
+    justify-content: center;
+  }
+
+  .text-popup div div {
+    transition: 300ms;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+  }
+
+  .tp-wrap { 
+    line-height:2rem
+  }
+
+.tp-wrap h1{ 
+     font-size: 3rem;
+     
+}
+
+.tp-wrap h3 { 
+    font-size: 0.8rem;
+}

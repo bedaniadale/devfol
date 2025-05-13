@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dale Bedania</title>
+    
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+
+
+
+
+
+    <link rel="stylesheet" href="onepager.css">
+ 
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    
+
+    <!-- iconfiy -->
+    <script src="https://code.iconify.design/3/iconify.min.js"></script>
+
+
+
+</head>
+<body class="bg-gray-100">
+
+    <div class="w-full flex justify-center py-4"> <!-- container holder body -->
+        <div class="w-[90%] sm:w-1/2 flex flex-col items-start justify-center">
+
+
+          <!-- window -->
+            <div class="w-full flex justify-center overflow-hidden" id="home">
+                <div class="w-full mockup-window border border-base-300 pt-4 flex flex-col justify-center items-center bg-white">
+                    <div class="w-full flex justify-center border-t border-base-300">
+                        <div class="w-full flex flex-col items-center sm:justify-center gap-4 rounded-lg py-8">
+    
+
+                          <!-- name -->
+                            <div class="flex items-center ">
+                                <div class="w-45 h-45 overflow-hidden rounded-full">
+                                    <img src="main.jpg" alt="">
+                                </div>
+                               
+                            </div>
+                            <!-- social links -->
+                            <div class="w-full flex flex-col justify-center items-start ">
+                                <div class="w-full flex flex-col items-center ">
+                                    <h1 class="text-md sm:text-3xl text-gray-400">Hello, I am
+                                        <strong class="text-gray-500 font-black"> Dale Bedania! </strong> 👋
+                                    </h1>
+                                    
+                                    <h1 class="text-gray-500">Full-stack Web Developer</h1>
+
+                                </div>
+            
+            
+                                <div class="w-full flex justify-center gap-1 mt-1">
+                                    <button type="button" class="flex items-center text-white text-sm font-medium bg-gray-700 px-3 py-1.5 tracking-wide rounded-full gap-2">
+                                          <div id="github"></div>
+                                        Github
+                                    </button>
+            
+                                    <button type="button" class="flex items-center text-white text-sm font-medium bg-gray-700 px-3 py-1.5 tracking-wide rounded-full gap-2">
+                                        <div id="linkedin"></div>
+                                      LinkedIn
+                                  </button>
+            
+                                </div>
+
+                                <div class="w-full flex justify-center mt-2">
+                                    <a href="" class="px-16 py-2 border border-gray-300 hover:bg-gray-200 duration-300 text-gray-600">Download CV</a>
+
+                                </div>
+            
+                                
+            
+            
+            
+                                  
+                                
+                            </div>
+
+
+                            
+
+                            
+            
+            
+                           
+                         </div>
+
+                         
+
+                         
+                    </div>
+
+                    
+                    <hr class="w-[95%] py-2">
+                    
+                    <!-- insert here -->
+                    <div class="flex justify-center">
+    
+                                            <!-- Testimonials with Stats -->
+                        <div class="w-full">
+                            <!-- Grid -->
+                            <div class="flex flex-col sm:grid grid-cols-12 p-8 sm:px-24 -py-16 justify-between ">
+                            <div class="lg:col-span-5 lg:col-start-1 ">
+                                <!-- Title -->
+                                <div class="mb-8">
+                                <h2 class="mb-2 text-3xl text-gray-800 font-bold lg:text-4xl dark:text-neutral-200">
+                                    Since 2015
+                                </h2>
+                                <p class="text-gray-600 dark:text-neutral-400">
+                                    I started programming in 2015 at the age of 13, driven by curiosity and a love for building things with code. Over the years, I’ve grown into a dedicated developer with a passion for solving real-world problems through technology. Now a graduate, I continue to explore new challenges and refine my skills in software development.
+                                </p>
+                                </div>
+                                <!-- End Title -->
+                        
+                                <!-- Blockquote -->
+                                <blockquote class="relative">
+                                <svg class="absolute top-10 start-0 transform -translate-x-6 -translate-y-8 size-16 text-gray-200 dark:text-neutral-800" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M7.39762 10.3C7.39762 11.0733 7.14888 11.7 6.6514 12.18C6.15392 12.6333 5.52552 12.86 4.76621 12.86C3.84979 12.86 3.09047 12.5533 2.48825 11.94C1.91222 11.3266 1.62421 10.4467 1.62421 9.29999C1.62421 8.07332 1.96459 6.87332 2.64535 5.69999C3.35231 4.49999 4.33418 3.55332 5.59098 2.85999L6.4943 4.25999C5.81354 4.73999 5.26369 5.27332 4.84476 5.85999C4.45201 6.44666 4.19017 7.12666 4.05926 7.89999C4.29491 7.79332 4.56983 7.73999 4.88403 7.73999C5.61716 7.73999 6.21938 7.97999 6.69067 8.45999C7.16197 8.93999 7.39762 9.55333 7.39762 10.3ZM14.6242 10.3C14.6242 11.0733 14.3755 11.7 13.878 12.18C13.3805 12.6333 12.7521 12.86 11.9928 12.86C11.0764 12.86 10.3171 12.5533 9.71484 11.94C9.13881 11.3266 8.85079 10.4467 8.85079 9.29999C8.85079 8.07332 9.19117 6.87332 9.87194 5.69999C10.5789 4.49999 11.5608 3.55332 12.8176 2.85999L13.7209 4.25999C13.0401 4.73999 12.4903 5.27332 12.0713 5.85999C11.6786 6.44666 11.4168 7.12666 11.2858 7.89999C11.5215 7.79332 11.7964 7.73999 12.1106 7.73999C12.8437 7.73999 13.446 7.97999 13.9173 8.45999C14.3886 8.93999 14.6242 9.55333 14.6242 10.3Z" fill="currentColor"/>
+                                </svg>
+                        
+                                <div class="relative z-10">
+                                    <p class="text-xl italic text-gray-800 font-bold dark:text-white">
+                                        “Great web development isn’t just about writing code—it’s about solving problems, creating seamless experiences, and turning ideas into digital reality.”
+                                    </p>
+                                </div>
+                        
+                                <footer class="mt-6">
+                                    <div class="flex items-center">
+                                   
+                                    <div class="grow">
+                                        <div class="font-semibold text-gray-500 dark:text-neutral-200">— Every good web developer, ever</div>
+                                        
+                                    </div>
+                                    </div>
+                                </footer>
+                                </blockquote>
+                                <!-- End Blockquote -->
+                            </div>
+                            <!-- End Col -->
+                        
+                            <div class="mt-10 lg:mt-0 lg:col-span-6 lg:col-end-13">
+                                <div class="space-y-6 sm:space-y-8">
+                                <!-- List -->
+                                <ul class="grid grid-cols-2 divide-gray-200 dark:divide-neutral-700">
+                                    <li class="flex flex-col p-4 ">
+                                    <div class="flex  gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 dark:text-neutral-200">
+                                        999+
+                                    </div>
+                                    <p class="text-sm sm:text-base text-gray-600 dark:text-neutral-400">
+                                        <strong> lines of code written </strong> — from hobby projects to production-ready apps
+                                    </p>
+                                    </li>
+                        
+                                    <li class="flex flex-col  p-4">
+                                    <div class="flex gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 dark:text-neutral-200">
+                                        
+                                        50x
+                                    </div>
+                                    <p class="text-sm sm:text-base text-gray-600 dark:text-neutral-400">
+                                        <strong> growth  in development speed </strong> since starting in 2015
+                                    </p>
+                                    </li>
+                        
+                                    <li class="flex flex-col  p-4 sm:p-8">
+                                    <div class="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 dark:text-neutral-200">
+                                       
+                                        100%
+                                    </div>
+                                    <p class="text-sm sm:text-base text-gray-600 dark:text-neutral-400">
+                                        commitment to clean, scalable, and maintainable code
+                                    </p>
+                                    </li>
+                        
+                                    <li class="flex flex-col  p-4 sm:p-8">
+                                    <div class="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 dark:text-neutral-200">
+                                        24/7
+                                    </div>
+                                    <p class="text-sm sm:text-base text-gray-600 dark:text-neutral-400">
+                                        curiosity — always exploring new tools, trends, and technologies
+                                    </p>
+                                    </li>
+                                </ul>
+                                <!-- End List -->
+                                </div>
+                            </div>
+                            <!-- End Col -->
+                            </div>
+                            <!-- End Grid -->
+                        </div>
+                        <!-- End Testimonials with Stats -->
+                    </div>
+  
+                  
+
+                              
+                    <!-- education -->
+                    <hr class="w-[95%] py-2">
+                
+                    <div class="w-full flex flex-col items-center">
+    
+                    <div class="flex flex-col items-center">
+                        <img src="haulogo.png" class="w-30 h-30" alt="">
+                        <h3 class="text-sm md:text-3xl text-gray-500 font-black ">Bachelor of Science in Information Technology </h3>
+                        <h3 class="text-sm md:text-lg text-gray-500 font-semibold">Area of Specialization in Web Development </h3>
+
+
+
+                        
+                    </div>
+                      
+                      <h3 class="text-sm sm:text-lg mb-2 text-red-900 font-semibold">Class of 2025 — Holy Angel University </h3>
+
+                      <div class="w-full flex justify-center pb-8">
+                        <div class="w-2/3 grid grid-cols-1 sm:grid-cols-3 gap-3" id="awards">
+                            <!--box awards injected -->
+
+                       
+                        </div>
+                        
+                        
+                      </div>
+
+                  
+               
+  
+                    </div>
+
+                    <hr class="w-[95%] py-2">
+                    
+                      <!-- offers -->
+                      <div class="w-2/3 flex flex-col justify-center
+                      items-center gap-8 rounded-lg pb-8">
+                         <h1 class="text-xl sm:text-3xl font-black text-gray-700">What can I offer? </h1>
+         
+                         
+                       
+                         
+                         <div class="w-full grid grid-cols-3 gap-8 sm:gap-0">
+                        
+                          <div class="flex flex-col text-center items-center">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                      <line x1="8" y1="21" x2="16" y2="21"></line>
+                                      <line x1="12" y1="17" x2="12" y2="21"></line>
+                                  </svg>
+                              </div>
+                              <div class="flex-grow">
+                                  <h2 class="text-gray-900 text-sm title-font font-medium mb-3">Full-stack Web Development</h2>
+                              </div>
+                          </div>
+                      
+                          <!-- Database Management -->
+                          <div class="flex flex-col text-center items-center">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                                      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                                      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                                  </svg>
+                              </div>
+                              <div class="flex-grow">
+                                  <h2 class="text-gray-900 text-sm title-font font-medium mb-3">Database Management</h2>
+                              </div>
+                          </div>
+                      
+                          <!-- System Design -->
+                          <div class="flex flex-col text-center items-center">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <circle cx="12" cy="12" r="10"></circle>
+                                      <circle cx="12" cy="12" r="4"></circle>
+                                      <line x1="4.93" y1="4.93" x2="9.17" y2="9.17"></line>
+                                      <line x1="14.83" y1="14.83" x2="19.07" y2="19.07"></line>
+                                      <line x1="14.83" y1="9.17" x2="19.07" y2="4.93"></line>
+                                      <line x1="14.83" y1="9.17" x2="18.36" y2="5.64"></line>
+                                      <line x1="4.93" y1="19.07" x2="9.17" y2="14.83"></line>
+                                  </svg>
+                              </div>
+                              <div class="flex-grow">
+                                  <h2 class="text-gray-900 text-sm title-font font-medium mb-3">System Design</h2>
+                              </div>
+                          </div>
+                      
+                          <!-- UX/UI Designing -->
+                          <div class="flex flex-col text-center items-center">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                      <line x1="8" y1="21" x2="16" y2="21"></line>
+                                      <line x1="12" y1="17" x2="12" y2="21"></line>
+                                      <circle cx="6" cy="7" r="1"></circle>
+                                      <circle cx="9" cy="7" r="1"></circle>
+                                  </svg>
+                              </div>
+                              <div class="flex-grow">
+                                  <h2 class="text-gray-900 text-sm title-font font-medium mb-3">UX/UI Designing</h2>
+                              </div>
+                          </div>
+                      
+                          <!-- Web Domain and Hosting Management -->
+                          <div class="flex flex-col text-center items-center">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
+                                      <path d="M12 6v12"></path>
+                                      <path d="M17.66 7.34l-1.41 1.41"></path>
+                                      <path d="M6.34 7.34l1.41 1.41"></path>
+                                      <path d="M17.66 16.66l-1.41-1.41"></path>
+                                      <path d="M6.34 16.66l1.41-1.41"></path>
+                                  </svg>
+                              </div>
+                              <div class="flex-grow">
+                                  <h2 class="text-gray-900 text-sm title-font font-medium mb-3">Web Domain and Hosting Management</h2>
+                              </div>
+                          </div>
+                      
+                          <!-- Graphics Design -->
+                          <div class="flex flex-col text-center items-center">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                  </svg>
+                              </div>
+                              <div class="flex-grow">
+                                  <h2 class="text-gray-900 text-sm title-font font-medium mb-3">Graphics Design</h2>
+                              </div>
+                          </div>
+                      </div>
+                       
+                      
+                         
+         
+                      </div>
+  
+
+                    <!-- tools and frameworks -->
+                    <div class="w-full flex flex-col justify-center
+                    items-center gap-2 rounded-lg p-4">
+                       <h1 class="text-xl sm:text-3xl font-black text-gray-700">Tools & Frameworks Used</h1>
+       
+                       <div class="w-full sm:w-2/3 grid grid-cols-4 gap-4 sm:gap-0">
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="laravel"></div>
+                               <h1 class="text-sm">Laravel</h1>
+                           </div>
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="react"></div>
+                               <h1 class="text-sm">React.js</h1>
+                           </div>
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="angular"></div>
+                               <h1 class="text-sm">Angular</h1>
+                           </div>
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="vuejs"></div>
+                               <h1 class="text-sm">Vue.js</h1>
+                           </div>
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="flutter"></div>
+                               <h1 class="text-sm">Flutter</h1>
+                           </div>
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="bootstrap"></div>
+                               <h1 class="text-sm">Dart</h1>
+                           </div>
+                           
+       
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="solidity"></div>
+                               <h1 class="text-sm">Solidity</h1>
+                           </div>
+       
+                             
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="nodejs"></div>
+                               <h1 class="text-sm">Node.js</h1>
+                           </div>
+       
+                           
+       
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="tailwind"></div>
+                               <h1 class="text-sm">Tailwind CSS</h1>
+                           </div>
+       
+                   
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="javascript"></div>
+                               <h1 class="text-sm">Javascript</h1>
+                           </div>
+       
+                
+       
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="php"></div>
+                               <h1 class="text-sm">PHP</h1>
+                           </div>
+       
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="java"></div>
+                               <h1 class="text-sm">Java</h1>
+                           </div>
+                           
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="python"></div>
+                               <h1 class="text-sm">Python</h1>
+                           </div>
+       
+       
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="mysql"></div>
+                               <h1 class="text-sm">MySQL</h1>
+                           </div>
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="mongodb"></div>
+                               <h1 class="text-sm">MongoDB</h1>
+                           </div>
+       
+                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500"> 
+                               <div id="aws"></div>
+                               <h1 class="text-sm">AWS</h1>
+                           </div>
+       
+                          
+       
+       
+       
+       
+       
+       
+                           
+       
+       
+       
+       
+       
+       
+       
+                       </div>
+                       
+       
+                    </div>
+
+
+                  
+
+
+                    <hr class="w-[95%] pt-8">
+
+                    
+                    <!-- RECENT PROJECTS  -->
+                    <h1 class="text-3xl font-black text-gray-700">Crafted Websites</h1>
+                    <div class="w-full flex flex-col justify-center
+                    items-center gap-2 rounded-lg p-8" id="projects">
+
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+
+
+                    </div>
+
+                    <footer class="w-full flex flex-col sm:flex-row justify-center gap-4 p-10 bg-gray-200">
+                        <aside>
+                          <svg
+                            width="50"
+                            height="50"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            class="fill-current">
+                            <path
+                              d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path>
+                          </svg>
+                          <p class="text-lg text-gray-600"> 
+                            <strong class="text-3xl font-black text-black"> DALE BEDANIA </strong> 
+                            <br />
+                            Fullstack Web Developer
+                          </p>
+                        </aside>
+                        <nav>
+                            <h6 class="footer-title">Social Links</h6>
+                            <a class="link link-hover flex items-center gap-2">
+                              <i class="fab fa-facebook"></i> Dale Bedania
+                            </a>
+                            <a class="link link-hover flex items-center gap-2">
+                              <i class="fab fa-instagram"></i> @bedaniadale
+                            </a>
+                            <a class="link link-hover flex items-center gap-2">
+                              <i class="fas fa-envelope"></i> dale.bedania@gmail.com
+                            </a>
+                            <a class="link link-hover flex items-center gap-2">
+                              <i class="fab fa-linkedin"></i> dale-bedania
+                            </a>
+                          </nav>
+                       
+                        </footer>
+
+                    
+                  </div>
+                
+            </div>
+
+        
+
+         
+
+
+            
+    
+
+
+             <!-- TECHNOLOGY STACK SECTION  -->
+         
+
+
+             <hr class="w-full my-2 px-4">
+
+
+             
+
+        </div>
+        
+        
+
+
+
+    </div>
+    
+
+</body>
+<script src="iconloader.js"></script>
+<script src="techstacks.js"></script>
+<script src="awards.js"></script>
+<script src="projects.js"></script>
+
+
+</html>
