@@ -41,12 +41,19 @@ function loadAwards() {
 
     awards.forEach((item)=> { 
         let card = `
-           <div class="flex flex-col items-center bg-yellow-100 rounded-xl text-center leading-none p-4">
-                <!-- icon -->
-                <h1 class="text-5xl"> ${getIcon(item.icon)} </h1>
-                <h3 class="text-sm sm:text-md text-gray-500 ">${item.award} </h3>
-                    
-            </div>
+          <div class="flex flex-col items-center bg-yellow-100 rounded-xl text-center p-6   transition-transform transform hover:scale-105">
+    <!-- Icon -->
+    <h1 class="text-6xl text-yellow-600 mb-3">
+        ${getIcon(item.icon)}  <!-- Adjusted for larger icons -->
+    </h1>
+    
+    <!-- Award Text -->
+    <h3 class="text-base sm:text-lg text-gray-700 font-semibold mb-2">
+        ${item.award}
+    </h3>
+    
+  
+</div>
             `
 
 

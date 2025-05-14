@@ -16,3 +16,60 @@ body {
 .debug { 
     border: 1px solid red;
 }
+
+
+@keyframes wave-animation {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(14deg); }
+  30% { transform: rotate(-8deg); }
+  45% { transform: rotate(14deg); }
+  60% { transform: rotate(-4deg); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+#wave {
+  display: inline-block;
+  animation: wave-animation 3s infinite;
+  transform-origin: 70% 70%; /* makes it rotate from the hand base */
+}
+
+
+.typed-text {
+ 
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid;
+  animation: typing 2s steps(4) 1s infinite alternate,
+             blink 0.7s step-end infinite;
+}
+
+@keyframes typing {
+  0% {
+    width: 0ch;
+  }
+  50% {
+    width: 4ch;
+  }
+  100% {
+    width: 0ch;
+  }
+}
+
+
+
+  .typing-effect::after {
+    content: "";
+    display: inline-block;
+    width: 0.6ch;
+    height: 1em;
+    margin-left: 3px;
+    background: currentColor;
+    animation: blink 4s step-end infinite;
+    vertical-align: bottom;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+

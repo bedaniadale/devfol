@@ -110,48 +110,38 @@ function loadProjects() {
         
         
         let project = `    
-        <div class="w-full flex flex-col items-center gap-6">
-            <!-- Single Project Card - Horizontal Layout -->
-            <div class="w-[90%] flex flex-col bg-gray-100 text-white rounded-lg overflow-hidden transition-shadow duration-300 border border-gray-300">
-            
-                <div class="overflow-hidden">
-                    <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover">
-                </div>
-                
+            <div class="w-full flex flex-col items-center gap-6">
+    <!-- Single Project Card - Horizontal Layout -->
+    <div class="w-[90%] sm:w-[80%] lg:w-[70%] flex flex-col bg-white text-gray-800 rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 border border-gray-300 hover:shadow-xl">
+        <!-- Image Section -->
+        <div class="overflow-hidden relative">
+            <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 transform hover:scale-105">
+        </div>
         
-                <div class="flex flex-col">
-                    <div class="p-4 flex flex-col flex-grow">
-                        <h3 class="text-lg font-black text-gray-700">${item.title}</h3>
-                        <p class="text-sm text-gray-800 mt-2">${item.desc}</p>
-                        
-                        <!-- Technology Badges -->
-                        <div class="flex flex-wrap gap-2 mt-4">
-
-                            ${roles} 
-                        
-                            ${langs}
-                        </div>
-                    </div>
-                    
-                    <!-- Project Links -->
-                    <div class="px-4 py-3 bg-gray-200 flex justify-end mt-auto">
-                      
-                        <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" class="text-sm text-gray-400 hover:text-gray-800 flex items-center gap-1">
-                            <span class="iconify" data-icon="mdi:github"></span>
-                            ${item.site}
-                            
-                        </a>
-                    </div>
+        <!-- Project Content -->
+        <div class="flex flex-col">
+            <div class="p-4 flex flex-col flex-grow">
+                <h3 class="text-xl font-bold text-gray-800">${item.title}</h3>
+                <p class="text-sm text-gray-600 mt-2">${item.desc}</p>
+                
+                <!-- Technology Badges -->
+                <div class="flex flex-wrap gap-2 mt-4">
+                    ${roles} 
+                    ${langs}
                 </div>
             </div>
-
-          
-
-           
             
-            
-       
+            <!-- Project Links -->
+            <div class="px-4 py-3 bg-gray-100 flex justify-between items-center mt-auto">
+                <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" class="text-sm text-gray-600 hover:text-gray-800 flex items-center gap-2 transition-colors duration-300">
+                    <span class="iconify" data-icon="mdi:github" style="font-size: 1.25rem;"></span>
+                    ${item.site}
+                </a>
+            </div>
         </div>
+    </div>
+</div>
+
         `
         
         sprojects+=project
