@@ -109,39 +109,32 @@ function loadProjects() {
         const langs = createLanguages(item.langs); 
         
         
-        let project = `    
-            <div class="w-full flex flex-col items-center gap-6">
-    <!-- Single Project Card - Horizontal Layout -->
-    <div class="w-[90%] sm:w-[80%] lg:w-[70%] flex flex-col bg-white text-gray-800 rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 border border-gray-300 hover:shadow-xl">
-        <!-- Image Section -->
-        <div class="overflow-hidden relative">
-            <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 transform hover:scale-105">
-        </div>
-        
-        <!-- Project Content -->
-        <div class="flex flex-col">
-            <div class="p-4 flex flex-col flex-grow">
-                <h3 class="text-xl font-bold text-gray-800">${item.title}</h3>
-                <p class="text-sm text-gray-600 mt-2">${item.desc}</p>
-                
-                <!-- Technology Badges -->
-                <div class="flex flex-wrap gap-2 mt-4">
-                    ${roles} 
-                    ${langs}
-                </div>
-            </div>
-            
-            <!-- Project Links -->
-            <div class="px-4 py-3 bg-gray-100 flex justify-between items-center mt-auto">
-                <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" class="text-sm text-gray-600 hover:text-gray-800 flex items-center gap-2 transition-colors duration-300">
-                    <span class="iconify" data-icon="mdi:github" style="font-size: 1.25rem;"></span>
-                    ${item.site}
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+        let project = `
+    <article class="group flex flex-col bg-white text-gray-800 rounded-xl overflow-hidden shadow-sm ring-1 ring-gray-200 hover:shadow-lg hover:ring-gray-300 transition-all duration-300">
+      <!-- Image -->
+      <div class="relative overflow-hidden">
+        <img src="${item.img}" alt="${item.title}" loading="lazy" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" />
+      </div>
 
+      <!-- Content -->
+      <div class="flex flex-col p-4 gap-3">
+        <h3 class="text-lg font-semibold text-gray-900 line-clamp-1">${item.title}</h3>
+        <p class="text-sm text-gray-600 line-clamp-3">${item.desc}</p>
+
+        <div class="flex flex-wrap gap-2 mt-1">
+          ${roles}
+          ${langs}
+        </div>
+
+        <div class="mt-2 flex items-center justify-between">
+          <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 transition-colors">
+            <span class="iconify" data-icon="mdi:link-variant" style="font-size: 1.1rem;"></span>
+            <span class="truncate">${item.site}</span>
+          </a>
+          <span class="text-xs text-gray-400">View site</span>
+        </div>
+      </div>
+    </article>
         `
         
         sprojects+=project

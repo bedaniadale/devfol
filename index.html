@@ -70,27 +70,33 @@
             
             
                                 <div class="w-full flex justify-center gap-1 mt-1">
-                                    <button type="button" class="flex items-center text-white text-sm font-medium bg-gray-700 px-3 py-1.5 tracking-wide rounded-full gap-2">
+                                    <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="flex items-center text-white text-sm font-medium bg-gray-700 px-3 py-1.5 tracking-wide rounded-full gap-2">
                                           <div id="github"></div>
                                         Github
-                                    </button>
+                                    </a>
             
-                                    <button type="button" class="flex items-center text-white text-sm font-medium bg-gray-700 px-3 py-1.5 tracking-wide rounded-full gap-2">
+                                    <a href="https://www.linkedin.com/in/dale-bedania/" target="_blank" rel="noopener noreferrer" class="flex items-center text-white text-sm font-medium bg-gray-700 px-3 py-1.5 tracking-wide rounded-full gap-2">
                                         <div id="linkedin"></div>
                                       LinkedIn
-                                  </button>
+                                  </a>
             
                                 </div>
 
                             <div class="w-full flex justify-center mt-2">
-  <a href="works/Bedania_CV.pdf" download class="flex items-center gap-2 px-6 py-2 border border-gray-300 hover:bg-gray-200 duration-300 text-gray-600 rounded">
-    <i class="fas fa-download text-sm"></i>
-    Download CV
-  </a>
+  <div class="relative inline-block text-left" id="cvDropdown">
+    <button type="button" class="flex items-center gap-2 px-6 py-2 border border-gray-300 bg-white hover:bg-gray-200 duration-300 text-gray-600 rounded" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-download text-sm"></i>
+      Download CV
+      <i class="fas fa-chevron-down text-xs ml-1"></i>
+    </button>
+    <div class="absolute right-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg focus:outline-none hidden" role="menu" aria-orientation="vertical">
+      <a href="works/Bedania_CV.pdf" download class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Standard Version</a>
+      <a href="works/Bedania_CVFormal.pdf.pdf" download class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Formal Version</a>
+    </div>
+  </div>
 </div>
 
-            
-                                
+                            
             
             
             
@@ -119,7 +125,7 @@
                     <div class="flex justify-center">
     
                                             <!-- Testimonials with Stats -->
-                        <div class="w-full">
+                        <div class="w-full reveal">
                             <!-- Grid -->
                             <div class="flex flex-col sm:grid grid-cols-12 p-8 sm:px-24 -py-16 justify-between ">
                             <div class="lg:col-span-5 lg:col-start-1 ">
@@ -219,7 +225,7 @@
                     <!-- education -->
                     <hr class="w-[95%] py-2">
                 
-                    <div class="w-full flex flex-col items-center">
+                    <div class="w-full flex flex-col items-center reveal bg-gray-50 rounded-xl p-6 shadow-sm">
     
                     <div class="flex flex-col items-center">
                         <img src="haulogo.png" class="w-30 h-30" alt="">
@@ -234,7 +240,7 @@
                       <h3 class="text-sm sm:text-lg mb-2 text-red-900 font-semibold">Class of 2025 — Holy Angel University </h3>
 
                       <div class="w-full flex justify-center pb-8">
-                        <div class="w-2/3 grid grid-cols-1 sm:grid-cols-3 gap-3" id="awards">
+                        <div class="w-2/3 grid grid-cols-1 sm:grid-cols-3 gap-3 reveal" id="awards">
                             <!--box awards injected -->
 
                        
@@ -248,11 +254,10 @@
   
                     </div>
 
-                    <hr class="w-[95%] py-2">
                     
                       <!-- offers -->
                       <div class="w-2/3 flex flex-col justify-center
-                      items-center gap-8 rounded-lg pb-8">
+                      items-center gap-8 rounded-lg pb-8 reveal  p-6 shadow-sm">
                          <h1 class="text-xl sm:text-3xl font-black text-gray-700">What can I offer? </h1>
          
                          
@@ -338,6 +343,32 @@
                               </div>
                           </div>
                       
+                          <!-- Automation -->
+                          <div class="flex flex-col text-center items-center">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <circle cx="12" cy="12" r="3"></circle>
+                                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .69.28 1.32.73 1.77c.45.45 1.08.73 1.77.73h.09a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                                  </svg>
+                              </div>
+                              <div class="flex-grow">
+                                  <h2 class="text-gray-900 text-sm title-font font-medium mb-3">Automation</h2>
+                              </div>
+                          </div>
+                      
+                          <!-- Mobile Development -->
+                          <div class="flex flex-col text-center items-center">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <rect x="7" y="2" width="10" height="20" rx="2" ry="2"></rect>
+                                      <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                  </svg>
+                              </div>
+                              <div class="flex-grow">
+                                  <h2 class="text-gray-900 text-sm title-font font-medium mb-3">Mobile Development</h2>
+                              </div>
+                          </div>
+                      
                           <!-- Graphics Design -->
                           <div class="flex flex-col text-center items-center">
                               <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
@@ -359,7 +390,7 @@
 
                     <!-- tools and frameworks -->
                     <div class="w-full flex flex-col justify-center
-                    items-center gap-2 rounded-lg p-4">
+                    items-center gap-2 rounded-lg p-4 reveal bg-gray-50 shadow-sm">
                        <h1 class="text-xl sm:text-3xl font-black text-gray-700">Tools & Frameworks Used</h1>
        
                        <div class="w-full sm:w-2/3 grid grid-cols-4 gap-4 sm:gap-0">
@@ -457,8 +488,31 @@
                                <div id="aws"></div>
                                <h1 class="text-sm">AWS</h1>
                            </div>
+
+                            <!-- New: Twilio -->
+                            <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                                <div id="twilio"></div>
+                                <h1 class="text-sm">Twilio</h1>
+                            </div>
+
+                            <!-- New: React Native -->
+                            <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                                <div id="reactnative"></div>
+                                <h1 class="text-sm">React Native</h1>
+                            </div>
+
+                            <!-- New: Zapier -->
+                            <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                                <div id="zapier"></div>
+                                <h1 class="text-sm">Zapier</h1>
+                            </div>
+
+                            <!-- New: Clio -->
+                            <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                                <div id="clio"></div>
+                                <h1 class="text-sm">Clio</h1>
+                            </div>
        
-                          
        
        
        
@@ -487,8 +541,7 @@
                     
                     <!-- RECENT PROJECTS  -->
                     <h1 class="text-3xl font-black text-gray-700">Crafted Websites</h1>
-                    <div class="w-full flex flex-col justify-center
-                    items-center gap-2 rounded-lg p-8" id="projects">
+                    <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 rounded-lg p-8 reveal" id="projects">
 
                 
                     
@@ -567,7 +620,6 @@
 
 
     </div>
-    
 
 </body>
 <script src="iconloader.js"></script>
