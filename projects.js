@@ -25,6 +25,30 @@ let projects = [
         "langs":['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger'],
     },
     { 
+        "title":"Pina Management CMS",
+        "desc": "Developed a custom CMS portal tailored for a real estate company, enabling efficient management of property listings, client records, and transactions. Focused on streamlining workflows and providing a user-friendly interface to improve daily operations.",
+        "img": "works/pina.png",
+        "site": "In progress", 
+        "role":['Database Administrator', "Full-Stack Developer"],
+        "langs":["React","Supabase"],
+    },
+    { 
+        "title":"SPUR Landing Page",
+       "desc": "Designed and built a responsive landing page to showcase the mobile app I developed, highlighting its key features and benefits. Ensured a modern, engaging layout that aligns with the app’s branding and drives user interest and downloads.",
+        "img": "works/joinspur.png",
+        "site": "joinspurapp.com", 
+        "role":['UX/UI Designer', "Full-Stack Developer"],
+        "langs":["Laravel", "Tailwind CSS", "MySQL", "Hostinger"],
+    },
+    { 
+        "title":"The Zepatide",
+      "desc": "Created a professional website to establish a strong brand identity for medical-grade products. Focused on a clean, trustworthy design that communicates product quality while enhancing credibility and customer engagement.",
+        "img": "works/zepatide.png",
+        "site": "In progress", 
+        "role":['UX/UI Designer', "Front-end Developer"],
+        "langs":["Figma", "React"],
+    },
+    { 
         "title":"IMMFI",
         "desc": "Implemented a modern, user-friendly layout using updated design principles and front-end technologies. Focused on enhancing the user experience while maintaining brand identity across all pages.",
         "img": "works/immfi.png",
@@ -48,7 +72,7 @@ let projects = [
         "site": "bedaniadale.github.io/devfinder", 
         "role":['Full-Stack Developer'],
         "langs":["HTML", "CSS", "Javascript"],
-    },
+    }
    
 
 ]
@@ -60,7 +84,7 @@ function createRoles(arr){
 
     arr.forEach((item)=> { 
         let temp = ` 
-         <span class="text-xs px-2 py-1 bg-red-100 text-red-500 rounded-full">${item}</span>
+         <span class="text-xs px-3 py-1 bg-gradient-to-r from-red-100 to-pink-100 text-red-600 rounded-full font-medium ">${item}</span>
         `
         stack+=temp; 
     })
@@ -75,7 +99,7 @@ function createLanguages(arr) {
 
     arr.forEach((item)=> { 
         let temp = ` 
-        <span class="text-xs px-2 py-1 bg-gray-600 text-white rounded-full">${item}</span>
+        <span class="text-xs px-3 py-1 bg-gray-100 text-gray-700 rounded-full font-medium border border-gray-300">${item}</span>
         `
         stack+=temp; 
     })
@@ -110,28 +134,27 @@ function loadProjects() {
         
         
         let project = `
-    <article class="group flex flex-col bg-white text-gray-800 rounded-xl overflow-hidden shadow-sm ring-1 ring-gray-200 hover:shadow-lg hover:ring-gray-300 transition-all duration-300">
+    <article class="group flex flex-col project-card text-gray-800 overflow-hidden reveal-scale border border-gray-200">
       <!-- Image -->
       <div class="relative overflow-hidden">
-        <img src="${item.img}" alt="${item.title}" loading="lazy" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" />
+        <img src="${item.img}" alt="${item.title}" loading="lazy" class="w-full h-48" />
       </div>
 
       <!-- Content -->
-      <div class="flex flex-col p-4 gap-3">
-        <h3 class="text-lg font-semibold text-gray-900 line-clamp-1">${item.title}</h3>
-        <p class="text-sm text-gray-600 line-clamp-3">${item.desc}</p>
+      <div class="flex flex-col p-6 gap-4">
+        <h3 class="text-lg font-bold text-gray-900 line-clamp-1">${item.title}</h3>
+        <p class="text-sm text-gray-600 line-clamp-3 leading-relaxed">${item.desc}</p>
 
         <div class="flex flex-wrap gap-2 mt-1">
           ${roles}
           ${langs}
         </div>
 
-        <div class="mt-2 flex items-center justify-between">
-          <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 transition-colors">
-            <span class="iconify" data-icon="mdi:link-variant" style="font-size: 1.1rem;"></span>
-            <span class="truncate">${item.site}</span>
+        <div class="mt-3 flex items-center justify-between">
+          <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" rel="noopener noreferrer" class="btn-modern inline-flex items-center gap-2 text-sm bg-gradient-to-r from-blue-500 to-purple-500 text-gray-700 px-4 py-2 rounded-full hover-lift">
+            <span class="iconify" data-icon="mdi:link-variant" style="font-size: 1rem;"></span>
+            <span class="truncate">${item.site === 'In progress' ? 'Coming Soon' : 'View Site'}</span>
           </a>
-          <span class="text-xs text-gray-400">View site</span>
         </div>
       </div>
     </article>

@@ -44,8 +44,8 @@
 
 
           <!-- window -->
-            <div class="w-full flex justify-center overflow-hidden" id="home">
-                <div class="w-full mockup-window border border-base-300 pt-4 flex flex-col justify-center items-center bg-white">
+            <div class="w-full flex justify-center overflow-hidden floating-element" id="home">
+                <div class="w-full mockup-window border border-base-300 pt-4 flex flex-col justify-center items-center bg-gray-50 pulse-glow">
                     <div class="w-full flex justify-center border-t border-base-300">
                         <div class="w-full flex flex-col items-center sm:justify-center gap-4 rounded-lg py-8">
     
@@ -60,40 +60,33 @@
                             <!-- social links -->
                             <div class="w-full flex flex-col justify-center items-start ">
                                 <div class="w-full flex flex-col items-center ">
-                                    <h1 class="text-2xl sm:text-5xl text-gray-400">Hello, I am
-                                        <strong class="text-gray-500 font-black"> Dale Bedania! </strong> <strong id="wave"> 👋</strong> 
+                                    <h1 class="text-2xl sm:text-5xl text-gray-600">Hello, I am
+                                        <strong class="text-gray-800 font-black"> Dale Bedania! </strong> <strong id="wave"> 👋</strong>
                                     </h1>
-                                    
-                                    <h1 class="text-gray-500">Full-stack Web Developer</h1>
+
+                                    <h1 class="text-gray-700 font-medium">Full-stack Web Developer</h1>
 
                                 </div>
             
             
-                                <div class="w-full flex justify-center gap-1 mt-1">
-                                    <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="flex items-center text-white text-sm font-medium bg-gray-700 px-3 py-1.5 tracking-wide rounded-full gap-2">
+                                <div class="w-full flex justify-center gap-3 mt-4">
+                                    <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn-modern flex items-center text-gray-700 text-sm font-medium bg-gradient-to-r from-gray-700 to-gray-800 px-4 py-2 tracking-wide rounded-full gap-2 hover-lift">
                                           <div id="github"></div>
                                         Github
                                     </a>
             
-                                    <a href="https://www.linkedin.com/in/dale-bedania/" target="_blank" rel="noopener noreferrer" class="flex items-center text-white text-sm font-medium bg-gray-700 px-3 py-1.5 tracking-wide rounded-full gap-2">
+                                    <a href="https://www.linkedin.com/in/dale-bedania/" target="_blank" rel="noopener noreferrer" class="btn-modern flex items-center text-gray-700 text-sm font-medium bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-2 tracking-wide rounded-full gap-2 hover-lift">
                                         <div id="linkedin"></div>
                                       LinkedIn
                                   </a>
             
                                 </div>
 
-                            <div class="w-full flex justify-center mt-2">
-  <div class="relative inline-block text-left" id="cvDropdown">
-    <button type="button" class="flex items-center gap-2 px-6 py-2 border border-gray-300 bg-white hover:bg-gray-200 duration-300 text-gray-600 rounded" aria-haspopup="true" aria-expanded="false">
-      <i class="fas fa-download text-sm"></i>
-      Download CV
-      <i class="fas fa-chevron-down text-xs ml-1"></i>
-    </button>
-    <div class="absolute right-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg focus:outline-none hidden" role="menu" aria-orientation="vertical">
-      <a href="works/Bedania_CV.pdf" download class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Standard Version</a>
-      <a href="works/Bedania_CVFormal.pdf.pdf" download class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Formal Version</a>
-    </div>
-  </div>
+                            <div class="w-full flex justify-center mt-4">
+  <a href="works/Bedania_CVFormal.pdf" target="_blank" rel="noopener noreferrer" download class="btn-modern flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-gray-700 rounded-full hover-lift">
+    <i class="fas fa-download text-sm"></i>
+    Download CV
+  </a>
 </div>
 
                             
@@ -131,10 +124,10 @@
                             <div class="lg:col-span-5 lg:col-start-1 ">
                                 <!-- Title -->
                                 <div class="mb-8">
-                               <h2 class="mb-2 text-3xl text-gray-800 font-bold lg:text-4xl dark:text-neutral-200">
+                               <h2 class="mb-2 text-3xl text-gray-800 font-bold lg:text-4xl">
                                 Since <span class="typed-text">2015</span>
                                 </h2>
-                                <p class="text-gray-600 dark:text-neutral-400">
+                                <p class="text-gray-600">
                                     I started programming in 2015 at the age of 13, driven by curiosity and a love for building things with code. Over the years, I’ve grown into a dedicated developer with a passion for solving real-world problems through technology. Now a graduate, I continue to explore new challenges and refine my skills in software development.
                                 </p>
                                 </div>
@@ -142,11 +135,11 @@
                         
                                 <!-- Blockquote -->
                                 <blockquote class="relative">
-                                <svg class="absolute top-10 start-0 transform -translate-x-6 -translate-y-8 size-16 text-gray-200 dark:text-neutral-800" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <svg class="absolute top-10 start-0 transform -translate-x-6 -translate-y-8 size-16 text-gray-200" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path d="M7.39762 10.3C7.39762 11.0733 7.14888 11.7 6.6514 12.18C6.15392 12.6333 5.52552 12.86 4.76621 12.86C3.84979 12.86 3.09047 12.5533 2.48825 11.94C1.91222 11.3266 1.62421 10.4467 1.62421 9.29999C1.62421 8.07332 1.96459 6.87332 2.64535 5.69999C3.35231 4.49999 4.33418 3.55332 5.59098 2.85999L6.4943 4.25999C5.81354 4.73999 5.26369 5.27332 4.84476 5.85999C4.45201 6.44666 4.19017 7.12666 4.05926 7.89999C4.29491 7.79332 4.56983 7.73999 4.88403 7.73999C5.61716 7.73999 6.21938 7.97999 6.69067 8.45999C7.16197 8.93999 7.39762 9.55333 7.39762 10.3ZM14.6242 10.3C14.6242 11.0733 14.3755 11.7 13.878 12.18C13.3805 12.6333 12.7521 12.86 11.9928 12.86C11.0764 12.86 10.3171 12.5533 9.71484 11.94C9.13881 11.3266 8.85079 10.4467 8.85079 9.29999C8.85079 8.07332 9.19117 6.87332 9.87194 5.69999C10.5789 4.49999 11.5608 3.55332 12.8176 2.85999L13.7209 4.25999C13.0401 4.73999 12.4903 5.27332 12.0713 5.85999C11.6786 6.44666 11.4168 7.12666 11.2858 7.89999C11.5215 7.79332 11.7964 7.73999 12.1106 7.73999C12.8437 7.73999 13.446 7.97999 13.9173 8.45999C14.3886 8.93999 14.6242 9.55333 14.6242 10.3Z" fill="currentColor"/>
                                 </svg>
                         
-                                <div class="relative z-10 rounded-xl bg-gray-900 text-green-400 font-mono text-sm sm:text-base p-6 shadow-lg border border-gray-700">
+                                <div class="relative z-10 rounded-xl bg-gray-900 text-green-400 font-mono text-sm sm:text-base p-6  border border-gray-700">
   <span class="text-pink-400">const</span> <span class="text-blue-400">quote</span> = <span class="text-yellow-300">"Great web development isn’t just about writing code—it’s about solving problems, creating seamless experiences, and turning ideas into digital reality."</span>;
 </div>
                         
@@ -154,7 +147,7 @@
                                     <div class="flex items-center">
                                    
                                     <div class="grow">
-                                        <div class="font-semibold text-gray-500 dark:text-neutral-200">— Every good web developer, ever</div>
+                                        <div class="font-semibold text-gray-500">— Every good web developer, ever</div>
                                         
                                     </div>
                                     </div>
@@ -167,44 +160,44 @@
                             <div class="mt-10 lg:mt-0 lg:col-span-6 lg:col-end-13">
                                 <div class="space-y-6 sm:space-y-8">
                                 <!-- List -->
-                                <ul class="grid grid-cols-2 divide-gray-200 dark:divide-neutral-700">
+                                <ul class="grid grid-cols-2 divide-gray-200">
                                     <li class="flex flex-col p-4">
-                                    <div class="flex  gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 dark:text-neutral-200">
+                                    <div class="flex  gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2">
                                          <span class="count-up" data-target="999">0</span>+
                                     </div>
-                                    <p class="text-sm sm:text-base text-gray-600 dark:text-neutral-400">
+                                    <p class="text-sm sm:text-base text-gray-600">
                                         <strong> lines of code written </strong> — from hobby projects to production-ready apps
                                     </p>
                                     </li>
                         
                                     <li class="flex flex-col  p-4">
-                                    <div class="flex gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 dark:text-neutral-200">
+                                    <div class="flex gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2">
                                         
                                         <span class="count-up" data-target="50">0</span>x
 
                                     </div>
-                                    <p class="text-sm sm:text-base text-gray-600 dark:text-neutral-400">
+                                    <p class="text-sm sm:text-base text-gray-600">
                                         <strong> growth  in development speed </strong> since starting in 2015
                                     </p>
                                     </li>
                         
                                     <li class="flex flex-col  p-4 sm:p-8">
-                                    <div class="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 dark:text-neutral-200">
+                                    <div class="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2">
                                        
                                       <span class="count-up" data-target="100">0</span>%
 
                                     </div>
-                                    <p class="text-sm sm:text-base text-gray-600 dark:text-neutral-400">
+                                    <p class="text-sm sm:text-base text-gray-600">
                                         commitment to clean, scalable, and maintainable code
                                     </p>
                                     </li>
                         
                                     <li class="flex flex-col  p-4 sm:p-8">
-                                    <div class="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 dark:text-neutral-200">
+                                    <div class="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2">
                                         <span class="count-up" data-target="24">0</span>/7
 
                                     </div>
-                                    <p class="text-sm sm:text-base text-gray-600 dark:text-neutral-400">
+                                    <p class="text-sm sm:text-base text-gray-600">
                                         curiosity — always exploring new tools, trends, and technologies
                                     </p>
                                     </li>
@@ -225,12 +218,12 @@
                     <!-- education -->
                     <hr class="w-[95%] py-2">
                 
-                    <div class="w-full flex flex-col items-center reveal bg-gray-50 rounded-xl p-6 shadow-sm">
+                    <div class="w-full flex flex-col items-center reveal glass-card rounded-xl p-8  hover-lift">
     
                     <div class="flex flex-col items-center">
                         <img src="haulogo.png" class="w-30 h-30" alt="">
-                        <h3 class="text-sm md:text-3xl text-gray-500 font-black ">Bachelor of Science in Information Technology </h3>
-                        <h3 class="text-sm md:text-lg text-gray-500 font-semibold">Area of Specialization in Web Development </h3>
+                        <h3 class="text-sm md:text-3xl text-gray-500 font-black">Bachelor of Science in Information Technology </h3>
+                        <h3 class="text-sm md:text-lg text-gray-600 font-semibold">Area of Specialization in Web Development </h3>
 
 
 
@@ -257,7 +250,7 @@
                     
                       <!-- offers -->
                       <div class="w-2/3 flex flex-col justify-center
-                      items-center gap-8 rounded-lg pb-8 reveal  p-6 shadow-sm">
+                      items-center gap-8 rounded-xl pb-8 reveal glass-card p-8  hover-lift">
                          <h1 class="text-xl sm:text-3xl font-black text-gray-700">What can I offer? </h1>
          
                          
@@ -265,8 +258,8 @@
                          
                          <div class="w-full grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-0">
                         
-                          <div class="flex flex-col text-center items-center">
-                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                          <div class="flex flex-col text-center items-center skill-item p-4 rounded-xl">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-purple-100 text-blue-600 mb-5 flex-shrink-0 ">
                                   <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                       <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                                       <line x1="8" y1="21" x2="16" y2="21"></line>
@@ -279,8 +272,8 @@
                           </div>
                       
                           <!-- Database Management -->
-                          <div class="flex flex-col text-center items-center">
-                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                          <div class="flex flex-col text-center items-center skill-item p-4 rounded-xl">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-gradient-to-br from-green-100 to-blue-100 text-green-600 mb-5 flex-shrink-0 ">
                                   <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                       <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
                                       <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
@@ -380,6 +373,23 @@
                                   <h2 class="text-gray-900 text-sm title-font font-medium mb-3">Graphics Design</h2>
                               </div>
                           </div>
+
+                          <!-- API Development & Integration -->
+                          <div class="flex flex-col text-center items-center">
+                              <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                                      <path d="M12 11h4"></path>
+                                      <path d="M12 16h4"></path>
+                                      <path d="M8 11h.01"></path>
+                                      <path d="M8 16h.01"></path>
+                                  </svg>
+                              </div>
+                              <div class="flex-grow">
+                                  <h2 class="text-gray-900 text-sm title-font font-medium mb-3">API Development & Integration</h2>
+                              </div>
+                          </div>
                       </div>
                        
                       
@@ -390,50 +400,50 @@
 
                     <!-- tools and frameworks -->
                     <div class="w-full flex flex-col justify-center
-                    items-center gap-2 rounded-lg p-4 reveal bg-gray-50 shadow-sm">
+                    items-center gap-4 rounded-xl p-8 reveal glass-card  hover-lift">
                        <h1 class="text-xl sm:text-3xl font-black text-gray-700">Tools & Frameworks Used</h1>
        
                        <div class="w-full sm:w-2/3 grid grid-cols-4 gap-4 sm:gap-0">
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="laravel"></div>
                                <h1 class="text-sm">Laravel</h1>
                            </div>
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="react"></div>
                                <h1 class="text-sm">React.js</h1>
                            </div>
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="angular"></div>
                                <h1 class="text-sm">Angular</h1>
                            </div>
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="vuejs"></div>
                                <h1 class="text-sm">Vue.js</h1>
                            </div>
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="flutter"></div>
                                <h1 class="text-sm">Flutter</h1>
                            </div>
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="bootstrap"></div>
                                <h1 class="text-sm">Dart</h1>
                            </div>
                            
        
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="solidity"></div>
                                <h1 class="text-sm">Solidity</h1>
                            </div>
        
                              
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="nodejs"></div>
                                <h1 class="text-sm">Node.js</h1>
                            </div>
@@ -441,14 +451,14 @@
                            
        
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="tailwind"></div>
                                <h1 class="text-sm">Tailwind CSS</h1>
                            </div>
        
                    
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="javascript"></div>
                                <h1 class="text-sm">Javascript</h1>
                            </div>
@@ -456,61 +466,85 @@
                 
        
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="php"></div>
                                <h1 class="text-sm">PHP</h1>
                            </div>
        
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="java"></div>
                                <h1 class="text-sm">Java</h1>
                            </div>
                            
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="python"></div>
                                <h1 class="text-sm">Python</h1>
                            </div>
        
        
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="mysql"></div>
                                <h1 class="text-sm">MySQL</h1>
                            </div>
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="mongodb"></div>
                                <h1 class="text-sm">MongoDB</h1>
                            </div>
        
-                           <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                           <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                <div id="aws"></div>
                                <h1 class="text-sm">AWS</h1>
                            </div>
 
                             <!-- New: Twilio -->
-                            <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                            <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                 <div id="twilio"></div>
                                 <h1 class="text-sm">Twilio</h1>
                             </div>
 
                             <!-- New: React Native -->
-                            <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                            <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                 <div id="reactnative"></div>
                                 <h1 class="text-sm">React Native</h1>
                             </div>
 
                             <!-- New: Zapier -->
-                            <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                            <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                 <div id="zapier"></div>
                                 <h1 class="text-sm">Zapier</h1>
                             </div>
 
                             <!-- New: Clio -->
-                            <div class="w-full flex flex-col items-center justify-center rounded-full p-4 text-gray-500 hover:scale-110 transition-transform duration-300"> 
+                            <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
                                 <div id="clio"></div>
                                 <h1 class="text-sm">Clio</h1>
+                            </div>
+
+                            <!-- New: Figma -->
+                            <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
+                                <div id="figma"></div>
+                                <h1 class="text-sm">Figma</h1>
+                            </div>
+
+                            <!-- New: Photoshop -->
+                            <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
+                                <div id="photoshop"></div>
+                                <h1 class="text-sm">Photoshop</h1>
+                            </div>
+
+                            <!-- New: Illustrator -->
+                            <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
+                                <div id="illustrator"></div>
+                                <h1 class="text-sm">Illustrator</h1>
+                            </div>
+
+                            <!-- New: Supabase -->
+                            <div class="w-full flex flex-col items-center justify-center rounded-xl p-4 text-gray-600 skill-item hover-lift"> 
+                                <div id="supabase"></div>
+                                <h1 class="text-sm">Supabase</h1>
                             </div>
        
        
@@ -541,7 +575,7 @@
                     
                     <!-- RECENT PROJECTS  -->
                     <h1 class="text-3xl font-black text-gray-700">Crafted Websites</h1>
-                    <div class="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 rounded-lg p-8 reveal" id="projects">
+                    <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-8 rounded-xl p-8" id="projects">
 
                 
                     

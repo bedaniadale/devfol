@@ -58,6 +58,41 @@ let twilio = `
   <circle cx="164" cy="164" r="16" fill="#6B7280"/>
 </svg>`
 
+let figma = `
+<svg xmlns="http://www.w3.org/2000/svg" width="19.2" height="32" viewBox="0 0 256 384">
+  <path fill="#6B7280" d="M64 0h64a64 64 0 0 1 0 128H64a64 64 0 1 1 0-128z"/>
+  <path fill="#6B7280" d="M64 128h64a64 64 0 0 1 0 128H64V128z"/>
+  <path fill="#6B7280" d="M64 256a64 64 0 1 0 64 64V256z"/>
+  <path fill="#6B7280" d="M192 192a64 64 0 1 1-64-64a64 64 0 0 1 64 64z"/>
+  <path fill="#6B7280" d="M128 0h64a64 64 0 0 1 0 128h-64z"/>
+</svg>`
+
+let photoshop = `
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+  <rect width="256" height="256" fill="#6B7280" rx="12"/>
+  <path fill="white" d="M40 40h40c28 0 48 16 48 44s-20 44-48 44H72v32H40zm32 64h8c12 0 20-8 20-20s-8-20-20-20h-8z"/>
+  <path fill="white" d="M136 120c0-24 20-44 44-44s44 20 44 44v8h-64c0 12 8 20 20 20c8 0 16-4 20-8l12 16c-8 8-20 12-32 12c-24 0-44-20-44-44zm64-12c0-12-8-20-20-20s-20 8-20 20z"/>
+</svg>`
+
+let illustrator = `
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+  <rect width="256" height="256" fill="#6B7280" rx="12"/>
+  <path fill="white" d="M72 40h16l32 80h-20l-4-12H68l-4 12H44zm8 52h8l-4-16z"/>
+  <path fill="white" d="M128 120c0-12 8-20 20-20s20 8 20 20v80h-20v-20c-4 12-16 20-28 20c-16 0-28-12-28-28v-32c0-16 12-28 28-28c12 0 24 8 28 20zm0 40c0-8-8-16-16-16s-16 8-16 16v8c0 8 8 16 16 16s16-8 16-16z"/>
+</svg>`
+
+let supabase = `
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="supabaseGrad" x1="20%" y1="20%" x2="80%" y2="80%">
+      <stop offset="0%" style="stop-color:#6B7280"/>
+      <stop offset="100%" style="stop-color:#4B5563"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#supabaseGrad)" d="M149.602 258.579c-6.718 8.46-20.338 3.824-20.5-6.977L127.415 156H54.208c-11.613 0-17.896-13.408-10.62-22.708L149.602 258.579z"/>
+  <path fill="url(#supabaseGrad)" d="M106.399-2.579C113.116-11.039 126.736-6.403 126.898 4.398L128.585 100H201.792c11.613 0 17.896 13.408 10.62 22.708L106.399-2.579z" opacity="0.2"/>
+</svg>`
+
 document.getElementById('laravel').innerHTML = _laravel
 document.getElementById('react').innerHTML = react
 document.getElementById('angular').innerHTML = angular
@@ -82,6 +117,12 @@ try { document.getElementById('reactnative').innerHTML = reactNative } catch(e) 
 try { document.getElementById('zapier').innerHTML = zapier } catch(e) {}
 try { document.getElementById('clio').innerHTML = clio } catch(e) {}
 try { document.getElementById('twilio').innerHTML = twilio } catch(e) {}
+
+// mount newest icons
+try { document.getElementById('figma').innerHTML = figma } catch(e) {}
+try { document.getElementById('photoshop').innerHTML = photoshop } catch(e) {}
+try { document.getElementById('illustrator').innerHTML = illustrator } catch(e) {}
+try { document.getElementById('supabase').innerHTML = supabase } catch(e) {}
 
 
 
