@@ -217,40 +217,23 @@
                               
                     <!-- education -->
                     <hr class="w-[95%] py-2">
-                
-                    <div class="w-full flex flex-col items-center reveal glass-card rounded-xl p-8  hover-lift">
-    
-                    <div class="flex flex-col items-center">
-                        <img src="haulogo.png" class="w-30 h-30" alt="">
-                        <h3 class="text-sm md:text-3xl text-gray-500 font-black">Bachelor of Science in Information Technology </h3>
-                        <h3 class="text-sm md:text-lg text-gray-600 font-semibold">Area of Specialization in Web Development </h3>
 
+                    <div class="w-full reveal glass-card rounded-xl p-6 hover-lift">
+                        <div class="flex flex-col items-center text-center">
+                            <img src="haulogo.png" class="w-28 h-28 rounded-lg shadow-md mb-3 object-cover" alt="HAU logo">
+                            <p class="text-sm text-gray-500">Holy Angel University · Class of 2025</p>
+                            <p class="text-lg font-extrabold text-gray-800">Bachelor of Science in Information Technology</p>
+                            <p class="text-sm text-gray-600 mt-1 mb-4">Specialization: Web Development</p>
 
-
-                        
-                    </div>
-                      
-                      <h3 class="text-sm sm:text-lg mb-2 text-red-900 font-semibold">Class of 2025 — Holy Angel University </h3>
-
-                      <div class="w-full flex justify-center pb-8">
-                        <div class="w-2/3 grid grid-cols-1 sm:grid-cols-3 gap-3 reveal" id="awards">
-                            <!--box awards injected -->
-
-                       
+                            <!-- Awards grid (data comes from awards.js) -->
+                            <div class="w-full max-w-4xl grid grid-cols-1 gap-4 mt-6" id="awards"></div>
                         </div>
-                        
-                        
-                      </div>
-
-                  
-               
-  
                     </div>
 
                     
                       <!-- offers -->
                       <div class="w-2/3 flex flex-col justify-center
-                      items-center gap-8 rounded-xl pb-8 reveal glass-card p-8  hover-lift">
+                      items-center gap-8 rounded-xl my-6 reveal glass-card px-8 py-10 hover-lift">
                          <h1 class="text-xl sm:text-3xl font-black text-gray-700">What can I offer? </h1>
          
                          
@@ -575,19 +558,55 @@
                     
                     <!-- RECENT PROJECTS  -->
                     <h1 class="text-3xl font-black text-gray-700">Crafted Websites</h1>
-                    <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-8 rounded-xl p-8" id="projects">
+                    <div class="w-full max-w-xl mx-auto flex flex-col gap-5 rounded-2xl p-6" id="projects">
+                        <!-- Zepatide -->
+                        <div class="group relative overflow-hidden rounded-2xl border border-gray-200/80 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300 ease-out hover:-translate-y-1 hover:border-gray-300">
+                            <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-purple-50 via-blue-50 to-transparent transition-opacity duration-300"></div>
+                            <div class="relative flex items-center justify-between gap-4 p-4">
+                                <div class="flex-1">
+                                    <a href="https://thezepatide.com" target="_blank" rel="noopener noreferrer" class="text-base font-semibold text-gray-800 group-hover:text-gray-900">
+                                        Zepatide Project
+                                    </a>
+                                    <p class="text-xs text-gray-500 mt-1">thezepatide.com</p>
+                                </div>
+                                <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Website</span>
+                            </div>
+                        </div>
 
-                
-                    
-                        
-                        
-                        
-                        
-                        
-                        
-                    
+                        <!-- Umbra -->
+                        <div class="group relative overflow-hidden rounded-2xl border border-gray-200/80 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300 ease-out hover:-translate-y-1 hover:border-gray-300">
+                            <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-purple-50 via-blue-50 to-transparent transition-opacity duration-300"></div>
+                            <div class="relative flex items-center justify-between gap-4 p-4">
+                                <div class="flex-1">
+                                    <a href="https://umbra-app.com" target="_blank" rel="noopener noreferrer" class="text-base font-semibold text-gray-800 group-hover:text-gray-900">
+                                        Umbra (Web App)
+                                    </a>
+                                    <p class="text-xs text-gray-500 mt-1">umbra-app.com</p>
+                                </div>
+                                <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Web App</span>
+                            </div>
+                        </div>
 
+                        <!-- SPUR -->
+                        <div class="group relative overflow-hidden rounded-2xl border border-gray-200/80 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300 ease-out hover:-translate-y-1 hover:border-gray-300">
+                            <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-purple-50 via-blue-50 to-transparent transition-opacity duration-300"></div>
+                            <div class="relative flex items-center gap-4 p-4">
+                                <div class="w-40 flex-shrink-0 overflow-hidden rounded-xl" style="aspect-ratio: 16 / 9;">
+                                    <img src="main.jpg" alt="SPUR placeholder" class="w-full h-full object-cover">
+                                </div>
+                                <div class="flex-1">
+                                    <a href="#" class="text-base font-semibold text-gray-800 group-hover:text-gray-900">
+                                        SPUR Mobile App (React Native)
+                                    </a>
+                                    <p class="text-xs text-gray-500 mt-1">
+                                        Find your next game, running partner, or tennis match. SPUR connects you with local players and events—match by skill, discover nearby games, and build your squad.
+                                    </p>
+                                    <p class="text-[11px] text-gray-400 mt-2">React Native — Mobile</p>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- Additional projects can be added here -->
                     </div>
 
               <footer class="w-full flex flex-col sm:flex-row justify-between items-center gap-8 px-6 py-8 bg-gray-800 text-white">
@@ -609,17 +628,17 @@
     <!-- Right Section -->
     <nav class="text-center sm:text-left">
         <h6 class="text-lg font-bold text-yellow-400 mb-4">Social Links</h6>
-        <a href="https://facebook.com/bedaniadale" class="link hover:text-yellow-400 flex items-center gap-2 mb-3">
-            <i class="fab fa-facebook text-xl"></i> Dale Bedania
+        <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="link text-gray-200 hover:text-yellow-400 flex items-center gap-2 mb-3">
+            <i class="fa-brands fa-facebook text-xl"></i> Dale Bedania
         </a>
-        <a href="https://instagram.com/bedaniadale" class="link hover:text-yellow-400 flex items-center gap-2 mb-3">
-            <i class="fab fa-instagram text-xl"></i> @bedaniadale
+        <a href="https://instagram.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="link text-gray-200 hover:text-yellow-400 flex items-center gap-2 mb-3">
+            <i class="fa-brands fa-instagram text-xl"></i> @bedaniadale
         </a>
-        <a href="mailto:dale.bedania10@gmail.com" class="link hover:text-yellow-400 flex items-center gap-2 mb-3">
-            <i class="fas fa-envelope text-xl"></i> dale.bedania10@gmail.com
+        <a href="mailto:dale.bedania10@gmail.com" class="link text-gray-200 hover:text-yellow-400 flex items-center gap-2 mb-3">
+            <i class="fa-solid fa-envelope text-xl"></i> dale.bedania10@gmail.com
         </a>
-        <a href="https://linkedin.com/in/dale-bedania" class="link hover:text-yellow-400 flex items-center gap-2">
-            <i class="fab fa-linkedin text-xl"></i> dale-bedania
+        <a href="https://linkedin.com/in/dale-bedania" target="_blank" rel="noopener noreferrer" class="link text-gray-200 hover:text-yellow-400 flex items-center gap-2">
+            <i class="fa-brands fa-linkedin text-xl"></i> dale-bedania
         </a>
     </nav>
 </footer>

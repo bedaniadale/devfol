@@ -41,24 +41,17 @@ function loadAwards() {
 
     awards.forEach((item)=> { 
         let card = `
-          <div class="flex flex-col items-center bg-yellow-100 rounded-xl text-center p-6   transition-transform transform hover:scale-105">
-    <!-- Icon -->
-    <h1 class="text-6xl text-yellow-600 mb-3">
-        ${getIcon(item.icon)}  <!-- Adjusted for larger icons -->
-    </h1>
-    
-    <!-- Award Text -->
-    <h3 class="text-base sm:text-lg text-gray-700 font-semibold mb-2">
-        ${item.award}
-    </h3>
-    
-  
-</div>
+          <div class="flex flex-col items-center text-center gap-2 p-4 rounded-2xl border border-gray-100 bg-white/70 hover:bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-out">
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-50 text-yellow-500 shrink-0 shadow-sm">
+              <span class="text-sm">${getIcon(item.icon)}</span>
+            </div>
+            <div class="flex-1">
+              <h4 class="text-sm font-semibold text-gray-800">${item.award}</h4>
+            </div>
+          </div>
             `
 
-
         stackcards+=card; 
-
     })
 
     document.getElementById('awards').innerHTML = stackcards;

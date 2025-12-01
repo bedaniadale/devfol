@@ -203,6 +203,7 @@ body::after {
     border-radius: 20px;
     overflow: hidden;
     position: relative;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .project-card::before {
@@ -226,6 +227,7 @@ body::after {
 }
 
 .project-card img {
+    transition: transform 0.6s ease;
 }
 
 .project-card:hover img {

@@ -20,7 +20,7 @@ let projects = [
         "title":"Umbra",
         "desc": "A web application that connects students and parents with nearby tutors. It offers a seamless platform for finding, booking, and managing tutoring sessions—designed to make learning more accessible and personalized.",
         "img": "works/umbra.png",
-        "site": "In progress", 
+        "site": "umbra-app.com", 
         "role":['Full-Stack Developer', "UX/UI Designer"],
         "langs":['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger'],
     },
@@ -40,13 +40,21 @@ let projects = [
         "role":['UX/UI Designer', "Full-Stack Developer"],
         "langs":["Laravel", "Tailwind CSS", "MySQL", "Hostinger"],
     },
+    {
+        "title":"SPUR Mobile App",
+        "desc":"Find your next game, running partner, or tennis match. SPUR is a location-based app that connects you with people who share your passion for sports and fitness. Match by skill, find local events, and build your squad.",
+        "img":"works/spurapp.png",
+        "site":"In progress",
+        "role":['Mobile Developer', 'UX/UI Designer'],
+        "langs":["React Native", "Javascript", "Firebase"],
+    },
     { 
         "title":"The Zepatide",
       "desc": "Created a professional website to establish a strong brand identity for medical-grade products. Focused on a clean, trustworthy design that communicates product quality while enhancing credibility and customer engagement.",
         "img": "works/zepatide.png",
-        "site": "In progress", 
+        "site": "thezepatide.com", 
         "role":['UX/UI Designer', "Front-end Developer"],
-        "langs":["Figma", "React"],
+        "langs":["Laravel", "Tailwind CSS", "Hostinger"],
     },
     { 
         "title":"IMMFI",
@@ -137,7 +145,7 @@ function loadProjects() {
     <article class="group flex flex-col project-card text-gray-800 overflow-hidden reveal-scale border border-gray-200">
       <!-- Image -->
       <div class="relative overflow-hidden">
-        <img src="${item.img}" alt="${item.title}" loading="lazy" class="w-full h-48" />
+        <img src="${item.img}" alt="${item.title}" loading="lazy" class="w-full h-64" />
       </div>
 
       <!-- Content -->
