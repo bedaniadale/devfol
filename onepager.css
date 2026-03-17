@@ -68,6 +68,10 @@ body {
   border-radius: 6px;
 }
 
+.hero-avatar-img {
+  object-position: 50% 38%;
+}
+
 .hero-info {
   align-items: flex-start;
 }
@@ -547,6 +551,10 @@ body {
   gap: 6px;
 }
 
+.tech-stack-flat {
+  margin-top: 2px;
+}
+
 .tech-chip {
   display: inline-flex;
   align-items: center;
@@ -924,10 +932,13 @@ html[data-theme="dark"] .code-quote {
 
 html[data-theme="dark"] .section-shell,
 html[data-theme="dark"] .education-pane,
-html[data-theme="dark"] .split-right,
-html[data-theme="dark"] .experience-roadmap::before {
+html[data-theme="dark"] .split-right {
   border-color: #233045;
   background-color: transparent;
+}
+
+html[data-theme="dark"] .experience-roadmap::before {
+  background: #ffffff;
 }
 
 html[data-theme="dark"] .roadmap-dot {
