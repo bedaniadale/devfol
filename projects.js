@@ -85,6 +85,15 @@ let projects = [
 
 ]
 
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 
 function createRoles(arr){ 
     let stack = ''; 
@@ -92,7 +101,7 @@ function createRoles(arr){
 
     arr.forEach((item)=> { 
         let temp = ` 
-         <span class="text-xs px-3 py-1 bg-gradient-to-r from-red-100 to-pink-100 text-red-600 rounded-full font-medium ">${item}</span>
+         <span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-white text-gray-800 font-medium">${item}</span>
         `
         stack+=temp; 
     })
@@ -107,7 +116,7 @@ function createLanguages(arr) {
 
     arr.forEach((item)=> { 
         let temp = ` 
-        <span class="text-xs px-3 py-1 bg-gray-100 text-gray-700 rounded-full font-medium border border-gray-300">${item}</span>
+        <span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-700 font-medium">${item}</span>
         `
         stack+=temp; 
     })
@@ -135,31 +144,34 @@ function checkTarget(site) {
 function loadProjects() { 
     let sprojects = ''; 
 
-    projects.forEach(item => {
+    projects.forEach((item, index) => {
 
         const roles = createRoles(item.role); 
         const langs = createLanguages(item.langs); 
         
         
         let project = `
-    <article class="group flex flex-col project-card text-gray-800 overflow-hidden reveal-scale border border-gray-200">
+    <article class="project-card group flex flex-col overflow-hidden reveal-scale">
       <!-- Image -->
-      <div class="relative overflow-hidden">
-        <img src="${item.img}" alt="${item.title}" loading="lazy" class="w-full h-64" />
+      <div class="project-thumb-wrap relative overflow-hidden">
+        <img src="${item.img}" alt="${item.title}" loading="lazy" class="project-thumb block w-full h-auto transition-transform duration-300 group-hover:scale-[1.01]" />
       </div>
 
       <!-- Content -->
-      <div class="flex flex-col p-6 gap-4">
-        <h3 class="text-lg font-bold text-gray-900 line-clamp-1">${item.title}</h3>
-        <p class="text-sm text-gray-600 line-clamp-3 leading-relaxed">${item.desc}</p>
+      <div class="project-content flex flex-col pt-3 gap-3">
+        <h3 class="text-lg font-bold text-gray-900 leading-tight">${item.title}</h3>
+        <p class="project-desc text-sm text-gray-600 leading-relaxed">${item.desc}</p>
 
         <div class="flex flex-wrap gap-2 mt-1">
           ${roles}
           ${langs}
         </div>
 
-        <div class="mt-3 flex items-center justify-between">
-          <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" rel="noopener noreferrer" class="btn-modern inline-flex items-center gap-2 text-sm bg-gradient-to-r from-blue-500 to-purple-500 text-gray-700 px-4 py-2 rounded-full hover-lift">
+        <div class="project-actions mt-1 flex items-center justify-between gap-2">
+          <button type="button" class="project-details-btn btn-secondary" data-project-index="${index}">
+            View Details
+          </button>
+          <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full bg-black px-3.5 py-1.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5">
             <span class="iconify" data-icon="mdi:link-variant" style="font-size: 1rem;"></span>
             <span class="truncate">${item.site === 'In progress' ? 'Coming Soon' : 'View Site'}</span>
           </a>
@@ -172,8 +184,74 @@ function loadProjects() {
     });
 
     document.getElementById('projects').innerHTML = sprojects
-  
+    bindProjectDetailsModal();
 
+}
+
+function bindProjectDetailsModal() {
+    const projectModal = document.getElementById('projectModal');
+    const projectModalBody = document.getElementById('projectModalBody');
+    const closeProjectModal = document.getElementById('closeProjectModal');
+    const closeProjectBackdrop = document.querySelector('[data-close-project]');
+    const projectsContainer = document.getElementById('projects');
+
+    if (!projectModal || !projectModalBody || !projectsContainer) return;
+
+    const openProjectModal = (projectIndex) => {
+        const item = projects[projectIndex];
+        if (!item) return;
+
+        const roleChips = item.role.map((role) => `
+          <span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-white text-gray-800 font-medium">${escapeHtml(role)}</span>
+        `).join('');
+        const languageChips = item.langs.map((lang) => `
+          <span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-700 font-medium">${escapeHtml(lang)}</span>
+        `).join('');
+
+        projectModalBody.innerHTML = `
+          <article class="project-modal-content">
+            <div class="project-modal-image-wrap">
+              <img src="${escapeHtml(item.img)}" alt="${escapeHtml(item.title)} preview" class="project-modal-image">
+            </div>
+            <h4 class="project-modal-title">${escapeHtml(item.title)}</h4>
+            <p class="project-modal-desc">${escapeHtml(item.desc)}</p>
+            <div class="project-modal-tags">
+              ${roleChips}
+              ${languageChips}
+            </div>
+            <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" rel="noopener noreferrer" class="project-modal-link inline-flex items-center gap-2 rounded-full bg-black px-3.5 py-1.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5">
+              <span class="iconify" data-icon="mdi:link-variant" style="font-size: 1rem;"></span>
+              <span>${item.site === 'In progress' ? 'Coming Soon' : 'View Site'}</span>
+            </a>
+          </article>
+        `;
+
+        projectModal.classList.add('is-open');
+        projectModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+    };
+
+    const closeModal = () => {
+        projectModal.classList.remove('is-open');
+        projectModal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+    };
+
+    projectsContainer.addEventListener('click', (event) => {
+        const trigger = event.target.closest('.project-details-btn');
+        if (!trigger) return;
+        const projectIndex = Number(trigger.getAttribute('data-project-index'));
+        openProjectModal(projectIndex);
+    });
+
+    if (closeProjectModal) closeProjectModal.addEventListener('click', closeModal);
+    if (closeProjectBackdrop) closeProjectBackdrop.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && projectModal.classList.contains('is-open')) {
+            closeModal();
+        }
+    });
 }
 
 loadProjects(); 

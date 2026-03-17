@@ -41,12 +41,12 @@ function loadAwards() {
 
     awards.forEach((item)=> { 
         let card = `
-          <div class="flex flex-col items-center text-center gap-2 p-4 rounded-2xl border border-gray-100 bg-white/70 hover:bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-out">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-50 text-yellow-500 shrink-0 shadow-sm">
-              <span class="text-sm">${getIcon(item.icon)}</span>
-            </div>
-            <div class="flex-1">
-              <h4 class="text-sm font-semibold text-gray-800">${item.award}</h4>
+          <div class="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 transition-all duration-200 ease-out hover:border-gray-300">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-900 shrink-0 border border-gray-200">
+                <span class="text-xs">${getIcon(item.icon)}</span>
+              </div>
+              <h4 class="text-xs font-semibold text-gray-700 leading-snug text-left">${item.award}</h4>
             </div>
           </div>
             `
