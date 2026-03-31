@@ -325,10 +325,40 @@
     </div>
   </div>
 
+  <div class="faq-chat-root" id="faqChatRoot">
+    <button type="button" id="faqChatFab" class="faq-chat-fab" aria-label="Open FAQ chat" aria-expanded="false" aria-controls="faqChatPanel">
+      <i class="fa-solid fa-comments" aria-hidden="true"></i>
+    </button>
+    <div id="faqChatBackdrop" class="faq-chat-backdrop" aria-hidden="true"></div>
+    <div id="faqChatPanel" class="faq-chat-panel" role="dialog" aria-modal="true" aria-labelledby="faqChatTitle" aria-hidden="true">
+      <div class="faq-chat-panel-inner">
+        <div class="faq-chat-header">
+          <h3 id="faqChatTitle">Ask about Dale</h3>
+          <button type="button" id="faqChatClose" class="btn-secondary" aria-label="Close chat">Close</button>
+        </div>
+        <div class="faq-chat-chips" id="faqChatChips"></div>
+        <div id="faqChatLog" class="faq-chat-log" role="log" aria-live="polite" aria-relevant="additions">
+          <div class="faq-chat-msg faq-chat-msg--bot">
+            <div class="faq-chat-bubble">Hi! I'm a quick FAQ assistant. Ask a question or pick a topic below.</div>
+          </div>
+        </div>
+        <div class="faq-chat-composer">
+          <label class="visually-hidden" for="faqChatInput">Message</label>
+          <input type="text" id="faqChatInput" class="faq-chat-input" autocomplete="off" placeholder="Type a question…">
+          <button type="button" id="faqChatSend" class="btn-primary faq-chat-send" aria-label="Send message">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="iconloader.js"></script>
   <script src="techstacks.js"></script>
   <script src="awards.js"></script>
   <script src="projects.js"></script>
+  <script src="chatbot-rules.js"></script>
+  <script src="chatbot.js"></script>
   <script src="animation.js"></script>
 </body>
 </html>

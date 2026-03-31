@@ -665,6 +665,10 @@ body.modal-open {
   overflow: hidden;
 }
 
+body.faq-chat-open {
+  overflow: hidden;
+}
+
 .cv-modal {
   position: fixed;
   inset: 0;
@@ -1214,5 +1218,302 @@ html[data-theme="dark"] #projects a.bg-black:hover {
 @media (min-width: 521px) and (max-width: 1024px) {
   .projects-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* --- FAQ chat (rule-based) --- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.faq-chat-root {
+  position: relative;
+  z-index: 100;
+}
+
+.faq-chat-fab {
+  position: fixed;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  right: max(20px, env(safe-area-inset-right));
+  z-index: 102;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-main);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  transition: background-color 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+
+.faq-chat-fab:hover {
+  background: var(--surface-muted);
+  transform: scale(1.04);
+}
+
+.faq-chat-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(15, 23, 42, 0.45);
+  display: none;
+}
+
+.faq-chat-backdrop.is-open {
+  display: block;
+}
+
+.faq-chat-panel {
+  position: fixed;
+  bottom: max(88px, calc(env(safe-area-inset-bottom) + 72px));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 101;
+  width: min(400px, calc(100vw - 24px));
+  max-height: min(520px, calc(100vh - 120px));
+  display: none;
+  flex-direction: column;
+}
+
+.faq-chat-panel.is-open {
+  display: flex;
+}
+
+.faq-chat-panel-inner {
+  display: flex;
+  flex-direction: column;
+  max-height: min(520px, calc(100vh - 120px));
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.faq-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.faq-chat-header h3 {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.faq-chat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 12px 6px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-muted);
+  flex-shrink: 0;
+}
+
+.faq-chat-chip {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.faq-chat-chip:hover {
+  background: var(--surface-muted);
+  border-color: #cbd5e1;
+}
+
+.faq-chat-log {
+  flex: 1;
+  min-height: 180px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 12px;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-chat-msg {
+  display: flex;
+  width: 100%;
+}
+
+.faq-chat-msg--user {
+  justify-content: flex-end;
+}
+
+.faq-chat-msg--bot {
+  justify-content: flex-start;
+}
+
+.faq-chat-bubble {
+  max-width: 92%;
+  padding: 9px 11px;
+  border-radius: 12px;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--text-main);
+}
+
+.faq-chat-msg--user .faq-chat-bubble {
+  background: #111827;
+  color: #f9fafb;
+  border-bottom-right-radius: 4px;
+}
+
+.faq-chat-msg--bot .faq-chat-bubble {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+}
+
+.faq-chat-bubble a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.faq-chat-msg--user .faq-chat-bubble a {
+  color: #93c5fd;
+}
+
+.faq-chat-composer {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.faq-chat-input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 11px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text-main);
+}
+
+.faq-chat-input:focus {
+  outline: 2px solid #111827;
+  outline-offset: 1px;
+}
+
+.faq-chat-send {
+  flex-shrink: 0;
+  padding: 9px 12px;
+  min-width: 44px;
+}
+
+html[data-theme="dark"] .faq-chat-fab {
+  background: #1f2937;
+  border-color: #374151;
+  color: #f3f4f6;
+}
+
+html[data-theme="dark"] .faq-chat-fab:hover {
+  background: #374151;
+}
+
+html[data-theme="dark"] .faq-chat-panel-inner {
+  background: #111827;
+  border-color: #374151;
+}
+
+html[data-theme="dark"] .faq-chat-header {
+  background: #111827;
+  border-color: #374151;
+}
+
+html[data-theme="dark"] .faq-chat-header h3 {
+  color: #f9fafb;
+}
+
+html[data-theme="dark"] .faq-chat-chips {
+  background: #0f172a;
+  border-color: #374151;
+}
+
+html[data-theme="dark"] .faq-chat-chip {
+  background: #1f2937;
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+
+html[data-theme="dark"] .faq-chat-chip:hover {
+  background: #374151;
+}
+
+html[data-theme="dark"] .faq-chat-log {
+  background: #0b1220;
+}
+
+html[data-theme="dark"] .faq-chat-msg--bot .faq-chat-bubble {
+  background: #1f2937;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+html[data-theme="dark"] .faq-chat-msg--user .faq-chat-bubble {
+  background: #374151;
+  color: #f9fafb;
+}
+
+html[data-theme="dark"] .faq-chat-bubble a {
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .faq-chat-composer {
+  background: #111827;
+  border-color: #374151;
+}
+
+html[data-theme="dark"] .faq-chat-input {
+  background: #1f2937;
+  border-color: #4b5563;
+  color: #f3f4f6;
+}
+
+html[data-theme="dark"] .faq-chat-input:focus {
+  outline-color: #9ca3af;
+}
+
+@media (max-width: 520px) {
+  .faq-chat-panel {
+    left: max(12px, env(safe-area-inset-left));
+    right: max(12px, env(safe-area-inset-right));
+    width: auto;
+    max-height: min(70vh, 480px);
   }
 }
