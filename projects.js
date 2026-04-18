@@ -67,7 +67,7 @@ let projects = [
 
     { 
         "title":"Connect4 by Dale",
-        "desc": "A web application that connects students and parents with nearby tutors. It offers a seamless platform for finding, booking, and managing tutoring sessions—designed to make learning more accessible and personalized.",
+        "desc": "A browser-based Connect Four game with two-player drop logic, win detection, and a clean responsive layout—built to practice DOM manipulation and game state in vanilla JavaScript.",
         "img": "works/connect4.png",
         "site": "bedaniadale.github.io/daleconnect4", 
         "role":['Full-Stack Developer'],
@@ -75,13 +75,29 @@ let projects = [
     },
     { 
         "title":"GitHub DevFinder",
-        "desc": "A web application that connects students and parents with nearby tutors. It offers a seamless platform for finding, booking, and managing tutoring sessions—designed to make learning more accessible and personalized.",
+        "desc": "A frontend challenge app that searches GitHub users and displays profile details from the GitHub API—focused on accessible layout, loading states, and handling API responses.",
         "img": "works/devfinder.png",
         "site": "bedaniadale.github.io/devfinder", 
         "role":['Full-Stack Developer'],
         "langs":["HTML", "CSS", "Javascript"],
+    },
+    {
+        "title": "ResumeForge",
+        "desc": "Fill in your details once — ResumeForge handles the rest. Instantly generates a polished, ATS-friendly resume PDF styled after the iconic Harvard format, no design skills or formatting headaches required.",
+        "img": "works/resumeforge.png",
+        "site": "In progress",
+        "role": ["Full-Stack Developer", "UX/UI Designer"],
+        "langs": ["React", "Node.js", "Tailwind CSS", "PDF Generation"],
+    },
+    {
+        "title": "ZoneBridge",
+        "desc": "Drop a pin on any city or GPS coordinate and instantly see the exact time gap between it and anywhere else in the world. Built for remote teams, frequent travelers, and anyone tired of mental timezone math.",
+        "img": "works/zonebridge.png",
+        "site": "In progress",
+        "role": ["Full-Stack Developer", "UX/UI Designer"],
+        "langs": ["React", "Tailwind CSS", "Mapbox GL", "Javascript"],
     }
-   
+
 
 ]
 
@@ -141,6 +157,45 @@ function checkTarget(site) {
     return `_blank`; 
 }
 
+function siteLabelForMockup(site) {
+    if (site === 'In progress') return 'Preview';
+    let s = String(site).replace(/^https?:\/\//i, '').trim();
+    if (s.length > 42) return `${s.slice(0, 39)}…`;
+    return s;
+}
+
+function browserMockupHtml(imgSrc, title, site, variant) {
+    const label = siteLabelForMockup(site);
+    const escapedLabel = escapeHtml(label);
+    const escapedSrc = escapeHtml(imgSrc);
+    const escapedTitle = escapeHtml(title);
+    const isCard = variant === 'card';
+    const loadingAttr = isCard ? ' loading="lazy"' : '';
+    const imgClasses = isCard
+        ? 'project-thumb block w-full transition-transform duration-300 group-hover:scale-[1.01]'
+        : 'project-modal-image';
+    const viewportClass = isCard ? 'project-browser-viewport' : 'project-browser-viewport project-browser-viewport--modal';
+    const mockupClass = isCard ? 'project-browser-mockup project-browser-mockup--card' : 'project-browser-mockup project-browser-mockup--modal';
+    const altText = isCard ? escapedTitle : `${escapedTitle} preview`;
+
+    return `
+      <div class="${mockupClass}">
+        <div class="project-browser-chrome" aria-hidden="true">
+          <span class="project-browser-dots">
+            <span class="project-browser-dot project-browser-dot--red"></span>
+            <span class="project-browser-dot project-browser-dot--yellow"></span>
+            <span class="project-browser-dot project-browser-dot--green"></span>
+          </span>
+          <span class="project-browser-url">${escapedLabel}</span>
+        </div>
+        <div class="${viewportClass}">
+          <img src="${escapedSrc}" alt="${altText}"${loadingAttr} class="${imgClasses}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="project-thumb-placeholder" style="display:none;">Screenshot coming soon</div>
+        </div>
+      </div>
+    `;
+}
+
 function loadProjects() { 
     let sprojects = ''; 
 
@@ -154,7 +209,7 @@ function loadProjects() {
     <article class="project-card group flex flex-col overflow-hidden reveal-scale">
       <!-- Image -->
       <div class="project-thumb-wrap relative overflow-hidden">
-        <img src="${item.img}" alt="${item.title}" loading="lazy" class="project-thumb block w-full h-auto transition-transform duration-300 group-hover:scale-[1.01]" />
+        ${browserMockupHtml(item.img, item.title, item.site, 'card')}
       </div>
 
       <!-- Content -->
@@ -211,7 +266,7 @@ function bindProjectDetailsModal() {
         projectModalBody.innerHTML = `
           <article class="project-modal-content">
             <div class="project-modal-image-wrap">
-              <img src="${escapeHtml(item.img)}" alt="${escapeHtml(item.title)} preview" class="project-modal-image">
+              ${browserMockupHtml(item.img, item.title, item.site, 'modal')}
             </div>
             <h4 class="project-modal-title">${escapeHtml(item.title)}</h4>
             <p class="project-modal-desc">${escapeHtml(item.desc)}</p>

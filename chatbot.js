@@ -6,6 +6,12 @@
   var PHRASE_BONUS = 5;
   var SHORT_KEYWORD_MAX = 3;
 
+  /** How many ms to show the typing indicator before revealing the answer. */
+  var TYPING_DELAY_MS = 750;
+
+  /** Tracks IDs of rules answered so far this session. */
+  var sessionTopics = [];
+
   function getMeta() {
     return typeof CHATBOT_META !== 'undefined' ? CHATBOT_META : {};
   }
@@ -71,6 +77,28 @@
     return { rule: best, score: bestScore };
   }
 
+  /**
+   * Pick a random answer variant from a rule.
+   * Prefers variants not recently shown to avoid back-to-back repeats.
+   * Falls back to legacy `answer` string for backward compatibility.
+   */
+  function pickAnswer(rule) {
+    var pool = rule.answers && rule.answers.length ? rule.answers : null;
+    if (!pool) return rule.answer || '';
+
+    if (pool.length === 1) return pool[0];
+
+    /* Try to avoid the last-shown variant stored on the rule itself. */
+    var last = rule._lastVariantIdx;
+    var candidates = [];
+    for (var i = 0; i < pool.length; i++) {
+      if (i !== last) candidates.push(i);
+    }
+    var idx = candidates[Math.floor(Math.random() * candidates.length)];
+    rule._lastVariantIdx = idx;
+    return pool[idx];
+  }
+
   function escapeHtml(text) {
     return String(text)
       .replace(/&/g, '&amp;')
@@ -81,10 +109,13 @@
 
   function buildFallbackAnswer() {
     var m = getMeta();
-    var parts = [];
-    parts.push(
-      "I couldn't match that to a specific FAQ. Try the quick topics below, or reach out directly."
-    );
+    var openers = [
+      "Hmm, I didn't quite catch that one.",
+      "That's outside what I can answer directly.",
+      "I'm not sure I have a good answer for that.",
+    ];
+    var opener = openers[Math.floor(Math.random() * openers.length)];
+    var parts = [opener + ' Try a quick topic below, or reach out directly.'];
     parts.push(
       '<br><br><strong>Contact:</strong> <a href="mailto:' +
         escapeHtml(m.email || '') +
@@ -124,6 +155,27 @@
     return parts.join('');
   }
 
+  /**
+   * Build a context bridge sentence when the user has already covered related topics.
+   * Returns an empty string if no relevant context to reference.
+   */
+  function buildContextBridge(ruleId) {
+    var bridges = {
+      projects: { needs: ['skills'], text: 'Since you already know his stack — ' },
+      skills:   { needs: ['experience'], text: 'To go with that experience — ' },
+      hiring:   { needs: ['contact'], text: "You already have his contact details, so — " },
+      contact:  { needs: ['hiring'], text: 'Good timing — ' },
+    };
+    var bridge = bridges[ruleId];
+    if (!bridge) return '';
+    for (var i = 0; i < bridge.needs.length; i++) {
+      if (sessionTopics.indexOf(bridge.needs[i]) !== -1) {
+        return '<em class="faq-context-bridge">' + bridge.text + '</em>';
+      }
+    }
+    return '';
+  }
+
   function appendBubble(container, role, htmlOrText, isHtml) {
     var row = document.createElement('div');
     row.className = 'faq-chat-msg faq-chat-msg--' + role;
@@ -137,6 +189,28 @@
     row.appendChild(bubble);
     container.appendChild(row);
     container.scrollTop = container.scrollHeight;
+    return bubble;
+  }
+
+  /** Show a typing indicator, then after a delay replace it with the real answer. */
+  function showTypingThenAnswer(container, answerHtml) {
+    var row = document.createElement('div');
+    row.className = 'faq-chat-msg faq-chat-msg--bot';
+    var bubble = document.createElement('div');
+    bubble.className = 'faq-chat-bubble faq-chat-bubble--typing';
+    bubble.innerHTML =
+      '<span class="faq-typing-dot"></span>' +
+      '<span class="faq-typing-dot"></span>' +
+      '<span class="faq-typing-dot"></span>';
+    row.appendChild(bubble);
+    container.appendChild(row);
+    container.scrollTop = container.scrollHeight;
+
+    setTimeout(function () {
+      bubble.className = 'faq-chat-bubble';
+      bubble.innerHTML = answerHtml;
+      container.scrollTop = container.scrollHeight;
+    }, TYPING_DELAY_MS);
   }
 
   function handleSend() {
@@ -153,11 +227,18 @@
     var matched = matchRule(text);
     var answer;
     if (matched && matched.rule) {
-      answer = matched.rule.answer;
+      var ruleId = matched.rule.id;
+      var alreadyAsked = sessionTopics.indexOf(ruleId) !== -1;
+      var bridge = alreadyAsked ? '' : buildContextBridge(ruleId);
+
+      answer = bridge + pickAnswer(matched.rule);
+
+      if (!alreadyAsked) sessionTopics.push(ruleId);
     } else {
       answer = buildFallbackAnswer();
     }
-    appendBubble(log, 'bot', answer, true);
+
+    showTypingThenAnswer(log, answer);
   }
 
   function initChips() {
