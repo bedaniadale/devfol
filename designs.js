@@ -1,51 +1,91 @@
 /**
- * Graphic design portfolio: masonry gallery + filter + lightbox modal.
- * Replace `img` paths with files under works/designs/ when ready.
+ * Graphic design gallery — aspect-aware bento grid + lightbox.
+ * Slot shape follows each image's natural ratio (portrait / landscape / square).
  */
 
-const DESIGN_CATEGORY_LABELS = {
-  poster: 'Poster',
-  'social-media': 'Social Media',
-  branding: 'Branding',
-};
+const GRAPHICS_BASE = 'works/graphics/';
 
-const designs = [
-  {
-    title: 'IMMFI — Site Visual Direction',
-    desc: 'Web layout and visual hierarchy study for a nonprofit organization, emphasizing clarity and trust.',
-    img: 'works/immfi.png',
-    category: 'poster',
-    tools: ['Photoshop', 'Figma'],
-  },
-  {
-    title: 'SPUR — App Launch Campaign',
-    desc: 'Social graphics promoting the SPUR mobile app: features, tone, and call-to-action.',
-    img: 'works/joinspur.png',
-    category: 'social-media',
-    tools: ['Photoshop', 'Illustrator'],
-  },
-  {
-    title: 'The Zepatide — Brand Web Presence',
-    desc: 'Clean, medical-grade aesthetic for product-focused landing visuals.',
-    img: 'works/zepatide.png',
-    category: 'poster',
-    tools: ['Photoshop', 'Illustrator'],
-  },
-  {
-    title: 'Kayantabe — Volunteer Platform Identity',
-    desc: 'Branding touches and promotional visuals for a volunteerism platform.',
-    img: 'works/kayantabe.png',
-    category: 'branding',
-    tools: ['Illustrator', 'Figma'],
-  },
-  {
-    title: 'Umbra — Tutoring App Promo',
-    desc: 'Social-ready graphics highlighting booking and local tutor discovery.',
-    img: 'works/umbra.png',
-    category: 'social-media',
-    tools: ['Photoshop', 'Canva'],
-  },
+const GRAPHICS_FILES = [
+  'dalefuture.png',
+  'flowg.png',
+  'artboard-1-100-1.webp',
+  'welcomeback2.webp',
+  'finalmem.png',
+  'meetourteam-2.webp',
+  'dp2022.webp',
+  'bday_dale2-1.png',
+  'artboard-4-100.webp',
+  'artboard-5-100.webp',
+  'artboard-6-100.webp',
+  'artboard-7-100.webp',
+  '1.webp',
+  'efef475b-ec17-4a13-a5f2-e7ae1156aadc.jpg',
+  '0ad9042b-41b8-4ee9-9d65-26750ee28ef1.jpg',
+  '3e157134-d079-4d2f-8b8c-c27f78568f34.jpg',
+  '1dfa30eb-1346-44e0-bfa1-c30dee95e6ea.jpg',
+  '12563e67-865d-4b29-9acc-3b61e809185d.jpg',
+  '42ef1801-b6a4-4aa4-9f7e-82db6b1bd601.jpg',
+  'ddba4cc9-8b30-4c7a-ac56-6956d3c9cbc8.jpg',
+  'ad0ea7ce-fc3c-425b-8ce0-f2fc74a1a9f0.jpg',
+  '6e6deef8-be3e-44d6-8bb6-2b4c061dfad1.jpg',
+  '8a8780cf-2862-4c52-992d-1f24f2c2f7f6.jpg',
+  'f4d3219f-d45b-4d1c-9b16-89f0fce7bc8b.jpg',
 ];
+
+/** Populated after image dimensions load */
+var designs = [];
+
+/**
+ * Map aspect ratio w/h → bento slot class suffix (matches CSS grid spans).
+ * Portrait → tall columns; landscape → wide rows; near-square → large square tiles.
+ */
+function bentoSlotFromRatio(r) {
+  if (!Number.isFinite(r) || r <= 0) return 'wide';
+  /* Portrait / tall: narrow column slots (match poster shape) */
+  if (r < 0.52) return 'tall-xl';
+  if (r < 0.98) return 'tall';
+  /* Near-square: large square tile */
+  if (r >= 0.98 && r <= 1.06) return 'feature';
+  /* Moderate landscape */
+  if (r > 1.06 && r <= 1.48) return 'wide';
+  /* Wide banners */
+  if (r > 1.48 && r <= 2.35) return 'wide-lg';
+  /* Ultra-wide strips */
+  return 'ultrawide';
+}
+
+function loadImageMeta(src) {
+  return new Promise(function (resolve) {
+    var im = new Image();
+    im.onload = function () {
+      resolve({ w: im.naturalWidth, h: im.naturalHeight });
+    };
+    im.onerror = function () {
+      resolve({ w: 4, h: 3 });
+    };
+    im.src = src;
+  });
+}
+
+function titleFromFilename(filename, index) {
+  var base = filename.replace(/\.[^.]+$/, '');
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(base)) {
+    return 'Graphic work ' + String(index + 1);
+  }
+  if (/^artboard-/i.test(base)) {
+    var am = base.match(/^artboard-(\d+)/i);
+    if (am) return 'Artboard ' + am[1];
+  }
+  var s = base
+    .replace(/^meetourteam[-_]?\d*/i, 'Meet our team')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!s) return 'Work ' + String(index + 1);
+  return s.replace(/\b\w/g, function (c) {
+    return c.toUpperCase();
+  });
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -56,121 +96,122 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-function categoryLabel(key) {
-  return DESIGN_CATEGORY_LABELS[key] || key;
+function refreshGraphicsStagger() {
+  var parent = document.getElementById('graphicsBento');
+  if (!parent || !parent.hasAttribute('data-stagger')) return;
+  var prefersReducedMotion =
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = Array.from(parent.children);
+  items.forEach(function (child, i) {
+    child.classList.add('si');
+    child.style.setProperty('--sd', i * 40 + 'ms');
+    if (prefersReducedMotion) child.classList.add('in');
+  });
+  if (!prefersReducedMotion && items.length) {
+    var staggerObs = new IntersectionObserver(
+      function (entries) {
+        if (!entries[0].isIntersecting) return;
+        items.forEach(function (child) {
+          child.classList.add('in');
+        });
+        staggerObs.disconnect();
+      },
+      { rootMargin: '0px 0px -40px 0px', threshold: 0.04 }
+    );
+    staggerObs.observe(parent);
+  }
 }
 
-function createToolPills(arr) {
-  return arr
-    .map(
-      (item) =>
-        `<span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-700 font-medium">${escapeHtml(item)}</span>`
-    )
-    .join('');
-}
-
-function getFilteredDesigns(filter) {
-  if (filter === 'all') return designs;
-  return designs.filter((d) => d.category === filter);
-}
-
-function renderDesignGrid(filter) {
-  const container = document.getElementById('designs');
+function renderGraphicsBento() {
+  var container = document.getElementById('graphicsBento');
   if (!container) return;
 
-  const list = getFilteredDesigns(filter);
-  if (list.length === 0) {
-    container.innerHTML =
-      '<p class="designs-empty text-sm text-gray-600 py-6">No pieces in this category yet.</p>';
-    return;
-  }
-
-  let html = '';
-  list.forEach((item) => {
-    const globalIndex = designs.indexOf(item);
-    const catLabel = categoryLabel(item.category);
-    const escapedTitle = escapeHtml(item.title);
-    const escapedSrc = escapeHtml(item.img);
-    const escapedCat = escapeHtml(catLabel);
-
-    html += `
-      <div class="design-card-outer">
-        <button type="button" class="design-card-trigger reveal-scale" data-design-index="${globalIndex}" aria-label="View details: ${escapedTitle}">
-          <span class="design-card-media">
-            <img src="${escapedSrc}" alt="${escapedTitle}" loading="lazy" class="design-card-img" />
-            <span class="design-card-overlay" aria-hidden="true">
-              <span class="design-card-overlay-title">${escapedTitle}</span>
-              <span class="design-card-overlay-cat">${escapedCat}</span>
-            </span>
-          </span>
-          <span class="design-card-meta">
-            <span class="design-card-title">${escapedTitle}</span>
-            <span class="design-card-cat-pill">${escapedCat}</span>
-          </span>
-        </button>
-      </div>
-    `;
+  var html = '';
+  designs.forEach(function (item, index) {
+    var escTitle = escapeHtml(item.title);
+    var escSrc = escapeHtml(item.img);
+    var sizeClass = 'graphics-bento__item--' + item.bento;
+    var ratioAttr = item.ratio != null ? ' data-aspect-ratio="' + String(item.ratio.toFixed(4)) + '"' : '';
+    html +=
+      '<button type="button" class="graphics-bento__item ' +
+      sizeClass +
+      '"' +
+      ratioAttr +
+      ' data-design-index="' +
+      index +
+      '" aria-label="View larger: ' +
+      escTitle +
+      '">' +
+      '<span class="graphics-bento__media">' +
+      '<img src="' +
+      escSrc +
+      '" alt="" loading="lazy" class="graphics-bento__img" decoding="async" />' +
+      '</span>' +
+      '<span class="graphics-bento__cap" aria-hidden="true">' +
+      escTitle +
+      '</span>' +
+      '</button>';
   });
-
   container.innerHTML = html;
-  observeNewDesignReveals();
+  refreshGraphicsStagger();
 }
 
-function observeNewDesignReveals() {
-  const prefersReducedMotion =
-    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
-    document.querySelectorAll('#designs .reveal-scale').forEach((el) => el.classList.add('is-visible'));
-    return;
-  }
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      });
-    },
-    { rootMargin: '0px 0px -48px 0px', threshold: 0.06 }
-  );
-  document.querySelectorAll('#designs .reveal-scale').forEach((el) => revealObserver.observe(el));
-}
-
-function bindDesignCardDelegation() {
-  const container = document.getElementById('designs');
+function bindGraphicsDelegation() {
+  var container = document.getElementById('graphicsBento');
   if (!container || container.dataset.delegationBound === '1') return;
   container.dataset.delegationBound = '1';
-  container.addEventListener('click', (event) => {
-    const trigger = event.target.closest('.design-card-trigger');
+  container.addEventListener('click', function (event) {
+    var trigger = event.target.closest('.graphics-bento__item[data-design-index]');
     if (!trigger) return;
-    const idx = Number(trigger.getAttribute('data-design-index'));
+    var idx = Number(trigger.getAttribute('data-design-index'));
     if (!Number.isFinite(idx)) return;
     openDesignModal(idx);
   });
 }
 
+function createToolPills(arr) {
+  return arr
+    .map(function (item) {
+      return (
+        '<span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-700 font-medium">' +
+        escapeHtml(item) +
+        '</span>'
+      );
+    })
+    .join('');
+}
+
 function openDesignModal(index) {
-  const item = designs[index];
+  var item = designs[index];
   if (!item) return;
 
-  const modal = document.getElementById('designModal');
-  const body = document.getElementById('designModalBody');
+  var modal = document.getElementById('designModal');
+  var body = document.getElementById('designModalBody');
   if (!modal || !body) return;
 
-  const roleChips = createToolPills(item.tools);
-  const catLabel = categoryLabel(item.category);
+  var roleChips = item.tools && item.tools.length ? createToolPills(item.tools) : '';
+  var descBlock =
+    item.desc && String(item.desc).trim()
+      ? '<p class="design-modal-desc">' + escapeHtml(item.desc) + '</p>'
+      : '';
+  var tagsBlock = roleChips ? '<div class="design-modal-tags">' + roleChips + '</div>' : '';
 
-  body.innerHTML = `
-    <article class="design-modal-content">
-      <div class="design-modal-image-wrap">
-        <img src="${escapeHtml(item.img)}" alt="${escapeHtml(item.title)} preview" class="design-modal-image" />
-      </div>
-      <p class="design-modal-category">${escapeHtml(catLabel)}</p>
-      <h4 class="design-modal-title">${escapeHtml(item.title)}</h4>
-      <p class="design-modal-desc">${escapeHtml(item.desc)}</p>
-      <div class="design-modal-tags">${roleChips}</div>
-    </article>
-  `;
+  body.innerHTML =
+    '<article class="design-modal-content">' +
+    '<div class="design-modal-image-wrap">' +
+    '<img src="' +
+    escapeHtml(item.img) +
+    '" alt="' +
+    escapeHtml(item.title) +
+    '" class="design-modal-image" />' +
+    '</div>' +
+    '<p class="design-modal-category">Graphic design</p>' +
+    '<h4 class="design-modal-title">' +
+    escapeHtml(item.title) +
+    '</h4>' +
+    descBlock +
+    tagsBlock +
+    '</article>';
 
   modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
@@ -178,7 +219,7 @@ function openDesignModal(index) {
 }
 
 function closeDesignModal() {
-  const modal = document.getElementById('designModal');
+  var modal = document.getElementById('designModal');
   if (!modal) return;
   modal.classList.remove('is-open');
   modal.setAttribute('aria-hidden', 'true');
@@ -186,17 +227,17 @@ function closeDesignModal() {
 }
 
 function bindDesignModal() {
-  const modal = document.getElementById('designModal');
+  var modal = document.getElementById('designModal');
   if (!modal || modal.dataset.modalBound === '1') return;
   modal.dataset.modalBound = '1';
 
-  const closeBtn = document.getElementById('closeDesignModal');
-  const backdrop = document.querySelector('[data-close-design]');
+  var closeBtn = document.getElementById('closeDesignModal');
+  var backdrop = document.querySelector('[data-close-design]');
 
   if (closeBtn) closeBtn.addEventListener('click', closeDesignModal);
   if (backdrop) backdrop.addEventListener('click', closeDesignModal);
 
-  document.addEventListener('keydown', (event) => {
+  document.addEventListener('keydown', function (event) {
     if (event.key !== 'Escape') return;
     if (modal.classList.contains('is-open')) {
       closeDesignModal();
@@ -204,31 +245,29 @@ function bindDesignModal() {
   });
 }
 
-function bindDesignFilters() {
-  const wrap = document.getElementById('designFilters');
-  if (!wrap || wrap.dataset.filtersBound === '1') return;
-  wrap.dataset.filtersBound = '1';
-
-  const chips = wrap.querySelectorAll('.design-filter-chip');
-  if (!chips.length) return;
-
-  chips.forEach((chip) => {
-    chip.addEventListener('click', () => {
-      const filter = chip.getAttribute('data-filter') || 'all';
-      chips.forEach((c) => {
-        c.classList.toggle('is-active', c === chip);
-        c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
-      });
-      renderDesignGrid(filter);
+function initGraphicsGallery() {
+  Promise.all(GRAPHICS_FILES.map(function (f) {
+    return loadImageMeta(GRAPHICS_BASE + f);
+  })).then(function (metas) {
+    designs = GRAPHICS_FILES.map(function (file, i) {
+      var w = metas[i].w;
+      var h = metas[i].h;
+      var r = h > 0 ? w / h : 1;
+      return {
+        title: titleFromFilename(file, i),
+        img: GRAPHICS_BASE + file,
+        bento: bentoSlotFromRatio(r),
+        ratio: r,
+      };
     });
+    renderGraphicsBento();
+    bindGraphicsDelegation();
+    bindDesignModal();
   });
 }
 
-function loadDesigns() {
-  bindDesignCardDelegation();
-  renderDesignGrid('all');
-  bindDesignFilters();
-  bindDesignModal();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initGraphicsGallery);
+} else {
+  initGraphicsGallery();
 }
-
-loadDesigns();

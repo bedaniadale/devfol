@@ -52,6 +52,12 @@
               <span class="hero-name">Dale Bedania</span><svg class="verified-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-label="Verified" role="img"><path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.67-.88 3.33-2.19c1.4.46 2.91.21 3.92-.8s1.26-2.52.8-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z" fill="#1D9BF0"/></svg>
             </h1>
             <div class="hero-topright">
+              <a href="designer.html" class="mode-toggle" aria-label="Switch to Designer mode">
+                <span class="mode-toggle-dot" aria-hidden="true"></span>
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span class="mode-toggle-label">Designer Mode</span>
+                <i class="fa-solid fa-arrow-right mode-toggle-arrow"></i>
+              </a>
               <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
                 <i class="fa-solid fa-moon"></i>
                 <span class="theme-toggle-label">Dark</span>
@@ -60,7 +66,7 @@
           </div>
           <p class="hero-location"><i class="fa-solid fa-location-dot"></i> Pampanga, Philippines</p>
           <div class="hero-role">
-            <span>Software Engineer | UX/UI &amp; Graphic Designer</span>
+            <span>Software Engineer | UX/UI | Graphic Designer</span>
           </div>
           <span class="otw-badge" aria-label="Available for work">
             <span class="otw-dot" aria-hidden="true"></span>
@@ -71,10 +77,6 @@
               <i class="fas fa-file-lines text-sm"></i>
               View CV
             </button>
-            <a href="https://www.linkedin.com/in/dale-bedania/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-              <span id="linkedin"></span>
-              LinkedIn
-            </a>
             <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn-secondary">
               <span id="github"></span>
               GitHub
@@ -90,51 +92,98 @@
 
     <section class="section-shell reveal" id="about">
       <article class="panel-card about-edu-layout">
-        <div class="about-pane">
-          <h2 class="about-title">
-            Since <span class="typed-text">2015</span>
-          </h2>
-          <p class="about-copy">
-            Over a decade of writing code, I've gone from a 13-year-old tinkering with HTML to a software engineer who ships production-ready applications. I build full-stack web and mobile solutions with a focus on clean architecture, real-world impact, and experiences that actually work for the people using them.
-          </p>
-          <blockquote class="about-quote code-quote">
-            <span class="quote-keyword">const</span>
-            <span class="quote-variable">quote</span>
-            = <span class="quote-string">"Great web development isn’t just about writing code—it’s about solving problems, creating seamless experiences, and turning ideas into digital reality."</span>;
-          </blockquote>
-          <p class="meta-text mt-3">- Every good web developer, ever</p>
+        <div class="about-edu-columns">
+          <div class="about-pane">
+            <h2 class="about-title">
+              Since <span class="typed-text">2015</span>
+            </h2>
+            <p class="about-copy">
+              Over a decade of writing code, I've gone from a 13-year-old tinkering with HTML to a software engineer who ships production-ready applications. I build full-stack web and mobile solutions with a focus on clean architecture, real-world impact, and experiences that actually work for the people using them.
+            </p>
+            <blockquote class="about-quote code-quote">
+              <span class="quote-keyword">const</span>
+              <span class="quote-variable">quote</span>
+              = <span class="quote-string">"Great web development isn’t just about writing code—it’s about solving problems, creating seamless experiences, and turning ideas into digital reality."</span>;
+            </blockquote>
+            <p class="meta-text mt-3">- Every good web developer, ever</p>
+          </div>
 
-          <ul class="about-stats">
-            <li class="stat-card">
-              <p class="stat-value"><span class="count-up" data-target="10">0</span>+</p>
-              <p class="meta-text"><strong>scaled applications deployed</strong> — from real estate CMS to university portals</p>
-            </li>
-            <li class="stat-card">
-              <p class="stat-value"><span class="count-up" data-target="99">0</span>%</p>
-              <p class="meta-text"><strong>client satisfaction</strong> — uptime and delivery commitment across every project</p>
-            </li>
-            <li class="stat-card">
-              <p class="stat-value"><span class="count-up" data-target="9">0</span>+</p>
-              <p class="meta-text"><strong>years of coding evolution</strong> — started in 2015, still going</p>
-            </li>
-            <li class="stat-card">
-              <p class="stat-value"><span class="count-up" data-target="24">0</span>/7</p>
-              <p class="meta-text">curiosity — always exploring new tools, trends, and technologies</p>
-            </li>
-          </ul>
+          <aside class="education-pane">
+            <div class="education-card">
+              <img src="haulogo.png" class="w-20 h-20 rounded-lg shadow-sm object-cover" alt="HAU logo">
+              <div class="education-copy">
+                <p class="meta-text">Holy Angel University - Class of 2025</p>
+                <p class="education-degree">Bachelor of Science in Information Technology</p>
+                <p class="education-track">Specialization: Web Development</p>
+              </div>
+            </div>
+            <div class="education-awards" id="awards"></div>
+          </aside>
         </div>
 
-        <aside class="education-pane">
-          <div class="education-card">
-            <img src="haulogo.png" class="w-20 h-20 rounded-lg shadow-sm object-cover" alt="HAU logo">
-            <div class="education-copy">
-              <p class="meta-text">Holy Angel University - Class of 2025</p>
-              <p class="education-degree">Bachelor of Science in Information Technology</p>
-              <p class="education-track">Specialization: Web Development</p>
+        <hr class="about-edu-separator" />
+
+        <ul class="about-stats about-stats--row">
+          <li class="stat-card stat-card--h">
+            <div class="stat-card__text">
+              <p class="stat-value"><span class="count-up" data-target="10">0</span>+</p>
+              <p class="meta-text"><strong>scaled applications deployed</strong> — from real estate CMS to university portals</p>
             </div>
+            <span class="stat-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+            </span>
+          </li>
+          <li class="stat-card stat-card--h">
+            <div class="stat-card__text">
+              <p class="stat-value"><span class="count-up" data-target="99">0</span>%</p>
+              <p class="meta-text"><strong>client satisfaction</strong> — uptime and delivery commitment across every project</p>
+            </div>
+            <span class="stat-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.14.85 3 .08l2.07-1.87"/></svg>
+            </span>
+          </li>
+          <li class="stat-card stat-card--h">
+            <div class="stat-card__text">
+              <p class="stat-value"><span class="count-up" data-target="9">0</span>+</p>
+              <p class="meta-text"><strong>years of coding evolution</strong> — started in 2015, still going</p>
+            </div>
+            <span class="stat-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </span>
+          </li>
+          <li class="stat-card stat-card--h">
+            <div class="stat-card__text">
+              <p class="stat-value"><span class="count-up" data-target="24">0</span>/7</p>
+              <p class="meta-text">curiosity — always exploring new tools, trends, and technologies</p>
+            </div>
+            <span class="stat-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            </span>
+          </li>
+        </ul>
+
+        <div class="about-carousel-row">
+          <div class="education-gallery-block education-gallery-block--full">
+            <div class="education-gallery" id="eduGallery" role="region" aria-roledescription="carousel" aria-label="Photo gallery, auto-scrolling. Pause by hovering.">
+              <div class="education-gallery__scroller" id="eduGalleryScroller" tabindex="0" aria-live="polite">
+                <!-- Display order: last file first (2.png … 1.jpg) -->
+                <figure class="education-gallery__slide">
+                  <img src="works/gallery/2.png" alt="Gallery image 1 of 4" width="960" height="640" loading="lazy" decoding="async">
+                </figure>
+                <figure class="education-gallery__slide">
+                  <img src="works/gallery/3.png" alt="Gallery image 2 of 4" width="960" height="640" loading="lazy" decoding="async">
+                </figure>
+                <figure class="education-gallery__slide">
+                  <img src="works/gallery/2.jpg" alt="Gallery image 3 of 4" width="960" height="640" loading="lazy" decoding="async">
+                </figure>
+                <figure class="education-gallery__slide">
+                  <img src="works/gallery/1.jpg" alt="Gallery image 4 of 4" width="960" height="640" loading="lazy" decoding="async">
+                </figure>
+              </div>
+            </div>
+            <div class="education-gallery__dots" id="eduGalleryDots"></div>
           </div>
-          <div class="education-awards" id="awards"></div>
-        </aside>
+        </div>
       </article>
     </section>
 
@@ -420,22 +469,19 @@
       </article>
     </section>
 
-    <!-- GRAPHIC DESIGN WORKS — hidden temporarily
-    <section class="section-shell reveal">
+    <section class="section-shell reveal" id="graphics-section">
       <article class="panel-card">
-        <div class="section-head">
-          <h2 class="section-title">Graphic Design Works</h2>
+        <div class="section-head graphics-section-head">
+          <div>
+            <h2 class="section-title">Graphic Design</h2>
+            <p class="graphics-section-lede">Selected visuals — posters, social assets, and brand work from my design practice.</p>
+          </div>
         </div>
-        <div class="design-filters" id="designFilters" role="toolbar" aria-label="Filter design works">
-          <button type="button" class="design-filter-chip is-active" data-filter="all" aria-pressed="true">All</button>
-          <button type="button" class="design-filter-chip" data-filter="poster" aria-pressed="false">Posters</button>
-          <button type="button" class="design-filter-chip" data-filter="social-media" aria-pressed="false">Social Media</button>
-          <button type="button" class="design-filter-chip" data-filter="branding" aria-pressed="false">Branding</button>
+        <div class="graphics-bento-wrap">
+          <div class="graphics-bento" id="graphicsBento" data-stagger></div>
         </div>
-        <div class="designs-masonry" id="designs"></div>
       </article>
     </section>
-    -->
 
     <section class="section-shell reveal" id="certifications">
       <article class="panel-card">
@@ -650,7 +696,6 @@
     </div>
   </div>
 
-  <!-- DESIGN MODAL — hidden temporarily
   <div id="designModal" class="design-modal" aria-hidden="true">
     <div class="design-modal-backdrop" data-close-design></div>
     <div class="design-modal-panel" role="dialog" aria-modal="true" aria-labelledby="designModalTitle">
@@ -661,7 +706,6 @@
       <div class="design-modal-body" id="designModalBody"></div>
     </div>
   </div>
-  -->
 
   <div class="faq-chat-root" id="faqChatRoot">
     <button type="button" id="faqChatFab" class="faq-chat-fab" aria-label="Open FAQ chat" aria-expanded="false" aria-controls="faqChatPanel">
@@ -694,8 +738,9 @@
   <script src="iconloader.js"></script>
   <script src="techstacks.js"></script>
   <script src="awards.js"></script>
+  <script src="education-gallery.js"></script>
   <script src="projects.js"></script>
-  <!-- <script src="designs.js"></script> -->
+  <script src="designs.js"></script>
   <script src="chatbot-rules.js"></script>
   <script src="chatbot.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
@@ -712,6 +757,10 @@
     </a>
     <a href="#projects-section" class="side-nav-item" data-nav="projects-section">
       <span class="side-nav-label">Projects</span>
+      <span class="side-nav-dot"></span>
+    </a>
+    <a href="#graphics-section" class="side-nav-item" data-nav="graphics-section">
+      <span class="side-nav-label">Graphics</span>
       <span class="side-nav-dot"></span>
     </a>
     <a href="#certifications"   class="side-nav-item" data-nav="certifications">

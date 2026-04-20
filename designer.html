@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dale Bedania — Software Engineer, UX/UI & Graphic Designer. A full portfolio rendered in editorial, designer-first style." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Dale Bedania — Software Engineer · Designer · Visual Storyteller</title>
+
+  <link rel="icon" type="image/jpeg" href="main.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Manrope:wght@200..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://code.iconify.design/3/iconify.min.js"></script>
+  <link rel="stylesheet" href="designer.css" />
+</head>
+<body>
+
+  <!-- Grain & gradient overlays -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="bg-aurora" aria-hidden="true">
+    <span class="aurora a1"></span>
+    <span class="aurora a2"></span>
+    <span class="aurora a3"></span>
+  </div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="customCursor" aria-hidden="true">
+    <span class="cursor-dot"></span>
+    <span class="cursor-ring"></span>
+    <span class="cursor-label" id="cursorLabel"></span>
+  </div>
+
+  <!-- Scroll progress -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <span class="loader-num" id="loaderNum">0</span>
+      <span class="loader-label">LOADING · DALE BEDANIA · PORTFOLIO · 2026</span>
+    </div>
+    <div class="loader-bar"><span id="loaderBar"></span></div>
+  </div>
+
+  <!-- Top nav -->
+  <header class="nav" id="nav">
+    <a href="#home" class="nav-brand" data-magnetic>
+      <span class="nav-brand-mark">DB</span>
+      <span class="nav-brand-text">Dale Bedania<i>/ Designer Mode</i></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#about" class="nav-link" data-magnetic><span>About</span></a>
+      <a href="#experience" class="nav-link" data-magnetic><span>Experience</span></a>
+      <a href="#services" class="nav-link" data-magnetic><span>Services</span></a>
+      <a href="#stack" class="nav-link" data-magnetic><span>Stack</span></a>
+      <a href="#projects" class="nav-link" data-magnetic><span>Projects</span></a>
+      <a href="#graphics" class="nav-link" data-magnetic><span>Graphics</span></a>
+    </nav>
+    <a href="index.html" class="nav-cta" data-magnetic>
+      <span>Classic view</span>
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+  </header>
+
+  <main>
+
+    <!-- ============================== HERO ============================== -->
+    <section class="hero" id="home">
+      <div class="hero-meta">
+        <span class="meta-dot"></span>
+        <span>Pampanga, PH — <time id="liveClock">--:--</time></span>
+        <span class="meta-divider">·</span>
+        <span class="meta-open">Open to work</span>
+      </div>
+
+      <h1 class="hero-title" aria-label="Software engineer, designer, visual storyteller.">
+        <span class="line">
+          <span class="word">Software</span>
+          <span class="word word--italic">engineer</span>
+        </span>
+        <span class="line">
+          <span class="word">crafting</span>
+          <span class="word word--outline">systems</span>
+        </span>
+        <span class="line">
+          <span class="word">&amp;</span>
+          <span class="word word--italic">visuals.</span>
+        </span>
+      </h1>
+
+      <div class="hero-bottom">
+        <div class="hero-intro">
+          <img src="main.jpg" alt="Dale Bedania portrait" class="hero-avatar" />
+          <p>
+            I'm <b>Dale Bedania</b> — full-stack developer &amp; multidisciplinary designer from Pampanga.
+            I ship production-grade web, mobile, and brand work with the same care for detail on both sides of the screen.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn--primary" data-magnetic data-cursor="view">
+            <span>See the work</span>
+            <i class="fa-solid fa-arrow-down"></i>
+          </a>
+          <a href="#contact" class="btn btn--ghost" data-magnetic data-cursor="write">
+            <span>Start a project</span>
+          </a>
+          <button type="button" id="openCvModal" class="btn btn--ghost" data-magnetic data-cursor="open">
+            <i class="fas fa-file-lines"></i>
+            <span>View CV</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-scroll" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-text">scroll</span>
+      </div>
+    </section>
+
+    <!-- ============================== MARQUEE ============================== -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Full-stack <i class="star">✦</i></span>
+        <span>Laravel <i class="star">✦</i></span>
+        <span>React · Next.js <i class="star">✦</i></span>
+        <span>Mobile <i class="star">✦</i></span>
+        <span>UX/UI <i class="star">✦</i></span>
+        <span>Posters <i class="star">✦</i></span>
+        <span>Brand systems <i class="star">✦</i></span>
+        <span>Automation <i class="star">✦</i></span>
+        <!-- duplicate for seamless loop -->
+        <span>Full-stack <i class="star">✦</i></span>
+        <span>Laravel <i class="star">✦</i></span>
+        <span>React · Next.js <i class="star">✦</i></span>
+        <span>Mobile <i class="star">✦</i></span>
+        <span>UX/UI <i class="star">✦</i></span>
+        <span>Posters <i class="star">✦</i></span>
+        <span>Brand systems <i class="star">✦</i></span>
+        <span>Automation <i class="star">✦</i></span>
+      </div>
+    </section>
+
+    <!-- ============================== ABOUT ============================== -->
+    <section class="about" id="about">
+      <div class="section-head reveal">
+        <span class="section-kicker">(01) — About</span>
+        <h2 class="section-title">Since <em>2015</em><br />building, designing, shipping.</h2>
+      </div>
+
+      <div class="about-grid">
+        <p class="about-copy reveal">
+          Over a decade of writing code, I've gone from a 13-year-old tinkering with HTML to a software engineer who ships production-ready applications.
+          I build full-stack web and mobile solutions with a focus on <b>clean architecture</b>, real-world impact, and experiences that actually work for the people using them.
+        </p>
+        <p class="about-copy reveal">
+          My design work leans <b>editorial</b>: strong type, calm layouts, and details you only catch the second time.
+          Across engineering and graphics, I care about rhythm, hierarchy, and making every frame feel intentional.
+        </p>
+
+        <blockquote class="about-quote reveal">
+          <span class="quote-kw">const</span>
+          <span class="quote-var">quote</span> =
+          <span class="quote-str">"Great software isn't just about writing code — it's about solving problems, creating seamless experiences, and turning ideas into digital reality."</span>;
+          <cite>— Every good developer, ever</cite>
+        </blockquote>
+
+        <ul class="about-stats">
+          <li class="reveal"><b data-count="10">0</b><span>Apps deployed</span></li>
+          <li class="reveal"><b data-count="99">0</b><span>Client satisfaction %</span></li>
+          <li class="reveal"><b data-count="9">0</b><span>Years coding</span></li>
+          <li class="reveal"><b data-count="40">0</b><span>Visuals shipped</span></li>
+        </ul>
+      </div>
+
+      <!-- Education + Awards -->
+      <div class="edu-awards">
+        <article class="edu-card reveal">
+          <img src="haulogo.png" alt="Holy Angel University logo" class="edu-logo" />
+          <div class="edu-body">
+            <p class="edu-meta">Holy Angel University · Class of 2025</p>
+            <h3 class="edu-degree">Bachelor of Science<br />in Information Technology</h3>
+            <p class="edu-track">Specialization: Web Development</p>
+          </div>
+          <span class="edu-corner">01</span>
+        </article>
+
+        <div class="awards-list reveal" id="awardsList"></div>
+      </div>
+    </section>
+
+    <!-- ============================== EXPERIENCE ============================== -->
+    <section class="experience" id="experience">
+      <div class="section-head reveal">
+        <span class="section-kicker">(02) — Experience</span>
+        <h2 class="section-title">A short <em>timeline</em>.</h2>
+      </div>
+
+      <ol class="roadmap" id="roadmap"></ol>
+    </section>
+
+    <!-- ============================== SERVICES ============================== -->
+    <section class="services" id="services">
+      <div class="section-head reveal">
+        <span class="section-kicker">(03) — Services</span>
+        <h2 class="section-title">What I can <em>make</em> for you.</h2>
+      </div>
+
+      <ul class="service-list" id="serviceList"></ul>
+    </section>
+
+    <!-- ============================== STACK ============================== -->
+    <section class="stack" id="stack">
+      <div class="section-head reveal">
+        <span class="section-kicker">(04) — Stack</span>
+        <h2 class="section-title">Tools &amp; <em>tech</em> I use.</h2>
+      </div>
+
+      <div class="stack-groups" id="stackGroups">
+
+        <article class="stack-group reveal">
+          <h3 class="stack-label"><span>AI &amp; Dev Tools</span></h3>
+          <div class="stack-chips">
+            <span class="stack-chip"><span id="cursor"></span><p>Cursor</p></span>
+            <span class="stack-chip"><span id="chatgpt"></span><p>ChatGPT</p></span>
+            <span class="stack-chip"><span id="claude"></span><p>Claude</p></span>
+            <span class="stack-chip"><span id="gemini"></span><p>Gemini</p></span>
+          </div>
+        </article>
+
+        <article class="stack-group reveal">
+          <h3 class="stack-label"><span>Frontend</span></h3>
+          <div class="stack-chips">
+            <span class="stack-chip"><span id="javascript"></span><p>JavaScript</p></span>
+            <span class="stack-chip"><span id="typescript"></span><p>TypeScript</p></span>
+            <span class="stack-chip"><span id="react"></span><p>React.js</p></span>
+            <span class="stack-chip"><span id="nextjs"></span><p>Next.js</p></span>
+            <span class="stack-chip"><span id="vuejs"></span><p>Vue.js</p></span>
+            <span class="stack-chip"><span id="angular"></span><p>Angular</p></span>
+            <span class="stack-chip"><span id="inertia"></span><p>Inertia.js</p></span>
+            <span class="stack-chip"><span id="tailwind"></span><p>Tailwind CSS</p></span>
+            <span class="stack-chip"><span id="bootstrap"></span><p>Bootstrap</p></span>
+            <span class="stack-chip"><span id="shadcn"></span><p>shadcn/ui</p></span>
+            <span class="stack-chip"><span id="materialui"></span><p>Material UI</p></span>
+          </div>
+        </article>
+
+        <article class="stack-group reveal">
+          <h3 class="stack-label"><span>Mobile</span></h3>
+          <div class="stack-chips">
+            <span class="stack-chip"><span id="reactnative"></span><p>React Native</p></span>
+            <span class="stack-chip"><span id="flutter"></span><p>Flutter</p></span>
+            <span class="stack-chip"><span id="dart"></span><p>Dart</p></span>
+            <span class="stack-chip"><span id="swift"></span><p>Swift</p></span>
+          </div>
+        </article>
+
+        <article class="stack-group reveal">
+          <h3 class="stack-label"><span>Backend</span></h3>
+          <div class="stack-chips">
+            <span class="stack-chip"><span id="nodejs"></span><p>Node.js</p></span>
+            <span class="stack-chip"><span id="expressjs"></span><p>Express.js</p></span>
+            <span class="stack-chip"><span id="php"></span><p>PHP</p></span>
+            <span class="stack-chip"><span id="laravel"></span><p>Laravel</p></span>
+            <span class="stack-chip"><span id="python"></span><p>Python</p></span>
+            <span class="stack-chip"><span id="django"></span><p>Django</p></span>
+            <span class="stack-chip"><span id="java"></span><p>Java</p></span>
+            <span class="stack-chip"><span id="dotnet"></span><p>.NET</p></span>
+            <span class="stack-chip"><span id="csharp"></span><p>C#</p></span>
+            <span class="stack-chip"><span id="cplusplus"></span><p>C++</p></span>
+            <span class="stack-chip"><span id="socketio"></span><p>Socket.io</p></span>
+            <span class="stack-chip"><span id="visualbasic"></span><p>Visual Basic</p></span>
+          </div>
+        </article>
+
+        <article class="stack-group reveal">
+          <h3 class="stack-label"><span>Database &amp; Cloud</span></h3>
+          <div class="stack-chips">
+            <span class="stack-chip"><span id="mysql"></span><p>MySQL</p></span>
+            <span class="stack-chip"><span id="postgresql"></span><p>PostgreSQL</p></span>
+            <span class="stack-chip"><span id="mongodb"></span><p>MongoDB</p></span>
+            <span class="stack-chip"><span id="supabase"></span><p>Supabase</p></span>
+            <span class="stack-chip"><span id="firebase"></span><p>Firebase</p></span>
+            <span class="stack-chip"><span id="aws"></span><p>AWS</p></span>
+            <span class="stack-chip"><span id="azure"></span><p>Azure</p></span>
+            <span class="stack-chip"><span id="hostinger"></span><p>Hostinger</p></span>
+            <span class="stack-chip"><span id="vercel"></span><p>Vercel</p></span>
+            <span class="stack-chip"><span id="netlify"></span><p>Netlify</p></span>
+          </div>
+        </article>
+
+        <article class="stack-group reveal">
+          <h3 class="stack-label"><span>Design</span></h3>
+          <div class="stack-chips">
+            <span class="stack-chip"><span id="figma"></span><p>Figma</p></span>
+            <span class="stack-chip"><span id="canva"></span><p>Canva</p></span>
+            <span class="stack-chip"><span id="photoshop"></span><p>Photoshop</p></span>
+            <span class="stack-chip"><span id="illustrator"></span><p>Illustrator</p></span>
+            <span class="stack-chip"><span id="premiere"></span><p>Premiere Pro</p></span>
+            <span class="stack-chip"><span id="filmora"></span><p>Filmora</p></span>
+          </div>
+        </article>
+
+        <article class="stack-group reveal">
+          <h3 class="stack-label"><span>Platforms &amp; CMS</span></h3>
+          <div class="stack-chips">
+            <span class="stack-chip"><span id="wordpress"></span><p>WordPress</p></span>
+            <span class="stack-chip"><span id="shopify"></span><p>Shopify</p></span>
+          </div>
+        </article>
+
+        <article class="stack-group reveal">
+          <h3 class="stack-label"><span>Automation &amp; Integrations</span></h3>
+          <div class="stack-chips">
+            <span class="stack-chip"><span id="postman"></span><p>Postman</p></span>
+            <span class="stack-chip"><span id="jira"></span><p>Jira</p></span>
+            <span class="stack-chip"><span id="zapier"></span><p>Zapier</p></span>
+            <span class="stack-chip"><span id="n8n"></span><p>n8n</p></span>
+            <span class="stack-chip"><span id="stripe"></span><p>Stripe</p></span>
+            <span class="stack-chip"><span id="twilio"></span><p>Twilio</p></span>
+            <span class="stack-chip"><span id="clio"></span><p>Clio</p></span>
+          </div>
+        </article>
+
+        <article class="stack-group reveal">
+          <h3 class="stack-label"><span>Other Languages</span></h3>
+          <div class="stack-chips">
+            <span class="stack-chip"><span id="solidity"></span><p>Solidity</p></span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============================== PROJECTS (DEV) ============================== -->
+    <section class="projects" id="projects">
+      <div class="section-head reveal">
+        <span class="section-kicker">(05) — Projects</span>
+        <h2 class="section-title">Websites &amp; <em>apps</em> I've built.</h2>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid"></div>
+    </section>
+
+    <!-- ============================== FEATURED GRAPHICS RAIL ============================== -->
+    <section class="featured" id="graphics">
+      <div class="section-head reveal">
+        <span class="section-kicker">(06) — Selected Graphics</span>
+        <h2 class="section-title">Design <em>highlights</em>.</h2>
+      </div>
+
+      <div class="feature-rail-wrap">
+        <div class="feature-rail" id="featureRail" data-cursor="drag"></div>
+        <p class="feature-hint">
+          <i class="fa-solid fa-arrows-left-right"></i> drag / scroll horizontally
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================== ARCHIVE / BENTO ============================== -->
+    <section class="works" id="archive">
+      <div class="section-head reveal">
+        <span class="section-kicker">(07) — Archive</span>
+        <h2 class="section-title">The <em>full</em> collection.</h2>
+      </div>
+
+      <div class="filters reveal" id="filters">
+        <button class="chip is-active" data-filter="all">All</button>
+        <button class="chip" data-filter="poster">Posters</button>
+        <button class="chip" data-filter="social">Social</button>
+        <button class="chip" data-filter="brand">Brand</button>
+        <button class="chip" data-filter="editorial">Editorial</button>
+      </div>
+
+      <div class="bento" id="bento"></div>
+    </section>
+
+    <!-- ============================== EDUCATION GALLERY ============================== -->
+    <section class="edu-gallery-section" id="education-gallery">
+      <div class="section-head reveal">
+        <span class="section-kicker">(08) — Moments</span>
+        <h2 class="section-title">Life at <em>HAU</em>.</h2>
+      </div>
+
+      <div class="edu-gallery" id="eduGallery">
+        <div class="edu-gallery-track" id="eduGalleryTrack">
+          <figure class="edu-slide"><img src="works/gallery/2.png" alt="University moment 1" loading="lazy" /></figure>
+          <figure class="edu-slide"><img src="works/gallery/3.png" alt="University moment 2" loading="lazy" /></figure>
+          <figure class="edu-slide"><img src="works/gallery/2.jpg" alt="University moment 3" loading="lazy" /></figure>
+          <figure class="edu-slide"><img src="works/gallery/1.jpg" alt="University moment 4" loading="lazy" /></figure>
+          <!-- duplicated for seamless loop -->
+          <figure class="edu-slide"><img src="works/gallery/2.png" alt="" aria-hidden="true" loading="lazy" /></figure>
+          <figure class="edu-slide"><img src="works/gallery/3.png" alt="" aria-hidden="true" loading="lazy" /></figure>
+          <figure class="edu-slide"><img src="works/gallery/2.jpg" alt="" aria-hidden="true" loading="lazy" /></figure>
+          <figure class="edu-slide"><img src="works/gallery/1.jpg" alt="" aria-hidden="true" loading="lazy" /></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CTA ============================== -->
+    <section class="cta" id="contact">
+      <h2 class="cta-title reveal">
+        <span>Let's make something</span>
+        <span class="cta-italic">unforgettable.</span>
+      </h2>
+
+      <a href="mailto:dale.bedania10@gmail.com" class="cta-mail reveal" data-magnetic data-cursor="write">
+        dale.bedania10@gmail.com
+        <i class="fa-solid fa-arrow-up-right"></i>
+      </a>
+
+      <div class="cta-socials reveal">
+        <a href="https://instagram.com/bedaniadale" target="_blank" rel="noopener noreferrer" data-magnetic><i class="fa-brands fa-instagram"></i><span>Instagram</span></a>
+        <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" data-magnetic><i class="fa-brands fa-facebook"></i><span>Facebook</span></a>
+        <a href="https://linkedin.com/in/dale-bedania" target="_blank" rel="noopener noreferrer" data-magnetic><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>
+        <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer" data-magnetic><i class="fa-brands fa-github"></i><span>GitHub</span></a>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="foot-top">
+        <span>© 2026 Dale Bedania · All works self-authored.</span>
+        <a href="#home" class="foot-top-btn" data-magnetic>Back to top <i class="fa-solid fa-arrow-up"></i></a>
+      </div>
+      <div class="foot-big" aria-hidden="true">DALE·BEDANIA</div>
+    </footer>
+
+  </main>
+
+  <!-- ====== Lightbox (graphics) ====== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <button class="lightbox-nav lightbox-nav--prev" id="lightboxPrev" aria-label="Previous"><i class="fa-solid fa-arrow-left"></i></button>
+    <button class="lightbox-nav lightbox-nav--next" id="lightboxNext" aria-label="Next"><i class="fa-solid fa-arrow-right"></i></button>
+    <figure class="lightbox-stage">
+      <img id="lightboxImg" alt="" />
+      <figcaption id="lightboxCap"></figcaption>
+    </figure>
+  </div>
+
+  <!-- ====== Project Modal ====== -->
+  <div class="project-modal" id="projectModal" aria-hidden="true">
+    <div class="project-modal-backdrop" data-close-project></div>
+    <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+      <div class="project-modal-header">
+        <h3 id="projectModalTitle">Project Details</h3>
+        <button type="button" id="closeProjectModal" class="btn btn--ghost btn--sm" data-magnetic>Close</button>
+      </div>
+      <div class="project-modal-body" id="projectModalBody"></div>
+    </div>
+  </div>
+
+  <!-- ====== CV Modal ====== -->
+  <div class="cv-modal" id="cvModal" aria-hidden="true">
+    <div class="cv-modal-backdrop" data-close-cv></div>
+    <div class="cv-modal-panel" role="dialog" aria-modal="true" aria-labelledby="cvModalTitle">
+      <div class="cv-modal-header">
+        <h3 id="cvModalTitle">Curriculum Vitae</h3>
+        <div class="cv-modal-actions">
+          <a href="works/Bedania_CVFormal.pdf" target="_blank" rel="noopener noreferrer" download class="btn btn--primary btn--sm" data-magnetic>
+            <i class="fas fa-download"></i>
+            <span>Download</span>
+          </a>
+          <button type="button" id="closeCvModal" class="btn btn--ghost btn--sm" data-magnetic>Close</button>
+        </div>
+      </div>
+      <div class="cv-modal-body">
+        <iframe src="works/Bedania_CVFormal.pdf#toolbar=1&navpanes=0" title="Dale Bedania CV PDF preview"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <!-- Shared tech-icon loader (provides HTML fragments for tech chips) -->
+  <script src="techstacks.js"></script>
+  <script src="designer.js"></script>
+</body>
+</html>
