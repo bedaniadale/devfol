@@ -213,7 +213,7 @@
     }, TYPING_DELAY_MS);
   }
 
-  var GEMINI_API_KEY = 'AIzaSyDuR2sGSBEI_jM7Vj5JGsmfr9RqwYmw8fM'; // Paste your Google AI Studio API key here
+  var GEMINI_API_KEY = ''; // Paste your Google AI Studio API key here
 
   async function handleSend() {
     var input = document.getElementById('faqChatInput');
