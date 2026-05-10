@@ -231,8 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Lenis smooth scroll — falls back to native if unavailable or reduced-motion */
   if (!prefersReducedMotion && typeof Lenis !== 'undefined') {
     var lenis = new Lenis({
-      duration: 1.2,
-      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      lerp: 0.1, /* more responsive than fixed duration */
       smoothWheel: true,
       syncTouch: false, /* keep native inertia on touch screens */
     });

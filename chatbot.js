@@ -118,23 +118,23 @@
     var parts = [opener + ' Try a quick topic below, or reach out directly.'];
     parts.push(
       '<br><br><strong>Contact:</strong> <a href="mailto:' +
-        escapeHtml(m.email || '') +
-        '">' +
-        escapeHtml(m.email || '') +
-        '</a>'
+      escapeHtml(m.email || '') +
+      '">' +
+      escapeHtml(m.email || '') +
+      '</a>'
     );
     if (m.linkedin) {
       parts.push(
         ' · <a href="' +
-          escapeHtml(m.linkedin) +
-          '" target="_blank" rel="noopener noreferrer">LinkedIn</a>'
+        escapeHtml(m.linkedin) +
+        '" target="_blank" rel="noopener noreferrer">LinkedIn</a>'
       );
     }
     if (m.github) {
       parts.push(
         ' · <a href="' +
-          escapeHtml(m.github) +
-          '" target="_blank" rel="noopener noreferrer">GitHub</a>'
+        escapeHtml(m.github) +
+        '" target="_blank" rel="noopener noreferrer">GitHub</a>'
       );
     }
     if (m.availability) {
@@ -162,9 +162,9 @@
   function buildContextBridge(ruleId) {
     var bridges = {
       projects: { needs: ['skills'], text: 'Since you already know his stack — ' },
-      skills:   { needs: ['experience'], text: 'To go with that experience — ' },
-      hiring:   { needs: ['contact'], text: "You already have his contact details, so — " },
-      contact:  { needs: ['hiring'], text: 'Good timing — ' },
+      skills: { needs: ['experience'], text: 'To go with that experience — ' },
+      hiring: { needs: ['contact'], text: "You already have his contact details, so — " },
+      contact: { needs: ['hiring'], text: 'Good timing — ' },
     };
     var bridge = bridges[ruleId];
     if (!bridge) return '';
@@ -213,7 +213,9 @@
     }, TYPING_DELAY_MS);
   }
 
-  function handleSend() {
+  var GEMINI_API_KEY = 'AIzaSyDuR2sGSBEI_jM7Vj5JGsmfr9RqwYmw8fM'; // Paste your Google AI Studio API key here
+
+  async function handleSend() {
     var input = document.getElementById('faqChatInput');
     var log = document.getElementById('faqChatLog');
     if (!input || !log) return;
@@ -224,21 +226,65 @@
     appendBubble(log, 'user', escapeHtml(text), false);
     input.value = '';
 
-    var matched = matchRule(text);
-    var answer;
-    if (matched && matched.rule) {
-      var ruleId = matched.rule.id;
-      var alreadyAsked = sessionTopics.indexOf(ruleId) !== -1;
-      var bridge = alreadyAsked ? '' : buildContextBridge(ruleId);
+    // Show typing indicator
+    var row = document.createElement('div');
+    row.className = 'faq-chat-msg faq-chat-msg--bot';
+    var bubble = document.createElement('div');
+    bubble.className = 'faq-chat-bubble faq-chat-bubble--typing';
+    bubble.innerHTML =
+      '<span class="faq-typing-dot"></span>' +
+      '<span class="faq-typing-dot"></span>' +
+      '<span class="faq-typing-dot"></span>';
+    row.appendChild(bubble);
+    log.appendChild(row);
+    log.scrollTop = log.scrollHeight;
 
-      answer = bridge + pickAnswer(matched.rule);
-
-      if (!alreadyAsked) sessionTopics.push(ruleId);
-    } else {
-      answer = buildFallbackAnswer();
+    if (!GEMINI_API_KEY) {
+      setTimeout(function () {
+        bubble.className = 'faq-chat-bubble';
+        bubble.innerHTML = '<strong>Gemini is disabled:</strong> Please add your free API key from Google AI Studio to <code>chatbot.js</code> to enable the AI assistant! For now, here is my contact info: <br><br>' + buildFallbackAnswer();
+        log.scrollTop = log.scrollHeight;
+      }, 500);
+      return;
     }
 
-    showTypingThenAnswer(log, answer);
+    try {
+      var systemPrompt = "You are a helpful AI assistant for Dale Bedania's portfolio website. Keep answers short, friendly, and concise. Format your response in HTML (use <strong>, <br>, <a>, etc, DO NOT USE MARKDOWN). Rely ONLY on the following facts about Dale:\\n";
+      var rules = getRules();
+      for (var i = 0; i < rules.length; i++) {
+        systemPrompt += "- " + (rules[i].answers[0] || rules[i].answer) + "\\n";
+      }
+
+      var response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + GEMINI_API_KEY, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemPrompt }] },
+          contents: [{ parts: [{ text: text }] }]
+        })
+      });
+
+      var data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
+
+      var answer = data.candidates[0].content.parts[0].text;
+
+      // Clean up markdown code blocks if the model accidentally returns them
+      answer = answer.replace(/```html/g, '').replace(/```/g, '');
+
+      bubble.className = 'faq-chat-bubble';
+      bubble.innerHTML = answer;
+      log.scrollTop = log.scrollHeight;
+
+    } catch (e) {
+      console.error('Gemini API Error:', e);
+      bubble.className = 'faq-chat-bubble';
+      bubble.innerHTML = buildFallbackAnswer();
+      log.scrollTop = log.scrollHeight;
+    }
   }
 
   function initChips() {

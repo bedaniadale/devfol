@@ -22,24 +22,24 @@
     var jumping = false;
 
     if (realCount >= 2) {
-      var cloneLast = originals[realCount - 1].cloneNode(true);
-      var cloneFirst = originals[0].cloneNode(true);
-      cloneLast.classList.add('education-gallery__slide--clone');
-      cloneFirst.classList.add('education-gallery__slide--clone');
-      cloneLast.setAttribute('aria-hidden', 'true');
-      cloneFirst.setAttribute('aria-hidden', 'true');
-      var imCl = cloneLast.querySelector('img');
-      var imCf = cloneFirst.querySelector('img');
-      if (imCl) {
-        imCl.alt = '';
-        imCl.setAttribute('aria-hidden', 'true');
-      }
-      if (imCf) {
-        imCf.alt = '';
-        imCf.setAttribute('aria-hidden', 'true');
-      }
-      scroller.insertBefore(cloneLast, originals[0]);
-      scroller.appendChild(cloneFirst);
+      // Clone all items for the end
+      originals.forEach(function (el) {
+        var clone = el.cloneNode(true);
+        clone.classList.add('education-gallery__slide--clone');
+        clone.setAttribute('aria-hidden', 'true');
+        var img = clone.querySelector('img');
+        if (img) { img.alt = ''; img.setAttribute('aria-hidden', 'true'); }
+        scroller.appendChild(clone);
+      });
+      // Clone all items for the beginning
+      originals.forEach(function (el) {
+        var clone = el.cloneNode(true);
+        clone.classList.add('education-gallery__slide--clone');
+        clone.setAttribute('aria-hidden', 'true');
+        var img = clone.querySelector('img');
+        if (img) { img.alt = ''; img.setAttribute('aria-hidden', 'true'); }
+        scroller.insertBefore(clone, originals[0]);
+      });
       slides = Array.prototype.slice.call(scroller.querySelectorAll('.education-gallery__slide'));
     }
 
@@ -51,14 +51,12 @@
     var MARQUEE_SPEED = 0.5;
 
     function domIndexForLogical(L) {
-      return realCount >= 2 ? L + 1 : L;
+      return realCount >= 2 ? L + realCount : L;
     }
 
     function logicalFromDomIndex(di) {
       if (realCount < 2) return di;
-      if (di === 0) return realCount - 1;
-      if (di === slides.length - 1) return 0;
-      return di - 1;
+      return ((di % realCount) + realCount) % realCount;
     }
 
     function scrollSlideToView(index, behavior) {
@@ -89,27 +87,30 @@
       });
     }
 
+    function jumpToDi(targetDi) {
+      jumping = true;
+      scroller.style.scrollBehavior = 'auto'; // override CSS smooth scrolling
+      scrollSlideToView(targetDi, 'auto');
+      activeLogical = logicalFromDomIndex(targetDi);
+      // Wait a frame before restoring smooth behavior and clearing jumping flag
+      requestAnimationFrame(function () {
+        scroller.style.scrollBehavior = '';
+        jumping = false;
+        updateDots();
+      });
+    }
+
     function maybeUnjumpClone() {
       if (realCount < 2 || jumping) return;
       var di = centeredDomIndex();
-      if (di === 0) {
-        jumping = true;
-        scrollSlideToView(realCount, 'auto');
-        activeLogical = realCount - 1;
-        requestAnimationFrame(function () {
-          jumping = false;
-          updateDots();
-        });
-        return;
+      
+      // If we've scrolled into the prepended clones at the beginning
+      if (di < realCount) {
+        jumpToDi(di + realCount);
       }
-      if (di === slides.length - 1) {
-        jumping = true;
-        scrollSlideToView(1, 'auto');
-        activeLogical = 0;
-        requestAnimationFrame(function () {
-          jumping = false;
-          updateDots();
-        });
+      // If we've scrolled into the appended clones at the end
+      else if (di >= 2 * realCount) {
+        jumpToDi(di - realCount);
       }
     }
 
@@ -147,37 +148,17 @@
     }
 
     function goPrev() {
-      if (realCount < 2) {
-        scrollToLogical(activeLogical - 1);
-        return;
-      }
-      if (activeLogical === 0) {
-        jumping = true;
-        scrollSlideToView(0, scrollSmooth);
-        activeLogical = realCount - 1;
-        updateDots();
-        jumping = false;
-        scheduleEdgeJump();
-      } else {
-        scrollToLogical(activeLogical - 1);
-      }
+      if (realCount < 2) return;
+      var current = centeredDomIndex();
+      scrollSlideToView(current - 1, scrollSmooth);
+      scheduleEdgeJump();
     }
 
     function goNext() {
-      if (realCount < 2) {
-        scrollToLogical(activeLogical + 1);
-        return;
-      }
-      if (activeLogical === realCount - 1) {
-        jumping = true;
-        scrollSlideToView(slides.length - 1, scrollSmooth);
-        activeLogical = 0;
-        updateDots();
-        jumping = false;
-        scheduleEdgeJump();
-      } else {
-        scrollToLogical(activeLogical + 1);
-      }
+      if (realCount < 2) return;
+      var current = centeredDomIndex();
+      scrollSlideToView(current + 1, scrollSmooth);
+      scheduleEdgeJump();
     }
 
     var scrollT = null;
@@ -262,7 +243,7 @@
         requestAnimationFrame(function () {
           requestAnimationFrame(function () {
             jumping = true;
-            scrollSlideToView(1, 'auto');
+            scrollSlideToView(realCount, 'auto');
             activeLogical = 0;
             jumping = false;
             updateDots();

@@ -26,91 +26,115 @@
   // ---------- Graphics works (bento + featured rail) ----------
   const GRAPHICS_BASE = 'works/graphics/';
   const WORKS = [
-    { f: 'dalefuture.png',                                   title: 'Future Self',        tag: 'poster',    featured: true  },
-    { f: 'flowg.png',                                        title: 'Flow',               tag: 'editorial', featured: true  },
-    { f: 'finalmem.png',                                     title: 'Final Memory',       tag: 'poster',    featured: true  },
-    { f: 'welcomeback2.webp',                                title: 'Welcome Back',       tag: 'social',    featured: true  },
-    { f: 'meetourteam-2.webp',                               title: 'Meet Our Team',      tag: 'social',    featured: true  },
-    { f: 'bday_dale2-1.png',                                 title: 'Birthday Campaign',  tag: 'social',    featured: true  },
-    { f: 'dp2022.webp',                                      title: 'DP 2022',            tag: 'brand',     featured: true  },
-    { f: 'artboard-1-100-1.webp',                            title: 'Artboard 01',        tag: 'brand',     featured: false },
-    { f: 'artboard-4-100.webp',                              title: 'Artboard 04',        tag: 'brand',     featured: false },
-    { f: 'artboard-5-100.webp',                              title: 'Artboard 05',        tag: 'brand',     featured: false },
-    { f: 'artboard-6-100.webp',                              title: 'Artboard 06',        tag: 'brand',     featured: false },
-    { f: 'artboard-7-100.webp',                              title: 'Artboard 07',        tag: 'brand',     featured: false },
-    { f: '1.webp',                                           title: 'Study 01',           tag: 'editorial', featured: false },
-    { f: 'efef475b-ec17-4a13-a5f2-e7ae1156aadc.jpg',         title: 'Composition I',      tag: 'editorial', featured: false },
-    { f: '0ad9042b-41b8-4ee9-9d65-26750ee28ef1.jpg',         title: 'Composition II',     tag: 'editorial', featured: false },
-    { f: '3e157134-d079-4d2f-8b8c-c27f78568f34.jpg',         title: 'Composition III',    tag: 'editorial', featured: false },
-    { f: '1dfa30eb-1346-44e0-bfa1-c30dee95e6ea.jpg',         title: 'Composition IV',     tag: 'editorial', featured: false },
-    { f: '12563e67-865d-4b29-9acc-3b61e809185d.jpg',         title: 'Poster V',           tag: 'poster',    featured: false },
-    { f: '42ef1801-b6a4-4aa4-9f7e-82db6b1bd601.jpg',         title: 'Poster VI',          tag: 'poster',    featured: false },
-    { f: 'ddba4cc9-8b30-4c7a-ac56-6956d3c9cbc8.jpg',         title: 'Social VII',         tag: 'social',    featured: false },
-    { f: 'ad0ea7ce-fc3c-425b-8ce0-f2fc74a1a9f0.jpg',         title: 'Social VIII',        tag: 'social',    featured: false },
-    { f: '6e6deef8-be3e-44d6-8bb6-2b4c061dfad1.jpg',         title: 'Layout IX',          tag: 'editorial', featured: false },
-    { f: '8a8780cf-2862-4c52-992d-1f24f2c2f7f6.jpg',         title: 'Layout X',           tag: 'editorial', featured: false },
-    { f: 'f4d3219f-d45b-4d1c-9b16-89f0fce7bc8b.jpg',         title: 'Layout XI',          tag: 'editorial', featured: false },
+    { f: 'dalefuture.png', title: 'Future Self', tag: 'poster', featured: true },
+    { f: 'flowg.png', title: 'Flow', tag: 'editorial', featured: true },
+    { f: 'finalmem.png', title: 'Final Memory', tag: 'poster', featured: true },
+    { f: 'welcomeback2.webp', title: 'Welcome Back', tag: 'social', featured: true },
+    { f: 'meetourteam-2.webp', title: 'Meet Our Team', tag: 'social', featured: true },
+    { f: 'bday_dale2-1.png', title: 'Birthday Campaign', tag: 'social', featured: true },
+    { f: 'dp2022.webp', title: 'DP 2022', tag: 'brand', featured: true },
+    { f: 'artboard-1-100-1.webp', title: 'Artboard 01', tag: 'brand', featured: false },
+    { f: 'artboard-4-100.webp', title: 'Artboard 04', tag: 'brand', featured: false },
+    { f: 'artboard-5-100.webp', title: 'Artboard 05', tag: 'brand', featured: false },
+    { f: 'artboard-6-100.webp', title: 'Artboard 06', tag: 'brand', featured: false },
+    { f: 'artboard-7-100.webp', title: 'Artboard 07', tag: 'brand', featured: false },
+    { f: '1.webp', title: 'Study 01', tag: 'editorial', featured: false },
+    { f: 'efef475b-ec17-4a13-a5f2-e7ae1156aadc.jpg', title: 'Composition I', tag: 'editorial', featured: false },
+    { f: '0ad9042b-41b8-4ee9-9d65-26750ee28ef1.jpg', title: 'Composition II', tag: 'editorial', featured: false },
+    { f: '3e157134-d079-4d2f-8b8c-c27f78568f34.jpg', title: 'Composition III', tag: 'editorial', featured: false },
+    { f: '1dfa30eb-1346-44e0-bfa1-c30dee95e6ea.jpg', title: 'Composition IV', tag: 'editorial', featured: false },
+    { f: '12563e67-865d-4b29-9acc-3b61e809185d.jpg', title: 'Poster V', tag: 'poster', featured: false },
+    { f: '42ef1801-b6a4-4aa4-9f7e-82db6b1bd601.jpg', title: 'Poster VI', tag: 'poster', featured: false },
+    { f: 'ddba4cc9-8b30-4c7a-ac56-6956d3c9cbc8.jpg', title: 'Social VII', tag: 'social', featured: false },
+    { f: 'ad0ea7ce-fc3c-425b-8ce0-f2fc74a1a9f0.jpg', title: 'Social VIII', tag: 'social', featured: false },
+    { f: '6e6deef8-be3e-44d6-8bb6-2b4c061dfad1.jpg', title: 'Layout IX', tag: 'editorial', featured: false },
+    { f: '8a8780cf-2862-4c52-992d-1f24f2c2f7f6.jpg', title: 'Layout X', tag: 'editorial', featured: false },
+    { f: 'f4d3219f-d45b-4d1c-9b16-89f0fce7bc8b.jpg', title: 'Layout XI', tag: 'editorial', featured: false },
   ].map((w) => Object.assign({}, w, { src: GRAPHICS_BASE + w.f }));
 
   // ---------- Dev projects ----------
   const PROJECTS = [
-    { title:'Holy Angel University IDMO Employee Portal', desc:'Employee Portal for Holy Angel University, streamlining HR processes and data management.',
-      img:'works/hauoieidmo.png', site:'hau-oie-idmo.com', role:['Full-Stack Developer','UX/UI Designer'], langs:['Laravel','Tailwind CSS','MySQL','Hostinger'] },
-    { title:'Kayantabe', desc:'A dynamic volunteerism web platform designed to connect passionate individuals with local community initiatives.',
-      img:'works/kayantabe.png', site:'kayantabe.com', role:['Full-Stack Developer','Project Lead'], langs:['Laravel','Tailwind CSS','MySQL','Hostinger'] },
-    { title:'Umbra', desc:'A web application that connects students and parents with nearby tutors. It offers a seamless platform for finding, booking, and managing tutoring sessions.',
-      img:'works/umbra.png', site:'umbra-app.com', role:['Full-Stack Developer','UX/UI Designer'], langs:['Laravel','Tailwind CSS','MySQL','Hostinger'] },
-    { title:'Pina Management CMS', desc:'Custom CMS portal for a real estate company — property listings, client records, and transactions. Focused on streamlining workflows and a user-friendly interface.',
-      img:'works/pina.png', site:'In progress', role:['Database Administrator','Full-Stack Developer'], langs:['React','Supabase'] },
-    { title:'SPUR Landing Page', desc:'Responsive landing page showcasing the SPUR mobile app. Modern, engaging layout aligned with the brand to drive interest and downloads.',
-      img:'works/joinspur.png', site:'joinspurapp.com', role:['UX/UI Designer','Full-Stack Developer'], langs:['Laravel','Tailwind CSS','MySQL','Hostinger'] },
-    { title:'SPUR Mobile App', desc:'Location-based app connecting you with people who share your passion for sports and fitness. Match by skill, find local events, build your squad.',
-      img:'works/spurapp.png', site:'In progress', role:['Mobile Developer','UX/UI Designer'], langs:['React Native','Javascript','Firebase'] },
-    { title:'The Zepatide', desc:'Professional website establishing a strong brand identity for medical-grade products. Clean, trustworthy design that communicates quality.',
-      img:'works/zepatide.png', site:'thezepatide.com', role:['UX/UI Designer','Front-end Developer'], langs:['Laravel','Tailwind CSS','Hostinger'] },
-    { title:'IMMFI', desc:'Modern, user-friendly layout using updated design principles and front-end technologies. Enhanced UX while maintaining brand identity.',
-      img:'works/immfi.png', site:'immfi.org', role:['UX/UI Designer','Front-end Developer'], langs:['Wordpress','Elementor'] },
-    { title:'Connect4 by Dale', desc:'A browser-based Connect Four game with two-player drop logic, win detection, and a clean responsive layout — vanilla JavaScript.',
-      img:'works/connect4.png', site:'bedaniadale.github.io/daleconnect4', role:['Full-Stack Developer'], langs:['HTML','CSS','Javascript'] },
-    { title:'GitHub DevFinder', desc:'Frontend challenge app that searches GitHub users and displays profile details from the GitHub API — accessible layout, loading states, and API handling.',
-      img:'works/devfinder.png', site:'bedaniadale.github.io/devfinder', role:['Full-Stack Developer'], langs:['HTML','CSS','Javascript'] },
-    { title:'ResumeForge', desc:'Fill in your details once — ResumeForge generates a polished, ATS-friendly resume PDF styled after the iconic Harvard format.',
-      img:'works/resumeforge.png', site:'In progress', role:['Full-Stack Developer','UX/UI Designer'], langs:['React','Node.js','Tailwind CSS','PDF Generation'] },
-    { title:'ZoneBridge', desc:'Drop a pin on any city or GPS coordinate and instantly see the exact time gap between it and anywhere else in the world.',
-      img:'works/zonebridge.png', site:'In progress', role:['Full-Stack Developer','UX/UI Designer'], langs:['React','Tailwind CSS','Mapbox GL','Javascript'] },
+    {
+      title: 'Holy Angel University IDMO Employee Portal', desc: 'Employee Portal for Holy Angel University, streamlining HR processes and data management.',
+      img: 'works/hauoieidmo.png', site: 'hau-oie-idmo.com', role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger']
+    },
+    {
+      title: 'Kayantabe', desc: 'A dynamic volunteerism web platform designed to connect passionate individuals with local community initiatives.',
+      img: 'works/kayantabe.png', site: 'kayantabe.com', role: ['Full-Stack Developer', 'Project Lead'], langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger']
+    },
+    {
+      title: 'Umbra', desc: 'A web application that connects students and parents with nearby tutors. It offers a seamless platform for finding, booking, and managing tutoring sessions.',
+      img: 'works/umbra.png', site: 'umbra-app.com', role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger']
+    },
+    {
+      title: 'Pina Management CMS', desc: 'Custom CMS portal for a real estate company — property listings, client records, and transactions. Focused on streamlining workflows and a user-friendly interface.',
+      img: 'works/pina.png', site: 'In progress', role: ['Database Administrator', 'Full-Stack Developer'], langs: ['React', 'Supabase']
+    },
+    {
+      title: 'SPUR Landing Page', desc: 'Responsive landing page showcasing the SPUR mobile app. Modern, engaging layout aligned with the brand to drive interest and downloads.',
+      img: 'works/joinspur.png', site: 'joinspurapp.com', role: ['UX/UI Designer', 'Full-Stack Developer'], langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger']
+    },
+    {
+      title: 'SPUR Mobile App', desc: 'Location-based app connecting you with people who share your passion for sports and fitness. Match by skill, find local events, build your squad.',
+      img: 'works/spurapp.png', site: 'In progress', role: ['Mobile Developer', 'UX/UI Designer'], langs: ['React Native', 'Javascript', 'Firebase']
+    },
+    {
+      title: 'The Zepatide', desc: 'Professional website establishing a strong brand identity for medical-grade products. Clean, trustworthy design that communicates quality.',
+      img: 'works/zepatide.png', site: 'thezepatide.com', role: ['UX/UI Designer', 'Front-end Developer'], langs: ['Laravel', 'Tailwind CSS', 'Hostinger']
+    },
+    {
+      title: 'IMMFI', desc: 'Modern, user-friendly layout using updated design principles and front-end technologies. Enhanced UX while maintaining brand identity.',
+      img: 'works/immfi.png', site: 'immfi.org', role: ['UX/UI Designer', 'Front-end Developer'], langs: ['Wordpress', 'Elementor']
+    },
+    {
+      title: 'Connect4 by Dale', desc: 'A browser-based Connect Four game with two-player drop logic, win detection, and a clean responsive layout — vanilla JavaScript.',
+      img: 'works/connect4.png', site: 'bedaniadale.github.io/daleconnect4', role: ['Full-Stack Developer'], langs: ['HTML', 'CSS', 'Javascript']
+    },
+    {
+      title: 'GitHub DevFinder', desc: 'Frontend challenge app that searches GitHub users and displays profile details from the GitHub API — accessible layout, loading states, and API handling.',
+      img: 'works/devfinder.png', site: 'bedaniadale.github.io/devfinder', role: ['Full-Stack Developer'], langs: ['HTML', 'CSS', 'Javascript']
+    },
+    {
+      title: 'ResumeForge', desc: 'Fill in your details once — ResumeForge generates a polished, ATS-friendly resume PDF styled after the iconic Harvard format.',
+      img: 'works/resumeforge.png', site: 'In progress', role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['React', 'Node.js', 'Tailwind CSS', 'PDF Generation']
+    },
+    {
+      title: 'ZoneBridge', desc: 'Drop a pin on any city or GPS coordinate and instantly see the exact time gap between it and anywhere else in the world.',
+      img: 'works/zonebridge.png', site: 'In progress', role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['React', 'Tailwind CSS', 'Mapbox GL', 'Javascript']
+    },
   ];
 
   // ---------- Experience roadmap ----------
   const EXPERIENCE = [
-    { year:'Jul 2025',            title:'Full Stack Web Developer',           where:'Pina Realty Management' },
-    { year:'Jul 2025',            title:'Full Stack Web Developer',           where:'Direct Client (Australia-based)' },
-    { year:'Apr 2025',            title:'Graduated BSIT Web Development',     where:'Holy Angel University' },
-    { year:'Jun 2024 – Nov 2024', title:'Full Stack Web Developer (Intern)',  where:'Holy Angel University' },
-    { year:'Apr 2024 – Jul 2024', title:'Graphic Designer (Freelance)',       where:'NILEliteGears & CompleteVitalityLife' },
-    { year:'2015',                title:'Hello World! 👋',                    where:'Wrote my first line of code' },
+    { year: 'Jul 2025', title: 'Full Stack Web Developer', where: 'Pina Realty Management' },
+    { year: 'Jul 2025', title: 'Full Stack Web Developer', where: 'Direct Client (Australia-based)' },
+    { year: 'Apr 2025', title: 'Graduated BSIT Web Development', where: 'Holy Angel University' },
+    { year: 'Jun 2024 – Nov 2024', title: 'Full Stack Web Developer (Intern)', where: 'Holy Angel University' },
+    { year: 'Apr 2024 – Jul 2024', title: 'Graphic Designer (Freelance)', where: 'NILEliteGears & CompleteVitalityLife' },
+    { year: '2015', title: 'Hello World! 👋', where: 'Wrote my first line of code' },
   ];
 
   // ---------- Services (all 9 from main) ----------
   const SERVICES = [
-    { num:'01', h:'Full-stack Web Development',       p:'Your idea, fully built — front to back. Clean code, scalable architecture, and a product your users will love from day one.', preview:'dalefuture.png' },
-    { num:'02', h:'System Design & Architecture',     p:'Blueprints that scale — modular, clean, and built to handle real traffic.', preview:'flowg.png' },
-    { num:'03', h:'Database Management',              p:'Fast queries, clean schemas, zero data loss.', preview:'artboard-1-100-1.webp' },
-    { num:'04', h:'UX / UI Design',                   p:'Interfaces users enjoy — intuitive, beautiful, and built to convert.', preview:'meetourteam-2.webp' },
-    { num:'05', h:'Mobile Development',               p:'iOS & Android from one codebase — native-feeling, shipped faster.', preview:'dp2022.webp' },
-    { num:'06', h:'API Development & Integration',    p:'RESTful APIs, third-party services, webhooks, microservices — wired up cleanly so your stack just works.', preview:'welcomeback2.webp' },
-    { num:'07', h:'Hosting & Domains',                p:'Live, fast, and secure. Domains, SSL, and deployment handled end-to-end.', preview:'finalmem.png' },
-    { num:'08', h:'Workflow & Business Automation',   p:'Custom scripts, Zapier flows, and integrated pipelines that give your team hours back every week.', preview:'bday_dale2-1.png' },
-    { num:'09', h:'Graphic Design',                   p:'Visuals that stop the scroll — brand assets, social media, and marketing materials.', preview:'dalefuture.png' },
+    { num: '01', h: 'Full-stack Web Development', p: 'Your idea, fully built — front to back. Clean code, scalable architecture, and a product your users will love from day one.', preview: 'dalefuture.png' },
+    { num: '02', h: 'System Design & Architecture', p: 'Blueprints that scale — modular, clean, and built to handle real traffic.', preview: 'flowg.png' },
+    { num: '03', h: 'Database Management', p: 'Fast queries, clean schemas, zero data loss.', preview: 'artboard-1-100-1.webp' },
+    { num: '04', h: 'UX / UI Design', p: 'Interfaces users enjoy — intuitive, beautiful, and built to convert.', preview: 'meetourteam-2.webp' },
+    { num: '05', h: 'Mobile Development', p: 'iOS & Android from one codebase — native-feeling, shipped faster.', preview: 'dp2022.webp' },
+    { num: '06', h: 'API Development & Integration', p: 'RESTful APIs, third-party services, webhooks, microservices — wired up cleanly so your stack just works.', preview: 'welcomeback2.webp' },
+    { num: '07', h: 'Hosting & Domains', p: 'Live, fast, and secure. Domains, SSL, and deployment handled end-to-end.', preview: 'finalmem.png' },
+    { num: '08', h: 'Workflow & Business Automation', p: 'Custom scripts, Zapier flows, and integrated pipelines that give your team hours back every week.', preview: 'bday_dale2-1.png' },
+    { num: '09', h: 'Graphic Design', p: 'Visuals that stop the scroll — brand assets, social media, and marketing materials.', preview: 'dalefuture.png' },
   ];
 
   // ---------- Awards ----------
   const AWARDS = [
-    { icon:'🎖️', text:'Most Outstanding Graduating Student per Program' },
-    { icon:'🎖️', text:'Most Outstanding On-the-Job Trainee per Program' },
-    { icon:'🎖️', text:"Dean's Lister (2022–2024)" },
-    { icon:'🎖️', text:"President's Lister" },
-    { icon:'🏆', text:'HAFRD — Academic Scholarship Recipient' },
-    { icon:'🎯', text:"Code Geeks' President (A.Y 2023–2024)" },
+    { icon: '🎖️', text: 'Most Outstanding Graduating Student per Program' },
+    { icon: '🎖️', text: 'Most Outstanding On-the-Job Trainee per Program' },
+    { icon: '🎖️', text: "Dean's Lister (2022–2024)" },
+    { icon: '🎖️', text: "President's Lister" },
+    { icon: '🏆', text: 'HAFRD — Academic Scholarship Recipient' },
+    { icon: '🎯', text: "Code Geeks' President (A.Y 2023–2024)" },
   ];
 
   /* ===================================================
@@ -152,8 +176,7 @@
     if (prefersReducedMotion) return;
     if (typeof Lenis !== 'function') return;
     lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.1,
       smoothWheel: true,
     });
     function raf(time) {
@@ -256,7 +279,7 @@
       cursor.classList.remove('has-label');
     });
     document.addEventListener('mousedown', () => cursor.classList.add('is-active'));
-    document.addEventListener('mouseup',   () => cursor.classList.remove('is-active'));
+    document.addEventListener('mouseup', () => cursor.classList.remove('is-active'));
   }
 
   function initMagnetic() {
