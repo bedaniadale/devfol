@@ -62,10 +62,10 @@
     function scrollSlideToView(index, behavior) {
       var el = slides[index];
       if (!el) return;
-      el.scrollIntoView({
-        behavior: behavior || scrollSmooth,
-        inline: 'center',
-        block: 'nearest',
+      var targetLeft = el.offsetLeft - (scroller.clientWidth - el.offsetWidth) / 2;
+      scroller.scrollTo({
+        left: targetLeft,
+        behavior: behavior || scrollSmooth
       });
     }
 
