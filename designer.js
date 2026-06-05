@@ -132,6 +132,7 @@
 
   // ---------- Experience roadmap ----------
   const EXPERIENCE = [
+    { year: 'Jan 2026 - May 2026', title: 'Graphic Designer', where: 'CompleteVitalityLife' },
     { year: 'Jul 2025', title: 'Full Stack Web Developer', where: 'Pina Realty Management' },
     { year: 'Jul 2025', title: 'Full Stack Web Developer', where: 'Direct Client (Australia-based)' },
     { year: 'Apr 2025', title: 'Graduated BSIT Web Development', where: 'Holy Angel University' },
