@@ -38,7 +38,7 @@ let projects = [
         "img": "works/joinspur.png",
         "site": "joinspurapp.com", 
         "role":['UX/UI Designer', "Full-Stack Developer"],
-        "langs":["Laravel", "Tailwind CSS", "MySQL", "Hostinger"],
+        "langs":["React", "Supabase"],
     },
     {
         "title":"SPUR Mobile App",
@@ -54,7 +54,7 @@ let projects = [
         "img": "works/zepatide.png",
         "site": "thezepatide.com", 
         "role":['UX/UI Designer', "Front-end Developer"],
-        "langs":["Laravel", "Tailwind CSS", "Hostinger"],
+        "langs":["React", "Supabase"],
     },
     { 
         "title":"IMMFI",
@@ -111,33 +111,57 @@ function escapeHtml(value) {
 }
 
 
-function createRoles(arr){ 
-    let stack = ''; 
+const TECH_ICON_MAP = {
+  'react':          'logos:react',
+  'react native':   'logos:react',
+  'supabase':       'logos:supabase-icon',
+  'laravel':        'logos:laravel',
+  'tailwind css':   'logos:tailwindcss-icon',
+  'tailwind':       'logos:tailwindcss-icon',
+  'mysql':          'logos:mysql-icon',
+  'firebase':       'logos:firebase',
+  'wordpress':      'logos:wordpress-icon',
+  'elementor':      'simple-icons:elementor',
+  'javascript':     'logos:javascript',
+  'html':           'logos:html-5',
+  'css':            'logos:css-3',
+  'node.js':        'logos:nodejs-icon',
+  'mapbox gl':      'simple-icons:mapbox',
+  'hostinger':      'simple-icons:hostinger',
+  'pdf generation': 'mdi:file-pdf-box',
+};
 
-
-    arr.forEach((item)=> { 
-        let temp = ` 
-         <span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-white text-gray-800 font-medium">${item}</span>
-        `
-        stack+=temp; 
-    })
-
-    return stack; 
-
+function techIcon(name) {
+  const icon = TECH_ICON_MAP[name.toLowerCase()];
+  if (!icon) return '';
+  return `<span class="iconify" data-icon="${icon}" style="font-size:13px;flex-shrink:0;"></span>`;
 }
 
-function createLanguages(arr) { 
-    let stack = ''; 
+const ROLE_ICON_MAP = {
+  'full-stack developer':   'mdi:code-braces',
+  'front-end developer':    'mdi:monitor-shimmer',
+  'ux/ui designer':         'mdi:palette-outline',
+  'project lead':           'mdi:account-star-outline',
+  'database administrator': 'mdi:database-cog-outline',
+  'mobile developer':       'mdi:cellphone-check',
+};
 
+function roleIcon(name) {
+  const icon = ROLE_ICON_MAP[name.toLowerCase()];
+  if (!icon) return '';
+  return `<span class="iconify" data-icon="${icon}" style="font-size:13px;flex-shrink:0;"></span>`;
+}
 
-    arr.forEach((item)=> { 
-        let temp = ` 
-        <span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-700 font-medium">${item}</span>
-        `
-        stack+=temp; 
-    })
+function createRoles(arr) {
+  return arr.map(item =>
+    `<span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-white text-gray-800 font-medium">${escapeHtml(item)}</span>`
+  ).join('');
+}
 
-    return stack; 
+function createLanguages(arr) {
+  return arr.map(item =>
+    `<span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-700 font-medium" style="display:inline-flex;align-items:center;gap:4px;">${techIcon(item)}${escapeHtml(item)}</span>`
+  ).join('');
 }
 
 
@@ -238,7 +262,8 @@ function loadProjects() {
         sprojects+=project
     });
 
-    document.getElementById('projects').innerHTML = sprojects
+    document.getElementById('projects').innerHTML = sprojects;
+    if (typeof Iconify !== 'undefined') Iconify.scan();
     bindProjectDetailsModal();
 
 }
@@ -256,12 +281,12 @@ function bindProjectDetailsModal() {
         const item = projects[projectIndex];
         if (!item) return;
 
-        const roleChips = item.role.map((role) => `
-          <span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-white text-gray-800 font-medium">${escapeHtml(role)}</span>
-        `).join('');
-        const languageChips = item.langs.map((lang) => `
-          <span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-700 font-medium">${escapeHtml(lang)}</span>
-        `).join('');
+        const roleChips = item.role.map((role) =>
+          `<span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-white text-gray-800 font-medium">${escapeHtml(role)}</span>`
+        ).join('');
+        const languageChips = item.langs.map((lang) =>
+          `<span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-700 font-medium" style="display:inline-flex;align-items:center;gap:4px;">${techIcon(lang)}${escapeHtml(lang)}</span>`
+        ).join('');
 
         projectModalBody.innerHTML = `
           <article class="project-modal-content">
@@ -284,6 +309,7 @@ function bindProjectDetailsModal() {
         projectModal.classList.add('is-open');
         projectModal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('modal-open');
+        if (typeof Iconify !== 'undefined') Iconify.scan(projectModalBody);
     };
 
     const closeModal = () => {

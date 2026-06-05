@@ -19,6 +19,32 @@
       .replace(/'/g, '&#39;');
   }
 
+  const TECH_ICON_MAP = {
+    'react':          'logos:react',
+    'react native':   'logos:react',
+    'supabase':       'logos:supabase-icon',
+    'laravel':        'logos:laravel',
+    'tailwind css':   'logos:tailwindcss-icon',
+    'tailwind':       'logos:tailwindcss-icon',
+    'mysql':          'logos:mysql-icon',
+    'firebase':       'logos:firebase',
+    'wordpress':      'logos:wordpress-icon',
+    'elementor':      'simple-icons:elementor',
+    'javascript':     'logos:javascript',
+    'html':           'logos:html-5',
+    'css':            'logos:css-3',
+    'node.js':        'logos:nodejs-icon',
+    'mapbox gl':      'simple-icons:mapbox',
+    'hostinger':      'simple-icons:hostinger',
+    'pdf generation': 'mdi:file-pdf-box',
+  };
+
+  function techIcon(name) {
+    const icon = TECH_ICON_MAP[name.toLowerCase()];
+    if (!icon) return '';
+    return `<span class="iconify" data-icon="${icon}" style="font-size:13px;flex-shrink:0;"></span>`;
+  }
+
   /* ===================================================
      DATA
      =================================================== */
@@ -72,7 +98,7 @@
     },
     {
       title: 'SPUR Landing Page', desc: 'Responsive landing page showcasing the SPUR mobile app. Modern, engaging layout aligned with the brand to drive interest and downloads.',
-      img: 'works/joinspur.png', site: 'joinspurapp.com', role: ['UX/UI Designer', 'Full-Stack Developer'], langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger']
+      img: 'works/joinspur.png', site: 'joinspurapp.com', role: ['UX/UI Designer', 'Full-Stack Developer'], langs: ['React', 'Supabase']
     },
     {
       title: 'SPUR Mobile App', desc: 'Location-based app connecting you with people who share your passion for sports and fitness. Match by skill, find local events, build your squad.',
@@ -80,7 +106,7 @@
     },
     {
       title: 'The Zepatide', desc: 'Professional website establishing a strong brand identity for medical-grade products. Clean, trustworthy design that communicates quality.',
-      img: 'works/zepatide.png', site: 'thezepatide.com', role: ['UX/UI Designer', 'Front-end Developer'], langs: ['Laravel', 'Tailwind CSS', 'Hostinger']
+      img: 'works/zepatide.png', site: 'thezepatide.com', role: ['UX/UI Designer', 'Front-end Developer'], langs: ['React', 'Supabase']
     },
     {
       title: 'IMMFI', desc: 'Modern, user-friendly layout using updated design principles and front-end technologies. Enhanced UX while maintaining brand identity.',
@@ -420,7 +446,7 @@
     if (!wrap) return;
     wrap.innerHTML = PROJECTS.map((p, i) => {
       const roles = p.role.map((r) => `<span class="tag tag--role">${esc(r)}</span>`).join('');
-      const langs = p.langs.map((l) => `<span class="tag tag--lang">${esc(l)}</span>`).join('');
+      const langs = p.langs.map((l) => `<span class="tag tag--lang" style="display:inline-flex;align-items:center;gap:4px;">${techIcon(l)}${esc(l)}</span>`).join('');
       return `
         <article class="project-card reveal" data-project-index="${i}" data-cursor="open">
           <div class="project-browser">
@@ -457,6 +483,7 @@
     }).join('');
 
     bindProjectModal();
+    if (typeof Iconify !== 'undefined') Iconify.scan(wrap);
   }
 
   function bindProjectModal() {
@@ -471,7 +498,7 @@
       const p = PROJECTS[i];
       if (!p) return;
       const roles = p.role.map((r) => `<span class="tag tag--role">${esc(r)}</span>`).join('');
-      const langs = p.langs.map((l) => `<span class="tag tag--lang">${esc(l)}</span>`).join('');
+      const langs = p.langs.map((l) => `<span class="tag tag--lang" style="display:inline-flex;align-items:center;gap:4px;">${techIcon(l)}${esc(l)}</span>`).join('');
       body.innerHTML = `
         <div class="project-browser project-browser--lg">
           <div class="project-chrome" aria-hidden="true">
@@ -497,6 +524,7 @@
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
+      if (typeof Iconify !== 'undefined') Iconify.scan(body);
       if (lenis) lenis.stop();
     }
 
