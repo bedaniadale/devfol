@@ -1,0 +1,202 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1781939578857,
+  "projectRoot": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "works": {
+      "path": "works",
+      "purpose": null,
+      "fileCount": 15,
+      "lastAccessed": 1781939578838,
+      "keyFiles": [
+        "Bedania_CV.pdf",
+        "Bedania_CVFormal.pdf",
+        "connect4.png",
+        "devfinder.png",
+        "hauoieidmo.png"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "index.html",
+      "accessCount": 5,
+      "lastAccessed": 1781945107232,
+      "type": "file"
+    },
+    {
+      "path": "designer.css",
+      "accessCount": 5,
+      "lastAccessed": 1781946200644,
+      "type": "file"
+    },
+    {
+      "path": "designer.html",
+      "accessCount": 4,
+      "lastAccessed": 1781945794173,
+      "type": "file"
+    },
+    {
+      "path": "designs.js",
+      "accessCount": 3,
+      "lastAccessed": 1781939649139,
+      "type": "file"
+    },
+    {
+      "path": "designer.js",
+      "accessCount": 3,
+      "lastAccessed": 1781945699303,
+      "type": "file"
+    },
+    {
+      "path": "onepager.css",
+      "accessCount": 2,
+      "lastAccessed": 1781939652992,
+      "type": "file"
+    },
+    {
+      "path": "projects.js",
+      "accessCount": 2,
+      "lastAccessed": 1781939675376,
+      "type": "file"
+    },
+    {
+      "path": "aboutme.txt",
+      "accessCount": 2,
+      "lastAccessed": 1781939706472,
+      "type": "file"
+    },
+    {
+      "path": "awards.js",
+      "accessCount": 2,
+      "lastAccessed": 1781945085403,
+      "type": "file"
+    },
+    {
+      "path": "techstacks.js",
+      "accessCount": 2,
+      "lastAccessed": 1781945085631,
+      "type": "file"
+    },
+    {
+      "path": "server.js",
+      "accessCount": 1,
+      "lastAccessed": 1781939611860,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 1,
+      "lastAccessed": 1781939637405,
+      "type": "directory"
+    },
+    {
+      "path": "education-gallery.js",
+      "accessCount": 1,
+      "lastAccessed": 1781939644938,
+      "type": "file"
+    },
+    {
+      "path": "animation.js",
+      "accessCount": 1,
+      "lastAccessed": 1781939648810,
+      "type": "file"
+    },
+    {
+      "path": "chatbot.js",
+      "accessCount": 1,
+      "lastAccessed": 1781939649407,
+      "type": "file"
+    },
+    {
+      "path": "chatbot-rules.js",
+      "accessCount": 1,
+      "lastAccessed": 1781939649526,
+      "type": "file"
+    },
+    {
+      "path": "studio-hero.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1781946098763,
+      "type": "file"
+    },
+    {
+      "path": "studio-projects.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1781946117782,
+      "type": "file"
+    },
+    {
+      "path": "studio-casestudy.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1781946139918,
+      "type": "file"
+    },
+    {
+      "path": "studio-cs-timeline.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1781946158258,
+      "type": "file"
+    },
+    {
+      "path": "studio-certs.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1781946180721,
+      "type": "file"
+    },
+    {
+      "path": "studio-stack.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1781946227781,
+      "type": "file"
+    },
+    {
+      "path": "studio-certs2.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1781946249290,
+      "type": "file"
+    },
+    {
+      "path": "studio-mobile-hero.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1781946287227,
+      "type": "file"
+    },
+    {
+      "path": "studio-mobile-trust.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1781946310362,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Dale Bedania — Software Engineer, UX/UI & Graphic Designer. A full portfolio rendered in editorial, designer-first style." />
-  <meta name="theme-color" content="#0a0a0a" />
-  <title>Dale Bedania — Software Engineer · Designer · Visual Storyteller</title>
+  <meta name="description" content="Dale Bedania — Software Engineer & Full-stack Developer. I help businesses turn ideas into fast, scalable web & mobile products. Studio-style portfolio with case studies." />
+  <meta name="theme-color" content="#faf8f4" />
+  <title>Dale Bedania — Software Engineer & Designer · Studio</title>
 
   <link rel="icon" type="image/jpeg" href="main.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,12 +17,11 @@
 </head>
 <body>
 
-  <!-- Grain & gradient overlays -->
+  <!-- Texture overlays -->
   <div class="grain" aria-hidden="true"></div>
-  <div class="bg-aurora" aria-hidden="true">
-    <span class="aurora a1"></span>
-    <span class="aurora a2"></span>
-    <span class="aurora a3"></span>
+  <div class="bg-wash" aria-hidden="true">
+    <span class="wash w1"></span>
+    <span class="wash w2"></span>
   </div>
 
   <!-- Custom cursor -->
@@ -38,9 +37,10 @@
   <!-- Loader -->
   <div class="loader" id="loader" aria-hidden="true">
     <div class="loader-inner">
-      <span class="loader-num" id="loaderNum">0</span>
-      <span class="loader-label">LOADING · DALE BEDANIA · PORTFOLIO · 2026</span>
+      <span class="loader-name">Dale Bedania</span>
+      <span class="loader-label">Studio Portfolio · 2026</span>
     </div>
+    <div class="loader-count"><span id="loaderNum">0</span><i>%</i></div>
     <div class="loader-bar"><span id="loaderBar"></span></div>
   </div>
 
@@ -48,74 +48,69 @@
   <header class="nav" id="nav">
     <a href="#home" class="nav-brand" data-magnetic>
       <span class="nav-brand-mark">DB</span>
-      <span class="nav-brand-text">Dale Bedania<i>/ Designer Mode</i></span>
+      <span class="nav-brand-text">Dale Bedania<i>Studio</i></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="#about" class="nav-link" data-magnetic><span>About</span></a>
-      <a href="#experience" class="nav-link" data-magnetic><span>Experience</span></a>
       <a href="#services" class="nav-link" data-magnetic><span>Services</span></a>
-      <a href="#stack" class="nav-link" data-magnetic><span>Stack</span></a>
-      <a href="#projects" class="nav-link" data-magnetic><span>Projects</span></a>
+      <a href="#projects" class="nav-link" data-magnetic><span>Work</span></a>
       <a href="#graphics" class="nav-link" data-magnetic><span>Graphics</span></a>
+      <a href="#certifications" class="nav-link" data-magnetic><span>Credentials</span></a>
+      <a href="#about" class="nav-link" data-magnetic><span>About</span></a>
     </nav>
-    <a href="index.html" class="nav-cta" data-magnetic>
-      <span>Classic view</span>
-      <i class="fa-solid fa-arrow-right"></i>
-    </a>
+    <div class="nav-right">
+      <a href="index.html" class="nav-alt" data-magnetic>Classic view <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#contact" class="nav-cta" data-magnetic data-cursor="write"><span>Start a project</span></a>
+    </div>
   </header>
 
   <main>
 
     <!-- ============================== HERO ============================== -->
     <section class="hero" id="home">
-      <div class="hero-meta">
-        <span class="meta-dot"></span>
-        <span>Pampanga, PH — <time id="liveClock">--:--</time></span>
-        <span class="meta-divider">·</span>
-        <span class="meta-open">Open to work</span>
-      </div>
+      <div class="hero-grid">
+        <div class="hero-lead">
+          <div class="hero-meta">
+            <span class="otw"><span class="otw-dot"></span> Available for freelance &amp; contract</span>
+            <span class="hero-loc">Pampanga, PH · <time id="liveClock">--:--</time></span>
+          </div>
 
-      <h1 class="hero-title" aria-label="Software engineer, designer, visual storyteller.">
-        <span class="line">
-          <span class="word">Software</span>
-          <span class="word word--italic">engineer</span>
-        </span>
-        <span class="line">
-          <span class="word">crafting</span>
-          <span class="word word--outline">systems</span>
-        </span>
-        <span class="line">
-          <span class="word">&amp;</span>
-          <span class="word word--italic">visuals.</span>
-        </span>
-      </h1>
+          <h1 class="hero-title">
+            <span class="line"><span class="reveal-word">Ideas,</span></span>
+            <span class="line"><span class="reveal-word">shipped</span> <span class="reveal-word word--italic">as products.</span></span>
+          </h1>
 
-      <div class="hero-bottom">
-        <div class="hero-intro">
-          <img src="main.jpg" alt="Dale Bedania portrait" class="hero-avatar" />
-          <p>
-            I'm <b>Dale Bedania</b> — full-stack developer &amp; multidisciplinary designer from Pampanga.
-            I ship production-grade web, mobile, and brand work with the same care for detail on both sides of the screen.
+          <p class="hero-pitch">
+            I'm <b>Dale Bedania</b> — a software engineer &amp; full-stack developer who helps businesses turn
+            ideas into <b>fast, scalable web &amp; mobile products</b>, from custom CMS platforms to client-facing apps.
           </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn--primary btn--lg" data-magnetic data-cursor="write">
+              <span>Start a project</span>
+              <i class="fa-solid fa-arrow-up-right"></i>
+            </a>
+            <a href="#projects" class="btn btn--ghost btn--lg" data-magnetic data-cursor="view">
+              <span>See the work</span>
+            </a>
+            <button type="button" id="openCvModal" class="btn btn--text" data-magnetic data-cursor="open">
+              <i class="fas fa-file-lines"></i><span>View CV</span>
+            </button>
+          </div>
         </div>
-        <div class="hero-actions">
-          <a href="#projects" class="btn btn--primary" data-magnetic data-cursor="view">
-            <span>See the work</span>
-            <i class="fa-solid fa-arrow-down"></i>
-          </a>
-          <a href="#contact" class="btn btn--ghost" data-magnetic data-cursor="write">
-            <span>Start a project</span>
-          </a>
-          <button type="button" id="openCvModal" class="btn btn--ghost" data-magnetic data-cursor="open">
-            <i class="fas fa-file-lines"></i>
-            <span>View CV</span>
-          </button>
+
+        <div class="hero-portrait" data-parallax="portrait">
+          <img src="main.jpg" alt="Dale Bedania portrait" class="hero-portrait-img" />
+          <span class="hero-portrait-tag" data-parallax="mark">Software Engineer<i>· Designer</i></span>
         </div>
       </div>
 
-      <div class="hero-scroll" aria-hidden="true">
-        <span class="scroll-line"></span>
-        <span class="scroll-text">scroll</span>
+      <!-- Trust band -->
+      <div class="trust">
+        <div class="trust-stat"><b data-count="10">0</b><span>Apps deployed</span></div>
+        <div class="trust-stat"><b data-count="100">0</b><span>Client satisfaction %</span></div>
+        <div class="trust-stat"><b data-count="9">0</b><span>Years coding</span></div>
+        <div class="trust-stat"><b data-count="40">0</b><span>Visuals shipped</span></div>
+        <div class="trust-stat"><b data-count="10">0</b><span>Certifications</span></div>
       </div>
     </section>
 
@@ -127,93 +122,71 @@
         <span>React · Next.js <i class="star">✦</i></span>
         <span>Mobile <i class="star">✦</i></span>
         <span>UX/UI <i class="star">✦</i></span>
-        <span>Posters <i class="star">✦</i></span>
-        <span>Brand systems <i class="star">✦</i></span>
         <span>Automation <i class="star">✦</i></span>
-        <!-- duplicate for seamless loop -->
+        <span>Brand &amp; Graphics <i class="star">✦</i></span>
         <span>Full-stack <i class="star">✦</i></span>
         <span>Laravel <i class="star">✦</i></span>
         <span>React · Next.js <i class="star">✦</i></span>
         <span>Mobile <i class="star">✦</i></span>
         <span>UX/UI <i class="star">✦</i></span>
-        <span>Posters <i class="star">✦</i></span>
-        <span>Brand systems <i class="star">✦</i></span>
         <span>Automation <i class="star">✦</i></span>
+        <span>Brand &amp; Graphics <i class="star">✦</i></span>
       </div>
-    </section>
-
-    <!-- ============================== ABOUT ============================== -->
-    <section class="about" id="about">
-      <div class="section-head reveal">
-        <span class="section-kicker">(01) — About</span>
-        <h2 class="section-title">Since <em>2015</em><br />building, designing, shipping.</h2>
-      </div>
-
-      <div class="about-grid">
-        <p class="about-copy reveal">
-          Over a decade of writing code, I've gone from a 13-year-old tinkering with HTML to a software engineer who ships production-ready applications.
-          I build full-stack web and mobile solutions with a focus on <b>clean architecture</b>, real-world impact, and experiences that actually work for the people using them.
-        </p>
-        <p class="about-copy reveal">
-          My design work leans <b>editorial</b>: strong type, calm layouts, and details you only catch the second time.
-          Across engineering and graphics, I care about rhythm, hierarchy, and making every frame feel intentional.
-        </p>
-
-        <blockquote class="about-quote reveal">
-          <span class="quote-kw">const</span>
-          <span class="quote-var">quote</span> =
-          <span class="quote-str">"Great software isn't just about writing code — it's about solving problems, creating seamless experiences, and turning ideas into digital reality."</span>;
-          <cite>— Every good developer, ever</cite>
-        </blockquote>
-
-        <ul class="about-stats">
-          <li class="reveal"><b data-count="10">0</b><span>Apps deployed</span></li>
-          <li class="reveal"><b data-count="100">0</b><span>Client satisfaction %</span></li>
-          <li class="reveal"><b data-count="9">0</b><span>Years coding</span></li>
-          <li class="reveal"><b data-count="40">0</b><span>Visuals shipped</span></li>
-        </ul>
-      </div>
-
-      <!-- Education + Awards -->
-      <div class="edu-awards">
-        <article class="edu-card reveal">
-          <img src="haulogo.png" alt="Holy Angel University logo" class="edu-logo" />
-          <div class="edu-body">
-            <p class="edu-meta">Holy Angel University · Class of 2025</p>
-            <h3 class="edu-degree">Bachelor of Science<br />in Information Technology</h3>
-            <p class="edu-track">Specialization: Web Development</p>
-          </div>
-          <span class="edu-corner">01</span>
-        </article>
-
-        <div class="awards-list reveal" id="awardsList"></div>
-      </div>
-    </section>
-
-    <!-- ============================== EXPERIENCE ============================== -->
-    <section class="experience" id="experience">
-      <div class="section-head reveal">
-        <span class="section-kicker">(02) — Experience</span>
-        <h2 class="section-title">A short <em>timeline</em>.</h2>
-      </div>
-
-      <ol class="roadmap" id="roadmap"></ol>
     </section>
 
     <!-- ============================== SERVICES ============================== -->
     <section class="services" id="services">
       <div class="section-head reveal">
-        <span class="section-kicker">(03) — Services</span>
-        <h2 class="section-title">What I can <em>make</em> for you.</h2>
+        <span class="section-kicker">(01) — Services</span>
+        <h2 class="section-title">What I can <em>build</em> for you.</h2>
+        <p class="section-lead">From the first line of code to a live, fast, secure product — and the brand around it.</p>
       </div>
-
       <ul class="service-list" id="serviceList"></ul>
+    </section>
+
+    <!-- ============================== PROJECTS ============================== -->
+    <section class="projects" id="projects">
+      <div class="section-head reveal">
+        <span class="section-kicker">(02) — Selected work</span>
+        <h2 class="section-title">Products &amp; <em>case studies</em>.</h2>
+        <p class="section-lead">Real platforms shipped for universities, startups, and businesses — open one to read the full story.</p>
+      </div>
+      <div class="projects-grid" id="projectsGrid"></div>
+    </section>
+
+    <!-- ============================== FEATURED GRAPHICS RAIL ============================== -->
+    <section class="featured" id="graphics">
+      <div class="section-head reveal">
+        <span class="section-kicker">(03) — Graphics</span>
+        <h2 class="section-title">Design that <em>stops the scroll</em>.</h2>
+        <p class="section-lead">Brand assets, posters, and social campaigns. Drag to explore.</p>
+      </div>
+      <div class="feature-rail-wrap">
+        <div class="feature-rail" id="featureRail" data-cursor="drag"></div>
+        <p class="feature-hint"><i class="fa-solid fa-arrows-left-right"></i> drag / scroll horizontally</p>
+      </div>
+    </section>
+
+    <!-- ============================== ARCHIVE / BENTO ============================== -->
+    <section class="works" id="archive">
+      <div class="section-head reveal">
+        <span class="section-kicker">(04) — Archive</span>
+        <h2 class="section-title">The full <em>collection</em>.</h2>
+      </div>
+      <div class="filters reveal" id="filters">
+        <button class="chip is-active" data-filter="all">All</button>
+        <button class="chip" data-filter="poster">Posters</button>
+        <button class="chip" data-filter="social">Social</button>
+        <button class="chip" data-filter="brand">Brand</button>
+        <button class="chip" data-filter="editorial">Editorial</button>
+      </div>
+      <div class="bento" id="bento"></div>
     </section>
 
     <!-- ============================== STACK ============================== -->
     <section class="stack" id="stack">
       <div class="section-head reveal">
-        <span class="section-kicker">(04) — Stack</span>
+        <span class="section-kicker">(05) — Stack</span>
         <h2 class="section-title">Tools &amp; <em>tech</em> I use.</h2>
       </div>
 
@@ -333,63 +306,65 @@
       </div>
     </section>
 
-    <!-- ============================== PROJECTS (DEV) ============================== -->
-    <section class="projects" id="projects">
+    <!-- ============================== CERTIFICATIONS ============================== -->
+    <section class="certs" id="certifications">
       <div class="section-head reveal">
-        <span class="section-kicker">(05) — Projects</span>
-        <h2 class="section-title">Websites &amp; <em>apps</em> I've built.</h2>
+        <span class="section-kicker">(06) — Credentials</span>
+        <h2 class="section-title">Certified &amp; <em>verified</em>.</h2>
+        <p class="section-lead">10 certifications · 4 issuers · credentials available on request.</p>
       </div>
-
-      <div class="projects-grid" id="projectsGrid"></div>
+      <div class="cert-grid" id="certGrid"></div>
     </section>
 
-    <!-- ============================== FEATURED GRAPHICS RAIL ============================== -->
-    <section class="featured" id="graphics">
+    <!-- ============================== ABOUT ============================== -->
+    <section class="about" id="about">
       <div class="section-head reveal">
-        <span class="section-kicker">(06) — Selected Graphics</span>
-        <h2 class="section-title">Design <em>highlights</em>.</h2>
+        <span class="section-kicker">(07) — About</span>
+        <h2 class="section-title">Since <em>2015</em><br />building, designing, shipping.</h2>
       </div>
 
-      <div class="feature-rail-wrap">
-        <div class="feature-rail" id="featureRail" data-cursor="drag"></div>
-        <p class="feature-hint">
-          <i class="fa-solid fa-arrows-left-right"></i> drag / scroll horizontally
+      <div class="about-grid">
+        <p class="about-copy reveal">
+          I started programming in 2015 at the age of 13, driven by curiosity and a love for building things with code.
+          Over the years I've grown into a software engineer who ships production-ready full-stack web and mobile
+          solutions — with a focus on <b>clean architecture</b> and real-world impact.
         </p>
-      </div>
-    </section>
+        <p class="about-copy reveal">
+          My design work leans <b>editorial</b>: strong type, calm layouts, and details you only catch the second time.
+          Across engineering and graphics, I care about rhythm, hierarchy, and making every frame feel intentional.
+        </p>
 
-    <!-- ============================== ARCHIVE / BENTO ============================== -->
-    <section class="works" id="archive">
-      <div class="section-head reveal">
-        <span class="section-kicker">(07) — Archive</span>
-        <h2 class="section-title">The <em>full</em> collection.</h2>
-      </div>
-
-      <div class="filters reveal" id="filters">
-        <button class="chip is-active" data-filter="all">All</button>
-        <button class="chip" data-filter="poster">Posters</button>
-        <button class="chip" data-filter="social">Social</button>
-        <button class="chip" data-filter="brand">Brand</button>
-        <button class="chip" data-filter="editorial">Editorial</button>
+        <blockquote class="about-quote reveal">
+          <span class="quote-kw">const</span> <span class="quote-var">quote</span> =
+          <span class="quote-str">"Great software isn't just about writing code — it's about solving problems, creating seamless experiences, and turning ideas into digital reality."</span>;
+        </blockquote>
       </div>
 
-      <div class="bento" id="bento"></div>
-    </section>
+      <!-- Education + experience + awards -->
+      <div class="about-detail">
+        <article class="edu-card reveal">
+          <img src="haulogo.png" alt="Holy Angel University logo" class="edu-logo" />
+          <div class="edu-body">
+            <p class="edu-meta">Holy Angel University · Class of 2025</p>
+            <h3 class="edu-degree">BS in Information Technology</h3>
+            <p class="edu-track">Specialization: Web Development</p>
+          </div>
+          <div class="awards-list" id="awardsList"></div>
+        </article>
 
-    <!-- ============================== EDUCATION GALLERY ============================== -->
-    <section class="edu-gallery-section" id="education-gallery">
-      <div class="section-head reveal">
-        <span class="section-kicker">(08) — Moments</span>
-        <h2 class="section-title">Life at <em>HAU</em>.</h2>
+        <div class="timeline-wrap reveal">
+          <h3 class="timeline-head">Experience</h3>
+          <ol class="timeline" id="roadmap"></ol>
+        </div>
       </div>
 
-      <div class="edu-gallery" id="eduGallery">
+      <!-- University moments -->
+      <div class="edu-gallery" id="eduGallery" aria-hidden="true">
         <div class="edu-gallery-track" id="eduGalleryTrack">
           <figure class="edu-slide"><img src="works/gallery/2.png" alt="University moment 1" loading="lazy" /></figure>
           <figure class="edu-slide"><img src="works/gallery/3.png" alt="University moment 2" loading="lazy" /></figure>
           <figure class="edu-slide"><img src="works/gallery/2.jpg" alt="University moment 3" loading="lazy" /></figure>
           <figure class="edu-slide"><img src="works/gallery/1.jpg" alt="University moment 4" loading="lazy" /></figure>
-          <!-- duplicated for seamless loop -->
           <figure class="edu-slide"><img src="works/gallery/2.png" alt="" aria-hidden="true" loading="lazy" /></figure>
           <figure class="edu-slide"><img src="works/gallery/3.png" alt="" aria-hidden="true" loading="lazy" /></figure>
           <figure class="edu-slide"><img src="works/gallery/2.jpg" alt="" aria-hidden="true" loading="lazy" /></figure>
@@ -400,26 +375,30 @@
 
     <!-- ============================== CTA ============================== -->
     <section class="cta" id="contact">
+      <span class="cta-eyebrow"><span class="otw-dot"></span> Available for freelance &amp; contract</span>
       <h2 class="cta-title reveal">
-        <span>Let's make something</span>
-        <span class="cta-italic">unforgettable.</span>
+        <span>Have a project</span>
+        <span class="cta-italic">in mind?</span>
       </h2>
+      <p class="cta-lead reveal">Tell me what you're building. I'll help you ship it — fast, scalable, and done right.</p>
 
-      <a href="mailto:dale.bedania10@gmail.com" class="cta-mail reveal" data-magnetic data-cursor="write">
-        dale.bedania10@gmail.com
-        <i class="fa-solid fa-arrow-up-right"></i>
-      </a>
+      <div class="cta-actions reveal">
+        <a href="mailto:dale.bedania10@gmail.com" class="btn btn--primary btn--lg" data-magnetic data-cursor="write">
+          <i class="fa-regular fa-envelope"></i><span>dale.bedania10@gmail.com</span>
+        </a>
+      </div>
 
       <div class="cta-socials reveal">
+        <a href="https://linkedin.com/in/dale-bedania/" target="_blank" rel="noopener noreferrer" data-magnetic><i class="fa-brands fa-linkedin-in"></i><span>LinkedIn</span></a>
+        <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer" data-magnetic><i class="fa-brands fa-github"></i><span>GitHub</span></a>
         <a href="https://instagram.com/bedaniadale" target="_blank" rel="noopener noreferrer" data-magnetic><i class="fa-brands fa-instagram"></i><span>Instagram</span></a>
         <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" data-magnetic><i class="fa-brands fa-facebook"></i><span>Facebook</span></a>
-        <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer" data-magnetic><i class="fa-brands fa-github"></i><span>GitHub</span></a>
       </div>
     </section>
 
     <footer class="foot">
       <div class="foot-top">
-        <span>© 2026 Dale Bedania · All works self-authored.</span>
+        <span>© 2026 Dale Bedania · Software Engineer &amp; Graphic Designer</span>
         <a href="#home" class="foot-top-btn" data-magnetic>Back to top <i class="fa-solid fa-arrow-up"></i></a>
       </div>
       <div class="foot-big" aria-hidden="true">DALE·BEDANIA</div>
@@ -443,7 +422,7 @@
     <div class="project-modal-backdrop" data-close-project></div>
     <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
       <div class="project-modal-header">
-        <h3 id="projectModalTitle">Project Details</h3>
+        <h3 id="projectModalTitle">Project details</h3>
         <button type="button" id="closeProjectModal" class="btn btn--ghost btn--sm" data-magnetic>Close</button>
       </div>
       <div class="project-modal-body" id="projectModalBody"></div>
@@ -458,8 +437,7 @@
         <h3 id="cvModalTitle">Curriculum Vitae</h3>
         <div class="cv-modal-actions">
           <a href="works/Bedania_CVFormal.pdf" target="_blank" rel="noopener noreferrer" download class="btn btn--primary btn--sm" data-magnetic>
-            <i class="fas fa-download"></i>
-            <span>Download</span>
+            <i class="fas fa-download"></i><span>Download</span>
           </a>
           <button type="button" id="closeCvModal" class="btn btn--ghost btn--sm" data-magnetic>Close</button>
         </div>

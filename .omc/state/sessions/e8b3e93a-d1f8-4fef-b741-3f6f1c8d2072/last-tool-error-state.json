@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"C:\\\\Users\\\\Administrator\\\\Documents\\\\Webdev\\\\devfol\\\\.playwright-mcp\\\\studio-hero.jpeg\"}",
+  "error": "File does not exist. Note: your current working directory is C:\\Users\\Administrator\\Documents\\Webdev\\devfol.",
+  "timestamp": "2026-06-20T09:01:35.642Z",
+  "retry_count": 1
+}

@@ -1,6 +1,8 @@
 /* =====================================================
-   designer.js — Full portfolio, designer-style render
-   Standalone, vanilla JS. Requires Lenis + techstacks.js.
+   designer.js — Dale Bedania · Studio portfolio (light)
+   Standalone vanilla JS. Requires Lenis + techstacks.js.
+   Data mirrors the classic view (projects.js) so the two
+   stay in sync: full case studies, certifications, tech.
    ===================================================== */
 (function () {
   'use strict';
@@ -36,17 +38,18 @@
     'node.js':        'logos:nodejs-icon',
     'mapbox gl':      'simple-icons:mapbox',
     'hostinger':      'simple-icons:hostinger',
+    'vercel':         'logos:vercel-icon',
     'pdf generation': 'mdi:file-pdf-box',
   };
 
   function techIcon(name) {
     const icon = TECH_ICON_MAP[name.toLowerCase()];
     if (!icon) return '';
-    return `<span class="iconify" data-icon="${icon}" style="font-size:13px;flex-shrink:0;"></span>`;
+    return `<span class="iconify" data-icon="${icon}" style="font-size:14px;flex-shrink:0;"></span>`;
   }
 
   /* ===================================================
-     DATA
+     DATA — single source of truth, mirrors classic view
      =================================================== */
 
   // ---------- Graphics works (bento + featured rail) ----------
@@ -78,83 +81,160 @@
     { f: 'f4d3219f-d45b-4d1c-9b16-89f0fce7bc8b.jpg', title: 'Layout XI', tag: 'editorial', featured: false },
   ].map((w) => Object.assign({}, w, { src: GRAPHICS_BASE + w.f }));
 
-  // ---------- Dev projects ----------
+  // ---------- Dev projects (mirrors projects.js, incl. case studies) ----------
   const PROJECTS = [
     {
-      title: 'Holy Angel University IDMO Employee Portal', desc: 'Employee Portal for Holy Angel University, streamlining HR processes and data management.',
-      img: 'works/hauoieidmo.png', site: 'hau-oie-idmo.com', role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger']
+      title: 'Holy Angel University IDMO Employee Portal',
+      desc: 'Employee Portal for Holy Angel University, streamlining HR processes and data management.',
+      img: 'works/hauoieidmo.png', site: 'hau-oie-idmo.com',
+      role: ['Full-Stack Developer', 'UX/UI Designer'],
+      langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger'],
+      caseStudy: {
+        problem: 'The IDMO managed employee records and HR requests through manual, document-heavy processes that were slow to search, easy to duplicate, and hard to keep consistent.',
+        approach: [
+          'Built a centralized Laravel portal with role-based access for HR staff and employees.',
+          'Designed clean, intuitive UX/UI flows so non-technical staff could manage records without training.',
+          'Modeled an optimized MySQL schema for fast, reliable lookups across employee data.',
+          'Deployed and configured production hosting on Hostinger with SSL.',
+        ],
+        outcome: [
+          'Replaced scattered manual tracking with a single source of truth for employee data.',
+          'Gave HR and employees fast self-service access to records and requests.',
+          'Cut down repetitive paperwork and made employee information searchable in seconds.',
+        ],
+      },
     },
     {
-      title: 'Kayantabe', desc: 'A dynamic volunteerism web platform designed to connect passionate individuals with local community initiatives.',
-      img: 'works/kayantabe.png', site: 'kayantabe.com', role: ['Full-Stack Developer', 'Project Lead'], langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger']
+      title: 'Kayantabe',
+      desc: 'A dynamic volunteerism web platform designed to connect passionate individuals with local community initiatives.',
+      img: 'works/kayantabe.png', site: 'kayantabe.com',
+      role: ['Full-Stack Developer', 'Project Lead'],
+      langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger'],
+      caseStudy: {
+        problem: 'Local community initiatives struggled to reach and coordinate volunteers, relying on fragmented social-media posts with no central place to discover, sign up for, or manage activities.',
+        approach: [
+          'Led the project end-to-end and built the platform on Laravel.',
+          'Created flows for organizations to post initiatives and for volunteers to discover and join them.',
+          'Designed a responsive, mobile-first UI to make sign-up frictionless.',
+          'Structured the data model so organizers could track participation per initiative.',
+        ],
+        outcome: [
+          'Gave volunteers and organizers one platform to connect, replacing scattered social posts.',
+          'Made it simple for organizations to launch initiatives and grow their volunteer base.',
+          'Streamlined sign-ups so more people could get involved with far less friction.',
+        ],
+      },
     },
     {
-      title: 'Umbra', desc: 'A web application that connects students and parents with nearby tutors. It offers a seamless platform for finding, booking, and managing tutoring sessions.',
-      img: 'works/umbra.png', site: 'umbra-app.com', role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger']
+      title: 'Umbra',
+      desc: 'A web application that connects students and parents with nearby tutors. It offers a seamless platform for finding, booking, and managing tutoring sessions — designed to make learning more accessible and personalized.',
+      img: 'works/umbra.png', site: 'umbra-app.com',
+      role: ['Full-Stack Developer', 'UX/UI Designer'],
+      langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger'],
     },
     {
-      title: 'Pina Management CMS', desc: 'Custom CMS portal for a real estate company — property listings, client records, and transactions. Focused on streamlining workflows and a user-friendly interface.',
-      img: 'works/pina.png', site: 'In progress', role: ['Database Administrator', 'Full-Stack Developer'], langs: ['React', 'Supabase']
+      title: 'Pina Management CMS',
+      desc: 'A custom CMS portal tailored for a real estate company — property listings, client records, and transactions. Focused on streamlining workflows and a user-friendly interface.',
+      img: 'works/pina.png', site: 'In progress',
+      role: ['Database Administrator', 'Full-Stack Developer'],
+      langs: ['React', 'Supabase', 'Vercel'],
+      caseStudy: {
+        problem: 'A real estate company tracked property listings, client records, and transactions across spreadsheets and disconnected tools, making day-to-day operations slow and error-prone.',
+        approach: [
+          'Built a custom CMS with React and Supabase tailored to their real-estate workflow.',
+          'Structured the database for listings, clients, and transactions with data integrity in mind.',
+          "Focused the interface on the team's daily tasks to reduce friction and training time.",
+        ],
+        outcome: [
+          'Centralizes listings, clients, and transactions into one operational portal.',
+          'Replaces error-prone spreadsheets with a single, reliable source of truth.',
+          "Speeds up daily operations with workflows built around the team's real tasks.",
+        ],
+      },
     },
     {
-      title: 'SPUR Landing Page', desc: 'Responsive landing page showcasing the SPUR mobile app. Modern, engaging layout aligned with the brand to drive interest and downloads.',
-      img: 'works/joinspur.png', site: 'joinspurapp.com', role: ['UX/UI Designer', 'Full-Stack Developer'], langs: ['React', 'Supabase']
+      title: 'SPUR Landing Page',
+      desc: 'Responsive landing page showcasing the SPUR mobile app. Modern, engaging layout aligned with the brand to drive interest and downloads.',
+      img: 'works/joinspur.png', site: 'joinspurapp.com',
+      role: ['UX/UI Designer', 'Full-Stack Developer'],
+      langs: ['React', 'Supabase', 'Vercel'],
     },
     {
-      title: 'SPUR Mobile App', desc: 'Location-based app connecting you with people who share your passion for sports and fitness. Match by skill, find local events, build your squad.',
-      img: 'works/spurapp.png', site: 'In progress', role: ['Mobile Developer', 'UX/UI Designer'], langs: ['React Native', 'Javascript', 'Firebase']
+      title: 'SPUR Mobile App',
+      desc: 'Location-based app connecting you with people who share your passion for sports and fitness. Match by skill, find local events, build your squad.',
+      img: 'works/spurapp.png', site: 'In progress',
+      role: ['Mobile Developer', 'UX/UI Designer'],
+      langs: ['React Native', 'Javascript', 'Firebase'],
     },
     {
-      title: 'The Zepatide', desc: 'Professional website establishing a strong brand identity for medical-grade products. Clean, trustworthy design that communicates quality.',
-      img: 'works/zepatide.png', site: 'thezepatide.com', role: ['UX/UI Designer', 'Front-end Developer'], langs: ['React', 'Supabase']
+      title: 'The Zepatide',
+      desc: 'Professional website establishing a strong brand identity for medical-grade products. Clean, trustworthy design that communicates quality.',
+      img: 'works/zepatide.png', site: 'thezepatide.com',
+      role: ['UX/UI Designer', 'Front-end Developer'],
+      langs: ['React', 'Supabase', 'Vercel'],
     },
     {
-      title: 'IMMFI', desc: 'Modern, user-friendly layout using updated design principles and front-end technologies. Enhanced UX while maintaining brand identity.',
-      img: 'works/immfi.png', site: 'immfi.org', role: ['UX/UI Designer', 'Front-end Developer'], langs: ['Wordpress', 'Elementor']
+      title: 'IMMFI',
+      desc: 'Modern, user-friendly layout using updated design principles and front-end technologies. Enhanced UX while maintaining brand identity.',
+      img: 'works/immfi.png', site: 'immfi.org',
+      role: ['UX/UI Designer', 'Front-end Developer'],
+      langs: ['Wordpress', 'Elementor'],
     },
     {
-      title: 'Connect4 by Dale', desc: 'A browser-based Connect Four game with two-player drop logic, win detection, and a clean responsive layout — vanilla JavaScript.',
-      img: 'works/connect4.png', site: 'bedaniadale.github.io/daleconnect4', role: ['Full-Stack Developer'], langs: ['HTML', 'CSS', 'Javascript']
+      title: 'Connect4 by Dale',
+      desc: 'A browser-based Connect Four game with two-player drop logic, win detection, and a clean responsive layout — vanilla JavaScript.',
+      img: 'works/connect4.png', site: 'bedaniadale.github.io/daleconnect4',
+      role: ['Full-Stack Developer'],
+      langs: ['HTML', 'CSS', 'Javascript'],
     },
     {
-      title: 'GitHub DevFinder', desc: 'Frontend challenge app that searches GitHub users and displays profile details from the GitHub API — accessible layout, loading states, and API handling.',
-      img: 'works/devfinder.png', site: 'bedaniadale.github.io/devfinder', role: ['Full-Stack Developer'], langs: ['HTML', 'CSS', 'Javascript']
+      title: 'GitHub DevFinder',
+      desc: 'Frontend challenge app that searches GitHub users and displays profile details from the GitHub API — accessible layout, loading states, and API handling.',
+      img: 'works/devfinder.png', site: 'bedaniadale.github.io/devfinder',
+      role: ['Full-Stack Developer'],
+      langs: ['HTML', 'CSS', 'Javascript'],
     },
     {
-      title: 'ResumeForge', desc: 'Fill in your details once — ResumeForge generates a polished, ATS-friendly resume PDF styled after the iconic Harvard format.',
-      img: 'works/resumeforge.png', site: 'In progress', role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['React', 'Node.js', 'Tailwind CSS', 'PDF Generation']
+      title: 'ResumeForge',
+      desc: 'Fill in your details once — ResumeForge generates a polished, ATS-friendly resume PDF styled after the iconic Harvard format.',
+      img: 'works/resumeforge.png', site: 'In progress',
+      role: ['Full-Stack Developer', 'UX/UI Designer'],
+      langs: ['React', 'Node.js', 'Tailwind CSS', 'PDF Generation'],
     },
     {
-      title: 'ZoneBridge', desc: 'Drop a pin on any city or GPS coordinate and instantly see the exact time gap between it and anywhere else in the world.',
-      img: 'works/zonebridge.png', site: 'In progress', role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['React', 'Tailwind CSS', 'Mapbox GL', 'Javascript']
+      title: 'ZoneBridge',
+      desc: 'Drop a pin on any city or GPS coordinate and instantly see the exact time gap between it and anywhere else in the world.',
+      img: 'works/zonebridge.png', site: 'In progress',
+      role: ['Full-Stack Developer', 'UX/UI Designer'],
+      langs: ['React', 'Tailwind CSS', 'Mapbox GL', 'Javascript'],
     },
   ];
 
   // ---------- Experience roadmap ----------
   const EXPERIENCE = [
-    { year: 'Jan 2026 - May 2026', title: 'Graphic Designer', where: 'CompleteVitalityLife' },
+    { year: 'Jan 2026 – May 2026', title: 'Graphic Designer', where: 'CompleteVitalityLife' },
     { year: 'Jul 2025', title: 'Full Stack Web Developer', where: 'Pina Realty Management' },
     { year: 'Jul 2025', title: 'Full Stack Web Developer', where: 'Direct Client (Australia-based)' },
-    { year: 'Apr 2025', title: 'Graduated BSIT Web Development', where: 'Holy Angel University' },
+    { year: 'Apr 2025', title: 'Graduated BSIT — Web Development', where: 'Holy Angel University' },
     { year: 'Jun 2024 – Nov 2024', title: 'Full Stack Web Developer (Intern)', where: 'Holy Angel University' },
     { year: 'Apr 2024 – Jul 2024', title: 'Graphic Designer (Freelance)', where: 'NILEliteGears & CompleteVitalityLife' },
     { year: '2015', title: 'Hello World! 👋', where: 'Wrote my first line of code' },
   ];
 
-  // ---------- Services (all 9 from main) ----------
+  // ---------- Services (client-benefit copy, mirrors classic) ----------
   const SERVICES = [
-    { num: '01', h: 'Full-stack Web Development', p: 'Your idea, fully built — front to back. Clean code, scalable architecture, and a product your users will love from day one.', preview: 'dalefuture.png' },
-    { num: '02', h: 'System Design & Architecture', p: 'Blueprints that scale — modular, clean, and built to handle real traffic.', preview: 'flowg.png' },
-    { num: '03', h: 'Database Management', p: 'Fast queries, clean schemas, zero data loss.', preview: 'artboard-1-100-1.webp' },
-    { num: '04', h: 'UX / UI Design', p: 'Interfaces users enjoy — intuitive, beautiful, and built to convert.', preview: 'meetourteam-2.webp' },
-    { num: '05', h: 'Mobile Development', p: 'iOS & Android from one codebase — native-feeling, shipped faster.', preview: 'dp2022.webp' },
-    { num: '06', h: 'API Development & Integration', p: 'RESTful APIs, third-party services, webhooks, microservices — wired up cleanly so your stack just works.', preview: 'welcomeback2.webp' },
-    { num: '07', h: 'Hosting & Domains', p: 'Live, fast, and secure. Domains, SSL, and deployment handled end-to-end.', preview: 'finalmem.png' },
-    { num: '08', h: 'Workflow & Business Automation', p: 'Custom scripts, Zapier flows, and integrated pipelines that give your team hours back every week.', preview: 'bday_dale2-1.png' },
-    { num: '09', h: 'Graphic Design', p: 'Visuals that stop the scroll — brand assets, social media, and marketing materials.', preview: 'dalefuture.png' },
+    { num: '01', h: 'Full-stack Web Development', p: 'End-to-end web applications built with clean code, scalable architecture, and high performance.', preview: 'dalefuture.png' },
+    { num: '02', h: 'System Design & Architecture', p: 'Scalable, modular system blueprints designed to handle high traffic and ensure maximum uptime.', preview: 'flowg.png' },
+    { num: '03', h: 'Database Management', p: 'Optimized databases with fast queries, clean schemas, and robust data integrity.', preview: 'artboard-1-100-1.webp' },
+    { num: '04', h: 'UX / UI Designing', p: 'Intuitive, high-converting user interfaces designed for premium digital experiences.', preview: 'meetourteam-2.webp' },
+    { num: '05', h: 'Mobile Development', p: 'Cross-platform iOS and Android applications delivering native performance and speed.', preview: 'dp2022.webp' },
+    { num: '06', h: 'API Development & Integration', p: 'Custom RESTful APIs, secure third-party integrations, and scalable microservices.', preview: 'welcomeback2.webp' },
+    { num: '07', h: 'Hosting & Domains', p: 'End-to-end cloud deployments, domain management, and secure SSL configuration.', preview: 'finalmem.png' },
+    { num: '08', h: 'Workflow & Business Automation', p: 'Custom scripts, Zapier integrations, and automated pipelines to optimize business operations.', preview: 'bday_dale2-1.png' },
+    { num: '09', h: 'Graphics Design', p: 'High-impact marketing collateral, digital brand assets, and scroll-stopping visuals.', preview: 'dalefuture.png' },
   ];
 
-  // ---------- Awards ----------
+  // ---------- Academic honours ----------
   const AWARDS = [
     { icon: '🎖️', text: 'Most Outstanding Graduating Student per Program' },
     { icon: '🎖️', text: 'Most Outstanding On-the-Job Trainee per Program' },
@@ -162,6 +242,20 @@
     { icon: '🎖️', text: "President's Lister" },
     { icon: '🏆', text: 'HAFRD — Academic Scholarship Recipient' },
     { icon: '🎯', text: "Code Geeks' President (A.Y 2023–2024)" },
+  ];
+
+  // ---------- Professional certifications (mirrors classic view) ----------
+  const CERTS = [
+    { name: 'Red Hat Certified System Administrator', acronym: 'RHCSA', issuer: 'Red Hat', color: '#EE0000', icon: 'red-hat', date: 'Nov 2021', tag: 'Industry Standard', featured: true, adapt: false },
+    { name: 'CCNA Cyber Ops', issuer: 'Cisco', color: '#1BA0D7', icon: 'cisco', date: 'Nov 2023', tag: 'Networking', adapt: true },
+    { name: 'JavaScript Essentials 1', issuer: 'Cisco', color: '#1BA0D7', icon: 'cisco', date: 'Sept 2024', tag: 'Development', adapt: true },
+    { name: 'Google Analytics Certification', issuer: 'Google', color: '#4285F4', icon: 'google', date: 'Oct 2023', tag: 'Analytics', adapt: false },
+    { name: 'Use Google Analytics for Your Business', issuer: 'Google', color: '#4285F4', icon: 'google', date: 'Oct 2023', tag: 'Analytics', adapt: false },
+    { name: 'Get Started using Google Analytics', issuer: 'Google', color: '#4285F4', icon: 'google', date: 'Oct 2023', tag: 'Analytics', adapt: false },
+    { name: 'SEO Certification', issuer: 'HubSpot Academy', color: '#FF7A59', icon: 'hubspot', date: 'Oct 2023', tag: 'Marketing', adapt: false },
+    { name: 'SEO II Certification', issuer: 'HubSpot Academy', color: '#FF7A59', icon: 'hubspot', date: 'Oct 2023', tag: 'Marketing', adapt: false },
+    { name: 'Introduction to Cybersecurity', issuer: 'Cisco', color: '#1BA0D7', icon: 'cisco', date: 'Nov 2021', tag: 'Security', adapt: true },
+    { name: 'Introduction to IoT', issuer: 'Cisco', color: '#1BA0D7', icon: 'cisco', date: 'Nov 2021', tag: 'Networking', adapt: true },
   ];
 
   /* ===================================================
@@ -177,18 +271,18 @@
     return new Promise((resolve) => {
       let progress = 0;
       const tick = () => {
-        progress += Math.random() * 9 + 3;
+        progress += Math.random() * 10 + 4;
         if (progress > 100) progress = 100;
         if (num) num.textContent = String(Math.floor(progress));
-        if (bar) bar.style.width = progress + '%';
+        if (bar) bar.style.transform = `scaleX(${progress / 100})`;
         if (progress < 100) {
-          setTimeout(tick, 85);
+          setTimeout(tick, 78);
         } else {
           setTimeout(() => {
             loader.classList.add('is-done');
             document.body.classList.remove('loading');
             resolve();
-          }, 360);
+          }, 320);
         }
       };
       tick();
@@ -202,10 +296,8 @@
   function initLenis() {
     if (prefersReducedMotion) return;
     if (typeof Lenis !== 'function') return;
-    lenis = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-    });
+    lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    window.__lenis = lenis;
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -219,13 +311,13 @@
         const target = document.querySelector(id);
         if (!target) return;
         e.preventDefault();
-        lenis.scrollTo(target, { offset: -40, duration: 1.4 });
+        lenis.scrollTo(target, { offset: -70, duration: 1.4 });
       });
     });
   }
 
   /* ===================================================
-     Scroll progress + nav hide on scroll-down
+     Scroll progress + nav state
      =================================================== */
   function initScrollChrome() {
     const prog = document.getElementById('scrollProgress');
@@ -235,11 +327,12 @@
       const h = document.documentElement;
       const scrolled = h.scrollTop || document.body.scrollTop;
       const height = (h.scrollHeight - h.clientHeight) || 1;
-      if (prog) prog.style.width = (scrolled / height) * 100 + '%';
+      if (prog) prog.style.transform = `scaleX(${scrolled / height})`;
 
       const y = window.scrollY;
       if (nav) {
-        if (y > 120 && y > lastY) nav.classList.add('hidden');
+        nav.classList.toggle('is-scrolled', y > 40);
+        if (y > 160 && y > lastY) nav.classList.add('hidden');
         else nav.classList.remove('hidden');
       }
       lastY = y;
@@ -270,7 +363,7 @@
   }
 
   /* ===================================================
-     Custom cursor + magnetic + cursor labels
+     Custom cursor + magnetic
      =================================================== */
   function initCursor() {
     if (isCoarsePointer) return;
@@ -281,14 +374,14 @@
     let tx = 0, ty = 0, cx = 0, cy = 0;
     window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
     function render() {
-      cx += (tx - cx) * 0.28;
-      cy += (ty - cy) * 0.28;
+      cx += (tx - cx) * 0.3;
+      cy += (ty - cy) * 0.3;
       cursor.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
       requestAnimationFrame(render);
     }
     render();
 
-    const hoverSelectors = 'a, button, .chip, .bento-item, .feature-card, .service, .project-card, .roadmap-item, .stack-chip, [data-cursor], [data-magnetic]';
+    const hoverSelectors = 'a, button, .chip, .bento-item, .feature-card, .service, .work-card, .timeline-item, .stack-chip, .cert-card, [data-cursor], [data-magnetic]';
     document.addEventListener('mouseover', (e) => {
       const t = e.target.closest(hoverSelectors);
       if (!t) return;
@@ -313,7 +406,7 @@
     if (isCoarsePointer || prefersReducedMotion) return;
     const targets = document.querySelectorAll('[data-magnetic]');
     targets.forEach((el) => {
-      const strength = 0.3;
+      const strength = 0.28;
       el.addEventListener('mousemove', (e) => {
         const r = el.getBoundingClientRect();
         const mx = e.clientX - (r.left + r.width / 2);
@@ -355,7 +448,7 @@
      Count-up stats
      =================================================== */
   function initCountUps() {
-    const nodes = document.querySelectorAll('.about-stats b[data-count]');
+    const nodes = document.querySelectorAll('[data-count]');
     if (!nodes.length) return;
     if (!('IntersectionObserver' in window) || prefersReducedMotion) {
       nodes.forEach((n) => { n.textContent = n.getAttribute('data-count'); });
@@ -366,7 +459,7 @@
         if (!ent.isIntersecting) return;
         const n = ent.target;
         const target = parseFloat(n.getAttribute('data-count')) || 0;
-        const duration = 1400;
+        const duration = 1500;
         const start = performance.now();
         function step(now) {
           const t = Math.min(1, (now - start) / duration);
@@ -377,12 +470,12 @@
         requestAnimationFrame(step);
         io.unobserve(n);
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.5 });
     nodes.forEach((n) => io.observe(n));
   }
 
   /* ===================================================
-     Awards, Roadmap, Services
+     Awards, Roadmap, Services, Certs
      =================================================== */
   function renderAwards() {
     const wrap = document.getElementById('awardsList');
@@ -399,12 +492,12 @@
     const wrap = document.getElementById('roadmap');
     if (!wrap) return;
     wrap.innerHTML = EXPERIENCE.map((e, i) =>
-      `<li class="roadmap-item reveal" style="--rd:${i * 60}ms">
-        <span class="roadmap-year">${esc(e.year)}</span>
-        <span class="roadmap-dot" aria-hidden="true"></span>
-        <div class="roadmap-body">
-          <h3 class="roadmap-title">${esc(e.title)}</h3>
-          <p class="roadmap-where">${esc(e.where)}</p>
+      `<li class="timeline-item reveal" style="--rd:${i * 50}ms">
+        <span class="timeline-dot" aria-hidden="true"></span>
+        <span class="timeline-year">${esc(e.year)}</span>
+        <div class="timeline-body">
+          <h3 class="timeline-title">${esc(e.title)}</h3>
+          <p class="timeline-where">${esc(e.where)}</p>
         </div>
       </li>`
     ).join('');
@@ -417,8 +510,8 @@
       `<li class="service reveal" data-cursor="view">
         <span class="service-num">${s.num}</span>
         <div class="service-body">
-          <h3>${esc(s.h)}</h3>
-          <p>${esc(s.p)}</p>
+          <h3 class="service-name">${esc(s.h)}</h3>
+          <p class="service-desc">${esc(s.p)}</p>
         </div>
         <span class="service-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
         <div class="service-preview" aria-hidden="true"><img src="${GRAPHICS_BASE}${esc(s.preview)}" alt="" /></div>
@@ -426,8 +519,30 @@
     ).join('');
   }
 
+  function renderCerts() {
+    const wrap = document.getElementById('certGrid');
+    if (!wrap) return;
+    wrap.innerHTML = CERTS.map((c) => {
+      const adaptClass = c.adapt ? ' icon-theme-adapt' : '';
+      const acronym = c.acronym ? ` <span class="cert-acronym">(${esc(c.acronym)})</span>` : '';
+      return `
+        <article class="cert-card${c.featured ? ' cert-card--featured' : ''} reveal" style="--ci:${c.color}">
+          <div class="cert-head">
+            <span class="cert-icon"><img src="https://thesvg.org/icons/${c.icon}/default.svg" width="22" height="22" alt="${esc(c.issuer)}" loading="lazy" class="cert-icon-img${adaptClass}" /></span>
+            <span class="cert-issuer">${esc(c.issuer)}</span>
+            <span class="cert-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+          </div>
+          <p class="cert-name">${esc(c.name)}${acronym}</p>
+          <div class="cert-foot">
+            <span class="cert-date"><i class="fa-regular fa-calendar"></i> ${esc(c.date)}</span>
+            <span class="cert-tag">${esc(c.tag)}</span>
+          </div>
+        </article>`;
+    }).join('');
+  }
+
   /* ===================================================
-     Projects grid (designer-styled dev cards)
+     Projects grid
      =================================================== */
   function projectSiteLabel(site) {
     if (site === 'In progress') return 'Preview';
@@ -436,42 +551,101 @@
     return s;
   }
   function projectLink(site) {
-    return site === 'In progress' ? '#home' : 'https://' + site;
+    return site === 'In progress' ? '#contact' : 'https://' + site;
   }
   function projectTarget(site) {
     return site === 'In progress' ? '' : '_blank';
+  }
+  function rolesHtml(p) {
+    return p.role.map((r) => `<span class="tag tag--role">${esc(r)}</span>`).join('');
+  }
+  function langsHtml(p) {
+    return p.langs.map((l) => `<span class="tag tag--lang">${techIcon(l)}${esc(l)}</span>`).join('');
+  }
+
+  function buildCaseStudy(cs) {
+    if (!cs) return '';
+    const steps = [];
+    if (cs.problem) {
+      steps.push(`
+        <div class="cs-step cs-step--problem">
+          <div class="cs-node"><i class="fa-solid fa-circle-exclamation"></i></div>
+          <div class="cs-content">
+            <h5 class="cs-label">The problem</h5>
+            <p class="cs-text">${esc(cs.problem)}</p>
+          </div>
+        </div>`);
+    }
+    if (cs.approach && cs.approach.length) {
+      const items = cs.approach.map((p) => `<li>${esc(p)}</li>`).join('');
+      steps.push(`
+        <div class="cs-step cs-step--approach">
+          <div class="cs-node"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <div class="cs-content">
+            <h5 class="cs-label">What I did</h5>
+            <ul class="cs-list">${items}</ul>
+          </div>
+        </div>`);
+    }
+    if (cs.outcome && cs.outcome.length) {
+      const cards = cs.outcome.map((p) =>
+        `<div class="cs-outcome"><i class="fa-solid fa-circle-check"></i><span>${esc(p)}</span></div>`
+      ).join('');
+      steps.push(`
+        <div class="cs-step cs-step--outcome">
+          <div class="cs-node"><i class="fa-solid fa-trophy"></i></div>
+          <div class="cs-content">
+            <h5 class="cs-label">The outcome</h5>
+            <div class="cs-outcomes">${cards}</div>
+          </div>
+        </div>`);
+    }
+    if (!steps.length) return '';
+    return `
+      <div class="case-study">
+        <span class="cs-eyebrow"><i class="fa-solid fa-star"></i> Case study</span>
+        <div class="cs-timeline">${steps.join('')}</div>
+      </div>`;
+  }
+
+  function browserMockup(p, large) {
+    return `
+      <div class="browser${large ? ' browser--lg' : ''}">
+        <div class="browser-bar" aria-hidden="true">
+          <span class="browser-dots"><span></span><span></span><span></span></span>
+          <span class="browser-url">${esc(projectSiteLabel(p.site))}</span>
+        </div>
+        <div class="browser-view">
+          <img src="${esc(p.img)}" alt="${esc(p.title)}"${large ? '' : ' loading="lazy" decoding="async"'} />
+        </div>
+      </div>`;
   }
 
   function renderProjects() {
     const wrap = document.getElementById('projectsGrid');
     if (!wrap) return;
     wrap.innerHTML = PROJECTS.map((p, i) => {
-      const roles = p.role.map((r) => `<span class="tag tag--role">${esc(r)}</span>`).join('');
-      const langs = p.langs.map((l) => `<span class="tag tag--lang" style="display:inline-flex;align-items:center;gap:4px;">${techIcon(l)}${esc(l)}</span>`).join('');
+      const hasCase = !!p.caseStudy;
+      const detailsLabel = hasCase ? 'Read case study' : 'View details';
+      const caseBadge = hasCase
+        ? `<span class="work-badge"><i class="fa-solid fa-file-lines"></i> Case study</span>`
+        : '';
       return `
-        <article class="project-card reveal" data-project-index="${i}" data-cursor="open">
-          <div class="project-browser">
-            <div class="project-chrome" aria-hidden="true">
-              <span class="project-dots">
-                <span class="project-dot project-dot--r"></span>
-                <span class="project-dot project-dot--y"></span>
-                <span class="project-dot project-dot--g"></span>
-              </span>
-              <span class="project-url">${esc(projectSiteLabel(p.site))}</span>
-            </div>
-            <div class="project-viewport">
-              <img src="${esc(p.img)}" alt="${esc(p.title)}" loading="lazy" decoding="async" />
-            </div>
+        <article class="work-card reveal" data-project-index="${i}" data-cursor="open">
+          <div class="work-media">
+            ${browserMockup(p, false)}
+            ${caseBadge}
           </div>
-
-          <div class="project-body">
-            <div class="project-index">${String(i + 1).padStart(2, '0')}</div>
-            <h3 class="project-title">${esc(p.title)}</h3>
-            <p class="project-desc">${esc(p.desc)}</p>
-            <div class="project-tags">${roles}${langs}</div>
-            <div class="project-actions">
-              <button type="button" class="btn btn--ghost btn--sm project-details-btn" data-project-index="${i}" data-magnetic>
-                View details
+          <div class="work-body">
+            <div class="work-top">
+              <span class="work-index">${String(i + 1).padStart(2, '0')}</span>
+              <h3 class="work-title">${esc(p.title)}</h3>
+            </div>
+            <p class="work-desc">${esc(p.desc)}</p>
+            <div class="work-tags">${rolesHtml(p)}${langsHtml(p)}</div>
+            <div class="work-actions">
+              <button type="button" class="btn btn--ghost btn--sm work-details" data-project-index="${i}" data-magnetic>
+                ${detailsLabel}
               </button>
               <a href="${esc(projectLink(p.site))}" target="${esc(projectTarget(p.site))}" rel="noopener noreferrer"
                  class="btn btn--primary btn--sm" data-magnetic data-cursor="visit">
@@ -498,25 +672,13 @@
     function open(i) {
       const p = PROJECTS[i];
       if (!p) return;
-      const roles = p.role.map((r) => `<span class="tag tag--role">${esc(r)}</span>`).join('');
-      const langs = p.langs.map((l) => `<span class="tag tag--lang" style="display:inline-flex;align-items:center;gap:4px;">${techIcon(l)}${esc(l)}</span>`).join('');
       body.innerHTML = `
-        <div class="project-browser project-browser--lg">
-          <div class="project-chrome" aria-hidden="true">
-            <span class="project-dots">
-              <span class="project-dot project-dot--r"></span>
-              <span class="project-dot project-dot--y"></span>
-              <span class="project-dot project-dot--g"></span>
-            </span>
-            <span class="project-url">${esc(projectSiteLabel(p.site))}</span>
-          </div>
-          <div class="project-viewport project-viewport--lg">
-            <img src="${esc(p.img)}" alt="${esc(p.title)}" />
-          </div>
-        </div>
-        <h4 class="project-modal-title">${esc(p.title)}</h4>
-        <p class="project-modal-desc">${esc(p.desc)}</p>
-        <div class="project-tags">${roles}${langs}</div>
+        <div class="pm-hero">${browserMockup(p, true)}</div>
+        <p class="pm-eyebrow"><i class="fa-solid fa-globe"></i> ${esc(projectSiteLabel(p.site))}</p>
+        <h4 class="pm-title">${esc(p.title)}</h4>
+        <p class="pm-desc">${esc(p.desc)}</p>
+        ${buildCaseStudy(p.caseStudy)}
+        <div class="work-tags pm-tags">${rolesHtml(p)}${langsHtml(p)}</div>
         <a href="${esc(projectLink(p.site))}" target="${esc(projectTarget(p.site))}" rel="noopener noreferrer"
            class="btn btn--primary" data-magnetic>
           <span>${p.site === 'In progress' ? 'Coming soon' : 'Visit site'}</span>
@@ -525,10 +687,10 @@
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
+      if (body.parentElement) body.parentElement.scrollTop = 0;
       if (typeof Iconify !== 'undefined') Iconify.scan(body);
       if (lenis) lenis.stop();
     }
-
     function close() {
       modal.classList.remove('is-open');
       modal.setAttribute('aria-hidden', 'true');
@@ -539,10 +701,8 @@
     grid.addEventListener('click', (e) => {
       const trigger = e.target.closest('[data-project-index]');
       if (!trigger) return;
-      // if clicking the Visit link, don't open modal
-      if (e.target.closest('a')) return;
-      const idx = Number(trigger.getAttribute('data-project-index'));
-      open(idx);
+      if (e.target.closest('a')) return; // let the Visit link work
+      open(Number(trigger.getAttribute('data-project-index')));
     });
     if (closeBtn) closeBtn.addEventListener('click', close);
     if (backdrop) backdrop.addEventListener('click', close);
@@ -597,7 +757,6 @@
         </div>
       </article>`).join('');
 
-    // reveal on enter
     if ('IntersectionObserver' in window && !prefersReducedMotion) {
       const cards = rail.querySelectorAll('.feature-card');
       const io = new IntersectionObserver(
@@ -611,7 +770,6 @@
       rail.querySelectorAll('.feature-card').forEach((c) => c.classList.add('in'));
     }
 
-    // drag-to-scroll
     let isDown = false, startX = 0, scrollLeft = 0, moved = 0;
     rail.addEventListener('mousedown', (e) => {
       isDown = true; moved = 0;
@@ -634,7 +792,6 @@
         e.preventDefault();
       }
     }, { passive: false });
-
     rail.addEventListener('click', (e) => {
       if (moved > 6) return;
       const card = e.target.closest('.feature-card');
@@ -735,8 +892,8 @@
     document.querySelectorAll('.service').forEach((li) => {
       li.addEventListener('mousemove', (e) => {
         const r = li.getBoundingClientRect();
-        const mx = (e.clientX - (r.left + r.width / 2)) * 0.4;
-        const my = (e.clientY - (r.top + r.height / 2)) * 0.3;
+        const mx = (e.clientX - (r.left + r.width / 2)) * 0.35;
+        const my = (e.clientY - (r.top + r.height / 2)) * 0.25;
         li.style.setProperty('--mx', mx + 'px');
         li.style.setProperty('--my', my + 'px');
       });
@@ -795,9 +952,12 @@
   function initLightboxControls() {
     const box = document.getElementById('lightbox');
     if (!box) return;
-    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-    document.getElementById('lightboxPrev').addEventListener('click', () => navLightbox(-1));
-    document.getElementById('lightboxNext').addEventListener('click', () => navLightbox(1));
+    const closeBtn = document.getElementById('lightboxClose');
+    const prevBtn = document.getElementById('lightboxPrev');
+    const nextBtn = document.getElementById('lightboxNext');
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (prevBtn) prevBtn.addEventListener('click', () => navLightbox(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => navLightbox(1));
     box.addEventListener('click', (e) => { if (e.target === box) closeLightbox(); });
     document.addEventListener('keydown', (e) => {
       if (!box.classList.contains('is-open')) return;
@@ -808,17 +968,20 @@
   }
 
   /* ===================================================
-     Hero title parallax
+     Hero parallax (portrait + headline drift)
      =================================================== */
   function initHeroParallax() {
     if (prefersReducedMotion) return;
-    const title = document.querySelector('.hero-title');
-    if (!title) return;
+    const portrait = document.querySelector('[data-parallax="portrait"]');
+    const marks = document.querySelectorAll('[data-parallax="mark"]');
+    if (!portrait && !marks.length) return;
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
-      if (y > window.innerHeight) return;
-      title.style.transform = `translateY(${y * 0.15}px)`;
-      title.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.9)));
+      if (y > window.innerHeight * 1.2) return;
+      if (portrait) portrait.style.transform = `translateY(${y * 0.06}px)`;
+      marks.forEach((m, i) => {
+        m.style.transform = `translateY(${y * (0.1 + i * 0.04)}px)`;
+      });
     }, { passive: true });
   }
 
@@ -826,11 +989,11 @@
      Boot
      =================================================== */
   function boot() {
-    // data-driven renders (must come before reveal init)
     renderAwards();
     renderRoadmap();
     renderServices();
     renderProjects();
+    renderCerts();
 
     initClock();
     initCursor();
