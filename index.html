@@ -66,24 +66,25 @@
           </div>
           <p class="hero-location"><i class="fa-solid fa-location-dot"></i> Pampanga, Philippines</p>
           <div class="hero-role">
-            <span>Software Engineer | UX/UI | Graphic Designer</span>
+            <span>Full-Stack Developer &amp; UX/UI Designer</span>
           </div>
-          <span class="otw-badge" aria-label="Available for work">
+          <p class="hero-pitch">I help businesses turn ideas into fast, scalable web &amp; mobile products — from custom CMS platforms to client-facing apps.</p>
+          <span class="otw-badge" aria-label="Available for freelance and contract work">
             <span class="otw-dot" aria-hidden="true"></span>
-            Open to Work
+            Available for freelance &amp; contract
           </span>
           <div class="hero-actions">
-            <button type="button" id="openCvModal" class="btn-primary">
+            <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn-primary">
+              <i class="fa-brands fa-facebook-messenger text-sm"></i>
+              Start a project
+            </a>
+            <button type="button" id="openCvModal" class="btn-secondary">
               <i class="fas fa-file-lines text-sm"></i>
               View CV
             </button>
             <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn-secondary">
               <i class="fa-brands fa-github text-sm"></i>
               GitHub
-            </a>
-            <a href="mailto:dale.bedania10@gmail.com" class="btn-secondary">
-              <i class="fa-solid fa-envelope text-sm"></i>
-              Email
             </a>
           </div>
         </div>
@@ -472,7 +473,11 @@
     <section class="section-shell reveal" id="projects-section">
       <article class="panel-card">
         <div class="section-head">
-          <h2 class="section-title">Recent Projects</h2>
+          <h2 class="section-title">Highlighted Projects</h2>
+          <p class="section-lede">
+            <i class="fa-solid fa-lock" aria-hidden="true"></i>
+            A selected few of my favorites. I've delivered many more for clients that can't be shown here due to NDAs and contract agreements — happy to walk you through them on a call.
+          </p>
         </div>
         <div class="projects-grid" id="projects"></div>
       </article>
@@ -654,6 +659,24 @@
       </article>
     </section>
 
+    <section class="section-shell reveal" id="work-with-me">
+      <article class="panel-card cta-card">
+        <span class="cta-eyebrow"><span class="otw-dot" aria-hidden="true"></span> Available for freelance &amp; contract</span>
+        <h2 class="cta-title">Have a project in mind?</h2>
+        <p class="cta-sub">Tell me what you're building — a website, a custom platform, a mobile app, or a design refresh. I'll reply within 24 hours. No obligation, just a quick chat to see if we're a good fit.</p>
+        <div class="cta-actions">
+          <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn-primary cta-btn">
+            <i class="fa-brands fa-facebook-messenger"></i>
+            Message me on Facebook
+          </a>
+          <a href="mailto:dale.bedania10@gmail.com" class="btn-secondary cta-btn">
+            <i class="fa-solid fa-envelope"></i>
+            Email me
+          </a>
+        </div>
+      </article>
+    </section>
+
     <footer class="section-shell footer-shell reveal" id="contact">
       <div class="footer-glow" aria-hidden="true">
         <span class="footer-orb footer-orb--1"></span>
@@ -690,7 +713,7 @@
           <button type="button" id="closeCvModal" class="btn-secondary">Close</button>
         </div>
       </div>
-      <div class="cv-modal-body">
+      <div class="cv-modal-body" data-lenis-prevent>
         <iframe src="works/Bedania_CVFormal.pdf#toolbar=1&navpanes=0" title="Dale Bedania CV PDF preview"></iframe>
       </div>
     </div>
@@ -701,9 +724,11 @@
     <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
       <div class="project-modal-header">
         <h3 id="projectModalTitle">Project Details</h3>
-        <button type="button" id="closeProjectModal" class="btn-secondary">Close</button>
+        <button type="button" id="closeProjectModal" class="project-modal-close-x" aria-label="Close project details">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
       </div>
-      <div class="project-modal-body" id="projectModalBody"></div>
+      <div class="project-modal-body" id="projectModalBody" data-lenis-prevent></div>
     </div>
   </div>
 

@@ -4,17 +4,45 @@ let projects = [
         "title":"Holy Angel University IDMO Employee Portal",
         "desc": "Employee Portal for Holy Angel University, streamlining HR processes and data management.",
         "img": "works/hauoieidmo.png",
-        "site": "hau-oie-idmo.com", 
+        "site": "hau-oie-idmo.com",
         "role":['Full-Stack Developer', "UX/UI Designer"],
         "langs":['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger'],
+        "caseStudy": {
+            "problem": "The IDMO managed employee records and HR requests through manual, document-heavy processes that were slow to search, easy to duplicate, and hard to keep consistent.",
+            "approach": [
+                "Built a centralized Laravel portal with role-based access for HR staff and employees.",
+                "Designed clean, intuitive UX/UI flows so non-technical staff could manage records without training.",
+                "Modeled an optimized MySQL schema for fast, reliable lookups across employee data.",
+                "Deployed and configured production hosting on Hostinger with SSL."
+            ],
+            "outcome": [
+                "Replaced scattered manual tracking with a single source of truth for employee data.",
+                "Gave HR and employees fast self-service access to records and requests.",
+                "Cut down repetitive paperwork and made employee information searchable in seconds."
+            ]
+        },
     },
     { 
         "title":"Kayantabe",
         "desc": "A dynamic volunteerism web platform designed to connect passionate individuals with local community initiatives.",
         "img": "works/kayantabe.png",
-        "site": "kayantabe.com", 
+        "site": "kayantabe.com",
         "role":['Full-Stack Developer', "Project Lead"],
         "langs":['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger'],
+        "caseStudy": {
+            "problem": "Local community initiatives struggled to reach and coordinate volunteers, relying on fragmented social-media posts with no central place to discover, sign up for, or manage activities.",
+            "approach": [
+                "Led the project end-to-end and built the platform on Laravel.",
+                "Created flows for organizations to post initiatives and for volunteers to discover and join them.",
+                "Designed a responsive, mobile-first UI to make sign-up frictionless.",
+                "Structured the data model so organizers could track participation per initiative."
+            ],
+            "outcome": [
+                "Gave volunteers and organizers one platform to connect, replacing scattered social posts.",
+                "Made it simple for organizations to launch initiatives and grow their volunteer base.",
+                "Streamlined sign-ups so more people could get involved with far less friction."
+            ]
+        },
     },
     { 
         "title":"Umbra",
@@ -28,9 +56,22 @@ let projects = [
         "title":"Pina Management CMS",
         "desc": "Developed a custom CMS portal tailored for a real estate company, enabling efficient management of property listings, client records, and transactions. Focused on streamlining workflows and providing a user-friendly interface to improve daily operations.",
         "img": "works/pina.png",
-        "site": "In progress", 
+        "site": "In progress",
         "role":['Database Administrator', "Full-Stack Developer"],
-        "langs":["React","Supabase"],
+        "langs":["React","Supabase","Vercel"],
+        "caseStudy": {
+            "problem": "A real estate company tracked property listings, client records, and transactions across spreadsheets and disconnected tools, making day-to-day operations slow and error-prone.",
+            "approach": [
+                "Built a custom CMS with React and Supabase tailored to their real-estate workflow.",
+                "Structured the database for listings, clients, and transactions with data integrity in mind.",
+                "Focused the interface on the team's daily tasks to reduce friction and training time."
+            ],
+            "outcome": [
+                "Centralizes listings, clients, and transactions into one operational portal.",
+                "Replaces error-prone spreadsheets with a single, reliable source of truth.",
+                "Speeds up daily operations with workflows built around the team's real tasks."
+            ]
+        },
     },
     { 
         "title":"SPUR Landing Page",
@@ -38,7 +79,7 @@ let projects = [
         "img": "works/joinspur.png",
         "site": "joinspurapp.com", 
         "role":['UX/UI Designer', "Full-Stack Developer"],
-        "langs":["React", "Supabase"],
+        "langs":["React", "Supabase", "Vercel"],
     },
     {
         "title":"SPUR Mobile App",
@@ -54,7 +95,7 @@ let projects = [
         "img": "works/zepatide.png",
         "site": "thezepatide.com", 
         "role":['UX/UI Designer', "Front-end Developer"],
-        "langs":["React", "Supabase"],
+        "langs":["React", "Supabase", "Vercel"],
     },
     { 
         "title":"IMMFI",
@@ -128,6 +169,7 @@ const TECH_ICON_MAP = {
   'node.js':        'logos:nodejs-icon',
   'mapbox gl':      'simple-icons:mapbox',
   'hostinger':      'simple-icons:hostinger',
+  'vercel':         'logos:vercel-icon',
   'pdf generation': 'mdi:file-pdf-box',
 };
 
@@ -165,7 +207,66 @@ function createLanguages(arr) {
 }
 
 
-function integrateLink(site) { 
+function buildCaseStudy(cs) {
+    if (!cs) return '';
+
+    const esc = escapeHtml;
+    const steps = [];
+
+    if (cs.problem) {
+        steps.push(`
+          <div class="cs-step cs-step--problem">
+            <div class="cs-step-node"><span class="iconify" data-icon="mdi:alert-circle-outline"></span></div>
+            <div class="cs-step-body">
+              <h5 class="cs-step-label">The Problem</h5>
+              <p class="cs-step-text">${esc(cs.problem)}</p>
+            </div>
+          </div>
+        `);
+    }
+
+    if (cs.approach && cs.approach.length) {
+        const items = cs.approach.map((p) => `<li>${esc(p)}</li>`).join('');
+        steps.push(`
+          <div class="cs-step cs-step--approach">
+            <div class="cs-step-node"><span class="iconify" data-icon="mdi:tools"></span></div>
+            <div class="cs-step-body">
+              <h5 class="cs-step-label">What I did</h5>
+              <ul class="cs-step-list">${items}</ul>
+            </div>
+          </div>
+        `);
+    }
+
+    if (cs.outcome && cs.outcome.length) {
+        const cards = cs.outcome.map((p) => `
+          <div class="cs-outcome-card">
+            <span class="iconify" data-icon="mdi:check-circle"></span>
+            <span>${esc(p)}</span>
+          </div>
+        `).join('');
+        steps.push(`
+          <div class="cs-step cs-step--outcome">
+            <div class="cs-step-node"><span class="iconify" data-icon="mdi:trophy-outline"></span></div>
+            <div class="cs-step-body">
+              <h5 class="cs-step-label">Outcome</h5>
+              <div class="cs-outcome-grid">${cards}</div>
+            </div>
+          </div>
+        `);
+    }
+
+    if (!steps.length) return '';
+
+    return `
+      <div class="case-study">
+        <span class="case-study-eyebrow"><span class="iconify" data-icon="mdi:star-four-points"></span> Case Study</span>
+        <div class="cs-timeline">${steps.join('')}</div>
+      </div>
+    `;
+}
+
+function integrateLink(site) {
     if(site === "In progress") {
         return '#home' 
     } 
@@ -225,34 +326,51 @@ function loadProjects() {
 
     projects.forEach((item, index) => {
 
-        const roles = createRoles(item.role); 
-        const langs = createLanguages(item.langs); 
-        
-        
+        const roles = createRoles(item.role);
+        const langs = createLanguages(item.langs);
+
+        const hasCase = !!item.caseStudy;
+        const cardClass = hasCase
+            ? 'project-card project-card--case group flex flex-col overflow-hidden reveal-scale'
+            : 'project-card group flex flex-col overflow-hidden reveal-scale';
+        const caseBadge = hasCase
+            ? `<span class="case-study-badge"><span class="iconify" data-icon="mdi:file-document-outline" style="font-size:13px;"></span> Case Study</span>`
+            : '';
+        const detailsLabel = hasCase ? 'Read Case Study' : 'View Details';
+
+        const siteLabel = siteLabelForMockup(item.site);
+        const siteCta = item.site === 'In progress' ? 'Coming Soon' : 'View Site';
+
         let project = `
-    <article class="project-card group flex flex-col overflow-hidden reveal-scale">
-      <!-- Image -->
-      <div class="project-thumb-wrap relative overflow-hidden">
-        ${browserMockupHtml(item.img, item.title, item.site, 'card')}
+    <article class="${cardClass}">
+      <div class="project-media">
+        <img src="${escapeHtml(item.img)}" alt="${escapeHtml(item.title)} screenshot" loading="lazy"
+             class="project-media-img"
+             onerror="this.style.display='none';this.parentElement.querySelector('.project-media-fallback').style.display='flex';" />
+        <div class="project-media-fallback">Screenshot coming soon</div>
+        <div class="project-media-shade" aria-hidden="true"></div>
+        ${caseBadge}
+        <div class="project-media-caption">
+          <span class="project-media-site"><span class="iconify" data-icon="mdi:web" style="font-size:12px;"></span>${escapeHtml(siteLabel)}</span>
+          <h3 class="project-media-title">${escapeHtml(item.title)}</h3>
+        </div>
       </div>
 
-      <!-- Content -->
-      <div class="project-content flex flex-col pt-3 gap-3">
-        <h3 class="text-lg font-bold text-gray-900 leading-tight">${item.title}</h3>
-        <p class="project-desc text-sm text-gray-600 leading-relaxed">${item.desc}</p>
+      <div class="project-content">
+        <p class="project-desc">${escapeHtml(item.desc)}</p>
 
-        <div class="flex flex-wrap gap-2 mt-1">
+        <div class="project-chips">
           ${roles}
           ${langs}
         </div>
 
-        <div class="project-actions mt-1 flex items-center justify-between gap-2">
+        <div class="project-actions">
           <button type="button" class="project-details-btn btn-secondary" data-project-index="${index}">
-            View Details
+            ${detailsLabel}
           </button>
-          <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full bg-black px-3.5 py-1.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5">
+          <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" rel="noopener noreferrer" class="project-site-link">
             <span class="iconify" data-icon="mdi:link-variant" style="font-size: 1rem;"></span>
-            <span class="truncate">${item.site === 'In progress' ? 'Coming Soon' : 'View Site'}</span>
+            <span class="truncate">${siteCta}</span>
           </a>
         </div>
       </div>
@@ -288,6 +406,8 @@ function bindProjectDetailsModal() {
           `<span class="text-xs px-2.5 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-700 font-medium" style="display:inline-flex;align-items:center;gap:4px;">${techIcon(lang)}${escapeHtml(lang)}</span>`
         ).join('');
 
+        const caseStudyHtml = buildCaseStudy(item.caseStudy);
+
         projectModalBody.innerHTML = `
           <article class="project-modal-content">
             <div class="project-modal-image-wrap">
@@ -295,6 +415,7 @@ function bindProjectDetailsModal() {
             </div>
             <h4 class="project-modal-title">${escapeHtml(item.title)}</h4>
             <p class="project-modal-desc">${escapeHtml(item.desc)}</p>
+            ${caseStudyHtml}
             <div class="project-modal-tags">
               ${roleChips}
               ${languageChips}
@@ -309,6 +430,8 @@ function bindProjectDetailsModal() {
         projectModal.classList.add('is-open');
         projectModal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('modal-open');
+        if (window.__lenis) window.__lenis.stop();
+        if (projectModalBody) projectModalBody.scrollTop = 0;
         if (typeof Iconify !== 'undefined') Iconify.scan(projectModalBody);
     };
 
@@ -316,6 +439,7 @@ function bindProjectDetailsModal() {
         projectModal.classList.remove('is-open');
         projectModal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
+        if (window.__lenis) window.__lenis.start();
     };
 
     projectsContainer.addEventListener('click', (event) => {

@@ -100,13 +100,14 @@ var CHATBOT_RULES = [
     keywords: [
       'project', 'portfolio', 'kayantabe', 'umbra', 'idmo',
       'pina', 'spur', 'zepatide', 'immfi', 'connect4', 'devfinder',
+      'resumeforge', 'zonebridge', 'resume', 'timezone',
       'built', 'recent',
     ],
     phrases: ['show projects', 'what have you built'],
     answers: [
-      'Recent highlights: <strong>HAU IDMO Employee Portal</strong>, <strong>Kayantabe</strong> (volunteerism platform), <strong>Umbra</strong> (tutoring marketplace), <strong>Pina Management CMS</strong> (real estate), <strong>SPUR</strong> (app + landing page), <strong>The Zepatide</strong>, and <strong>IMMFI</strong>. Smaller apps include Connect4 and GitHub DevFinder. Scroll to <strong>Recent Projects</strong> and tap a card for details.',
-      'A few things Dale has shipped: a real estate CMS for Pina Realty, a volunteerism app called Kayantabe, a tutoring marketplace (Umbra), SPUR\'s app and landing page, and a university employee portal at HAU. Click any project card on this page for the full breakdown.',
-      'He\'s built everything from a <strong>real estate CMS</strong> to a <strong>tutoring marketplace</strong> to a <strong>university employee portal</strong>. Notable names: Kayantabe, Umbra, Pina, SPUR, IMMFI, The Zepatide. Jump to the <strong>Recent Projects</strong> section — each card has live links and a description.',
+      'Recent highlights: <strong>HAU IDMO Employee Portal</strong>, <strong>Kayantabe</strong> (volunteerism platform), <strong>Umbra</strong> (tutoring marketplace), <strong>Pina Management CMS</strong> (real estate), <strong>SPUR</strong> (app + landing page), <strong>The Zepatide</strong>, and <strong>IMMFI</strong>. Newer builds include <strong>ResumeForge</strong> (Harvard-format resume PDF builder) and <strong>ZoneBridge</strong> (3D globe timezone gap calculator), plus Connect4 and GitHub DevFinder. Scroll to <strong>Recent Projects</strong> and tap a card for details.',
+      'A few things Dale has shipped: a real estate CMS for Pina Realty, a volunteerism app called Kayantabe, a tutoring marketplace (Umbra), SPUR\'s app and landing page, and a university employee portal at HAU. Recent side projects include <strong>ResumeForge</strong> and <strong>ZoneBridge</strong>. Click any project card on this page for the full breakdown.',
+      'He\'s built everything from a <strong>real estate CMS</strong> to a <strong>tutoring marketplace</strong> to a <strong>university employee portal</strong>. Notable names: Kayantabe, Umbra, Pina, SPUR, IMMFI, The Zepatide, <strong>ResumeForge</strong>, and <strong>ZoneBridge</strong>. Jump to the <strong>Recent Projects</strong> section — each card has live links and a description.',
     ],
   },
   {

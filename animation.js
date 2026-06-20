@@ -236,6 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
       syncTouch: false, /* keep native inertia on touch screens */
     });
 
+    /* Expose so modals can pause/resume background smooth-scroll */
+    window.__lenis = lenis;
+
     /* Pipe Lenis scroll events into our existing runScroll */
     lenis.on('scroll', function () {
       if (!scrollTick) {
@@ -282,12 +285,14 @@ document.addEventListener('DOMContentLoaded', () => {
       cvModal.classList.add('is-open');
       cvModal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
+      if (window.__lenis) window.__lenis.stop();
     };
 
     const closeModal = () => {
       cvModal.classList.remove('is-open');
       cvModal.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('modal-open');
+      if (window.__lenis) window.__lenis.start();
     };
 
     openCvModal.addEventListener('click', openModal);
