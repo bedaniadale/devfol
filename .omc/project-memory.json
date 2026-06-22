@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1781939578857,
+  "lastScanned": 1782122384317,
   "projectRoot": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
   "techStack": {
     "languages": [],
@@ -36,7 +36,7 @@
       "path": "works",
       "purpose": null,
       "fileCount": 15,
-      "lastAccessed": 1781939578838,
+      "lastAccessed": 1782122384297,
       "keyFiles": [
         "Bedania_CV.pdf",
         "Bedania_CVFormal.pdf",
@@ -49,8 +49,14 @@
   "hotPaths": [
     {
       "path": "index.html",
-      "accessCount": 5,
-      "lastAccessed": 1781945107232,
+      "accessCount": 8,
+      "lastAccessed": 1782125054442,
+      "type": "file"
+    },
+    {
+      "path": "onepager.css",
+      "accessCount": 8,
+      "lastAccessed": 1782125073185,
       "type": "file"
     },
     {
@@ -78,9 +84,9 @@
       "type": "file"
     },
     {
-      "path": "onepager.css",
-      "accessCount": 2,
-      "lastAccessed": 1781939652992,
+      "path": "animation.js",
+      "accessCount": 3,
+      "lastAccessed": 1782125082024,
       "type": "file"
     },
     {
@@ -123,12 +129,6 @@
       "path": "education-gallery.js",
       "accessCount": 1,
       "lastAccessed": 1781939644938,
-      "type": "file"
-    },
-    {
-      "path": "animation.js",
-      "accessCount": 1,
-      "lastAccessed": 1781939648810,
       "type": "file"
     },
     {
@@ -195,6 +195,18 @@
       "path": "studio-mobile-trust.jpeg",
       "accessCount": 1,
       "lastAccessed": 1781946310362,
+      "type": "file"
+    },
+    {
+      "path": "testimonials-light.png",
+      "accessCount": 1,
+      "lastAccessed": 1782125186545,
+      "type": "file"
+    },
+    {
+      "path": "testimonials-dark.png",
+      "accessCount": 1,
+      "lastAccessed": 1782125203600,
       "type": "file"
     }
   ],
