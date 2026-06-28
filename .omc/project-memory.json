@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1782122384317,
+  "lastScanned": 1782660797649,
   "projectRoot": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
   "techStack": {
     "languages": [],
@@ -36,7 +36,7 @@
       "path": "works",
       "purpose": null,
       "fileCount": 15,
-      "lastAccessed": 1782122384297,
+      "lastAccessed": 1782660797630,
       "keyFiles": [
         "Bedania_CV.pdf",
         "Bedania_CVFormal.pdf",
@@ -48,15 +48,27 @@
   },
   "hotPaths": [
     {
+      "path": "app.js",
+      "accessCount": 21,
+      "lastAccessed": 1782669005982,
+      "type": "file"
+    },
+    {
       "path": "index.html",
-      "accessCount": 8,
-      "lastAccessed": 1782125054442,
+      "accessCount": 19,
+      "lastAccessed": 1782669006962,
       "type": "file"
     },
     {
       "path": "onepager.css",
+      "accessCount": 14,
+      "lastAccessed": 1782661102264,
+      "type": "file"
+    },
+    {
+      "path": "app.css",
       "accessCount": 8,
-      "lastAccessed": 1782125073185,
+      "lastAccessed": 1782669368750,
       "type": "file"
     },
     {
@@ -72,9 +84,15 @@
       "type": "file"
     },
     {
+      "path": "animation.js",
+      "accessCount": 4,
+      "lastAccessed": 1782660888515,
+      "type": "file"
+    },
+    {
       "path": "designs.js",
-      "accessCount": 3,
-      "lastAccessed": 1781939649139,
+      "accessCount": 4,
+      "lastAccessed": 1782661745218,
       "type": "file"
     },
     {
@@ -84,21 +102,21 @@
       "type": "file"
     },
     {
-      "path": "animation.js",
+      "path": "aboutme.txt",
       "accessCount": 3,
-      "lastAccessed": 1782125082024,
+      "lastAccessed": 1782660878330,
       "type": "file"
     },
     {
       "path": "projects.js",
-      "accessCount": 2,
-      "lastAccessed": 1781939675376,
+      "accessCount": 3,
+      "lastAccessed": 1782661744267,
       "type": "file"
     },
     {
-      "path": "aboutme.txt",
-      "accessCount": 2,
-      "lastAccessed": 1781939706472,
+      "path": "techstacks.js",
+      "accessCount": 3,
+      "lastAccessed": 1782661745148,
       "type": "file"
     },
     {
@@ -108,15 +126,15 @@
       "type": "file"
     },
     {
-      "path": "techstacks.js",
+      "path": "server.js",
       "accessCount": 2,
-      "lastAccessed": 1781945085631,
+      "lastAccessed": 1782661279848,
       "type": "file"
     },
     {
-      "path": "server.js",
-      "accessCount": 1,
-      "lastAccessed": 1781939611860,
+      "path": "restyle.css",
+      "accessCount": 2,
+      "lastAccessed": 1782661375691,
       "type": "file"
     },
     {
@@ -207,6 +225,12 @@
       "path": "testimonials-dark.png",
       "accessCount": 1,
       "lastAccessed": 1782125203600,
+      "type": "file"
+    },
+    {
+      "path": "restyle.js",
+      "accessCount": 1,
+      "lastAccessed": 1782661245961,
       "type": "file"
     }
   ],

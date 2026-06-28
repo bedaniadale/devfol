@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dale Bedania — Software Engineer & Full-stack Developer based in Pampanga, Philippines. Specializing in Laravel, React, Next.js, mobile apps, UX/UI design, and business automation. Available for full-time roles and freelance projects.">
+  <meta name="theme-color" content="#fcfcfd">
+  <link rel="canonical" href="https://bedaniadale.github.io/portfolio/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Dale Bedania — Software Engineer & Full-stack Developer | Philippines">
+  <meta property="og:description" content="Software Engineer & Full-stack Developer building practical, scalable web and mobile solutions. 10+ deployed apps · 9+ years coding · Open to work.">
+  <meta property="og:image" content="https://bedaniadale.github.io/portfolio/main.jpg">
+  <meta property="og:url" content="https://bedaniadale.github.io/portfolio/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dale Bedania — Software Engineer & Full-stack Developer | Philippines">
+  <meta name="twitter:description" content="Software Engineer & Full-stack Developer building practical, scalable web and mobile solutions. 10+ deployed apps · 9+ years coding · Open to work.">
+  <meta name="twitter:image" content="https://bedaniadale.github.io/portfolio/main.jpg">
+  <link rel="icon" type="image/jpeg" href="main.jpg">
+  <link rel="apple-touch-icon" href="main.jpg">
+  <title>Dale Bedania — Software Engineer &amp; Full-stack Developer | Philippines</title>
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem('portfolio-theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var activeTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', activeTheme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@iconify/iconify@3.1.1/dist/iconify.min.js"></script>
+  <link rel="stylesheet" href="onepager.css">
+</head>
+<body>
+  <main class="page-shell" id="home">
+    <section class="section-shell hero-shell">
+      <article class="panel-card hero-card">
+        <div class="hero-avatar" id="heroAvatar">
+          <img src="main.jpg" alt="Dale Bedania profile" class="hero-avatar-img w-full h-full object-cover">
+        </div>
+        <div class="hero-info flex flex-col gap-1">
+          <div class="hero-heading-row">
+            <h1 class="hero-title">
+              <span class="hero-name">Dale Bedania</span><svg class="verified-badge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-label="Verified" role="img"><path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.67-.88 3.33-2.19c1.4.46 2.91.21 3.92-.8s1.26-2.52.8-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z" fill="#1D9BF0"/></svg>
+            </h1>
+            <div class="hero-topright">
+              <a href="designer.html" class="mode-toggle" aria-label="Switch to Designer mode">
+                <span class="mode-toggle-dot" aria-hidden="true"></span>
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span class="mode-toggle-label">Designer Mode</span>
+                <i class="fa-solid fa-arrow-right mode-toggle-arrow"></i>
+              </a>
+              <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+                <i class="fa-solid fa-moon"></i>
+                <span class="theme-toggle-label">Dark</span>
+              </button>
+            </div>
+          </div>
+          <p class="hero-location"><i class="fa-solid fa-location-dot"></i> Pampanga, Philippines</p>
+          <div class="hero-role">
+            <span>Full-Stack Developer &amp; UX/UI Designer</span>
+          </div>
+          <p class="hero-pitch">I help businesses turn ideas into fast, scalable web &amp; mobile products — from custom CMS platforms to client-facing apps.</p>
+          <span class="otw-badge" aria-label="Available for freelance and contract work">
+            <span class="otw-dot" aria-hidden="true"></span>
+            Available for freelance &amp; contract
+          </span>
+          <div class="hero-actions">
+            <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn-primary">
+              <i class="fa-brands fa-facebook-messenger text-sm"></i>
+              Start a project
+            </a>
+            <button type="button" id="openCvModal" class="btn-secondary">
+              <i class="fas fa-file-lines text-sm"></i>
+              View CV
+            </button>
+            <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+              <i class="fa-brands fa-github text-sm"></i>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section-shell reveal" id="about">
+      <article class="panel-card about-edu-layout">
+        <div class="about-edu-columns">
+          <div class="about-pane">
+            <h2 class="about-title">
+              Since <span class="typed-text">2015</span>
+            </h2>
+            <p class="about-copy">
+              Over a decade of writing code, I've gone from a 13-year-old tinkering with HTML to a software engineer who ships production-ready applications. I build full-stack web and mobile solutions with a focus on clean architecture, real-world impact, and experiences that actually work for the people using them.
+            </p>
+            <blockquote class="about-quote code-quote">
+              <span class="quote-keyword">const</span>
+              <span class="quote-variable">quote</span>
+              = <span class="quote-string">"Great web development isn’t just about writing code—it’s about solving problems, creating seamless experiences, and turning ideas into digital reality."</span>;
+            </blockquote>
+            <p class="meta-text mt-3">- Every good web developer, ever</p>
+          </div>
+
+          <aside class="education-pane">
+            <div class="education-card">
+              <img src="haulogo.png" class="w-20 h-20 rounded-lg shadow-sm object-cover" alt="HAU logo">
+              <div class="education-copy">
+                <p class="meta-text">Holy Angel University - Class of 2025</p>
+                <p class="education-degree">Bachelor of Science in Information Technology</p>
+                <p class="education-track">Specialization: Web Development</p>
+              </div>
+            </div>
+            <div class="education-awards" id="awards"></div>
+          </aside>
+        </div>
+
+        <hr class="about-edu-separator" />
+
+        <ul class="about-stats about-stats--row">
+          <li class="stat-card stat-card--h">
+            <div class="stat-card__text">
+              <p class="stat-value"><span class="count-up" data-target="10">0</span>+</p>
+              <p class="meta-text"><strong>scaled applications deployed</strong> — from real estate CMS to university portals</p>
+            </div>
+            <span class="stat-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+            </span>
+          </li>
+          <li class="stat-card stat-card--h">
+            <div class="stat-card__text">
+              <p class="stat-value"><span class="count-up" data-target="100">0</span>%</p>
+              <p class="meta-text"><strong>client satisfaction</strong> — uptime and delivery commitment across every project</p>
+            </div>
+            <span class="stat-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.14.85 3 .08l2.07-1.87"/></svg>
+            </span>
+          </li>
+          <li class="stat-card stat-card--h">
+            <div class="stat-card__text">
+              <p class="stat-value"><span class="count-up" data-target="9">0</span>+</p>
+              <p class="meta-text"><strong>years of coding evolution</strong> — started in 2015, still going</p>
+            </div>
+            <span class="stat-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </span>
+          </li>
+          <li class="stat-card stat-card--h">
+            <div class="stat-card__text">
+              <p class="stat-value"><span class="count-up" data-target="24">0</span>/7</p>
+              <p class="meta-text">curiosity — always exploring new tools, trends, and technologies</p>
+            </div>
+            <span class="stat-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            </span>
+          </li>
+        </ul>
+
+        <div class="about-carousel-row">
+          <div class="education-gallery-block education-gallery-block--full">
+            <div class="education-gallery" id="eduGallery" role="region" aria-roledescription="carousel" aria-label="Photo gallery, auto-scrolling. Pause by hovering.">
+              <div class="education-gallery__scroller" id="eduGalleryScroller" tabindex="0" aria-live="polite">
+                <!-- Display order: last file first (2.png … 1.jpg) -->
+                <figure class="education-gallery__slide">
+                  <img src="works/gallery/2.png" alt="Gallery image 1 of 4" width="960" height="640" loading="lazy" decoding="async">
+                </figure>
+                <figure class="education-gallery__slide">
+                  <img src="works/gallery/3.png" alt="Gallery image 2 of 4" width="960" height="640" loading="lazy" decoding="async">
+                </figure>
+                <figure class="education-gallery__slide">
+                  <img src="works/gallery/2.jpg" alt="Gallery image 3 of 4" width="960" height="640" loading="lazy" decoding="async">
+                </figure>
+                <figure class="education-gallery__slide">
+                  <img src="works/gallery/1.jpg" alt="Gallery image 4 of 4" width="960" height="640" loading="lazy" decoding="async">
+                </figure>
+              </div>
+            </div>
+            <div class="education-gallery__dots" id="eduGalleryDots"></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section-shell reveal" id="services">
+      <article class="panel-card">
+        <div class="split-layout">
+        <div class="split-left">
+          <div class="split-block">
+            <div class="section-head">
+              <h2 class="section-title">What can I offer?</h2>
+            </div>
+            <div class="bento-grid" data-stagger>
+
+              <!-- ROW 1: 50% + 50% -->
+              <div class="service-item service-item--featured service-item--half">
+                <div class="service-icon service-icon--lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
+                <div class="service-text">
+                  <h3>Full-stack Web Development</h3>
+                  <p class="service-desc">End-to-end web applications built with clean code, scalable architecture, and high performance.</p>
+                </div>
+              </div>
+              <div class="service-item service-item--half">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><path d="M17.5 17.5 21 21"></path><path d="M14 17.5h3.5v3.5"></path></svg></div>
+                <div class="service-text">
+                  <h3>System Design &amp; Architecture</h3>
+                  <p class="service-desc">Scalable, modular system blueprints designed to handle high traffic and ensure maximum uptime.</p>
+                </div>
+              </div>
+
+              <!-- ROW 2: three tiles (33% each) -->
+              <div class="service-item service-item--third">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
+                <div class="service-text">
+                  <h3>Database Management</h3>
+                  <p class="service-desc">Optimized databases with fast queries, clean schemas, and robust data integrity.</p>
+                </div>
+              </div>
+              <div class="service-item service-item--third">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><circle cx="6" cy="7" r="1"></circle><circle cx="9" cy="7" r="1"></circle></svg></div>
+                <div class="service-text">
+                  <h3>UX/UI Designing</h3>
+                  <p class="service-desc">Intuitive, high-converting user interfaces designed for premium digital experiences.</p>
+                </div>
+              </div>
+              <div class="service-item service-item--third">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></div>
+                <div class="service-text">
+                  <h3>Mobile Development</h3>
+                  <p class="service-desc">Cross-platform iOS and Android applications delivering native performance and speed.</p>
+                </div>
+              </div>
+
+              <!-- ROW 3: 50% + 50% -->
+              <div class="service-item service-item--featured service-item--half">
+                <div class="service-icon service-icon--lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 7 3 12 8 17"></polyline><polyline points="16 7 21 12 16 17"></polyline><rect x="9" y="9" width="6" height="6" rx="1"></rect><line x1="12" y1="4" x2="12" y2="9"></line><line x1="12" y1="15" x2="12" y2="20"></line></svg></div>
+                <div class="service-text">
+                  <h3>API Development &amp; Integration</h3>
+                  <p class="service-desc">Custom RESTful APIs, secure third-party integrations, and scalable microservices.</p>
+                </div>
+              </div>
+              <div class="service-item service-item--half">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10"></path><path d="M12 6v12"></path></svg></div>
+                <div class="service-text">
+                  <h3>Hosting &amp; Domains</h3>
+                  <p class="service-desc">End-to-end cloud deployments, domain management, and secure SSL configuration.</p>
+                </div>
+              </div>
+
+              <!-- ROW 4: 50% + 50% -->
+              <div class="service-item service-item--featured service-item--half">
+                <div class="service-icon service-icon--lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"></path><path d="m15 19-3 3-3-3"></path><path d="M5 12H2a10 10 0 0 0 20 0h-3"></path><path d="M12 2v3"></path><path d="M4.93 4.93l2.12 2.12"></path><path d="M19.07 4.93l-2.12 2.12"></path><path d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"></path></svg></div>
+                <div class="service-text">
+                  <h3>Workflow &amp; Business Automation</h3>
+                  <p class="service-desc">Custom scripts, Zapier integrations, and automated pipelines to optimize business operations.</p>
+                </div>
+              </div>
+              <div class="service-item service-item--half">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21l3-3"></path><path d="m14.5 3.5l6 6"></path><path d="M12 6L4 14l-1 4l4-1l8-8"></path><path d="m11 7l6 6"></path></svg></div>
+                <div class="service-text">
+                  <h3>Graphics Design</h3>
+                  <p class="service-desc">High-impact marketing collateral, digital brand assets, and scroll-stopping visuals.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div><!-- /split-left -->
+
+        <div class="split-right">
+          <div class="split-block">
+            <div class="section-head">
+              <h2 class="section-title">Experience</h2>
+            </div>
+            <div class="experience-roadmap">
+              <article class="roadmap-item">
+                <span class="roadmap-dot"></span>
+                <div class="roadmap-main">
+                  <h3>Graphic Designer</h3>
+                  <p>CompleteVitalityLife</p>
+                </div>
+                <span class="roadmap-year">Jan 2026 - May 2026</span>
+              </article>
+
+              <article class="roadmap-item">
+                <span class="roadmap-dot"></span>
+                <div class="roadmap-main">
+                  <h3>Full Stack Web Developer</h3>
+                  <p>Pina Realty Management</p>
+                </div>
+                <span class="roadmap-year">Jul 2025</span>
+              </article>
+
+              <article class="roadmap-item">
+                <span class="roadmap-dot"></span>
+                <div class="roadmap-main">
+                  <h3>Full Stack Web Developer</h3>
+                  <p>Direct Client (Australia-based)</p>
+                </div>
+                <span class="roadmap-year">Jul 2025</span>
+              </article>
+
+              <article class="roadmap-item">
+                <span class="roadmap-dot"></span>
+                <div class="roadmap-main">
+                  <h3>Graduated BSIT Web Development</h3>
+                  <p>Holy Angel University</p>
+                </div>
+                <span class="roadmap-year">Apr 2025</span>
+              </article>
+
+              <article class="roadmap-item">
+                <span class="roadmap-dot"></span>
+                <div class="roadmap-main">
+                  <h3>Full Stack Web Developer (Internship)</h3>
+                  <p>Holy Angel University</p>
+                </div>
+                <span class="roadmap-year">Jun 2024 - Nov 2024</span>
+              </article>
+
+              <article class="roadmap-item">
+                <span class="roadmap-dot"></span>
+                <div class="roadmap-main">
+                  <h3>Graphic Designer (Freelance)</h3>
+                  <p>NILEliteGears &amp; CompleteVitalityLife</p>
+                </div>
+                <span class="roadmap-year">Apr 2024 - Jul 2024</span>
+              </article>
+
+              <article class="roadmap-item">
+                <span class="roadmap-dot"></span>
+                <div class="roadmap-main">
+                  <h3>Hello World! 👋🏻</h3>
+                  <p>Wrote my first line of code</p>
+                </div>
+                <span class="roadmap-year">2015</span>
+              </article>
+            </div>
+          </div>
+        </div><!-- /split-right -->
+        </div><!-- /split-layout -->
+
+        <div class="tech-full-block" id="technologies">
+            <div class="section-head">
+              <h2 class="section-title">Technologies I Can Use</h2>
+            </div>
+
+            <div class="tech-groups">
+
+              <div class="tech-group">
+                <h3 class="tech-group-label">AI &amp; Dev Tools</h3>
+                <div class="tech-chip-list stack-inline tech-stack-flat">
+                  <span class="stack-item"><span id="cursor"></span><p>Cursor</p></span>
+                  <span class="stack-item"><span id="chatgpt"></span><p>ChatGPT</p></span>
+                  <span class="stack-item"><span id="claude"></span><p>Claude</p></span>
+                  <span class="stack-item"><span id="gemini"></span><p>Gemini</p></span>
+                </div>
+              </div>
+
+              <div class="tech-group">
+                <h3 class="tech-group-label">Frontend</h3>
+                <div class="tech-chip-list stack-inline tech-stack-flat" data-stagger>
+                  <span class="stack-item"><span id="javascript"></span><p>JavaScript</p></span>
+                  <span class="stack-item"><span id="typescript"></span><p>TypeScript</p></span>
+                  <span class="stack-item"><span id="react"></span><p>React.js</p></span>
+                  <span class="stack-item"><span id="nextjs"></span><p>Next.js</p></span>
+                  <span class="stack-item"><span id="vuejs"></span><p>Vue.js</p></span>
+                  <span class="stack-item"><span id="angular"></span><p>Angular</p></span>
+                  <span class="stack-item"><span id="inertia"></span><p>Inertia.js</p></span>
+                  <span class="stack-item"><span id="tailwind"></span><p>Tailwind CSS</p></span>
+                  <span class="stack-item"><span id="bootstrap"></span><p>Bootstrap</p></span>
+                  <span class="stack-item"><span id="shadcn"></span><p>shadcn/ui</p></span>
+                  <span class="stack-item"><span id="materialui"></span><p>Material UI</p></span>
+                </div>
+              </div>
+
+              <div class="tech-group">
+                <h3 class="tech-group-label">Mobile</h3>
+                <div class="tech-chip-list stack-inline tech-stack-flat">
+                  <span class="stack-item"><span id="reactnative"></span><p>React Native</p></span>
+                  <span class="stack-item"><span id="flutter"></span><p>Flutter</p></span>
+                  <span class="stack-item"><span id="dart"></span><p>Dart</p></span>
+                  <span class="stack-item"><span id="swift"></span><p>Swift</p></span>
+                </div>
+              </div>
+
+              <div class="tech-group">
+                <h3 class="tech-group-label">Backend</h3>
+                <div class="tech-chip-list stack-inline tech-stack-flat">
+                  <span class="stack-item"><span id="nodejs"></span><p>Node.js</p></span>
+                  <span class="stack-item"><span id="expressjs"></span><p>Express.js</p></span>
+                  <span class="stack-item"><span id="php"></span><p>PHP</p></span>
+                  <span class="stack-item"><span id="laravel"></span><p>Laravel</p></span>
+                  <span class="stack-item"><span id="python"></span><p>Python</p></span>
+                  <span class="stack-item"><span id="django"></span><p>Django</p></span>
+                  <span class="stack-item"><span id="java"></span><p>Java</p></span>
+                  <span class="stack-item"><span id="dotnet"></span><p>.NET</p></span>
+                  <span class="stack-item"><span id="csharp"></span><p>C#</p></span>
+                  <span class="stack-item"><span id="cplusplus"></span><p>C++</p></span>
+                  <span class="stack-item"><span id="socketio"></span><p>Socket.io</p></span>
+                  <span class="stack-item"><span id="visualbasic"></span><p>Visual Basic</p></span>
+                </div>
+              </div>
+
+              <div class="tech-group">
+                <h3 class="tech-group-label">Database &amp; Cloud</h3>
+                <div class="tech-chip-list stack-inline tech-stack-flat">
+                  <span class="stack-item"><span id="mysql"></span><p>MySQL</p></span>
+                  <span class="stack-item"><span id="postgresql"></span><p>PostgreSQL</p></span>
+                  <span class="stack-item"><span id="mongodb"></span><p>MongoDB</p></span>
+                  <span class="stack-item"><span id="supabase"></span><p>Supabase</p></span>
+                  <span class="stack-item"><span id="firebase"></span><p>Firebase</p></span>
+                  <span class="stack-item"><span id="aws"></span><p>AWS</p></span>
+                  <span class="stack-item"><span id="azure"></span><p>Azure</p></span>
+                  <span class="stack-item"><span id="hostinger"></span><p>Hostinger</p></span>
+                  <span class="stack-item"><span id="vercel"></span><p>Vercel</p></span>
+                  <span class="stack-item"><span id="netlify"></span><p>Netlify</p></span>
+                </div>
+              </div>
+
+              <div class="tech-group">
+                <h3 class="tech-group-label">Design</h3>
+                <div class="tech-chip-list stack-inline tech-stack-flat">
+                  <span class="stack-item"><span id="figma"></span><p>Figma</p></span>
+                  <span class="stack-item"><span id="canva"></span><p>Canva</p></span>
+                  <span class="stack-item"><span id="photoshop"></span><p>Photoshop</p></span>
+                  <span class="stack-item"><span id="illustrator"></span><p>Illustrator</p></span>
+                  <span class="stack-item"><span id="premiere"></span><p>Premiere Pro</p></span>
+                  <span class="stack-item"><span id="filmora"></span><p>Filmora</p></span>
+                </div>
+              </div>
+
+              <div class="tech-group">
+                <h3 class="tech-group-label">Platforms &amp; CMS</h3>
+                <div class="tech-chip-list stack-inline tech-stack-flat">
+                  <span class="stack-item"><span id="wordpress"></span><p>WordPress</p></span>
+                  <span class="stack-item"><span id="shopify"></span><p>Shopify</p></span>
+                </div>
+              </div>
+
+              <div class="tech-group">
+                <h3 class="tech-group-label">Automation &amp; Integrations</h3>
+                <div class="tech-chip-list stack-inline tech-stack-flat">
+                  <span class="stack-item"><span id="postman"></span><p>Postman</p></span>
+                  <span class="stack-item"><span id="jira"></span><p>Jira</p></span>
+                  <span class="stack-item"><span id="zapier"></span><p>Zapier</p></span>
+                  <span class="stack-item"><span id="n8n"></span><p>n8n</p></span>
+                  <span class="stack-item"><span id="stripe"></span><p>Stripe</p></span>
+                  <span class="stack-item"><span id="twilio"></span><p>Twilio</p></span>
+                  <span class="stack-item"><span id="clio"></span><p>Clio</p></span>
+                </div>
+              </div>
+
+              <div class="tech-group">
+                <h3 class="tech-group-label">Other Languages</h3>
+                <div class="tech-chip-list stack-inline tech-stack-flat">
+                  <span class="stack-item"><span id="solidity"></span><p>Solidity</p></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+      </article>
+    </section>
+
+    <section class="section-shell reveal" id="projects-section">
+      <article class="panel-card">
+        <div class="section-head">
+          <h2 class="section-title">Highlighted Projects</h2>
+          <p class="section-lede">
+            <i class="fa-solid fa-lock" aria-hidden="true"></i>
+            A selected few of my favorites. I've delivered many more for clients that can't be shown here due to NDAs and contract agreements — happy to walk you through them on a call.
+          </p>
+        </div>
+        <div class="projects-grid" id="projects"></div>
+      </article>
+    </section>
+
+    <section class="section-shell reveal" id="graphics-section">
+      <article class="panel-card">
+        <div class="section-head graphics-section-head">
+          <div>
+            <h2 class="section-title">Graphic Design</h2>
+            <p class="graphics-section-lede">Selected visuals — posters, social assets, and brand work from my design practice.</p>
+          </div>
+        </div>
+        <div class="education-gallery-block education-gallery-block--full" style="border-top: none; padding-top: 0; margin-top: 0;">
+          <div class="education-gallery" id="graphicsGallery" role="region" aria-roledescription="carousel" aria-label="Graphic design gallery, auto-scrolling. Pause by hovering.">
+            <div class="education-gallery__scroller" id="graphicsGalleryScroller" tabindex="0" aria-live="polite"></div>
+          </div>
+          <div class="education-gallery__dots" id="graphicsGalleryDots"></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section-shell reveal" id="certifications">
+      <article class="panel-card">
+        <div class="section-head cert-section-head">
+          <div>
+            <h2 class="section-title">Certifications</h2>
+            <p class="cert-section-sub">10 earned &middot; 4 issuers &middot; Credentials available on request</p>
+          </div>
+          <span class="cert-count-badge">
+            <i class="fa-solid fa-medal" aria-hidden="true"></i>
+            10 Certs
+          </span>
+        </div>
+
+        <div class="cert-grid" data-stagger>
+
+          <!-- ── RHCSA Featured (most prestigious) ── -->
+          <div class="cert-card cert-card--featured" style="--ci:#EE0000">
+            <div class="cert-card-header">
+              <span class="cert-icon-wrap"><img src="https://thesvg.org/icons/red-hat/default.svg" width="22" height="22" alt="Red Hat" loading="lazy"></span>
+              <span class="cert-issuer-label" style="color:#EE0000">Red Hat</span>
+              <span class="cert-verified-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+            </div>
+            <p class="cert-name">Red Hat Certified System Administrator <span class="cert-acronym">(RHCSA)</span></p>
+            <div class="cert-footer">
+              <span class="cert-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Nov 2021</span>
+              <span class="cert-type-tag">Industry Standard</span>
+            </div>
+          </div>
+
+          <!-- ── CCNA Cyber Ops ── -->
+          <div class="cert-card" style="--ci:#1BA0D7">
+            <div class="cert-card-header">
+              <span class="cert-icon-wrap"><img src="https://thesvg.org/icons/cisco/default.svg" width="20" height="20" alt="Cisco" loading="lazy" class="icon-theme-adapt"></span>
+              <span class="cert-issuer-label" style="color:#1BA0D7">Cisco</span>
+              <span class="cert-verified-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+            </div>
+            <p class="cert-name">CCNA Cyber Ops</p>
+            <div class="cert-footer">
+              <span class="cert-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Nov 2023</span>
+              <span class="cert-type-tag">Networking</span>
+            </div>
+          </div>
+
+          <!-- ── JavaScript Essentials 1 ── -->
+          <div class="cert-card" style="--ci:#1BA0D7">
+            <div class="cert-card-header">
+              <span class="cert-icon-wrap"><img src="https://thesvg.org/icons/cisco/default.svg" width="20" height="20" alt="Cisco" loading="lazy" class="icon-theme-adapt"></span>
+              <span class="cert-issuer-label" style="color:#1BA0D7">Cisco</span>
+              <span class="cert-verified-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+            </div>
+            <p class="cert-name">JavaScript Essentials 1</p>
+            <div class="cert-footer">
+              <span class="cert-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Sept 2024</span>
+              <span class="cert-type-tag">Development</span>
+            </div>
+          </div>
+
+          <!-- ── Google Analytics Certification ── -->
+          <div class="cert-card" style="--ci:#4285F4">
+            <div class="cert-card-header">
+              <span class="cert-icon-wrap"><img src="https://thesvg.org/icons/google/default.svg" width="20" height="20" alt="Google" loading="lazy"></span>
+              <span class="cert-issuer-label" style="color:#4285F4">Google</span>
+              <span class="cert-verified-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+            </div>
+            <p class="cert-name">Google Analytics Certification</p>
+            <div class="cert-footer">
+              <span class="cert-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Oct 2023</span>
+              <span class="cert-type-tag">Analytics</span>
+            </div>
+          </div>
+
+          <!-- ── Use Google Analytics ── -->
+          <div class="cert-card" style="--ci:#4285F4">
+            <div class="cert-card-header">
+              <span class="cert-icon-wrap"><img src="https://thesvg.org/icons/google/default.svg" width="20" height="20" alt="Google" loading="lazy"></span>
+              <span class="cert-issuer-label" style="color:#4285F4">Google</span>
+              <span class="cert-verified-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+            </div>
+            <p class="cert-name">Use Google Analytics for Your Business</p>
+            <div class="cert-footer">
+              <span class="cert-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Oct 2023</span>
+              <span class="cert-type-tag">Analytics</span>
+            </div>
+          </div>
+
+          <!-- ── Get Started with Google Analytics ── -->
+          <div class="cert-card" style="--ci:#4285F4">
+            <div class="cert-card-header">
+              <span class="cert-icon-wrap"><img src="https://thesvg.org/icons/google/default.svg" width="20" height="20" alt="Google" loading="lazy"></span>
+              <span class="cert-issuer-label" style="color:#4285F4">Google</span>
+              <span class="cert-verified-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+            </div>
+            <p class="cert-name">Get Started using Google Analytics</p>
+            <div class="cert-footer">
+              <span class="cert-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Oct 2023</span>
+              <span class="cert-type-tag">Analytics</span>
+            </div>
+          </div>
+
+          <!-- ── SEO Certification ── -->
+          <div class="cert-card" style="--ci:#FF7A59">
+            <div class="cert-card-header">
+              <span class="cert-icon-wrap"><img src="https://thesvg.org/icons/hubspot/default.svg" width="20" height="20" alt="HubSpot" loading="lazy"></span>
+              <span class="cert-issuer-label" style="color:#FF7A59">HubSpot Academy</span>
+              <span class="cert-verified-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+            </div>
+            <p class="cert-name">SEO Certification</p>
+            <div class="cert-footer">
+              <span class="cert-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Oct 2023</span>
+              <span class="cert-type-tag">Marketing</span>
+            </div>
+          </div>
+
+          <!-- ── SEO II ── -->
+          <div class="cert-card" style="--ci:#FF7A59">
+            <div class="cert-card-header">
+              <span class="cert-icon-wrap"><img src="https://thesvg.org/icons/hubspot/default.svg" width="20" height="20" alt="HubSpot" loading="lazy"></span>
+              <span class="cert-issuer-label" style="color:#FF7A59">HubSpot Academy</span>
+              <span class="cert-verified-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+            </div>
+            <p class="cert-name">SEO II Certification</p>
+            <div class="cert-footer">
+              <span class="cert-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Oct 2023</span>
+              <span class="cert-type-tag">Marketing</span>
+            </div>
+          </div>
+
+          <!-- ── Intro to Cybersecurity ── -->
+          <div class="cert-card" style="--ci:#1BA0D7">
+            <div class="cert-card-header">
+              <span class="cert-icon-wrap"><img src="https://thesvg.org/icons/cisco/default.svg" width="20" height="20" alt="Cisco" loading="lazy" class="icon-theme-adapt"></span>
+              <span class="cert-issuer-label" style="color:#1BA0D7">Cisco</span>
+              <span class="cert-verified-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+            </div>
+            <p class="cert-name">Introduction to Cybersecurity</p>
+            <div class="cert-footer">
+              <span class="cert-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Nov 2021</span>
+              <span class="cert-type-tag">Security</span>
+            </div>
+          </div>
+
+          <!-- ── Intro to IoT ── -->
+          <div class="cert-card" style="--ci:#1BA0D7">
+            <div class="cert-card-header">
+              <span class="cert-icon-wrap"><img src="https://thesvg.org/icons/cisco/default.svg" width="20" height="20" alt="Cisco" loading="lazy" class="icon-theme-adapt"></span>
+              <span class="cert-issuer-label" style="color:#1BA0D7">Cisco</span>
+              <span class="cert-verified-pill"><i class="fa-solid fa-circle-check"></i> Certified</span>
+            </div>
+            <p class="cert-name">Introduction to IoT</p>
+            <div class="cert-footer">
+              <span class="cert-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Nov 2021</span>
+              <span class="cert-type-tag">Networking</span>
+            </div>
+          </div>
+
+        </div>
+      </article>
+    </section>
+
+    <section class="section-shell reveal" id="testimonials">
+      <article class="panel-card">
+        <div class="section-head testimonials-section-head">
+          <div>
+            <h2 class="section-title">What clients say</h2>
+            <p class="section-lede">Kind words from the people I've built with — on communication, collaboration, and getting things shipped.</p>
+          </div>
+          <span class="testimonial-rating-badge">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            5.0 average
+          </span>
+        </div>
+
+        <div class="testimonial-grid" data-stagger>
+
+          <!-- ── Gabriela Pina ── -->
+          <figure class="testimonial-card" style="--ti:#7C3AED">
+            <i class="fa-solid fa-quote-right testimonial-quote-mark" aria-hidden="true"></i>
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="testimonial-body">
+              Working with Dale was genuinely a joy. He took the time to understand exactly what our business needed, explained the technical side in a way I could actually follow, and kept me in the loop at every step. He's organized, patient, and easy to collaborate with — the kind of person who makes a project feel calm instead of stressful. I'd happily work with him again on anything.
+            </blockquote>
+            <figcaption class="testimonial-author">
+              <span class="testimonial-avatar" aria-hidden="true">GP</span>
+              <span class="testimonial-author-meta">
+                <span class="testimonial-name">Gabriela Pina</span>
+                <span class="testimonial-role">Pina Realty Management</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <!-- ── Diego Reyes ── -->
+          <figure class="testimonial-card" style="--ti:#0EA5E9">
+            <i class="fa-solid fa-quote-right testimonial-quote-mark" aria-hidden="true"></i>
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="testimonial-body">
+              Dale is one of the most reliable collaborators I've worked with. He communicates clearly, hits his deadlines, and is open to feedback without ever getting defensive. Whenever I had a question he came back fast with thoughtful answers, and he genuinely cared about getting the details right. A true professional and a great teammate — working together felt effortless from start to finish.
+            </blockquote>
+            <figcaption class="testimonial-author">
+              <span class="testimonial-avatar" aria-hidden="true">DR</span>
+              <span class="testimonial-author-meta">
+                <span class="testimonial-name">Diego Reyes</span>
+                <span class="testimonial-role">Direct Client · Australia</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <!-- ── Regine Kelee ── -->
+          <figure class="testimonial-card" style="--ti:#F59E0B">
+            <i class="fa-solid fa-quote-right testimonial-quote-mark" aria-hidden="true"></i>
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="testimonial-body">
+              I can't recommend Dale enough. He's talented, dependable, and so pleasant to work with — always positive, always solution-focused. He delivered exactly what we agreed on and then went the extra mile to make it better. Beyond the skills, he's just a kind and respectful person to partner with, and that made the whole experience wonderful. I'd choose to work with him every single time.
+            </blockquote>
+            <figcaption class="testimonial-author">
+              <span class="testimonial-avatar" aria-hidden="true">RK</span>
+              <span class="testimonial-author-meta">
+                <span class="testimonial-name">Regine Kelee</span>
+                <span class="testimonial-role">Project Collaborator</span>
+              </span>
+            </figcaption>
+          </figure>
+
+        </div>
+      </article>
+    </section>
+
+    <section class="section-shell reveal" id="work-with-me">
+      <article class="panel-card cta-card">
+        <span class="cta-eyebrow"><span class="otw-dot" aria-hidden="true"></span> Available for freelance &amp; contract</span>
+        <h2 class="cta-title">Have a project in mind?</h2>
+        <p class="cta-sub">Tell me what you're building — a website, a custom platform, a mobile app, or a design refresh. I'll reply within 24 hours. No obligation, just a quick chat to see if we're a good fit.</p>
+        <div class="cta-actions">
+          <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn-primary cta-btn">
+            <i class="fa-brands fa-facebook-messenger"></i>
+            Message me on Facebook
+          </a>
+          <a href="mailto:dale.bedania10@gmail.com" class="btn-secondary cta-btn">
+            <i class="fa-solid fa-envelope"></i>
+            Email me
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <footer class="section-shell footer-shell reveal" id="contact">
+      <div class="footer-glow" aria-hidden="true">
+        <span class="footer-orb footer-orb--1"></span>
+        <span class="footer-orb footer-orb--2"></span>
+      </div>
+      <div class="panel-card footer-card">
+        <aside class="footer-brand" data-stagger>
+          <p class="footer-name">DALE BEDANIA</p>
+          <p class="footer-role">Software Engineer &amp; Graphic Designer</p>
+          <p class="footer-note">Building practical, clean, and scalable web solutions.</p>
+        </aside>
+
+        <nav class="footer-links" data-stagger>
+          <h3>Connect</h3>
+          <a href="mailto:dale.bedania10@gmail.com" class="footer-contact-cta"><i class="fa-solid fa-paper-plane"></i> Contact by email</a>
+          <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i> Dale Bedania</a>
+          <a href="https://instagram.com/bedaniadale" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i> @bedaniadale</a>
+          <a href="mailto:dale.bedania10@gmail.com"><i class="fa-solid fa-envelope"></i> dale.bedania10@gmail.com</a>
+        </nav>
+      </div>
+    </footer>
+  </main>
+
+  <div id="cvModal" class="cv-modal" aria-hidden="true">
+    <div class="cv-modal-backdrop" data-close-cv></div>
+    <div class="cv-modal-panel" role="dialog" aria-modal="true" aria-labelledby="cvModalTitle">
+      <div class="cv-modal-header">
+        <h3 id="cvModalTitle">Curriculum Vitae</h3>
+        <div class="cv-modal-actions">
+          <a href="works/Bedania_CVFormal.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            <i class="fas fa-download text-sm"></i>
+            Download CV
+          </a>
+          <button type="button" id="closeCvModal" class="btn-secondary">Close</button>
+        </div>
+      </div>
+      <div class="cv-modal-body" data-lenis-prevent>
+        <iframe src="works/Bedania_CVFormal.pdf#toolbar=1&navpanes=0" title="Dale Bedania CV PDF preview"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div id="projectModal" class="project-modal" aria-hidden="true">
+    <div class="project-modal-backdrop" data-close-project></div>
+    <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+      <div class="project-modal-header">
+        <h3 id="projectModalTitle">Project Details</h3>
+        <button type="button" id="closeProjectModal" class="project-modal-close-x" aria-label="Close project details">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="project-modal-body" id="projectModalBody" data-lenis-prevent></div>
+    </div>
+  </div>
+
+  <div id="designModal" class="design-modal" aria-hidden="true">
+    <div class="design-modal-backdrop" data-close-design></div>
+    <div class="design-modal-panel" role="dialog" aria-modal="true" aria-labelledby="designModalTitle">
+      <div class="design-modal-header">
+        <h3 id="designModalTitle">Design details</h3>
+        <button type="button" id="closeDesignModal" class="btn-secondary">Close</button>
+      </div>
+      <div class="design-modal-body" id="designModalBody"></div>
+    </div>
+  </div>
+
+  <div class="faq-chat-root" id="faqChatRoot">
+    <button type="button" id="faqChatFab" class="faq-chat-fab" aria-label="Open FAQ chat" aria-expanded="false" aria-controls="faqChatPanel">
+      <i class="fa-solid fa-comments" aria-hidden="true"></i>
+    </button>
+    <div id="faqChatBackdrop" class="faq-chat-backdrop" aria-hidden="true"></div>
+    <div id="faqChatPanel" class="faq-chat-panel" role="dialog" aria-modal="true" aria-labelledby="faqChatTitle" aria-hidden="true">
+      <div class="faq-chat-panel-inner">
+        <div class="faq-chat-header">
+          <h3 id="faqChatTitle">Ask about Dale</h3>
+          <button type="button" id="faqChatClose" class="btn-secondary" aria-label="Close chat">Close</button>
+        </div>
+        <div class="faq-chat-chips" id="faqChatChips"></div>
+        <div id="faqChatLog" class="faq-chat-log" role="log" aria-live="polite" aria-relevant="additions">
+          <div class="faq-chat-msg faq-chat-msg--bot">
+            <div class="faq-chat-bubble">Hi! I'm a quick FAQ assistant. Ask a question or pick a topic below.</div>
+          </div>
+        </div>
+        <div class="faq-chat-composer">
+          <label class="visually-hidden" for="faqChatInput">Message</label>
+          <input type="text" id="faqChatInput" class="faq-chat-input" autocomplete="off" placeholder="Type a question…">
+          <button type="button" id="faqChatSend" class="btn-primary faq-chat-send" aria-label="Send message">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="iconloader.js"></script>
+  <script src="techstacks.js"></script>
+  <script src="awards.js"></script>
+  <script src="education-gallery.js"></script>
+  <script src="projects.js"></script>
+  <script src="designs.js"></script>
+  <script src="chatbot-rules.js"></script>
+  <script src="chatbot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="animation.js"></script>
+
+  <nav class="side-nav" id="sideNav" aria-label="Page sections">
+    <a href="#about"            class="side-nav-item" data-nav="about">
+      <span class="side-nav-label">About</span>
+      <span class="side-nav-dot"></span>
+    </a>
+    <a href="#services"         class="side-nav-item" data-nav="services">
+      <span class="side-nav-label">Services</span>
+      <span class="side-nav-dot"></span>
+    </a>
+    <a href="#projects-section" class="side-nav-item" data-nav="projects-section">
+      <span class="side-nav-label">Projects</span>
+      <span class="side-nav-dot"></span>
+    </a>
+    <a href="#graphics-section" class="side-nav-item" data-nav="graphics-section">
+      <span class="side-nav-label">Graphics</span>
+      <span class="side-nav-dot"></span>
+    </a>
+    <a href="#certifications"   class="side-nav-item" data-nav="certifications">
+      <span class="side-nav-label">Certifications</span>
+      <span class="side-nav-dot"></span>
+    </a>
+    <a href="#testimonials"     class="side-nav-item" data-nav="testimonials">
+      <span class="side-nav-label">Testimonials</span>
+      <span class="side-nav-dot"></span>
+    </a>
+    <a href="#contact"          class="side-nav-item" data-nav="contact">
+      <span class="side-nav-label">Contact</span>
+      <span class="side-nav-dot"></span>
+    </a>
+  </nav>
+</body>
+</html>

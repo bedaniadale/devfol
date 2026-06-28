@@ -1,0 +1,7 @@
+{
+  "tool_name": "mcp__claude-in-chrome__resize_window",
+  "tool_input_preview": "{\"tabId\":1524998322,\"width\":1440,\"height\":900}",
+  "error": "Tab 1524998322 no longer exists. Call tabs_context_mcp to get current tabs.",
+  "timestamp": "2026-06-28T17:43:27.922Z",
+  "retry_count": 1
+}
