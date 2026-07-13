@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1782660797649,
+  "lastScanned": 1783932897741,
   "projectRoot": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
   "techStack": {
     "languages": [],
@@ -35,28 +35,28 @@
     "works": {
       "path": "works",
       "purpose": null,
-      "fileCount": 15,
-      "lastAccessed": 1782660797630,
+      "fileCount": 21,
+      "lastAccessed": 1783932897724,
       "keyFiles": [
         "Bedania_CV.pdf",
         "Bedania_CVFormal.pdf",
+        "Bedania_Dale_Resume.pdf",
         "connect4.png",
-        "devfinder.png",
-        "hauoieidmo.png"
+        "devfinder.png"
       ]
     }
   },
   "hotPaths": [
     {
       "path": "app.js",
-      "accessCount": 21,
-      "lastAccessed": 1782669005982,
+      "accessCount": 29,
+      "lastAccessed": 1783937201762,
       "type": "file"
     },
     {
       "path": "index.html",
-      "accessCount": 19,
-      "lastAccessed": 1782669006962,
+      "accessCount": 23,
+      "lastAccessed": 1783937135794,
       "type": "file"
     },
     {
@@ -67,14 +67,20 @@
     },
     {
       "path": "app.css",
-      "accessCount": 8,
-      "lastAccessed": 1782669368750,
+      "accessCount": 14,
+      "lastAccessed": 1783937474387,
       "type": "file"
     },
     {
       "path": "designer.css",
       "accessCount": 5,
       "lastAccessed": 1781946200644,
+      "type": "file"
+    },
+    {
+      "path": "aboutme.txt",
+      "accessCount": 5,
+      "lastAccessed": 1783933009735,
       "type": "file"
     },
     {
@@ -99,12 +105,6 @@
       "path": "designer.js",
       "accessCount": 3,
       "lastAccessed": 1781945699303,
-      "type": "file"
-    },
-    {
-      "path": "aboutme.txt",
-      "accessCount": 3,
-      "lastAccessed": 1782660878330,
       "type": "file"
     },
     {
@@ -231,6 +231,36 @@
       "path": "restyle.js",
       "accessCount": 1,
       "lastAccessed": 1782661245961,
+      "type": "file"
+    },
+    {
+      "path": "hero-desktop.png",
+      "accessCount": 1,
+      "lastAccessed": 1783937302622,
+      "type": "file"
+    },
+    {
+      "path": "proof-strip.png",
+      "accessCount": 1,
+      "lastAccessed": 1783937350298,
+      "type": "file"
+    },
+    {
+      "path": "proof-strip2.png",
+      "accessCount": 1,
+      "lastAccessed": 1783937372010,
+      "type": "file"
+    },
+    {
+      "path": "hero-mobile-vp.png",
+      "accessCount": 1,
+      "lastAccessed": 1783937419928,
+      "type": "file"
+    },
+    {
+      "path": "hero-mobile-fixed.png",
+      "accessCount": 1,
+      "lastAccessed": 1783937513282,
       "type": "file"
     }
   ],

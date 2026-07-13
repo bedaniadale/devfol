@@ -10,12 +10,19 @@
 
   var STATS = [
     { value: 10, suffix: '+', label: 'apps shipped' },
-    { value: 9,  suffix: '+', label: 'years coding' },
-    { value: 100, suffix: '%', label: 'client focus' },
-    { value: 5,  suffix: '.0', label: 'avg rating' }
+    { value: 6,  suffix: '',  label: 'live client sites' },
+    { static: true, text: '2015', label: 'coding since' },
+    { static: true, text: '24h', label: 'reply time' }
   ];
 
-  var ROTATE_WORDS = ['web products', 'mobile apps', 'CMS platforms', 'design systems'];
+  // Real, live client sites — surfaced in the hero as clickable proof.
+  var HERO_PROOF = [
+    { title: 'Kayantabe',  site: 'kayantabe.com' },
+    { title: 'Umbra',      site: 'umbra-app.com' },
+    { title: 'HAU IDMO',   site: 'hau-oie-idmo.com' },
+    { title: 'The Zepatide', site: 'thezepatide.com' },
+    { title: 'IMMFI',      site: 'immfi.org' }
+  ];
 
   var AWARDS = [
     '🎖️ Most Outstanding Graduating Student (per program)',
@@ -259,8 +266,23 @@
 
   function renderHeroStats() {
     el('heroStats').innerHTML = STATS.map(function (s) {
-      return '<li><span class="stat-num" data-count="' + s.value + '" data-suffix="' + s.suffix + '">0</span>' +
-             '<span class="stat-label">' + esc(s.label) + '</span></li>';
+      var num = s.static
+        ? '<span class="stat-num">' + esc(s.text) + '</span>'
+        : '<span class="stat-num" data-count="' + s.value + '" data-suffix="' + s.suffix + '">0</span>';
+      return '<li>' + num + '<span class="stat-label">' + esc(s.label) + '</span></li>';
+    }).join('');
+  }
+
+  function renderHeroProof() {
+    var box = el('heroProof'); if (!box) return;
+    box.innerHTML = HERO_PROOF.map(function (p) {
+      return '<li><a href="' + siteHref(p.site) + '" target="_blank" rel="noopener noreferrer" ' +
+        'class="proof-card" data-tilt aria-label="Visit ' + esc(p.title) + ' (opens in new tab)">' +
+        '<span class="proof-dots"><span></span><span></span><span></span></span>' +
+        '<span class="proof-name">' + esc(p.title) + '</span>' +
+        '<span class="proof-host">' + esc(siteLabel(p.site)) + '</span>' +
+        '<i class="iconify proof-go" data-icon="mdi:arrow-top-right"></i>' +
+      '</a></li>';
     }).join('');
   }
 
@@ -432,7 +454,7 @@
   }
 
   function initCounters() {
-    var nums = document.querySelectorAll('.stat-num');
+    var nums = document.querySelectorAll('.stat-num[data-count]');
     if (reduced) { nums.forEach(function (n) { n.textContent = n.dataset.count + (n.dataset.suffix || ''); }); return; }
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -448,16 +470,6 @@
       });
     }, { threshold: 0.4 });
     nums.forEach(function (n) { obs.observe(n); });
-  }
-
-  function initRotator() {
-    var node = document.querySelector('[data-rotate]'); if (!node || reduced) return;
-    var i = 0;
-    setInterval(function () {
-      i = (i + 1) % ROTATE_WORDS.length;
-      node.style.opacity = '0'; node.style.transform = 'translateY(-8px)';
-      setTimeout(function () { node.textContent = ROTATE_WORDS[i]; node.style.opacity = '1'; node.style.transform = 'none'; }, 260);
-    }, 2600);
   }
 
   function initScrollFx() {
@@ -558,13 +570,13 @@
   /* ───────────────────────────── BOOT ───────────────────────────────────── */
 
   function boot() {
-    renderHeroStats(); renderMarquee(); renderAwards(); renderServices(); renderStack();
+    renderHeroStats(); renderHeroProof(); renderMarquee(); renderAwards(); renderServices(); renderStack();
     renderProjects(); renderGraphics(); renderExperience(); renderCerts(); renderTestimonials();
     var y = el('year'); if (y) y.textContent = new Date().getFullYear();
 
     if (window.Iconify) Iconify.scan();
 
-    initReveal(); initCounters(); initRotator(); initScrollFx(); initSpotlight();
+    initReveal(); initCounters(); initScrollFx(); initSpotlight();
     initMagnetic(); initTilt(); initHeroParallax(); initSmoothScroll(); bindEvents();
   }
 
