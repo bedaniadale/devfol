@@ -38,16 +38,16 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html { scroll-behavior: auto; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+html { scroll-behavior: auto; -webkit-text-size-adjust: 100%; }
 body {
   font-family: var(--sans);
   background: var(--bg);
   color: var(--ink);
   line-height: 1.6;
-  overflow-x: hidden;
   position: relative;
 }
-body.modal-open { overflow: hidden; }
+/* NOTE: no `overflow` on body.modal-open — overflow on EITHER axis makes body a
+   scroll container, which kills every position:sticky pin. The lock is in JS. */
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--em); color: #fff; }
@@ -62,14 +62,18 @@ a { color: inherit; text-decoration: none; }
 .spotlight {
   position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
   transition: opacity 600ms ease;
-  background: radial-gradient(340px 340px at var(--x, 50%) var(--y, 30%), var(--em-glow), transparent 70%);
+  /* the pool widens with scroll speed — --sva is 0 whenever the engine is idle */
+  background: radial-gradient(calc(340px + var(--sva, 0) * 180px) calc(340px + var(--sva, 0) * 180px)
+              at var(--x, 50%) var(--y, 30%), var(--em-glow), transparent 70%);
 }
 .spotlight.live { opacity: 1; }
 .scroll-progress {
   position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 200; pointer-events: none;
 }
 .scroll-progress > span {
-  display: block; height: 100%; width: 0;
+  display: block; height: 100%; width: 100%;
+  transform-origin: left center;
+  scale: var(--sp, 0) 1;
   background: linear-gradient(90deg, var(--em), var(--em-bright));
   box-shadow: 0 0 10px var(--em-glow);
 }
@@ -206,7 +210,6 @@ main, .nav, .footer { position: relative; z-index: 2; }
   position: relative; border-radius: var(--r-lg); overflow: hidden;
   box-shadow: var(--shadow-lg); border: 1px solid var(--line);
   aspect-ratio: 4 / 5; background: var(--bg-alt);
-  transition: transform 200ms linear;
 }
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 800ms var(--ease); }
 .hero-photo:hover img { transform: scale(1.04); }
@@ -230,13 +233,12 @@ main, .nav, .footer { position: relative; z-index: 2; }
 
 /* ── MARQUEE ────────────────────────────────────────────────────────────── */
 .marquee {
-  overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  overflow: clip; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   padding: 16px 0; background: var(--surface);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
           mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.marquee-track { display: inline-flex; gap: 0; white-space: nowrap; animation: scroll 34s linear infinite; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track { display: inline-flex; gap: 0; white-space: nowrap; }
 .marquee-item { font-family: var(--serif); font-size: 1.35rem; font-weight: 500; color: var(--ink); padding: 0 28px; display: inline-flex; align-items: center; }
 .marquee-item::after { content: "✦"; color: var(--em); font-size: 0.7rem; margin-left: 28px; }
 @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -253,22 +255,148 @@ main, .nav, .footer { position: relative; z-index: 2; }
 .section-lede .iconify { color: var(--em); position: relative; top: 2px; }
 .rating-badge { position: absolute; top: 0; right: 0; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.85rem; color: var(--em-deep); background: var(--em-soft); padding: 6px 13px; border-radius: 999px; }
 
-/* ── ABOUT ──────────────────────────────────────────────────────────────── */
-.about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: start; }
-.about-story p { color: var(--ink-soft); font-size: 1.08rem; margin-bottom: 18px; }
-.about-quote {
-  font-family: var(--serif); font-size: 1.35rem; line-height: 1.4; color: var(--ink);
-  border-left: 3px solid var(--em); padding: 6px 0 6px 22px; margin-top: 26px; position: relative;
+/* ── ABOUT ──────────────────────────────────────────────────────────────────
+   Three stacked acts — meter, story, credentials — each the full container
+   width. The old 1.3fr/1fr split put a short prose column beside a tall white
+   card: two unequal heights, two competing focal points, and a mobile layout
+   that was just the card dumped underneath. Nothing here is paired against a
+   sibling, so nothing has to be height-matched and the mobile stack IS the
+   desktop stack, only narrower.
+
+   Every scroll-scrubbed declaration for this section lives in scene.css; the
+   rules below are the finished, static state. */
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
 }
-.about-quote .q-mark { font-size: 2.4rem; color: var(--em); line-height: 0; position: relative; top: 10px; margin-right: 2px; }
-.about-edu { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px; box-shadow: var(--shadow-sm); }
-.edu-card { display: flex; gap: 16px; align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
-.edu-logo { width: 60px; height: 60px; border-radius: 12px; object-fit: contain; background: var(--bg-alt); padding: 6px; }
-.edu-school { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
-.edu-degree { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; margin: 2px 0; }
-.edu-track { font-size: 0.88rem; color: var(--ink-soft); }
-.award-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-.award-list li { font-size: 0.88rem; color: var(--ink-soft); }
+
+.ab-k {
+  font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+}
+
+/* ── Act 1 — the meter ──────────────────────────────────────────────────── */
+.ab-meter { margin-bottom: clamp(46px, 6vw, 76px); }
+.ab-meter-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.ab-year {
+  font-family: var(--mono); font-weight: 600;
+  font-size: clamp(3.6rem, 11vw, 8.5rem); line-height: 0.8;
+  letter-spacing: -0.045em; color: var(--ink);
+  /* tabular figures + a fixed measure: the readout is rewritten every frame
+     and must never resize the box it sits in */
+  font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1;
+  min-width: 4ch; display: block;
+}
+.ab-span { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; text-align: right; }
+.ab-span-range { font-family: var(--mono); font-size: 0.82rem; color: var(--ink-soft); }
+
+.ab-rail { position: relative; height: 2px; margin-top: clamp(22px, 3vw, 32px); background: var(--line-strong); border-radius: 2px; }
+.ab-rail-fill {
+  position: absolute; inset: 0; border-radius: 2px; transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--em-deep), var(--em-bright));
+}
+.ab-rail-dot {
+  position: absolute; top: 50%; left: 100%; width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px;
+  border-radius: 50%; background: var(--em); box-shadow: 0 0 0 5px var(--em-glow);
+}
+.ab-tick {
+  position: absolute; top: 50%; left: calc(var(--f, 0) * 100%);
+  width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--line-strong);
+  transition: background 320ms ease, border-color 320ms ease, scale 320ms var(--ease);
+}
+.ab-tick.is-on { background: var(--em); border-color: var(--em); scale: 1.2; }
+
+/* One caption on screen at a time — all beats share the same box, so five
+   milestones cost the height of one and nothing crowds the rail. */
+.ab-beats { position: relative; list-style: none; margin-top: 20px; min-height: 3.4em; }
+.ab-beat {
+  position: absolute; left: 0; top: 0; width: 100%;
+  display: flex; gap: 14px; align-items: baseline;
+  opacity: 0; translate: 0 10px;
+  transition: opacity 440ms var(--ease), translate 440ms var(--ease);
+}
+.ab-beat.is-lit { opacity: 1; translate: 0 0; }
+.ab-beat b { font-family: var(--mono); font-size: 0.76rem; font-weight: 600; color: var(--em-deep); flex: none; }
+.ab-beat span { color: var(--ink-soft); font-size: 1.02rem; max-width: 62ch; }
+
+/* ── Act 2 — the story ────────────────────────────────────────────────────
+   The story runs the full container, the same width as the meter above it and
+   the credentials below — a 68ch column under an 8.5rem year read as an
+   afterthought pushed into the left half of the page.
+
+   Full width does NOT mean one 110-character line: that measure is unreadable
+   and no amount of leading fixes it. Two columns, one paragraph each, is what
+   makes the width usable — ~56ch per column at the container's cap.
+
+   Grid, never `columns: 2`. Multicol fragments a paragraph across the break,
+   and the ink wash registers ONE scroll track per <p> off its offsetTop and
+   offsetHeight — geometry a fragmented box does not have. */
+.about-story {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 4.4vw, 72px); align-items: start;
+}
+.about-story p { color: var(--ink-soft); font-size: clamp(1.06rem, 1.34vw, 1.26rem); line-height: 1.7; }
+
+/* promoted from an inline aside to the section's display punctuation */
+.about-quote {
+  position: relative; max-width: 40ch;
+  margin: clamp(38px, 5vw, 62px) 0 clamp(50px, 6.5vw, 82px);
+  padding: 4px 0 4px clamp(20px, 3vw, 34px);
+  border-left: 3px solid var(--em);
+  font-family: var(--serif); font-weight: 500; color: var(--ink);
+  font-size: clamp(1.45rem, 3.3vw, 2.3rem); line-height: 1.26; letter-spacing: -0.015em;
+}
+.about-quote .q-mark { font-size: 1.6em; color: var(--em); line-height: 0; position: relative; top: 0.24em; margin-right: 0.04em; }
+
+/* ── Act 3 — the credentials ────────────────────────────────────────────── */
+.about-cred { display: flex; flex-direction: column; gap: clamp(26px, 3.2vw, 40px); }
+
+/* A hairline-ruled record row — portrait, degree, honour — not a card.
+   The photograph is a head-and-shoulders portrait, so it is sized like the
+   credential photo it is: a 3:4 plate at passport scale. Stretched to the
+   container width it read as a billboard, which is the one thing a graduation
+   headshot must not do. */
+.edu-card {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 20px 28px; padding: clamp(18px, 2.2vw, 26px) 0;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.edu-photo {
+  position: relative; margin: 0; flex: none; overflow: hidden;
+  width: clamp(132px, 19vw, 184px); aspect-ratio: 3 / 4;
+  border-radius: var(--r); background: var(--bg-alt); box-shadow: var(--shadow-sm);
+}
+.edu-photo > img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
+
+.edu-card-main { flex: 1 1 250px; min-width: 0; }
+.edu-school { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.13em; }
+.edu-degree { font-family: var(--serif); font-size: clamp(1.25rem, 2.4vw, 1.72rem); font-weight: 600; letter-spacing: -0.02em; margin-top: 5px; }
+.edu-sub { display: flex; align-items: center; gap: 10px; margin-top: 11px; font-size: 0.86rem; color: var(--ink-soft); }
+.edu-sub b { color: var(--ink); font-weight: 700; }
+.edu-logo { width: 28px; height: 28px; object-fit: contain; flex: none; background: #fff; border: 1px solid var(--line); border-radius: 7px; padding: 3px; }
+.edu-track {
+  flex: none; display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.84rem; font-weight: 600; color: var(--em-deep);
+  background: var(--em-soft); border-radius: 999px; padding: 9px 16px;
+}
+.edu-track .iconify { font-size: 1.05rem; }
+
+/* the same numbered-ledger idiom as #certs and #services, two rows wide */
+.ab-ledger { position: relative; }
+.ab-ledger-k { font-weight: 500; margin-bottom: 14px; }
+.award-list {
+  position: relative; list-style: none;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 4vw, 58px);
+}
+.award-list li {
+  display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 14px; align-items: baseline;
+  padding: 14px 6px; border-bottom: 1px solid var(--line);
+  font-size: 0.94rem; color: var(--ink-soft);
+}
+.award-n { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
 
 /* ── SERVICES ───────────────────────────────────────────────────────────── */
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -291,21 +419,73 @@ main, .nav, .footer { position: relative; z-index: 2; }
 .service-card:hover .service-arrow { opacity: 1; transform: none; color: var(--em); }
 .service-card--featured:hover .service-arrow { color: var(--em-bright); }
 
-/* ── STACK ──────────────────────────────────────────────────────────────── */
-.stack-groups { display: flex; flex-direction: column; gap: 26px; }
-.stack-group { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: start; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
-.stack-group:last-child { border-bottom: 0; padding-bottom: 0; }
-.stack-label { font-family: var(--mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--em-deep); padding-top: 8px; }
-.stack-items { display: flex; flex-wrap: wrap; gap: 10px; }
-.stack-item {
-  display: inline-flex; align-items: center; gap: 8px; background: var(--surface);
-  border: 1px solid var(--line); border-radius: 999px; padding: 8px 15px 8px 11px;
-  font-size: 0.86rem; font-weight: 600; color: var(--ink-soft);
-  transition: transform 220ms var(--ease), border-color 220ms, box-shadow 220ms, color 220ms;
+/* ── TOOLKIT — an index of disciplines ──────────────────────────────────────
+   Seven chapters, one per discipline: a mono index, the category set large in
+   the serif, its count on the right, and its tools listed beneath. The same
+   record-row idiom as SERVICES and CREDENTIALS, so the toolkit reads as another
+   page of the same publication.
+
+   The chips are BORDERLESS, and that is the whole visual argument. The row's
+   hairline and the chips' indent already say "these belong together"; adding a
+   box to each of 48 tools says it 48 more times and the result is a wall of
+   white rectangles in which no grouping survives. Logos on an open field read
+   as a list of names, which is what a client is actually scanning. */
+
+.tk-index { list-style: none; border-top: 1px solid var(--line); }
+
+.tk-row {
+  position: relative;
+  padding: clamp(20px, 2.4vw, 30px) 0;
+  border-bottom: 1px solid var(--line);
 }
-.stack-item img { width: 20px; height: 20px; object-fit: contain; }
-.stack-item img.adapt { /* dark glyphs render fine on light */ }
-.stack-item:hover { transform: translateY(-3px); border-color: var(--em); color: var(--ink); box-shadow: var(--shadow-sm); }
+/* the emerald rule that draws under whichever discipline is being read */
+.tk-row::after {
+  content: ""; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%;
+  background: linear-gradient(90deg, var(--em), color-mix(in oklab, var(--em) 15%, transparent));
+  transform-origin: 0 50%; scale: 0 1;
+  transition: scale 620ms var(--ease);
+}
+.tk-row.is-lit::after { scale: 1 1; }
+
+.tk-row-head {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: baseline; gap: 14px; margin-bottom: clamp(12px, 1.4vw, 18px);
+}
+.tk-row-n { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--muted); transition: color 380ms var(--ease); }
+.tk-row-name {
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(1.28rem, 2.6vw, 2rem); line-height: 1.1; letter-spacing: -0.022em;
+  transition: color 380ms var(--ease);
+}
+.tk-row-count { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+.tk-row.is-lit .tk-row-name { color: var(--em-deep); }
+.tk-row.is-lit .tk-row-n { color: var(--em); }
+
+/* Indented to the index column, so every chip in the section starts on the same
+   vertical line and the seven groups stack as one column of type. */
+.tk-chips {
+  list-style: none; display: flex; flex-wrap: wrap;
+  gap: clamp(10px, 1.1vw, 14px) clamp(18px, 2.2vw, 30px);
+  padding-left: 58px;
+}
+.tk-chip {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 0.88rem; font-weight: 600; color: var(--ink-soft);
+  /* padding out, margin back in: the hover plate has room to breathe without
+     the chip occupying any more layout space than its text does */
+  padding: 7px 12px; margin: -7px -12px; border-radius: 999px;
+  transition: background 260ms var(--ease), color 260ms var(--ease);
+}
+.tk-chip img { width: 22px; height: 22px; object-fit: contain; flex: none; }
+.tk-chip:hover { background: var(--surface); color: var(--ink); }
+.tk-row.is-lit .tk-chip { color: var(--ink); }
+
+@media (max-width: 640px) {
+  .tk-row-head { grid-template-columns: 32px minmax(0, 1fr) auto; gap: 10px; }
+  .tk-chips { padding-left: 0; gap: 10px 20px; }
+  .tk-chip { font-size: 0.82rem; }
+  .tk-chip img { width: 20px; height: 20px; }
+}
 
 /* ── PROJECTS ───────────────────────────────────────────────────────────── */
 .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -346,59 +526,14 @@ main, .nav, .footer { position: relative; z-index: 2; }
 .pm-cta--off:hover { transform: none; }
 
 /* ── GRAPHICS (masonry) ─────────────────────────────────────────────────── */
-.graphics-masonry { columns: 4; column-gap: 16px; }
 .g-tile { position: relative; margin-bottom: 16px; border-radius: var(--r); overflow: hidden; cursor: pointer; break-inside: avoid; box-shadow: var(--shadow-sm); border: 1px solid var(--line); }
 .g-tile img { width: 100%; transition: transform 600ms var(--ease); }
 .g-tile:hover img { transform: scale(1.05); }
 .g-zoom { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(11, 125, 82, 0.34); color: #fff; font-size: 1.6rem; opacity: 0; transition: opacity 280ms ease; }
 .g-tile:hover .g-zoom { opacity: 1; }
 
-/* ── TIMELINE (centered, alternating) ───────────────────────────────────── */
-.timeline { list-style: none; position: relative; max-width: 1000px; margin: 0 auto; padding: 10px 0; }
-.timeline::before {
-  content: ""; position: absolute; left: 50%; transform: translateX(-50%);
-  top: 0; bottom: 0; width: 2px;
-  background: linear-gradient(var(--em), var(--em-soft));
-}
-.tl-item { position: relative; width: 50%; padding: 14px 44px; }
-.tl-item:nth-child(odd) { left: 0; text-align: right; }
-.tl-item:nth-child(even) { left: 50%; text-align: left; }
-.tl-dot {
-  position: absolute; top: 30px; width: 15px; height: 15px; border-radius: 50%;
-  background: var(--surface); border: 3px solid var(--em); box-shadow: 0 0 0 4px var(--em-soft); z-index: 1;
-}
-.tl-item:nth-child(odd) .tl-dot { right: -8px; }
-.tl-item:nth-child(even) .tl-dot { left: -8px; }
-.tl-card {
-  display: inline-block; max-width: 100%; text-align: left;
-  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
-  padding: 14px 18px; box-shadow: var(--shadow-sm);
-  transition: transform 340ms var(--ease), box-shadow 340ms ease, border-color 340ms ease;
-}
-.tl-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--em); }
-.tl-card h3 { font-size: 1.05rem; font-weight: 700; margin-top: 7px; line-height: 1.25; }
-.tl-card p { font-size: 0.86rem; color: var(--muted); margin-top: 2px; }
-.tl-year { display: inline-block; font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--em-deep); background: var(--em-soft); padding: 3px 10px; border-radius: 999px; }
-
-/* slide-in from each side on reveal */
-.tl-item:nth-child(odd).reveal { opacity: 0; transform: translateX(-30px); }
-.tl-item:nth-child(even).reveal { opacity: 0; transform: translateX(30px); }
-.tl-item:nth-child(odd).reveal.in,
-.tl-item:nth-child(even).reveal.in { opacity: 1; transform: none; }
-
-/* mobile: collapse to a single left-aligned rail */
-@media (max-width: 720px) {
-  .timeline { max-width: 100%; }
-  .timeline::before { left: 7px; transform: none; }
-  .tl-item,
-  .tl-item:nth-child(odd),
-  .tl-item:nth-child(even) { width: 100%; left: 0; text-align: left; padding: 12px 0 12px 34px; }
-  .tl-item:nth-child(odd) .tl-dot,
-  .tl-item:nth-child(even) .tl-dot { left: 1px; right: auto; }
-  .tl-card { display: block; }
-  .tl-item:nth-child(odd).reveal,
-  .tl-item:nth-child(even).reveal { transform: translateY(20px); }
-}
+/* TIMELINE — retired. The journey is a rail now; its layout lives in
+   layout.css (.xp*) and its motion in scene.css. */
 
 /* ── CERTS ──────────────────────────────────────────────────────────────── */
 .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
@@ -415,21 +550,66 @@ main, .nav, .footer { position: relative; z-index: 2; }
 .cert-tag { background: var(--bg-alt); padding: 3px 9px; border-radius: 999px; color: var(--ink-soft) !important; }
 
 /* ── TESTIMONIALS ───────────────────────────────────────────────────────── */
-.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.t-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px 26px; display: flex; flex-direction: column; gap: 16px; transition: transform 320ms var(--ease), box-shadow 320ms; position: relative; }
-.section-alt .t-card { background: var(--surface); }
-.t-card:hover { box-shadow: var(--shadow); }
-.t-stars { color: #f5b500; font-size: 0.95rem; display: flex; gap: 2px; }
-.t-card blockquote { font-size: 0.96rem; color: var(--ink-soft); line-height: 1.6; flex: 1; }
-.t-card figcaption { display: flex; align-items: center; gap: 12px; padding-top: 6px; border-top: 1px solid var(--line); }
-.t-avatar { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--em); color: #fff; font-weight: 700; font-size: 0.9rem; }
-.t-meta { display: flex; flex-direction: column; }
-.t-name { font-weight: 700; font-size: 0.92rem; }
-.t-role { font-size: 0.78rem; color: var(--muted); }
+/* ── TESTIMONIALS — a spread of three voices ────────────────────────────────
+   The quote is the display type and the attribution is the caption. The card
+   version had that exactly backwards: three equal boxes, each border and
+   padding taking room from the words, and 250 characters of genuine praise set
+   at 0.96rem — caption size for the most persuasive copy on the page.
+
+   No boxes, no fills. Full-width bands divided by hairlines, with the blocks
+   ragged left and right so three quotes read as a conversation rather than as
+   three of anything. */
+.says { border-top: 1px solid var(--line); }
+
+.say { position: relative; padding: clamp(30px, 4.2vw, 56px) 0; border-bottom: 1px solid var(--line); }
+.say-in { position: relative; max-width: min(100%, 820px); }
+/* the rag: every second voice steps in from the left */
+.say:nth-child(even) .say-in { margin-left: auto; padding-left: 0; }
+.say:nth-child(even) { text-align: left; }
+
+/* A hanging mark, set in the display face and kept faint — it is punctuation,
+   not an icon, so it sits in the margin the way a printed pull-quote's would. */
+.say-mark {
+  position: absolute; left: -0.06em; top: -0.34em;
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(4.5rem, 9vw, 7.5rem); line-height: 0.8;
+  color: var(--em); opacity: 0.13;
+  pointer-events: none; user-select: none;
+}
+
+.say-quote {
+  position: relative;
+  font-family: var(--serif); font-weight: 500; color: var(--ink);
+  font-size: clamp(1.2rem, 2.25vw, 1.76rem);
+  line-height: 1.38; letter-spacing: -0.014em;
+}
+
+.say-by {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: clamp(20px, 2.6vw, 32px);
+}
+.say-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex: none;
+  display: grid; place-items: center;
+  background: var(--em); color: #fff;
+  font-family: var(--mono); font-weight: 600; font-size: 0.76rem; letter-spacing: 0.02em;
+}
+.say-who { display: flex; flex-direction: column; min-width: 0; }
+.say-name { font-weight: 700; font-size: 0.95rem; }
+.say-role { font-size: 0.79rem; color: var(--muted); }
+.t-stars { margin-left: auto; flex: none; color: #f5b500; font-size: 0.9rem; display: flex; gap: 2px; }
+
+@media (max-width: 640px) {
+  /* the rag collapses — at this width an indent just looks like a mistake */
+  .say:nth-child(even) .say-in { margin-left: 0; }
+  .say-mark { font-size: 3.6rem; top: -0.28em; }
+  .say-by { flex-wrap: wrap; gap: 12px; }
+  .t-stars { margin-left: 0; width: 100%; }
+}
 
 /* ── CTA ────────────────────────────────────────────────────────────────── */
 .cta {
-  position: relative; overflow: hidden; border-radius: var(--r-lg);
+  position: relative; overflow: clip; border-radius: var(--r-lg);
   background: linear-gradient(150deg, #0e3a2a 0%, #14241d 80%); color: #eafff5;
   padding: clamp(40px, 7vw, 72px); text-align: center;
   display: flex; flex-direction: column; align-items: center; gap: 18px;
@@ -514,28 +694,44 @@ main, .nav, .footer { position: relative; z-index: 2; }
 .modal-cv-body iframe { width: 100%; height: 100%; border: 0; }
 
 /* ── REVEAL animation ───────────────────────────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(26px); transition: opacity 760ms var(--ease), transform 760ms var(--ease); }
-.reveal.in { opacity: 1; transform: none; }
-.g-tile.reveal { transition-delay: var(--d, 0ms); }
+/* Reveal v2 — role-based distance on the scroll-free translate:/scale:
+   channel. transform stays in the transition list because pointer effects own
+   that channel and some revealed elements are also [data-tilt]. */
+.reveal {
+  opacity: 0;
+  translate: 0 var(--rv-y, 22px);
+  scale: var(--rv-s, 1);
+  transition: opacity 700ms var(--ease), translate 700ms var(--ease),
+              scale 700ms var(--ease), transform 700ms var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--rv-step, 55ms));
+}
+.reveal.in { opacity: 1; translate: 0 0; scale: 1; }
 
 /* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; gap: 40px; }
   .hero-visual { max-width: 420px; }
+  /* below ~1024 two columns leave a ~34ch measure, which is worse than one
+     full-width column — the story stacks and stays a single read */
+  .about-story { grid-template-columns: 1fr; gap: 20px; max-width: 68ch; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .projects-grid { grid-template-columns: repeat(2, 1fr); }
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .graphics-masonry { columns: 3; }
   .nav-links { display: none; }
 }
 @media (max-width: 720px) {
   .nav-brand-text { display: none; }
   .nav-start span, .nav-start { font-size: 0.85rem; }
-  .about-grid { grid-template-columns: 1fr; gap: 30px; }
+  /* the story already collapsed to one column at 1024. Here the ledger halves
+     and the photo takes a crop that survives a narrow viewport. */
+  .award-list { grid-template-columns: 1fr; }
+  /* the portrait keeps the text beside it rather than wrapping onto its own
+     line — a 132px plate alone on a row reads as a mistake */
+  .edu-card-main { flex: 1 1 150px; }
+  .edu-track { margin-top: 2px; }
+  .ab-beats { min-height: 5.4em; }
+  .ab-span-range { font-size: 0.74rem; }
   .projects-grid { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: 1fr; }
-  .stack-group { grid-template-columns: 1fr; gap: 12px; }
-  .graphics-masonry { columns: 2; }
   .cert-card--featured { grid-column: auto; }
   .hero-photo-tag--exp { right: 8px; }
   .hero-photo-tag--loc { left: 8px; }
@@ -544,7 +740,6 @@ main, .nav, .footer { position: relative; z-index: 2; }
   .rating-badge { position: static; margin-top: 12px; }
 }
 @media (max-width: 460px) {
-  .graphics-masonry { columns: 1; }
   .hero-actions .btn { flex: 1; justify-content: center; }
 }
 
@@ -552,4 +747,192 @@ main, .nav, .footer { position: relative; z-index: 2; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   .reveal { opacity: 1; transform: none; }
   .marquee-track { animation: none; }
+}
+
+/* ============================================================================
+   CINEMATIC LAYER — sticky hero push-through, pinned rail, cursor trail, tilt
+   ============================================================================ */
+
+/* `clip` keeps the horizontal cut without turning body into a scroll container,
+   which would stop `position: sticky` from ever engaging. */
+html, body { overflow-x: clip; }
+@supports not (overflow-x: clip) { html, body { overflow-x: hidden; } }
+
+/* ── Hero stage ─────────────────────────────────────────────────────────── */
+.hero-stage { position: relative; }
+.hero-sticky { position: relative; }
+
+/* The hero is NOT pinned. A pin's travel is scroll that advances nothing: the
+   stage was 128vh against a 100vh sticky, so ~28vh of wheel went into holding
+   the hero still while it dissolved in place. That window is dead scroll no
+   matter how the dissolve inside it is tuned — the fix is to delete the window,
+   not to re-tune it. The hero is now a plain 100svh block that scrolls away and
+   hands straight off to the proof band; its exit is a parallax on the way out
+   (scene.css), not a hold.
+
+   The element and its overflow clip stay: hero.css positions the portrait and
+   ring against this box, and the clip is what keeps the 116vh portrait from
+   painting outside the hero. */
+html.se-cinema .hero-stage { height: auto; }
+html.se-cinema .hero-sticky {
+  position: relative; top: auto; height: 100vh; height: 100svh;
+  display: flex; align-items: center; overflow: clip;
+}
+/* The pinned hero is now a full-bleed composition (hero.css) rather than a
+   contained two-column grid, so the old vh type ceiling and the .hero-copy /
+   .hero-lede / .hero-proof-list overrides that went with it are gone. */
+html.se-cinema .hero-sticky > .hero { width: 100%; }
+
+/* Ring — centred on the hero, blooms outward and rises on scroll */
+.hero-ring {
+  position: absolute; left: 50%; top: 50%; z-index: 0;
+  width: min(86vh, 700px); aspect-ratio: 1 / 1;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+/* The rings carry the whole push-through on their own once the copy has
+   cleared, so they are drawn to be seen: a wide soft band plus two firm
+   strokes, not the near-invisible hairlines this started as. */
+.hero-ring i {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: 2.5px solid rgba(17, 160, 107, 0.52);
+}
+.hero-ring i:nth-child(2) {
+  inset: 9%; border: 30px solid rgba(17, 160, 107, 0.10);
+}
+.hero-ring i:nth-child(3) { inset: 27%; border: 2px solid rgba(17, 160, 107, 0.34); }
+.hero-ring i:nth-child(4) {
+  inset: 4%; border: 0; filter: blur(14px);
+  background: radial-gradient(circle, rgba(17, 160, 107, 0.26), transparent 66%);
+}
+.hero-photo { z-index: 1; }
+
+/* Foreground horizon — drops away as you push through */
+.hero-horizon {
+  position: absolute; left: -6%; right: -6%; bottom: -2px; height: min(32vh, 260px);
+  z-index: 3; pointer-events: none; will-change: transform;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: radial-gradient(120% 100% at 50% 100%, var(--bg-alt) 38%, rgba(243, 245, 240, 0) 74%);
+}
+
+/* Scroll cue */
+.hero-cue {
+  position: absolute; left: 50%; bottom: 12px; z-index: 4;
+  transform: translateX(-50%);
+  display: none; flex-direction: column; align-items: center; gap: 9px;
+  pointer-events: none; will-change: opacity;
+}
+html.se-cinema .hero-cue { display: flex; }
+.hero-cue-rail {
+  position: relative; width: 2px; height: 42px; border-radius: 2px;
+  background: linear-gradient(var(--line-strong), transparent);
+  overflow: hidden;
+}
+.hero-cue-dot {
+  position: absolute; left: -2px; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--em); animation: cueFall 1.9s var(--ease) infinite;
+}
+@keyframes cueFall {
+  0%   { top: -8px; opacity: 0; }
+  30%  { opacity: 1; }
+  100% { top: 42px; opacity: 0; }
+}
+.hero-cue-text {
+  font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* ── Pinned horizontal rail (graphics) ──────────────────────────────────── */
+.rail-stage { position: relative; padding: clamp(64px, 9vw, 110px) 0; }
+.rail-sticky { position: relative; }
+.section-head--rail { margin-bottom: 28px; }
+
+.rail-viewport {
+  position: relative; overflow-x: auto; overflow-y: hidden; padding-bottom: 6px;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.rail-viewport::-webkit-scrollbar { display: none; }
+.rail-track {
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px max(4vw, calc(50vw - 590px));
+  width: max-content; will-change: transform;
+}
+
+/* Fixed aspect so the track's width is known before the images decode —
+   otherwise lazy tiles would resize the rail mid-scroll. */
+.rail-track .g-tile {
+  flex: 0 0 auto; margin: 0; break-inside: auto;
+  height: clamp(230px, 40vh, 400px); aspect-ratio: 3 / 4; width: auto;
+  background: var(--bg-alt);
+  transition: transform 420ms var(--ease), box-shadow 420ms ease;
+}
+.rail-track .g-tile img { height: 100%; width: 100%; max-width: none; object-fit: cover; }
+.rail-track .g-tile:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+
+.rail-foot {
+  display: flex; align-items: center; gap: 18px; margin-top: 24px;
+  font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+}
+.rail-hint { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.rail-hint .iconify { color: var(--em); font-size: 1rem; }
+.rail-hint-scroll { display: none; }
+.rail-progress { flex: 1; height: 3px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.rail-progress > span {
+  display: block; height: 100%; width: 100%;
+  transform-origin: left center;
+  scale: var(--rp, 0) 1;
+  background: linear-gradient(90deg, var(--em), var(--em-bright));
+}
+.rail-count { white-space: nowrap; }
+
+/* live = JS pinned the section and drives translateX itself */
+.rail-stage--live { padding: 0; }
+.rail-stage--live .rail-sticky {
+  position: sticky; top: 0; height: 100vh; height: 100svh; overflow: clip;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 84px 0 40px;
+}
+.rail-stage--live .rail-viewport { overflow: visible; }
+.rail-stage--live .rail-hint-swipe { display: none; }
+.rail-stage--live .rail-hint-scroll { display: inline; }
+
+/* ── Cursor image trail (CTA) ───────────────────────────────────────────── */
+.cta { overflow: clip; }
+.cta > .cta-orbs { z-index: 0; }
+.cta > .trail-layer { z-index: 1; }
+.cta > .pill, .cta > .cta-title, .cta > .cta-sub, .cta > .cta-actions { z-index: 2; }
+/* the trail passes under the copy — keep it readable at any card density */
+.cta-title, .cta-sub { text-shadow: 0 2px 18px rgba(6, 32, 22, 0.55); }
+
+.trail-layer { position: absolute; inset: 0; pointer-events: none; overflow: clip; }
+.trail-card {
+  position: absolute; width: 178px; height: 116px; border-radius: 14px;
+  background-color: #0f2a1f; background-size: cover; background-position: center top;
+  box-shadow: 0 24px 50px -14px rgba(0, 0, 0, 0.55);
+  outline: 1px solid rgba(255, 255, 255, 0.12); outline-offset: -1px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 200ms ease, transform 560ms cubic-bezier(0.2, 0.85, 0.25, 1);
+}
+
+/* ── Tilt glow ──────────────────────────────────────────────────────────── */
+[data-tilt] { position: relative; transform-style: preserve-3d; }
+[data-tilt]::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  pointer-events: none; opacity: 0; transition: opacity 320ms ease;
+  background: radial-gradient(240px circle at var(--gx, 50%) var(--gy, 50%), var(--em-glow), transparent 62%);
+}
+[data-tilt].tilt-live::after { opacity: 1; }
+.cta [data-tilt]::after, .proof-card::after {
+  background: radial-gradient(220px circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.16), transparent 62%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-stage { height: auto !important; }
+  .hero-sticky { position: relative !important; height: auto !important; overflow: visible !important; }
+  .hero-ring, .hero-horizon, .hero-cue { display: none; }
+  .rail-stage--live { padding: clamp(64px, 9vw, 110px) 0; }
+  .rail-stage--live .rail-sticky { position: relative; height: auto; overflow: visible; padding: 0; }
+  .rail-stage--live .rail-viewport { overflow-x: auto; }
+  .trail-layer { display: none; }
+  [data-tilt]::after { display: none; }
 }

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1783932897741,
+  "lastScanned": 1785410870362,
   "projectRoot": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
   "techStack": {
     "languages": [],
@@ -36,7 +36,7 @@
       "path": "works",
       "purpose": null,
       "fileCount": 21,
-      "lastAccessed": 1783932897724,
+      "lastAccessed": 1785410870317,
       "keyFiles": [
         "Bedania_CV.pdf",
         "Bedania_CVFormal.pdf",
@@ -49,15 +49,33 @@
   "hotPaths": [
     {
       "path": "app.js",
-      "accessCount": 29,
-      "lastAccessed": 1783937201762,
+      "accessCount": 209,
+      "lastAccessed": 1785415818498,
       "type": "file"
     },
     {
       "path": "index.html",
-      "accessCount": 23,
-      "lastAccessed": 1783937135794,
+      "accessCount": 81,
+      "lastAccessed": 1785415493819,
       "type": "file"
+    },
+    {
+      "path": "app.css",
+      "accessCount": 80,
+      "lastAccessed": 1785415105546,
+      "type": "file"
+    },
+    {
+      "path": "scene.css",
+      "accessCount": 66,
+      "lastAccessed": 1785415583713,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 15,
+      "lastAccessed": 1785415095113,
+      "type": "directory"
     },
     {
       "path": "onepager.css",
@@ -66,9 +84,9 @@
       "type": "file"
     },
     {
-      "path": "app.css",
-      "accessCount": 14,
-      "lastAccessed": 1783937474387,
+      "path": "engine.js",
+      "accessCount": 6,
+      "lastAccessed": 1785414972907,
       "type": "file"
     },
     {
@@ -81,6 +99,12 @@
       "path": "aboutme.txt",
       "accessCount": 5,
       "lastAccessed": 1783933009735,
+      "type": "file"
+    },
+    {
+      "path": "server.js",
+      "accessCount": 5,
+      "lastAccessed": 1785415318009,
       "type": "file"
     },
     {
@@ -126,22 +150,10 @@
       "type": "file"
     },
     {
-      "path": "server.js",
-      "accessCount": 2,
-      "lastAccessed": 1782661279848,
-      "type": "file"
-    },
-    {
       "path": "restyle.css",
       "accessCount": 2,
       "lastAccessed": 1782661375691,
       "type": "file"
-    },
-    {
-      "path": "",
-      "accessCount": 1,
-      "lastAccessed": 1781939637405,
-      "type": "directory"
     },
     {
       "path": "education-gallery.js",
@@ -261,6 +273,78 @@
       "path": "hero-mobile-fixed.png",
       "accessCount": 1,
       "lastAccessed": 1783937513282,
+      "type": "file"
+    },
+    {
+      "path": "hero-0.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785301047307,
+      "type": "file"
+    },
+    {
+      "path": "hero-mid.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785301211669,
+      "type": "file"
+    },
+    {
+      "path": "p45.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785301295409,
+      "type": "file"
+    },
+    {
+      "path": "p85.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785301317880,
+      "type": "file"
+    },
+    {
+      "path": "rail.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785301340907,
+      "type": "file"
+    },
+    {
+      "path": "trail.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785301368460,
+      "type": "file"
+    },
+    {
+      "path": "trail2.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785301402565,
+      "type": "file"
+    },
+    {
+      "path": "mobile-rail.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785301535780,
+      "type": "file"
+    },
+    {
+      "path": ".newblock.tmp",
+      "accessCount": 1,
+      "lastAccessed": 1785304819340,
+      "type": "file"
+    },
+    {
+      "path": "t-plunge.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785305118524,
+      "type": "file"
+    },
+    {
+      "path": "v2-hero.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785305320364,
+      "type": "file"
+    },
+    {
+      "path": "v2-rail.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1785305711338,
       "type": "file"
     }
   ],

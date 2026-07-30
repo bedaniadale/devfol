@@ -1,0 +1,571 @@
+/* ============================================================================
+   layout.css — section layouts, each driven by the shape of its own data
+   ----------------------------------------------------------------------------
+   Loaded after app.css (tokens, components) and before scene.css (motion).
+   Same palette, same type scale, same emerald. What changes is that a list of
+   records now looks like a list of records instead of a wall of equal cards:
+
+     PROJECTS   title + desc + langs + site   -> a typographic index
+     SERVICES   title + one-line desc + icon  -> a capability index
+     STACK      label + n items               -> a spec sheet
+     CERTS      issuer + name + date + tag    -> a ledger
+     TESTIMONIALS  3 quotes, first is longest -> one leads, two support
+   ========================================================================== */
+
+/* ── WORK — an index you read; the screenshot arrives on hover ───────────── */
+/* z-index, not opacity: the rows sit on a layer above the ghost plate so their
+   own hairlines and emerald wash stay crisp over the image. */
+.work-list {
+  list-style: none; margin-top: 8px; border-top: 1px solid var(--line);
+  position: relative; z-index: 1;
+}
+.work-row {
+  position: relative; border-bottom: 1px solid var(--line);
+  transition: opacity 380ms var(--ease);
+}
+.work-hit {
+  display: grid; grid-template-columns: 54px minmax(0, 1fr) minmax(0, 250px) 40px;
+  align-items: center; gap: 22px;
+  width: 100%; padding: 26px 8px; background: none; border: 0; cursor: pointer;
+  text-align: left; font: inherit; color: inherit; position: relative; z-index: 1;
+}
+/* an emerald wash sweeps in from the left */
+.work-row::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(90deg, var(--em-soft), transparent 72%);
+  opacity: 0; transition: opacity 420ms var(--ease);
+}
+.work-row:hover::before, .work-row:focus-within::before { opacity: 1; }
+
+.work-n {
+  font-family: var(--mono); font-size: 0.74rem; font-weight: 600; color: var(--muted);
+  transition: color 320ms var(--ease);
+}
+.work-row:hover .work-n { color: var(--em); }
+
+.work-main { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.work-title {
+  font-family: var(--serif); font-size: clamp(1.25rem, 2.3vw, 1.85rem); font-weight: 600;
+  line-height: 1.12; letter-spacing: -0.02em;
+  transition: color 320ms var(--ease);
+}
+.work-row:hover .work-title { color: var(--em-deep); }
+.work-desc {
+  font-size: 0.9rem; color: var(--ink-soft); max-width: 62ch;
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
+.work-meta { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; min-width: 0; }
+.work-stack { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+.work-host {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 0.72rem; color: var(--em-deep);
+}
+.work-host--wip { color: var(--muted); }
+.work-go {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--line-strong); color: var(--ink-soft);
+  transition: transform 380ms var(--ease), background 300ms ease,
+              color 300ms ease, border-color 300ms ease;
+}
+.work-row:hover .work-go {
+  background: var(--em); border-color: var(--em); color: #fff;
+  transform: translate(3px, -3px);
+}
+/* the live-site link sits above the details button, never nested inside it */
+.work-visit {
+  position: absolute; right: 54px; top: 50%; translate: 0 -50%; z-index: 2;
+  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  color: var(--muted); opacity: 0;
+  transition: opacity 300ms ease, color 200ms ease, background 200ms ease;
+}
+.work-row:hover .work-visit { opacity: 1; }
+.work-visit:focus-visible { opacity: 1; }
+.work-visit:hover { color: var(--em-deep); background: var(--surface); }
+
+
+
+/* ── SERVICES — a capability index ──────────────────────────────────────── */
+.svc-list { list-style: none; border-top: 1px solid var(--line); }
+/* position: relative anchors the two motion layers scene.css hangs off the row
+   — the reading tick (::before) and the drawn rule (::after). The hairline
+   border stays on the row itself, so the index is fully ruled with no CSS
+   animation, no JS and no observer. */
+.svc-row {
+  position: relative;
+  display: grid; grid-template-columns: 46px 44px minmax(0, 300px) minmax(0, 1fr);
+  align-items: center; gap: 20px;
+  padding: 20px 8px; border-bottom: 1px solid var(--line);
+  transition: background 360ms var(--ease);
+}
+.svc-row:hover { background: var(--em-soft); }
+.svc-n { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+.svc-icon {
+  display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--line); color: var(--em);
+  font-size: 1.1rem;
+  transition: transform 380ms var(--ease), background 300ms ease, color 300ms ease;
+}
+.svc-row:hover .svc-icon { background: var(--em); color: #fff; transform: rotate(-8deg) scale(1.08); }
+.svc-title { font-family: var(--serif); font-size: 1.08rem; font-weight: 600; line-height: 1.2; }
+.svc-desc { font-size: 0.9rem; color: var(--ink-soft); }
+.svc-row.is-featured .svc-title { color: var(--em-deep); }
+/* the marker lives INSIDE .ln-i, not on .svc-n: the number rises out of a clip
+   box, and an inline ::after on the clip box itself is pushed onto a second
+   line by the block wrapper and clipped away. */
+.svc-row.is-featured .svc-n .ln-i::after { content: "\25C6"; margin-left: 6px; color: var(--em); font-size: 0.6rem; }
+
+/* ── STACK ──────────────────────────────────────────────────────────────────
+   The label-plus-wrapped-pills spec sheet was replaced by the ruled toolkit
+   board; its layout lives with the rest of TOOLKIT in app.css, and its motion
+   in scene.css. Nothing section-specific is left here. */
+
+/* ── CREDENTIALS — a ledger ─────────────────────────────────────────────── */
+.cert-ledger { list-style: none; border-top: 1px solid var(--line); }
+.cert-row {
+  display: grid; grid-template-columns: 10px 128px minmax(0, 1fr) 132px 74px 24px;
+  align-items: center; gap: 16px;
+  padding: 15px 8px; border-bottom: 1px solid var(--line);
+  transition: background 320ms var(--ease);
+}
+.cert-row:hover { background: var(--surface); }
+.cert-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ci, var(--em)); }
+.cert-issuer { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--ci, var(--em-deep)); }
+.cert-name { font-size: 0.96rem; font-weight: 600; min-width: 0; }
+.cert-tag {
+  font-size: 0.7rem; color: var(--ink-soft); background: var(--bg-alt);
+  border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px;
+  justify-self: start; white-space: nowrap;
+}
+.cert-date { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+.cert-check { color: var(--em); font-size: 1rem; }
+.cert-row.is-featured .cert-name { color: var(--em-deep); }
+
+/* ── JOURNEY — a career rail that branches ──────────────────────────────────
+   The other record sections are indexes: one line, one row, scan it. A career
+   is the one dataset here with a DIRECTION, so it gets the only structure on
+   the page that reads top-to-bottom as travel — a single spine with a station
+   per entry, wired to its copy by a hairline that draws itself.
+
+   Everything that moves does so on translate/scale/opacity. Nothing here
+   changes the document height while scrolling: the engine's geometry cache is
+   measured once, and a reflow mid-scroll is exactly the jank the architecture
+   exists to avoid.
+
+   --rail-x is the single source of truth for the spine's x. The rail, every
+   node and every branch read it, so they cannot drift apart at any breakpoint.
+   --xt/--xh are published by the engine's measure pass and trim the spine to
+   the first and last NODE rather than to the list box. */
+.xp { --rail-x: 27px; position: relative; padding: 4px 0 2px; }
+
+/* z-index 1 puts the spine ABOVE the lit row's wash (z-index 0) and below the
+   stations (z-index 2). Without it the emerald wash of the row being read
+   paints straight over the line — the rail vanishes exactly where the eye is. */
+.xp-rail {
+  position: absolute; left: var(--rail-x); top: var(--xt, 0px); height: var(--xh, 0px);
+  width: 2px; border-radius: 2px; background: var(--line-strong);
+  z-index: 1; pointer-events: none;
+}
+/* the drawn edge. Fallback 1 — a JS failure or a no-JS load shows a finished
+   spine rather than none, the same guarantee the footer makes. */
+.xp-rail-fill {
+  position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(var(--em-bright), var(--em));
+  box-shadow: 0 0 12px var(--em-glow);
+  transform-origin: 50% 0;
+  scale: 1 var(--tp, 1);
+}
+/* the reading head, parked on the drawn edge */
+.xp-comet {
+  position: absolute; left: 1px; top: 0;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--em-bright);
+  translate: -50% calc(var(--tp, 1) * var(--xh, 0px) - 50%);
+  box-shadow: 0 0 0 4px var(--em-glow), 0 0 14px var(--em);
+  opacity: 0;
+}
+/* the tail is pure velocity: length AND direction both come from --sv, so it
+   streams behind the head going down, ahead of it going up, and is simply not
+   there at rest. */
+.xp-comet::after {
+  content: ""; position: absolute; left: 50%; bottom: 50%;
+  width: 2px; height: 88px; translate: -50% 0;
+  transform-origin: 50% 100%;
+  scale: 1 var(--sv, 0);
+  background: linear-gradient(to top, var(--em-bright), transparent);
+}
+
+/* deliberately NOT positioned: that keeps .xp the offsetParent of every row,
+   so the node offsets the measure pass reads are already in the same
+   coordinate space as the rail it publishes them for. */
+.xp-list { list-style: none; }
+
+.xp-row {
+  position: relative;
+  display: grid; grid-template-columns: 56px minmax(0, 1fr);
+  padding: 22px 8px 22px 0;
+}
+/* the wash of the row being read, swept outward from the spine */
+.xp-row::before {
+  content: ""; position: absolute; inset: -1px 0; z-index: 0; pointer-events: none;
+  border-radius: 0 var(--r) var(--r) 0;
+  background: linear-gradient(90deg, var(--em-soft), transparent 62%);
+  opacity: 0; transition: opacity 560ms var(--ease);
+}
+.xp-row.lit::before { opacity: 1; }
+
+/* the station */
+.xp-node {
+  position: absolute; left: var(--rail-x); top: 23px; z-index: 2;
+  display: grid; place-items: center;
+  width: 16px; height: 16px; margin-left: -7px;
+  border-radius: 50%; background: var(--surface);
+  border: 2px solid var(--line-strong);
+  transition: border-color 380ms var(--ease), box-shadow 420ms var(--ease),
+              scale 460ms var(--ease);
+}
+.xp-node > i { width: 5px; height: 5px; border-radius: 50%; background: var(--em); scale: 0; transition: scale 460ms var(--ease); }
+.xp-row.lit .xp-node { border-color: var(--em); scale: 1.3; box-shadow: 0 0 0 6px var(--em-soft), 0 0 20px var(--em-glow); }
+.xp-row.lit .xp-node > i { scale: 1; }
+/* the terminus is a different shape, not a bigger dot — 2015 is where the rail
+   starts, and it should read as an origin rather than as another stop */
+.xp-row--origin .xp-node { rotate: 45deg; border-radius: 4px; }
+.xp-row--origin .xp-node > i { border-radius: 1px; }
+
+/* the branch: the rail wiring itself into the entry. It has to STOP short of
+   the copy column — run it any longer and it reads as an em dash glued to the
+   front of the term rather than as a wire. */
+.xp-link {
+  position: absolute; left: calc(var(--rail-x) + 11px); top: 31px; z-index: 1;
+  width: 12px; height: 1px; background: var(--em);
+  transform-origin: 0 50%;
+  scale: 0 1; opacity: 0;
+  transition: scale 560ms var(--ease), opacity 380ms ease;
+}
+.xp-row.lit .xp-link { scale: 1 1; opacity: 0.7; }
+
+/* the copy. The dim lives HERE and never on .xp-row — .reveal.in owns the
+   row's own opacity and would win the cascade. */
+.xp-body {
+  grid-column: 2; position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 5px;
+  min-width: 0; max-width: min(100%, 620px);
+  opacity: 0.5; transition: opacity 520ms var(--ease);
+}
+.xp-row.lit .xp-body { opacity: 1; }
+
+.xp-meta { display: flex; align-items: center; gap: 11px; font-family: var(--mono); font-size: 0.72rem; }
+.xp-term { color: var(--muted); transition: color 400ms ease; }
+.xp-row.lit .xp-term { color: var(--em-deep); }
+.xp-kind {
+  position: relative; padding-left: 13px; color: var(--ink-soft);
+  font-size: 0.63rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.xp-kind::before {
+  content: ""; position: absolute; left: 0; top: 50%; translate: 0 -50%;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--line-strong);
+  transition: background 400ms ease;
+}
+.xp-row.lit .xp-kind::before { background: var(--em); }
+
+/* overflow:clip is the mask the role line rises out of; the padding keeps
+   descenders from being sliced by that same clip */
+.xp-role {
+  font-family: var(--serif); font-weight: 600; letter-spacing: -0.02em;
+  font-size: clamp(1.22rem, 2.4vw, 1.9rem); line-height: 1.12;
+  overflow: clip; padding-bottom: 0.05em;
+}
+.xp-org { font-size: 0.92rem; color: var(--ink-soft); }
+
+/* the index as a watermark — outlined, not filled, so it never competes with
+   the copy it sits beside */
+.xp-ghost {
+  position: absolute; right: 4px; top: 50%; z-index: 0; pointer-events: none;
+  font-family: var(--serif); font-weight: 700; line-height: 1;
+  font-size: clamp(3.2rem, 6.6vw, 6rem); letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1.2px color-mix(in oklab, var(--em) 32%, transparent);
+  translate: 0 -50%;
+  opacity: 0; transition: opacity 640ms var(--ease);
+}
+.xp-row.lit .xp-ghost { opacity: 1; }
+
+/* a fine pointer can read a row out of turn without scrolling to it */
+@media (hover: hover) and (pointer: fine) {
+  .xp-row:hover .xp-body { opacity: 1; }
+  .xp-row:hover .xp-ghost { opacity: 0.55; }
+}
+
+.xp-count {
+  position: absolute; top: 2px; right: 0;
+  font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .xp { --rail-x: 20px; }
+  .xp-row { grid-template-columns: 44px minmax(0, 1fr); padding: 19px 6px 19px 0; }
+  .xp-ghost { right: 0; }
+}
+@media (max-width: 720px) {
+  .xp { --rail-x: 9px; }
+  .xp-row { grid-template-columns: 30px minmax(0, 1fr); padding: 17px 4px 17px 0; }
+  .xp-node { top: 21px; }
+  .xp-link { top: 29px; width: 8px; }
+  .xp-ghost { display: none; }
+  .xp-body { max-width: 100%; }
+  .xp-count { position: static; display: block; margin-top: 12px; }
+  .xp-comet::after { height: 56px; }
+}
+
+/* ── ABOUT — editorial ──────────────────────────────────────────────────────
+   The drop cap survives the word-splitting the ink wash does to this paragraph:
+   ::first-letter matches the first letter of the block's first formatted line
+   regardless of the inline spans wrapping it. The award ledger's own layout
+   now lives with the rest of ABOUT in app.css. */
+.about-story > p:first-of-type::first-letter {
+  float: left; font-family: var(--serif); font-size: 3.6em; line-height: 0.78;
+  padding: 0.05em 0.09em 0 0; color: var(--em-deep); font-weight: 600;
+}
+
+/* ── TESTIMONIALS ───────────────────────────────────────────────────────────
+   The "one leads, two support" card grid is gone. With only three quotes there
+   was never a reason to rank them — and promoting one to display size while the
+   other two stayed at caption size implied the other two mattered less. All
+   three are now full-width spreads at the same weight; the layout lives with
+   the rest of TESTIMONIALS in app.css and its parallax in scene.css. */
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .work-hit { grid-template-columns: 42px minmax(0, 1fr) 34px; gap: 16px; }
+  .work-meta, .work-visit { display: none; }
+  .svc-row { grid-template-columns: 38px 40px minmax(0, 1fr); }
+  .svc-desc { grid-column: 3; padding-top: 2px; }
+  .cert-row { grid-template-columns: 8px 112px minmax(0, 1fr) 22px; }
+  .cert-tag, .cert-date { display: none; }
+}
+@media (max-width: 640px) {
+  .work-hit { grid-template-columns: 34px minmax(0, 1fr); padding: 20px 4px; }
+  .work-go { display: none; }
+  .work-desc { -webkit-line-clamp: 2; }
+  .svc-row { grid-template-columns: 30px minmax(0, 1fr); gap: 12px; }
+  .svc-icon { display: none; }
+  .svc-desc { grid-column: 2; }
+  .cert-row { grid-template-columns: 8px minmax(0, 1fr) 22px; }
+  .cert-issuer { display: none; }
+  .about-story > p:first-of-type::first-letter { font-size: 3em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-list.is-hovering .work-row:not(.is-peeked) { opacity: 1; }
+}
+
+/* ── WORK — an index that emphasises one row at a time, with a preview beside it
+   Three states carry this section, and none of them cover the page:
+
+     the active row     fills emerald and scales up, so scrolling walks the
+                        emphasis down the list one project at a time
+     the other rows     step back to half strength
+     the preview card   a small screenshot pinned to the centre of the screen in
+                        the gutter, showing whichever row is active
+
+   The card tracks the active row rather than only appearing on hover: on a fine
+   pointer that is the row you are pointing at, and without one it is the row
+   nearest the viewport's reading line — so the work is visible either way, at a
+   size that leaves the index and the rest of the page alone.
+
+   Nothing here changes the document height. Both the emphasis and the card move
+   on transform, because the engine's row geometry is measured once and a reflow
+   mid-scroll is exactly the jank this architecture exists to avoid. */
+#work { position: relative; }
+.work-split { position: relative; }
+
+/* The preview lives in the gutter the index leaves free, and is held at the
+   centre of the viewport by JS writing --peek-y (the scroll position, plus half
+   a viewport, minus half a card — clamped to this section). It is pinned rather
+   than parked beside its own row so the shot for row 01 and the shot for row 15
+   both land in the same fully-visible slot.
+
+   NO transform transition, at any point: --peek-y is rewritten every frame the
+   page scrolls, and an ease on it would let the card drift behind the scroll
+   instead of holding still. The only thing that animates here is the image
+   crossfade inside the frame. */
+.work-peek {
+  position: absolute; z-index: 1; pointer-events: none;
+  /* flush with the container's right edge, mirroring the list on the left */
+  left: 57.5%; top: 0; width: min(42.5%, 500px);
+  opacity: 0;
+  transform: translate3d(0, var(--peek-y, 0px), 0);
+  transition: opacity 460ms ease;
+}
+/* the layer is only worth promoting once the card is on screen and tracking */
+.work-peek.is-live { opacity: 1; will-change: transform; }
+.work-peek-card {
+  position: relative; aspect-ratio: 16 / 10; overflow: hidden;
+  border-radius: var(--r); background: var(--bg-alt);
+  border: 1px solid var(--line);
+  box-shadow: 0 34px 64px -32px rgba(16, 60, 42, 0.45);
+}
+.work-peek-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover; object-position: center top;
+  opacity: 0; transform: scale(1.05);
+  transition: opacity 520ms var(--ease), transform 1000ms var(--ease);
+}
+/* the incoming shot settles out of a slight push-in as it fades up — a dissolve,
+   not a slideshow */
+.work-peek-img.is-front { opacity: 1; transform: none; }
+.work-peek.is-missing .work-peek-img { opacity: 0; }
+
+/* The index keeps to the left half: everything the row carries moves into it,
+   the live domain dropping under the title instead of sitting out on the right
+   edge where the preview needs the room. */
+/* 52% leaves the longest project title on one line; scaled to 1.055 its right
+   edge still clears the card's left edge at 57.5% */
+.work-list { max-width: 52%; }
+.work-hit {
+  grid-template-columns: 50px minmax(0, 1fr) 36px;
+  grid-template-areas: "n main go" ". meta .";
+  gap: 6px 18px; padding: 18px 8px 17px;
+}
+.work-n { grid-area: n; align-self: center; }
+.work-main { grid-area: main; }
+.work-meta { grid-area: meta; flex-direction: row; align-items: baseline; gap: 12px; }
+.work-go { grid-area: go; align-self: center; }
+.work-title { font-size: clamp(1.1rem, 1.6vw, 1.4rem); }
+.work-desc { max-width: 46ch; }
+.work-stack { display: none; }   /* the stack is in the modal; the row needs air */
+.work-visit { right: 46px; }
+
+/* ── The active row — filled emerald, and scaled up to claim the scroll ───────
+   Scaled with `transform`, not with font-size or padding: growing the row for
+   real would push every row below it and reflow the list mid-scroll, and the
+   engine's cached row geometry would then be measuring a layout that no longer
+   exists. transform-origin keeps the left edge planted so the row grows into the
+   gutter rather than shunting its own text sideways, and the z-index lifts the
+   scaled row (and its shadow) clear of its neighbours' hairlines.
+
+   Desktop-only, all of it. Below 1025px there is no pointer to move the emphasis
+   and no frame loop to scroll it along, so active never leaves the first row —
+   a permanent emerald bar on row 01 reads as a featured project nobody chose.
+   Small screens keep the soft wash from the base block instead. */
+@media (min-width: 1025px) {
+  .work-row { transition: opacity 380ms var(--ease), transform 460ms var(--ease); }
+  .work-row.is-active, .work-row:hover {
+    transform: scale(1.055); transform-origin: left center; z-index: 3;
+  }
+  .work-row::before {
+    /* bled past the row box on the left only — it is what makes this read as a
+       bar the row sits in rather than a swatch tucked inside it, while the right
+       edge stays put so the scaled row never crowds the preview card */
+    inset: 2px 0 3px -14px;
+    background: linear-gradient(95deg, var(--em-deep) 0%, var(--em) 62%, var(--em-bright) 100%);
+    border-radius: 12px;
+    box-shadow: 0 20px 44px -26px rgba(11, 125, 82, 0.75);
+    transition: opacity 320ms var(--ease);
+  }
+  .work-row.is-active::before, .work-row:hover::before, .work-row:focus-within::before { opacity: 1; }
+  .work-row.is-active .work-n,
+  .work-row:hover .work-n { color: rgba(255, 255, 255, 0.72); }
+  .work-row.is-active .work-title,
+  .work-row:hover .work-title { color: #fff; }
+  .work-row.is-active .work-desc,
+  .work-row:hover .work-desc { color: rgba(255, 255, 255, 0.86); }
+  .work-row.is-active .work-host,
+  .work-row:hover .work-host { color: #fff; }
+  .work-row.is-active .work-host--wip,
+  .work-row:hover .work-host--wip { color: rgba(255, 255, 255, 0.72); }
+  .work-row.is-active .live-dot,
+  .work-row:hover .live-dot { background: #fff; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.45); }
+  .work-row.is-active .work-go,
+  .work-row:hover .work-go { background: #fff; border-color: #fff; color: var(--em-deep); }
+  .work-row.is-active .work-visit,
+  .work-row:hover .work-visit { color: rgba(255, 255, 255, 0.8); }
+  .work-row .work-visit:hover { color: #fff; background: rgba(255, 255, 255, 0.16); }
+}
+
+/* Everything else steps back. The dim goes on .work-hit, not on .work-row: the
+   row is a .reveal target, and `.reveal.in { opacity: 1 }` outranks a single
+   class, so dimming the row loses the specificity fight and silently does
+   nothing. The button inside it is contested by no one.
+
+   Guarded, because this only makes sense where there IS an active row to step
+   back from: the frame loop needs a fine pointer and a real viewport, and under
+   reduced motion active never moves off the first row — dimming the other
+   fourteen forever is not a focus effect, it is just a grey list. */
+@media (min-width: 1025px) and (prefers-reduced-motion: no-preference) {
+  .work-hit { opacity: 0.55; transition: opacity 380ms var(--ease); }
+  .work-row.is-active .work-hit,
+  .work-row:hover .work-hit,
+  .work-row:focus-within .work-hit { opacity: 1; }
+}
+
+@media (max-width: 1024px) {
+  /* no gutter to put a preview in, so the list takes the whole width back and
+     the screenshot stays where it already was on small screens: the modal */
+  .work-peek { display: none; }
+  .work-list { max-width: none; }
+  .work-hit { grid-template-columns: 42px minmax(0, 1fr) 34px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-peek { transition-duration: 1ms; }
+  .work-peek-img { transition-duration: 1ms; transform: none; }
+  .work-row.is-active, .work-row:hover { transform: none; }
+}
+
+/* ── Education ──────────────────────────────────────────────────────────────
+   The graduation photo is now a full-width plate at the head of About's third
+   act, not a bleed inside a side card — see the ABOUT block in app.css. Its
+   hover zoom was retired with the rework: `scale:` is the scroll channel there
+   (scene.css parallaxes the image against its frame), and a hover writing the
+   same property would fight the scrub. */
+
+/* ── ENDCAP — the CTA and the footer as ONE closing panel ────────────────────
+   The two measured 683px + 345px inside an 860px viewport: 168px of overflow,
+   which is exactly how much of the CTA card the last frame used to cut off.
+   Splitting one viewport between them — 60svh / 40svh, each optically centred
+   in its own half — makes the bottom of the scroll land on the whole
+   composition instead of a crop above a slab.
+
+   Deliberately NO wrapper element. They stay siblings of the same flow, so
+   #contact keeps its place inside <main> and <footer> keeps `contentinfo`
+   (nesting either one to share a parent would forfeit one of those). The two
+   halves sum to exactly 100svh, so the sum IS the closing frame.
+
+   min-height, not height: at a short viewport or with wrapped footer links the
+   panel grows rather than clipping — the composition loses its centring before
+   it loses a line of text. */
+#contact {
+  min-height: 60svh;
+  display: grid; place-items: center;
+  padding: clamp(20px, 4vh, 44px) 0 0;
+}
+/* the card carried clamp(40px, 7vw, 72px) all round — 144px of vertical padding
+   alone. Height is the scarce axis here and width is not, so only the vertical
+   half is trimmed; the horizontal padding is untouched. */
+#contact .cta { padding: clamp(30px, 4.4vh, 60px) clamp(40px, 7vw, 72px); }
+
+.footer {
+  min-height: 40svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(22px, 3.4vh, 40px) 0 clamp(16px, 2.2vh, 26px);
+}
+.footer-inner { padding-bottom: clamp(20px, 2.8vh, 36px); }
+.footer-bottom { padding-top: clamp(16px, 2.2vh, 24px); }
+
+/* ONE ground under both halves, or the merge reads as two stacked panels.
+   In cinema the plunged #field (#0e1c15) is already painting the viewport, so
+   the footer drops its own --ink fill (#14241d) and lets it through — those two
+   greens differ just enough to draw a hairline across the seam. Off cinema
+   there is no field to plunge, so both halves state the colour themselves. */
+html.se-cinema .footer { background: transparent; }
+html:not(.se-cinema) #contact,
+html:not(.se-cinema) .footer { background: #0e1c15; }
+
+/* Below tier 3 the panel is not the last frame of a scroll story, it is just
+   the end of a page — release both min-heights so nothing is squeezed. */
+@media (max-width: 900px), (max-height: 719px) {
+  #contact { min-height: 0; padding: clamp(48px, 8vh, 90px) 0 0; }
+  #contact .cta { padding: clamp(40px, 7vw, 72px); }
+  .footer { min-height: 0; padding: clamp(40px, 6vh, 64px) 0 24px; }
+}

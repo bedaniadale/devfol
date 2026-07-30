@@ -1,0 +1,7 @@
+{
+  "tool_name": "mcp__playwright__browser_navigate",
+  "tool_input_preview": "{\"url\":\"http://localhost:8899/index.html\"}",
+  "error": "### Error\nError: Browser is already in use for C:\\Users\\Administrator\\AppData\\Local\\ms-playwright-mcp\\mcp-chrome-b9b82f0, use --isolated to run multiple instances of the same browser",
+  "timestamp": "2026-07-30T11:44:00.188Z",
+  "retry_count": 1
+}

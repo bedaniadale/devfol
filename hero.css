@@ -1,0 +1,250 @@
+/* ============================================================================
+   hero.css — the two full-bleed compositions
+   ----------------------------------------------------------------------------
+   Loaded after layout.css, before scene.css.
+
+   HERO   the portrait is the subject: centred, bottom-anchored, full-bleed,
+          the ring behind it, copy flanking left and right, one CTA centred.
+          Replaces the contained two-column grid entirely.
+   RAIL   a dark band with its head top-left, staggered poster heights and the
+          index numeral set at display size over each poster.
+   ========================================================================== */
+
+/* ── HERO ───────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative; overflow: clip;
+  min-height: 100vh; min-height: 100svh;
+  padding: 0;
+  display: block;
+}
+html.se-cinema .hero-sticky > .hero { padding: 0; }
+
+/* the portrait, vignetted into the field so it has no hard rectangle edge */
+.hero-portrait {
+  position: absolute; left: 50%; bottom: -13vh; z-index: 2;
+  translate: -50% 0;
+  width: auto; height: min(116vh, 1180px);
+  margin: 0; pointer-events: none;
+}
+.hero-portrait img {
+  width: auto; height: 100%; object-fit: contain;
+  /* A cut-out PNG needs no oval mask — only a fade at the base so the figure
+     grounds into the field instead of ending on a cut line.
+     The stops are geometry, not taste. The portrait is 116vh tall sitting at
+     bottom:-13vh, so .hero-sticky's `overflow: clip` severs it at
+     (116-13)/116 = 88.8% of its own height — and at ~86% once the exit scrub
+     has scaled it down. The fade therefore has to reach zero by 86%, the
+     tightest of those. The old 90%→100% began BELOW the cut, so the figure met
+     the hero's bottom edge on a hard horizontal line the moment the hero
+     started scrolling instead of sitting pinned at the viewport floor. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 68%, rgba(0,0,0,0) 86%),
+                      linear-gradient(to right, rgba(0,0,0,0) 0, #000 5%, #000 95%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(to bottom, #000 68%, rgba(0,0,0,0) 86%),
+                      linear-gradient(to right, rgba(0,0,0,0) 0, #000 5%, #000 95%, rgba(0,0,0,0) 100%);
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+  filter: drop-shadow(0 34px 46px rgba(16, 60, 42, 0.30));
+}
+/* flanking copy — absolutely placed against the viewport, not a grid column */
+.hero-side {
+  position: absolute; top: 50%; z-index: 4;
+  translate: 0 -50%;
+  display: flex; flex-direction: column; gap: 18px;
+  max-width: min(26vw, 340px);
+}
+.hero-side--l { left: max(30px, calc(50vw - 640px)); }
+.hero-side--r { right: max(30px, calc(50vw - 640px)); text-align: right; align-items: flex-end; }
+
+.hero-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(2rem, min(4vw, 6vh), 3.3rem);
+  line-height: 0.95; letter-spacing: -0.035em;
+}
+.hero-title .line { display: block; }
+.hero-kicker {
+  font-size: clamp(0.94rem, 1.9vh, 1.06rem); color: var(--ink-soft);
+  max-width: 30ch; line-height: 1.5;
+}
+
+.hero-name {
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(1.8rem, min(3.1vw, 4.8vh), 2.9rem);
+  line-height: 0.94; letter-spacing: -0.035em; color: var(--ink);
+}
+.hero-role {
+  display: flex; align-items: center; gap: 12px; justify-content: flex-end;
+  font-size: 0.98rem; font-weight: 500; color: var(--ink-soft);
+}
+.hero-rule { width: 46px; height: 2px; border-radius: 2px; background: var(--em); flex: none; }
+.hero-note { font-size: 0.94rem; color: var(--ink-soft); max-width: 27ch; line-height: 1.5; }
+
+/* floating credential chips */
+.hero-chip {
+  position: absolute; z-index: 5;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 14px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 24px -10px rgba(16, 60, 42, 0.4);
+  font-size: 0.76rem; font-weight: 600; color: var(--ink); white-space: nowrap;
+}
+.hero-chip .iconify { color: var(--em); font-size: 0.95rem; }
+.hero-chip b { font-weight: 700; color: var(--em-deep); }
+.hero-chip--edu { left: 50%; bottom: 20vh; translate: -220% 0; }
+.hero-chip--exp { left: 50%; top: 24vh; translate: 108% 0; }
+.hero-chip--loc { left: 50%; bottom: 28vh; translate: 122% 0; }
+
+/* one CTA, centred at the bottom, with the secondary links beneath it */
+.hero-actions {
+  position: absolute; left: 50%; bottom: clamp(58px, 9vh, 96px); z-index: 6;
+  translate: -50% 0;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.btn-hire {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 17px 34px; border-radius: 999px;
+  background: var(--surface); color: var(--ink);
+  font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em;
+  box-shadow: 0 18px 40px -14px rgba(16, 60, 42, 0.45),
+              inset 0 0 0 1px rgba(20, 36, 29, 0.07);
+  transition: transform 240ms var(--ease), box-shadow 240ms ease;
+  will-change: transform;
+}
+.btn-hire .iconify { color: var(--em); font-size: 1.15rem; transition: transform 300ms var(--ease); }
+.btn-hire:hover { box-shadow: 0 26px 54px -16px rgba(16, 60, 42, 0.5), inset 0 0 0 1px var(--em); }
+.btn-hire:hover .iconify { transform: translateX(4px); }
+
+.hero-actions-sub { display: flex; gap: 20px; }
+.hero-link {
+  background: none; border: 0; cursor: pointer; font: inherit;
+  font-size: 0.84rem; font-weight: 600; color: var(--ink-soft);
+  padding: 4px 2px; position: relative;
+}
+.hero-link::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: var(--em); scale: 0 1; transform-origin: 0 50%;
+  transition: scale 300ms var(--ease);
+}
+.hero-link:hover { color: var(--em-deep); }
+.hero-link:hover::after { scale: 1 1; }
+
+/* the ring is now the hero's full-bleed backdrop */
+.hero-ring { width: min(104vh, 940px); }
+
+/* Scroll cue: pinned bottom-left, clear of the centred CTA. At a short
+   viewport the two were stacking on top of each other and it read as absent. */
+.hero-cue {
+  left: max(30px, calc(50vw - 640px)); bottom: clamp(22px, 4vh, 40px);
+  translate: none; align-items: flex-start; gap: 11px; z-index: 7;
+}
+.hero-cue-rail {
+  width: 2px; height: 54px;
+  background: linear-gradient(var(--em), rgba(17, 160, 107, 0));
+}
+.hero-cue-dot { background: var(--em); box-shadow: 0 0 10px var(--em-glow); }
+.hero-cue-text {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; color: var(--em-deep);
+}
+
+/* ── PROOF BAND — stats + live work, lifted out of the hero ─────────────── */
+.proof-band { position: relative; z-index: 2; padding: 34px 0 30px; }
+.proof-band-in {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px; flex-wrap: wrap;
+}
+.proof-band .hero-stats { margin: 0; }
+.proof-band .hero-proof { margin: 0; }
+
+/* ── RAIL — a dark band ─────────────────────────────────────────────────── */
+.rail-plate {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: #0e1c15;
+  background-image: radial-gradient(70% 60% at 50% 8%, rgba(17, 160, 107, 0.16), transparent 70%);
+}
+.rail-stage--live .rail-sticky > *:not(.rail-plate) { position: relative; z-index: 1; }
+.rail-stage:not(.rail-stage--live) .rail-plate { border-radius: var(--r-lg); }
+
+/* head sits top-left with the count opposite, like a contact sheet header */
+.section-head--rail {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 28px; margin: 0 auto 30px; max-width: none; flex: none;
+}
+.rail-stage--live .rail-viewport { flex: none; }
+.rail-stage--live .rail-foot { flex: none; margin-top: 26px; }
+.section-head--rail .section-title,
+.section-head--rail .eyebrow,
+.section-head--rail .section-lede { color: #f2f5f1; }
+.section-head--rail .eyebrow { color: var(--em-bright); }
+.section-head--rail .ink-accent { color: var(--em-bright); }
+.section-head--rail .section-lede { color: #9db1a6; }
+.section-head--rail .rail-count {
+  font-family: var(--mono); font-size: 0.78rem; color: #9db1a6;
+  padding: 8px 16px; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16); background: rgba(255, 255, 255, 0.05);
+  white-space: nowrap; flex: none;
+}
+
+/* uniform WIDTH keeps the per-tile depth maths analytic; only height varies */
+.rail-track .g-tile {
+  aspect-ratio: auto; width: 268px;
+  height: clamp(230px, 38vh, 380px);
+  border-color: rgba(255, 255, 255, 0.10); background: #16241d;
+  box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.7);
+}
+.rail-track .g-tile:nth-child(3n + 2) { height: clamp(272px, 46vh, 452px); }
+.rail-track .g-tile:nth-child(4n + 3) { height: clamp(206px, 33vh, 330px); }
+/* staggered baselines, so the strip reads as a composition not a row of bricks */
+.rail-track { align-items: center; }
+.rail-track .g-tile:nth-child(even)   { --stagger: 30px;  translate: 0 var(--stagger); }
+.rail-track .g-tile:nth-child(4n + 1) { --stagger: -22px; translate: 0 var(--stagger); }
+
+.g-num {
+  position: absolute; left: 16px; bottom: 12px; z-index: 2;
+  font-family: var(--serif); font-weight: 700; font-size: 2.1rem;
+  line-height: 1; color: #fff; letter-spacing: -0.03em;
+  text-shadow: 0 4px 22px rgba(0, 0, 0, 0.65);
+  pointer-events: none;
+}
+.rail-track .g-tile::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to top, rgba(6, 16, 11, 0.78), transparent 46%);
+}
+.rail-foot { color: #9db1a6; }
+.rail-stage--live .rail-progress { background: rgba(255, 255, 255, 0.14); }
+.rail-stage--live .rail-hint .iconify { color: var(--em-bright); }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 1180px) {
+  .hero-side { max-width: min(34vw, 330px); }
+  .hero-chip--edu { translate: -180% 0; }
+  .hero-chip--exp, .hero-chip--loc { translate: 92% 0; }
+}
+@media (max-width: 900px) {
+  /* the flanking composition needs width; below it, stack in normal flow */
+  .hero { min-height: 0; padding: 128px 0 56px; }
+  .hero-portrait {
+    position: relative; left: auto; bottom: auto; translate: none;
+    height: auto; width: min(74%, 340px); margin: 0 auto 30px;
+  }
+  .hero-portrait img { width: 100%; height: auto; }
+  .hero-side {
+    position: relative; top: auto; left: auto; right: auto; translate: none;
+    max-width: none; text-align: left; align-items: flex-start;
+    width: min(92%, var(--container)); margin: 0 auto 26px;
+  }
+  .hero-side--r { text-align: left; align-items: flex-start; }
+  .hero-role { justify-content: flex-start; }
+  .hero-chip { display: none; }
+  .hero-actions { position: relative; left: auto; bottom: auto; translate: none; }
+  .proof-band-in { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .section-head--rail { flex-direction: column; }
+}
+@media (max-width: 560px) {
+  .hero-title { font-size: clamp(2.2rem, 11vw, 3.2rem); }
+  .rail-track .g-tile,
+  .rail-track .g-tile:nth-child(3n + 2),
+  .rail-track .g-tile:nth-child(4n + 3) { width: 212px; height: 286px; }
+  .rail-track .g-tile:nth-child(even),
+  .rail-track .g-tile:nth-child(4n + 1) { --stagger: 0px; translate: none; }
+}

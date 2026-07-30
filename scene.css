@@ -1,0 +1,861 @@
+/* ============================================================================
+   scene.css — scroll-driven scenography
+   ----------------------------------------------------------------------------
+   Loaded AFTER app.css. Being a separate later file structurally guarantees
+   nothing here can be re-ordered above `html, body { overflow-x: clip }`, which
+   every pin on the page depends on.
+
+   CHANNEL CONTRACT (see engine.js):
+     pointer effects own  transform:
+     scroll effects own   translate: / scale: / rotate:
+   The individual properties apply before transform, so the two compose on the
+   same element with no wrapper div and no transition suppression — the
+   existing `transition: transform ...` rules govern only the transform channel.
+
+   Every rule here is gated on html.se-cinema (engine tier 3). At tier 0/1/2 the
+   custom properties are never written and these rules resolve to their
+   fallbacks, which are all identity.
+   ========================================================================== */
+
+/* ── THE OPENING ────────────────────────────────────────────────────────────
+   A welcome, not a loader. Nothing is withheld and nothing is counted down —
+   the page is fully rendered from the first frame and its parts simply arrive
+   in a deliberate order over ~1.7s instead of appearing at once.
+
+   THE CHANNEL. engine.js splits transform/translate between pointer and scroll
+   effects; the opening needs a third, and takes `transform:`. That is safe here
+   because no hero element carries a pointer effect — .magnetic is on .btn-hire,
+   which sits INSIDE .hero-actions rather than being it. Since the individual
+   `translate:` property applies before `transform:`, the scroll's vertical
+   scrub and the opening's travel compose on the same element with no wrapper.
+
+   WHY @keyframes AND NOT TRANSITIONS. The rule immediately below sets
+   `transition: none` on exactly these elements so the scroll scrub cannot be
+   smeared. Animations are a separate mechanism, unaffected by it, and they also
+   outrank normal declarations — which is what lets the opening own `opacity`
+   for its duration even though the hero's scrub computes opacity too. Each
+   keyframe declares only `from`; the implicit `to` is the element's own normal
+   value, so the opening can never invent an end state that disagrees with the
+   page. `both` fill applies the from-state through the delay, so a late element
+   is already in position rather than popping in when its turn arrives.
+
+   Removing html.is-intro (app.js, ~1.75s) drops every animation at once and
+   hands opacity back to the scroll engine. */
+
+@keyframes wel-up    { from { opacity: 0; transform: translate3d(0, 26px, 0); } }
+@keyframes wel-left  { from { opacity: 0; transform: translate3d(-34px, 0, 0); } }
+@keyframes wel-right { from { opacity: 0; transform: translate3d(34px, 0, 0); } }
+@keyframes wel-pop   { from { opacity: 0; transform: scale(0.86); } }
+@keyframes wel-rise  { from { opacity: 0; transform: translate3d(0, 46px, 0) scale(0.972); } }
+@keyframes wel-nav   { from { opacity: 0; transform: translate3d(0, -100%, 0); } }
+@keyframes wel-fade  { from { opacity: 0; } }
+
+html.is-intro .wel {
+  animation-name: wel-up;
+  animation-duration: 860ms;
+  animation-timing-function: var(--ease);
+  animation-fill-mode: both;
+  animation-delay: var(--wd, 0ms);
+}
+
+/* The order is the argument the hero makes: the frame first (nav, ring), then
+   the person, then who he is, then what he does, then the way out. */
+html.is-intro .nav.wel           { animation-name: wel-nav;   --wd:  60ms; animation-duration: 700ms; }
+html.is-intro .hero-orbs.wel     { animation-name: wel-fade;  --wd:   0ms; animation-duration: 1400ms; }
+html.is-intro #heroRing.wel      { animation-name: wel-pop;   --wd:  40ms; animation-duration: 1200ms; }
+html.is-intro .hero-portrait.wel { animation-name: wel-rise;  --wd: 150ms; animation-duration: 1050ms; }
+html.is-intro .pill-status.wel   { animation-name: wel-left;  --wd: 330ms; }
+html.is-intro .hero-kicker.wel   { animation-name: wel-left;  --wd: 570ms; }
+html.is-intro .hero-side--r.wel  { animation-name: wel-right; --wd: 470ms; }
+html.is-intro .hero-actions.wel  { animation-name: wel-up;    --wd: 660ms; }
+html.is-intro .hero-chip--edu.wel { animation-name: wel-pop;  --wd: 720ms; animation-duration: 620ms; }
+html.is-intro .hero-chip--exp.wel { animation-name: wel-pop;  --wd: 800ms; animation-duration: 620ms; }
+html.is-intro .hero-chip--loc.wel { animation-name: wel-pop;  --wd: 880ms; animation-duration: 620ms; }
+html.is-intro .hero-horizon.wel  { animation-name: wel-fade;  --wd: 320ms; animation-duration: 1100ms; }
+/* last, and only once there is something worth scrolling to */
+html.is-intro .hero-cue.wel      { animation-name: wel-fade;  --wd: 1150ms; }
+
+/* translate:/scale: are never transitioned, but opacity still is — and
+   .hero-visual carries .reveal's 760ms opacity transition. Suppress it so the
+   scrub is exact rather than smeared. */
+html.se-cinema #heroStage .hero-side--l,
+html.se-cinema #heroStage .hero-side--r,
+html.se-cinema #heroStage .hero-portrait,
+html.se-cinema #heroStage .hero-actions,
+html.se-cinema #heroStage .hero-chip { transition: none; }
+
+/* ── The colour field ───────────────────────────────────────────────────────
+   A fixed full-viewport tone the page scrolls THROUGH, instead of sections
+   each carrying their own background. Colour is crossfaded by opacity over
+   fixed-colour layers — never by interpolating background-color per frame,
+   which would repaint the viewport every tick. */
+
+#field {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  contain: layout paint size style;
+  background: var(--bg);
+}
+#field > i { position: absolute; inset: 0; opacity: 0; display: block; }
+#field > i[data-f="1"] { background: #f5f7f1; }
+#field > i[data-f="2"] { background: #eff3ec; }
+#field > i[data-f="3"] { background: #e8f1ea; }
+#field > i[data-f="4"] { background: #0e1c15; }
+
+/* The closing image. A photograph on the same mechanism as the tones: one more
+   fixed plate, crossfaded by opacity, nothing repainted per frame. `cover` on a
+   fixed full-viewport layer is what makes it read as one whole screen behind
+   both the CTA and the footer, at any aspect ratio.
+
+   The scrim is part of the layer rather than a separate element, so there is
+   nothing extra to fade, hide or keep in sync — two gradients in one background.
+   It is heaviest top and bottom, where the closing copy sits, and lightest
+   across the middle, which is where the stage is.
+
+   Near-neutral, not the plunge's own green-black: this photograph is lit warm,
+   and a #0e1c15 scrim at these alphas turns the whole frame the same dead teal.
+   The emerald belongs to the card sitting on the image, not to the room. */
+#field > i[data-f="5"] {
+  background:
+    linear-gradient(180deg,
+      rgba(6, 11, 9, 0.86) 0%,
+      rgba(6, 11, 9, 0.42) 36%,
+      rgba(6, 11, 9, 0.5) 64%,
+      rgba(6, 11, 9, 0.9) 100%),
+    url("end_bg.jpg") center / cover no-repeat;
+}
+
+/* one velocity-blooming light source, pure CSS off the bus */
+#field > i.field-glow {
+  opacity: calc(0.55 + var(--sva, 0) * 0.40);
+  scale: calc(1 + var(--sva, 0) * 0.14);
+  background: radial-gradient(56vw 46vh at 50% calc(30% + var(--sp, 0) * 40%),
+              var(--em-glow), transparent 68%);
+}
+/* The bloom is a light source for the page's own flat tones. Left at full
+   strength over the closing photograph it is just a green veil across it, so it
+   comes down once the room is up. */
+html.se-dusk #field > i.field-glow {
+  opacity: calc((0.55 + var(--sva, 0) * 0.40) * 0.42);
+  transition: opacity 460ms ease;
+}
+
+/* Sections stop painting their own ground so the field shows through.
+   Every card keeps its opaque --surface fill, so no text loses its plate. */
+.section { background: transparent; contain: layout style; }
+/* no hairline separators — a full-width rule is exactly the "stacked tile"
+   read the field exists to remove. The tonal drift carries the structure. */
+.section-alt { background: transparent; }
+
+/* NOTE: content-visibility: auto was tried here and removed. It changes the
+   document height as these sections enter view, which trips the engine's
+   re-measure watchdog mid-scroll — trading one paint saving for repeated full
+   layout passes. The geometry cache is worth more than the skipped raster. */
+
+/* ── Dusk — the page's one hard punctuation ─────────────────────────────────
+   A class toggle with hysteresis, not a per-frame write. Scoped tightly:
+   the footer keeps its own --ink background and must never inherit a flipped
+   token, so it is deliberately NOT in this list. */
+html.se-dusk #contact {
+  --ink: #eef5f0; --ink-soft: #b6c6bd; --muted: #7f9389;
+  --line: rgba(255, 255, 255, 0.10);
+}
+html.se-dusk #contact .section-title,
+html.se-dusk #contact .section-lede { transition: color 420ms ease; }
+
+/* the nav flips background and text together — never one without the other */
+html.se-dusk .nav--scrolled {
+  background: rgba(12, 24, 18, 0.82);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.09);
+}
+html.se-dusk .nav--scrolled .nav-brand-mark { background: #eef5f0; color: #0e1c15; }
+html.se-dusk .nav--scrolled .nav-brand-text { color: #eef5f0; }
+html.se-dusk .nav--scrolled .nav-links a { color: #b6c6bd; }
+html.se-dusk .nav--scrolled .nav-links a:hover { color: #fff; }
+html.se-dusk .nav--scrolled,
+html.se-dusk .nav--scrolled .nav-brand-mark,
+html.se-dusk .nav--scrolled .nav-brand-text,
+html.se-dusk .nav--scrolled .nav-links a { transition: background 420ms ease, color 420ms ease; }
+
+/* The FAB retires into the closing panel. It is a shortcut to the very CTA the
+   endcap puts on screen at full size, so past the dusk threshold it is both
+   redundant AND sitting on top of "Back to top" — a fixed pill in the
+   bottom-right corner and the footer's last row want the same 150px. Reusing
+   se-dusk rather than adding a track: that class already means "the dark
+   closing panel owns the viewport", which is exactly the condition. */
+.fab {
+  transition: transform 240ms var(--ease), box-shadow 240ms,
+              opacity 320ms ease, translate 380ms var(--ease), visibility 320ms;
+}
+html.se-dusk .fab {
+  opacity: 0; visibility: hidden; translate: 0 16px; pointer-events: none;
+}
+
+/* the CTA card dissolves into the field it is plunging into */
+html.se-cinema .cta {
+  border-radius: calc(var(--r-lg) * (1 - var(--plunge, 0)));
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, calc(0.45 + var(--plunge, 0) * 0.35));
+}
+
+/* ── The end of the page sits ON the closing image ──────────────────────────
+   Two opaque grounds stand between the photograph and the viewer: the footer's
+   own --ink, and the CTA card's gradient. Past dusk the footer's lifts entirely
+   and the card's turns to glass, so the image is the ground for the whole end
+   of the page instead of a band around a pair of dark boxes.
+
+   Gated on se-dusk deliberately. That class is only ever added by the live
+   plunge — resolveStatic() calls the track with rest 0, so with no JS, at tier 0,
+   or under reduced motion it never appears and the footer keeps the opaque ground
+   it needs to stay readable over a LIGHT field. Transitioned rather than
+   switched, because se-dusk is a hysteresis toggle, not a scrub. */
+.footer { transition: background-color 460ms ease; }
+html.se-dusk .footer { background-color: transparent; }
+html.se-dusk .cta {
+  /* glass, not blur: the scrim in the field layer has already darkened the
+     photograph, so alpha alone is enough and there is no backdrop-filter to pay
+     for on a panel this size */
+  background: linear-gradient(150deg, rgba(14, 58, 42, 0.74) 0%, rgba(18, 34, 27, 0.8) 80%);
+  transition: background 460ms ease;
+}
+
+/* ── Hero exit — a parallax on the way out, not a hold ──────────────────────
+   The hero is unpinned (app.css). --pd now scrubs across the hero's own exit:
+   0 at rest, 1 once it has scrolled a full viewport away. So EVERY value here
+   is applied to an element that is already travelling up the screen under the
+   scroll — the job is to differentiate that travel, not to substitute for it.
+
+   Two channels, and the split is the whole point:
+     --pd    runs the full range. Owns MOTION, which is safe to start at once:
+             layers separating at different rates is what makes the exit feel
+             deep instead of flat.
+     --fade  stays 0 until pd 0.55, then eases in. Owns OPACITY, which is NOT
+             safe to start early — an element fading while it is still centred
+             in the viewport is precisely the "blank space" failure. By pd 0.55
+             the copy has already left the top of the frame, so the fade only
+             ever finishes what the scroll has begun.
+
+   Amplitudes are small on purpose. A pinned hero needed large numbers because
+   nothing else was moving; here the scroll supplies the travel and these only
+   need to bend it. */
+
+/* the ring drifts and swells slightly — the old 4.2x bloom existed to carry a
+   pin that no longer exists, and at this speed it would just be a wall */
+html.se-cinema #heroStage #heroRing {
+  translate: -50% calc(-50% - var(--pd, 0) * 7vh);
+  scale: calc(1 + var(--pd, 0) * 0.34);
+  opacity: calc(1 - var(--fade, 0) * 0.92);
+}
+/* The horizon is a dome whose BOTTOM edge is straight and sits flush on the
+   hero's base. Pinned, that edge lived exactly on the viewport floor and was
+   never seen; unpinned, the clip line rises into frame and the edge came with
+   it as a hard band of light. It cannot be masked away — the bottom is the
+   opaque end of its own radial — so it drops out of the way instead, on a ramp
+   fast enough to be gone (pd 0.42) while its edge is still low on the screen. */
+html.se-cinema #heroStage #heroHorizon {
+  translate: 0 calc(var(--pd, 0) * 14vh);
+  opacity: calc(1 - var(--pd, 0) * 2.4);
+}
+/* the cue is a "there is more below" hint: the first flick of the wheel answers
+   it, so it goes immediately and does not linger into the exit */
+html.se-cinema #heroStage #heroCue { opacity: calc(1 - var(--pd, 0) * 9); }
+
+/* The two flanking copy blocks lead the exit — they lift FASTER than the scroll
+   carries them. The -50% is carried through: .hero-side uses translate for its
+   own vertical centring, so the scrub has to compose with it, not replace it. */
+html.se-cinema #heroStage .hero-side--l,
+html.se-cinema #heroStage .hero-side--r {
+  translate: 0 calc(-50% + var(--pd, 0) * -14vh);
+  opacity: calc(1 - var(--fade, 0) * 0.96);
+}
+/* the portrait LAGS instead — a positive translate against an upward scroll is
+   the classic depth cue, and it is what puts the copy on a different plane from
+   the subject rather than sliding the whole hero up as one flat sheet */
+html.se-cinema #heroStage .hero-portrait {
+  translate: -50% calc(var(--pd, 0) * 7vh);
+  scale: calc(1 - var(--pd, 0) * 0.05);
+  opacity: calc(1 - var(--fade, 0) * 0.9);
+}
+/* opacity ONLY. Each chip carries its own `translate: -220% 0`-style offset for
+   horizontal placement (hero.css), and this selector outranks those — writing
+   the channel here would throw all three back onto the centre line. */
+html.se-cinema #heroStage .hero-chip {
+  opacity: calc(1 - var(--fade, 0) * 1.5);
+}
+html.se-cinema #heroStage .hero-actions {
+  translate: -50% calc(var(--pd, 0) * -4vh);
+  opacity: calc(1 - var(--fade, 0) * 1.35);
+}
+
+/* Orbs: a running @keyframes owns their transform, so depth goes on the
+   independent channel and velocity couples through non-transform properties. */
+.orb-1 { --plane: 0.04; } .orb-2 { --plane: 0.10; } .orb-3 { --plane: 0.18; }
+.orb {
+  filter: blur(calc(60px + var(--sva, 0) * 22px));
+  opacity: calc(0.55 - var(--sva, 0) * 0.18);
+}
+html.se-cinema .hero-orbs .orb {
+  translate: 0 calc(var(--pd, 0) * var(--plane) * -600px);
+}
+
+/* ── The travelling ring ────────────────────────────────────────────────── */
+#ring {
+  position: absolute; left: 0; top: 0; z-index: 0;
+  width: min(86vh, 700px); aspect-ratio: 1 / 1;
+  opacity: 0; pointer-events: none;
+  translate: -50% -50%;
+}
+html.se-t1 #ring { display: none; }
+
+/* ── Hero title, line mask ──────────────────────────────────────────────── */
+.hero-title .line { overflow: clip; }
+.ln-i {
+  display: block;
+  translate: 0 var(--ly, 0);
+  rotate: var(--lr, 0deg);
+  transition: none;              /* default: the scrub can never be smeared */
+}
+.hero-title.entering .ln-i {
+  transition: translate 900ms var(--ease), rotate 900ms var(--ease), opacity 900ms var(--ease);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+html.se-cinema .hero-title .ln-i { opacity: var(--lo, 1); }
+
+/* The accent rule writes itself under "web & mobile products".
+   `inherits: true` because the value is set on the <em> and read by its own
+   background — and a background gradient, not an absolutely-positioned
+   ::after, because the accent wraps across two line boxes and a percentage
+   width on a fragmented inline resolves to 0. box-decoration-break: clone
+   gives each fragment its own full-width rule. */
+@property --u { syntax: '<number>'; inherits: true; initial-value: 0; }
+.hero-title .ink-accent::after { display: none; }
+.hero-title .ink-accent {
+  background-image: linear-gradient(rgba(17, 160, 107, 0.26), rgba(17, 160, 107, 0.26));
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: calc(var(--u, 0) * 100%) 0.11em;
+  -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+  transition: background-size 620ms var(--ease);
+}
+
+/* ── Reveal choreography: role-based distance ───────────────────────────────
+   Small elements travel short, large elements travel long. This differential —
+   not the stagger — is what kills the "everything fades up 26px together"
+   monotony. Nothing here exceeds ~700ms + ~350ms stagger tail. */
+.eyebrow        { --rv-y: 12px; }
+.section-title  { --rv-y: 18px; --i: 1; --rv-step: 90ms; }
+.section-lede   { --rv-y: 14px; --i: 2; --rv-step: 100ms; }
+.svc-row        { --rv-y: 22px; --rv-step: 60ms; }
+.work-row       { --rv-y: 26px; --rv-step: 55ms; }
+.cert-row       { --rv-y: 14px; --rv-step: 46ms; }
+.xp-row         { --rv-y: 24px; --rv-step: 64ms; }
+.say            { --rv-y: 26px; --rv-step: 110ms; }
+
+/* Children are released by their already-revealed parent — zero new observers. */
+.award-list li, .hero-proof-list li {
+  opacity: 0;
+  transition: opacity 620ms var(--ease), translate 620ms var(--ease), scale 620ms var(--ease);
+}
+.award-list li      { translate: -14px 0; transition-delay: calc(var(--i, 0) * 65ms); }
+.hero-proof-list li { translate: 0 14px; transition-delay: calc(var(--i, 0) * 70ms); }
+
+.ab-ledger.reveal.in .award-list li,
+.hero-proof.reveal.in li { opacity: 1; translate: 0 0; scale: 1; }
+
+/* The stars must be selected as `.t-stars > *`, never `.t-stars i` — Iconify
+   replaces each <i class="iconify"> with an inline <svg>, and an nth-child
+   cascade is the only stagger that survives that node swap. */
+.t-stars > * { opacity: 0; scale: 0.4; rotate: -24deg; transition: 420ms var(--ease); }
+.say.reveal.in .t-stars > * { opacity: 1; scale: 1; rotate: 0deg; }
+.say.reveal.in .t-stars > *:nth-child(1) { transition-delay: 120ms; }
+.say.reveal.in .t-stars > *:nth-child(2) { transition-delay: 180ms; }
+.say.reveal.in .t-stars > *:nth-child(3) { transition-delay: 240ms; }
+.say.reveal.in .t-stars > *:nth-child(4) { transition-delay: 300ms; }
+.say.reveal.in .t-stars > *:nth-child(5) { transition-delay: 360ms; }
+
+/* ── The drawn section rule ─────────────────────────────────────────────────
+   One hairline per section head whose scaleX IS that section's reading
+   progress. Twelve sections start reading as twelve pages of one publication.
+   Applied to five sections only — #certs is a deliberate rest bar. */
+.section-head::after {
+  content: ""; position: absolute; left: 0; bottom: -16px;
+  height: 1px; width: 100%;
+  background: linear-gradient(90deg, var(--em), color-mix(in oklab, var(--em) 12%, transparent));
+  transform-origin: 0 50%;
+  scale: var(--hp, 0) 1;
+}
+#certs .section-head::after, #testimonials .section-head::after,
+#contact .section-head::after { display: none; }
+
+/* ── JOURNEY — the rail draws itself, and a head rides the drawn edge ───────
+   The spine's fill, the comet's position and the ghost index's drift are all
+   scrubs. The station lighting is NOT: it is an observer band, because "the
+   entry you are reading" is a discrete state and scrubbing it would leave
+   every row permanently half-lit. The two systems meet at the same place on
+   screen — the comet sits in the same band the observer watches. */
+
+/* the spine's glow is the section's velocity cue. --sva is hard-zeroed at
+   rest by the engine, so a settled page shows a still, even line. */
+.xp-rail-fill { box-shadow: 0 0 calc(9px + var(--sva, 0) * 24px) var(--em-glow); }
+
+/* the head only exists where the scrub does: at t0/t1 --tp is never written
+   and a visible comet would sit parked at the terminus forever */
+html.se-t2 .xp-comet { opacity: 0.6; }
+html.se-cinema .xp-comet { opacity: calc(0.6 + var(--sva, 0) * 0.4); }
+
+/* the ghost index drifts against its row — the depth-of-field trick the rail
+   masthead uses, at a tenth of the travel. -50% is carried through because
+   the ghost centres itself on that same channel. */
+html.se-cinema .xp-row .xp-ghost {
+  translate: 0 calc(-50% + (var(--rp, 0.5) - 0.5) * -46px);
+}
+
+/* the role rises out of its own clip, once, when the row reveals — the same
+   one-line lift the hero title and the footer wordmark use */
+.xp-role .ln-i {
+  --ly: 112%;
+  transition: translate 820ms var(--ease);
+  transition-delay: calc(130ms + var(--i, 0) * 60ms);
+}
+.xp-row.reveal.in .xp-role .ln-i { --ly: 0%; }
+
+/* ── ABOUT: the section assembles itself as it is read ──────────────────────
+   Five scrubs, one section, registered together in registerAbout(). Two rules
+   they all obey:
+
+   1. EVERY FALLBACK IS THE FINISHED STATE — `var(--x, 1)`, never `var(--x, 0)`.
+      A track below its tier gate is simply never written, so the fallback is
+      what a phone, a reduced-motion machine and a JS failure all render. About
+      carries the résumé; it may never be withheld by a missing custom property.
+   2. One property write per element per frame. The per-word ink wash looks like
+      ~90 animated nodes and is in fact ONE number per paragraph — the per-word
+      threshold is a static value baked in at split time. */
+
+/* ── 1. The meter: a decade scrubbed into one line of type ──────────────────
+   The year readout itself is a textContent write (JS, deduped to integer
+   changes); everything geometric is here. */
+.ab-rail-fill { scale: var(--yp, 1) 1; }
+.ab-rail-dot {
+  left: calc(var(--yp, 1) * 100%);
+  opacity: calc(0.2 + var(--yp, 1) * 0.8);
+}
+
+/* ── 2. The story: words ink in just ahead of the reading line ──────────────
+   --w is the word's own position through the paragraph (0→1), written once at
+   split time. --tp is the paragraph's damped scroll progress, written once per
+   frame. The multiplier on --tp runs the wash slightly past the end so the
+   last word reaches full opacity before the paragraph leaves the range. */
+.ab-w { opacity: clamp(0.16, calc((var(--tp, 1) * 1.34 - var(--w, 0)) * 4.4), 1); }
+
+/* ── 3. The pull-quote: the rule draws itself down the margin ─────────────── */
+.about-quote { border-left: 3px solid transparent; position: relative; }
+.about-quote::before {
+  content: ""; position: absolute; left: -3px; top: 0; bottom: 0; width: 3px;
+  background: var(--em); transform-origin: 50% 0;
+  scale: 1 var(--qp, 1);
+}
+.about-quote .q-mark {
+  scale: calc(1 + var(--qp, 1) * 0.4);
+  translate: calc(var(--sv, 0) * -6px) 0;   /* the one counter-scroll cue */
+  opacity: var(--qp, 1);
+}
+
+/* ── 4. The portrait develops, and its subject drifts against the frame ─────
+   `round var(--r)` keeps the plate's corners through the wipe, so the clip
+   replaces the frame's radius rather than fighting it — it must track the
+   border-radius app.css gives .edu-photo.
+   The overscale is what buys the parallax its travel: on a ~184x245px plate,
+   1.12 leaves ~29px of slack, and ±9px of drift never reaches an edge. */
+.edu-photo { clip-path: inset(0 calc((1 - var(--wp, 1)) * 100%) 0 0 round var(--r)); }
+.edu-photo > img { scale: 1.12; translate: 0 calc((var(--pp, 0.5) - 0.5) * -18px); }
+
+/* ── 5. The ledger rules itself in ──────────────────────────────────────────
+   Same drawn-hairline idiom as .section-head::after, so the recognition list
+   reads as another page of the same publication rather than a new device. */
+.award-list::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+  background: linear-gradient(90deg, var(--em), color-mix(in oklab, var(--em) 14%, transparent));
+  transform-origin: 0 50%;
+  scale: var(--lp, 1) 1;
+}
+
+/* ── SERVICES: the capability index typesets itself as it is read ───────────
+   Nine hairline rows that all faded up 22px together, then sat perfectly still
+   for the rest of the section — the flattest scroll on the page, and the one
+   the client reads to decide whether to call. Three devices replace it, and
+   they are deliberately three different KINDS of motion so the section cannot
+   collapse back into one gesture:
+
+   1. ENTRANCE (once, per row).  The number and the title rise out of their own
+      clip, the icon tile stamps in behind them, and an emerald rule draws
+      across the row's foot. The stagger is INSIDE the row — fixed offsets, not
+      var(--i) — because each row reveals on its own observer: a section-wide
+      cascade would hold the ninth row's title 300ms after it had already
+      scrolled into the reading band.
+   2. READING HEAD (state).  A tick grows at the left edge of whichever row is
+      crossing the middle of the screen, its type warms, and its icon tile grows
+      and knocks itself off-square once. Exactly ONE row is ever lit — see the
+      reading-head note in registerServices for why that cannot be an observer.
+   3. DEPTH (scrub, tier 3).  --svp is each row's OWN entry-to-exit progress, so
+      the number, the tile and the copy cross the band at three different rates
+      and the row shears internally. 0.5 is identity everywhere, so a row with
+      no track written sits exactly where the static CSS puts it.
+
+   Channels: the scrub owns `translate:`, the entrance owns `scale:`/`rotate:`/
+   opacity and the clip lift, and :hover keeps `transform:` — three systems on
+   one icon tile, no wrappers, nothing transitioning a scrubbed value. */
+
+/* 1 — the entrance. Both clip boxes carry a little bottom padding inside the
+   clip so a serif descender is never shaved off the settled state. */
+.svc-n, .svc-title { overflow: clip; }
+.svc-title { padding-bottom: 0.14em; margin-bottom: -0.14em; }
+
+.svc-n .ln-i, .svc-title .ln-i {
+  --ly: 118%;
+  transition: translate 760ms var(--ease);
+}
+.svc-title .ln-i { transition-delay: 90ms; }
+.svc-row.reveal.in .svc-n .ln-i,
+.svc-row.reveal.in .svc-title .ln-i { --ly: 0%; }
+
+/* the tile arrives last and off-square, so the row reads as type first and
+   ornament second. `translate` is absent from the transition list on purpose —
+   that channel belongs to the scrub below and may never be smeared. */
+.svc-icon {
+  opacity: 0; scale: 0.58; rotate: -20deg;
+  transition: opacity 520ms var(--ease), scale 560ms var(--ease),
+              rotate 560ms var(--ease), transform 380ms var(--ease),
+              background 300ms ease, color 300ms ease, border-color 300ms ease;
+  transition-delay: 170ms;
+}
+.svc-row.reveal.in .svc-icon { opacity: 1; scale: 1; rotate: 0deg; }
+
+/* the sentence fades on its own beat, opacity only — the row's own 22px lift
+   already carries it, and its translate channel is the scrub's */
+.svc-desc {
+  opacity: 0;
+  transition: opacity 620ms var(--ease), color 380ms var(--ease);
+  transition-delay: 240ms;
+}
+.svc-row.reveal.in .svc-desc { opacity: 1; }
+
+/* the drawn rule — the same hairline device as .section-head::after and each
+   voice's foot in TESTIMONIALS, so nine rows read as nine entries of one
+   publication. It fades out by ~64% of the row so it stays a highlight ON the
+   border rather than nine full emerald rules. */
+.svc-row::after {
+  content: ""; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%;
+  background: linear-gradient(90deg, var(--em),
+              color-mix(in oklab, var(--em) 14%, transparent) 64%, transparent);
+  transform-origin: 0 50%; scale: 0 1;
+  transition: scale 720ms var(--ease);
+  transition-delay: 130ms;
+}
+.svc-row.reveal.in::after { scale: 1 1; }
+
+/* 2 — the reading head. No background wash: :hover owns that channel, and at
+   equal specificity this file would outrank it and leave a hovered row looking
+   identical to an unhovered one. Type and the tick only. */
+.svc-row::before {
+  content: ""; position: absolute; left: 0; top: 50%; width: 2px; height: 0;
+  translate: 0 -50%; border-radius: 2px; background: var(--em);
+  transition: height 420ms var(--ease);
+}
+.svc-row.is-lit::before {
+  height: calc(100% - 26px);
+  /* --sva is the engine's damped speed, hard-zeroed at rest, so a settled page
+     shows a still tick and a fling lights the whole column */
+  box-shadow: 0 0 calc(3px + var(--sva, 0) * 15px) var(--em-glow);
+}
+.svc-row.is-lit .svc-n   { color: var(--em); }
+.svc-row.is-lit .svc-title { color: var(--em-deep); }
+.svc-row.is-lit .svc-desc  { color: var(--ink); }
+
+/* The tile grows and knocks itself off-square once as the row takes the head —
+   the one moment of overshoot in the section, and the reason the icon column
+   reads as an active element instead of nine identical squares.
+
+   ONE-SHOT, never a loop: this fires nine times on one pass of the section, and
+   nine tiles shaking continuously is a section that cannot be read.
+   `.in` is in the selector so this outranks the entrance's settled `scale: 1`
+   on specificity rather than on file order.
+   `:not(:hover)` because the lit rule is the more specific of the two and would
+   otherwise repaint the hover plate's white glyph emerald — green on green. */
+.svc-row.in.is-lit:not(:hover) .svc-icon {
+  border-color: color-mix(in oklab, var(--em) 42%, var(--line));
+  background: color-mix(in oklab, var(--em) 9%, var(--surface));
+  color: var(--em-deep);
+  scale: 1.17;
+  animation: svc-knock 660ms var(--ease) 1;
+}
+@keyframes svc-knock {
+  0%   { rotate: 0deg; }
+  20%  { rotate: -13deg; }
+  46%  { rotate: 8deg; }
+  70%  { rotate: -4deg; }
+  100% { rotate: 0deg; }
+}
+.svc-n { transition: color 380ms var(--ease); }
+.svc-title { transition: color 380ms var(--ease); }
+
+/* 3 — the depth field. Gated on se-cinema, which only exists once the
+   conductor is running, so a dead engine gets a clean static index instead of
+   three columns frozen at some arbitrary offset. */
+html.se-cinema .svc-n    { translate: 0 calc((var(--svp, 0.5) - 0.5) * -15px); }
+html.se-cinema .svc-icon { translate: 0 calc((var(--svp, 0.5) - 0.5) * 9px); }
+html.se-cinema .svc-desc { translate: calc((var(--svp, 0.5) - 0.5) * 13px) 0; }
+
+/* ── TOOLKIT: seven discipline rows shearing against each other ─────────────
+   The section's answer to "why does the page stop moving here". Everything
+   else translates with the scroll — the hero pushes, the marquee integrates,
+   the rail rides — and a static list was the one place the scroll passed over
+   a still object.
+
+   ONE property per frame. --tk is the section's reading progress; every row
+   inherits it and flips its sign from data-dir, so seven chip strips shear
+   against each other on a single write — no per-row tracks, no measure pass,
+   no geometry at all.
+
+   The shear is a fixed ±22px PARALLAX, never a reveal, and that is the whole
+   reason the grouping survives. The disciplines hold between 4 and 10 tools; a
+   drift sized to each row's own overflow would leave the four-tool rows dead
+   still beside the ten-tool ones, which reads as broken rather than as rhythm.
+   A fixed offset moves every row by the same distance whatever its length, and
+   carries nothing off-screen — every tool stays readable for the whole scroll.
+
+   The name drifts at half amplitude AGAINST its own chips, so each row shears
+   internally as well as against its neighbours. Two depths, still one write.
+
+   No translate at all until html.se-t2/se-t3 — those classes exist only once
+   the conductor is running, so a dead engine or a phone gets a clean static
+   index rather than seven rows frozen at some arbitrary offset. */
+html.se-t2 .tk-chips,
+html.se-t3 .tk-chips { translate: calc(var(--tk, 0.5) * 44px - 22px) 0; }
+html.se-t2 .tk-row[data-dir="-1"] .tk-chips,
+html.se-t3 .tk-row[data-dir="-1"] .tk-chips { translate: calc(22px - var(--tk, 0.5) * 44px) 0; }
+
+html.se-t2 .tk-row-name,
+html.se-t3 .tk-row-name { translate: calc(11px - var(--tk, 0.5) * 22px) 0; }
+html.se-t2 .tk-row[data-dir="-1"] .tk-row-name,
+html.se-t3 .tk-row[data-dir="-1"] .tk-row-name { translate: calc(var(--tk, 0.5) * 22px - 11px) 0; }
+
+/* Chips are released by their already-revealed row — no new observers. The row
+   itself carries .reveal, so a chip is never left invisible by a failed track. */
+.tk-chip {
+  opacity: 0; translate: 0 10px;
+  transition: opacity 520ms var(--ease), translate 520ms var(--ease),
+              background 260ms var(--ease), color 260ms var(--ease);
+  transition-delay: calc(var(--i, 0) * 38ms);
+}
+.tk-row.reveal.in .tk-chip { opacity: 1; translate: 0 0; }
+.tk-row { --rv-y: 18px; }
+
+/* ── TESTIMONIALS: three voices at three depths ─────────────────────────────
+   Each quote has its own --ep, scrubbed across its own entry-to-exit range, so
+   the blocks separate as they pass rather than sliding as one slab. --dz
+   alternates sign and amplitude, which is what turns three parallel tracks
+   into a depth field instead of three identical drifts.
+
+   0.5 is the identity value everywhere below: (--ep - 0.5) is zero at rest, so
+   a tier under the gate — and the `rest: 0.5` the tracks resolve to at tier 0 —
+   parks every quote exactly where the static CSS put it. Gated on se-t2/se-t3
+   as well, so nothing here can move before the conductor is running. */
+.say:nth-child(3n+1) { --dz: -38px; }
+.say:nth-child(3n+2) { --dz:  26px; }
+.say:nth-child(3n+3) { --dz: -16px; }
+
+html.se-t2 .say-in,
+html.se-t3 .say-in { translate: 0 calc((var(--ep, 0.5) - 0.5) * var(--dz, 0px)); }
+
+/* the mark sits deeper than the words it opens, and leans as it travels */
+html.se-t2 .say-mark,
+html.se-t3 .say-mark {
+  translate: 0 calc((var(--ep, 0.5) - 0.5) * -72px);
+  rotate: calc((var(--ep, 0.5) - 0.5) * -7deg);
+}
+
+/* An emerald rule draws along each voice's foot as it is read — the same drawn
+   hairline as .section-head::after, so the spread stays part of the same
+   publication. Scrubbed rather than class-toggled, so it tracks the quote's own
+   progress instead of snapping. */
+html.se-t2 .say::after,
+html.se-t3 .say::after {
+  content: ""; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%;
+  background: linear-gradient(90deg, var(--em), color-mix(in oklab, var(--em) 12%, transparent));
+  transform-origin: 0 50%;
+  scale: clamp(0, calc(var(--ep, 0) * 2.6 - 0.45), 1) 1;
+}
+
+/* ── Marquee: the most legible velocity cue on the page ─────────────────── */
+html.se-t0 .marquee-track, html.se-t1 .marquee-track { animation: scroll 34s linear infinite; }
+.marquee-item { transform: skewX(calc(var(--sv, 0) * -4deg)); transform-origin: 50% 100%; }
+.marquee-item::after { display: inline-block; transform: rotate(calc(var(--sv, 0) * 140deg)); }
+
+/* ── Nav: scroll-spy + auto-hide ────────────────────────────────────────── */
+.nav-links a.is-active { color: var(--em-deep); }
+.nav-links a.is-active::after { width: 100%; }
+html.se-cinema .nav { transition: background 300ms ease, box-shadow 300ms ease,
+                                  padding 300ms ease, backdrop-filter 300ms ease,
+                                  transform 380ms var(--ease); }
+html.se-navhide .nav { transform: translateY(-108%); }
+
+/* ── Rail: depth, and a track with mass ─────────────────────────────────────
+   --d is each tile's signed distance from viewport centre, written only for
+   the ~6 tiles actually in the band. No filter: 24 large images are already
+   the page's heaviest GPU tenant.
+   The tile keeps its `transition: transform 420ms` for :hover — untouched,
+   because that transition governs a different channel than these scrubs. */
+html.se-cinema .rail-track .g-tile {
+  translate: 0 calc(var(--stagger, 0px) + var(--d, 0) * var(--d, 0) * 24px);
+  rotate: calc(var(--d, 0) * 2.2deg);
+  scale: calc(1 - var(--d, 0) * var(--d, 0) * 0.07);
+  opacity: calc(1 - var(--d, 0) * var(--d, 0) * 0.26);
+}
+/* the masthead drifts right while the posters travel left — depth of field */
+html.se-cinema .section-head--rail .section-title { translate: calc(var(--rp, 0) * 6vw) 0; }
+/* The head sits INSIDE the pin and is on screen for its whole duration, so
+   it must NOT animate in from the pin's own progress — at rp 0 that left the
+   top of the section blank, which is exactly what it looked like: broken. */
+html.se-cinema .section-head--rail { opacity: 1; translate: none; }
+
+/* ── Projects ───────────────────────────────────────────────────────────── */
+/* inner image parallax retired with the screenshot cards — the work index
+   has no inline image; the cursor preview replaces it. */
+/* barely perceptible alone; it is what makes a fling feel like moving mass */
+html.se-cinema .work-list { transform: skewY(calc(var(--sv, 0) * 0.9deg)); }
+
+/* The domain typewriter lived on .browser-bar em inside the old project
+   cards. The work index shows the host as plain mono text instead. */
+
+/* ── The plunge completes ───────────────────────────────────────────────── */
+html.se-cinema .cta-orbs span { scale: calc(1 + var(--plunge, 0) * 0.30); }
+html.se-fast .trail-card { opacity: 0 !important; }
+
+/* ── The footer landing ─────────────────────────────────────────────────────
+   Content vars default to their REVEALED state — var(--fp, 1) — so a JS
+   failure, a no-JS load or a stale cache can never hide the footer. */
+.footer { overflow: clip; }
+.footer-brand {
+  translate: 0 calc((1 - var(--fp, 1)) * 44px);
+  opacity: calc(0.2 + var(--fp, 1) * 0.8);
+}
+.footer-links  { translate: 0 calc((1 - var(--fp, 1)) * 26px); }
+.footer-bottom { translate: 0 calc((1 - var(--fp, 1)) * 12px); }
+.footer-links a { transition: translate 500ms var(--ease), color 200ms ease; }
+.footer-links a:nth-of-type(1) { transition-delay: 0ms; }
+.footer-links a:nth-of-type(2) { transition-delay: 70ms; }
+.footer-links a:nth-of-type(3) { transition-delay: 140ms; }
+.footer-links a:nth-of-type(4) { transition-delay: 210ms; }
+/* the wordmark rises out of the dark — one line, never per character */
+.footer-name { overflow: clip; }
+.footer-name .ln-i { transition: translate 760ms var(--ease); }
+.footer-name.se-in .ln-i { translate: 0 0; }
+
+/* ============================================================================
+   REDUCED MOTION — travel and scale are REMOVED, not shortened. WCAG 2.3.3 and
+   vestibular guidance single out exactly this class of motion; opacity is the
+   safe substitute. Every pin is released; every scrubbed value resolves to the
+   state that shows the most content.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .award-list li, .tk-chip, .hero-proof-list li, .t-stars > * {
+    opacity: 1 !important; translate: none !important; scale: 1 !important;
+    rotate: 0deg !important;
+    transition: opacity 200ms linear !important; transition-delay: 0ms !important;
+  }
+  /* Tier 0 never sets se-t2/se-t3, so the toolkit's parallax never engages and
+     the index is already static. The reading head is kept deliberately: it is a
+     colour change, not travel, and it is what makes seven chapters read as
+     seven rather than as one long list. */
+  .tk-chips, .tk-row-name { translate: none !important; }
+  .tk-chip { opacity: 1 !important; translate: none !important; transition-delay: 0ms !important; }
+
+  /* SERVICES: the clip lifts, the tile's stamp, the lit tile's grow-and-knock
+     and the depth field are all travel or scale, so all of them are removed and
+     the rows resolve to their finished state. The drawn rule stays — a 1px
+     hairline that moves nothing in the reader's frame.
+
+     The reading head is moot here rather than suppressed: at tier 0 the engine
+     resolves statically and never runs a frame hook, so no row is ever lit. */
+  .svc-row .ln-i { --ly: 0% !important; translate: none !important; }
+  .svc-n, .svc-desc { translate: none !important; }
+  .svc-desc { opacity: 1 !important; }
+  .svc-icon, .svc-row.in.is-lit:not(:hover) .svc-icon {
+    opacity: 1 !important; scale: 1 !important; rotate: 0deg !important;
+    translate: none !important; transition-delay: 0ms !important;
+    animation: none !important;
+  }
+  .svc-row::after { scale: 1 1 !important; }
+
+  /* the quote spread is typography, so it survives intact — only the depth
+     field and the leaning mark are removed */
+  .say-in, .say-mark { translate: none !important; rotate: 0deg !important; }
+
+  /* The opening is skipped outright — the inline head script never adds
+     html.is-intro under this preference, so these rules are belt and braces for
+     a preference changed after load. An entrance is pure travel; there is no
+     reduced version worth keeping, so the page simply starts assembled. */
+  .wel { animation: none !important; opacity: 1 !important; transform: none !important; }
+
+  /* both pins released */
+  .hero-stage { height: auto !important; }
+  .hero-sticky { position: relative !important; height: auto !important; overflow: visible !important; }
+  .rail-stage--live { padding: clamp(64px, 9vw, 110px) 0 !important; }
+  .rail-stage--live .rail-sticky {
+    position: relative !important; height: auto !important;
+    overflow: visible !important; padding: 0 !important;
+  }
+  .rail-stage--live .rail-viewport { overflow-x: auto !important; }
+  .rail-track .g-tile { translate: none !important; rotate: 0deg !important; scale: 1 !important; opacity: 1 !important; }
+  .section-head--rail { opacity: 1 !important; translate: none !important; }
+  .section-head--rail .section-title { translate: none !important; }
+
+  /* scenography off */
+  #heroRing, #ring, #heroHorizon, #heroCue, .trail-layer { display: none !important; }
+  #field > i[data-f], #field > i.field-glow { display: none !important; }
+  .hero-orbs .orb { translate: none !important; filter: blur(60px) !important; opacity: 0.55 !important; }
+  .hero-portrait { translate: -50% 0 !important; scale: 1 !important; opacity: 1 !important; }
+  .hero-actions { translate: -50% 0 !important; opacity: 1 !important; }
+  .projects-grid, .marquee-item, .marquee-item::after { transform: none !important; }
+
+  /* the field is gone, so sections need their own tonal separation back */
+  .section-alt { background: var(--bg-alt) !important; }
+  html.se-cinema .cta { border-radius: var(--r-lg) !important; }
+
+  /* static hairlines: exactly what they were before this work — no information lost */
+  .section-head::after { scale: 1 1 !important; }
+  .about-quote::before { scale: 1 1 !important; }
+  .about-quote .q-mark { scale: 1 !important; translate: none !important; opacity: 1 !important; }
+  .award-list::before { scale: 1 1 !important; }
+
+  /* About resolves to its most-content state: every word at full ink, the
+     photograph fully developed, the meter run out to today, and all five
+     milestones stacked as a plain list instead of cross-fading in one box. */
+  .ab-w { opacity: 1 !important; }
+  .edu-photo { clip-path: none !important; }
+  .edu-photo > img { scale: 1 !important; translate: none !important; }
+  .ab-rail-fill { scale: 1 1 !important; }
+  .ab-rail-dot { left: 100% !important; opacity: 1 !important; }
+  .ab-beats { min-height: 0 !important; display: grid; gap: 10px; }
+  .ab-beat { position: static !important; opacity: 1 !important; translate: none !important; }
+
+  /* The journey resolves to every entry lit, the rail fully drawn, and the
+     reading head gone. Colour changes are kept; travel and scale are not. */
+  .xp-rail-fill { scale: 1 1 !important; box-shadow: 0 0 9px var(--em-glow) !important; }
+  .xp-comet { display: none !important; }
+  .xp-body { opacity: 1 !important; }
+  .xp-link { scale: 1 1 !important; opacity: 0.7 !important; }
+  .xp-node { scale: 1 !important; }
+  .xp-ghost { opacity: 1 !important; translate: 0 -50% !important; }
+  .xp-role .ln-i { transition-delay: 0ms !important; }
+
+  /* content is never withheld */
+  .hero-title .ln-i, .footer-name .ln-i,
+  .xp-role .ln-i { translate: none !important; opacity: 1 !important; }
+  .hero-title .ink-accent { background-size: 100% 0.11em !important; }
+  .footer-brand, .footer-links, .footer-bottom { translate: none !important; opacity: 1 !important; }
+
+  /* a nav that disappears is a usability change, not a decoration */
+  html.se-navhide .nav { transform: none !important; }
+  .fab, html.se-dusk .fab { transition-duration: 1ms !important; }
+  .nav-links a.is-active::after { transition-duration: 0.001ms !important; }
+}
