@@ -1212,7 +1212,20 @@
       var y0 = ABOUT_BEATS[0].y, y1 = ABOUT_BEATS[ABOUT_BEATS.length - 1].y;
       var lastYear = -1, lastLit = 0, lastYp = '';
 
-      SE.add(meter, 'enter-16vh', 'center-6vh', {
+      /* The window is anchored to the meter's OWN top edge, not to `enter`/
+         `center` alone, because this is the one track whose whole payload is
+         read rather than felt: 2015 → 2026 has to tick where the eye already
+         is. `enter+22vh` starts the count with the block sitting at 78% of the
+         viewport — fully on screen, never below the fold — and `cover-18vh`
+         lands 2026 with it at 18% from the top, still comfortably above the
+         reading line. That is 0.60vh of travel whatever the element's height,
+         so the beats change at a legible pace on a laptop and a phone alike.
+
+         The previous 'enter-16vh' → 'center-6vh' began the scrub 16vh BELOW
+         the fold and finished it while the block was still in the bottom half,
+         so a reader met the meter already pinned at 2026 and never saw a
+         single intermediate beat. */
+      SE.add(meter, 'enter+22vh', 'cover-18vh', {
         k: 0.11, minTier: 1, rest: 1,
         fn: function (p) {
           var v = p.toFixed(4);
