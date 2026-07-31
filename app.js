@@ -432,6 +432,15 @@
         '<button type="button" class="work-hit js-open-project" data-index="' + i + '" ' +
           'aria-label="' + esc(p.title) + ' — ' + (hasCase ? 'read case study' : 'details') + '">' +
           '<span class="work-n">' + pad(i + 1) + '</span>' +
+          /* The thumbnail is markup, not an enhancement: below 1025px the gutter
+             preview is display:none, so without this the work section has no
+             images in it at all. It is decorative here — the row's own label
+             already names the project — so alt is empty and it stays out of the
+             accessible name of the button wrapping it. Lazy + async: fifteen
+             shots must not compete with the hero for the first paint. */
+          '<span class="work-thumb"><img src="' + esc(p.img) + '" alt="" loading="lazy" ' +
+            'decoding="async" onload="this.classList.add(\'is-on\')" ' +
+            'onerror="this.remove()"></span>' +
           '<span class="work-main">' +
             '<span class="work-title">' + esc(p.title) + '</span>' +
             '<span class="work-desc">' + esc(p.desc) + '</span>' +
@@ -1399,9 +1408,15 @@
         activeIdx = best;
       }
 
-      if (SE.tier < 3 || reduced) return;
+      /* Auto-hide runs from tier 1 up. It used to be cinema-only, which had it
+         backwards: the bar is 60px of a 844px phone screen and there is no
+         hover to reveal it with, so tucking it away on the way down is worth
+         MORE there than on a 1440px desktop. Only tier 0 (reduced motion) opts
+         out, because that is a request not to move things. */
+      if (SE.tier < 1 || reduced) return;
       // auto-hide
       var suppressed = document.querySelector('.modal.open') ||
+                       document.documentElement.classList.contains('se-menu') ||
                        nav.contains(document.activeElement) ||
                        (window.__seJumpUntil || 0) > SE.now;
       if (suppressed) { fastSince = 0; if (hidden) { hidden = false; document.documentElement.classList.remove('se-navhide'); } return; }
@@ -1463,7 +1478,14 @@
         while (name.firstChild) inner.appendChild(name.firstChild);
         name.appendChild(inner);
         inner.style.setProperty('--ly', '100%');
-        SE.addOnce(footer, 'enter+18vh', { minTier: 2, cls: 'se-in',
+        /* minTier 1, and the gate is the whole point of the fix. The wordmark is
+           pushed 100% down inside `.footer-name { overflow: clip }` the moment it
+           is split, and only this trigger brings it back — so a `minTier: 2` on
+           it did not "skip an animation" at tier 1, it left DALE BEDANIA clipped
+           out of the footer on every phone, permanently. Nothing here is
+           per-frame: it is one threshold and one class, which is exactly what
+           addOnce defaults to tier 1 for. */
+        SE.addOnce(footer, 'enter+18vh', { minTier: 1, cls: 'se-in',
           cb: function () { name.classList.add('se-in'); inner.style.setProperty('--ly', '0'); } });
       }
     }
@@ -1583,11 +1605,23 @@
         });
       });
 
-      // fallback tier: native horizontal scrolling still drives the bar
+      /* Fallback tier: native horizontal scrolling drives the bar AND the count.
+         The count used to be written only inside railFrame, which is tier 3 —
+         so on a phone, the one tier where the rail IS a swipeable carousel and
+         the readout is the only thing telling you how far along it you are, it
+         sat frozen at "01 / 24" through all twenty-four plates. */
       viewport.addEventListener('scroll', function () {
-        if (railState.live || !prog) return;
+        if (railState.live) return;
         var m = viewport.scrollWidth - viewport.clientWidth;
-        prog.style.setProperty('--rp', (m > 0 ? viewport.scrollLeft / m : 0).toFixed(4));
+        var p = m > 0 ? viewport.scrollLeft / m : 0;
+        if (prog) prog.style.setProperty('--rp', p.toFixed(4));
+        if (count && railState.total) {
+          // rounded, not floored: the tiles snap to CENTRE here, so "current" is
+          // the plate in the middle of the screen — flooring named the one it had
+          // just left for most of the swipe
+          var n = Math.min(railState.total, Math.round(p * (railState.total - 1)) + 1);
+          if (n !== railState.shown) { railState.shown = n; count.textContent = pad(n) + ' / ' + pad(railState.total); }
+        }
       }, { passive: true });
     }
   }
@@ -1635,6 +1669,67 @@
       live.forEach(function (c) { c.remove(); });
       live.length = 0;
     });
+  }
+
+  /* ── The phone menu ─────────────────────────────────────────────────────────
+     Below 1024px .nav-links is display:none and nothing replaced it, so the
+     entire page had no way to reach a section except scrolling to it. A sheet
+     rather than a dropdown: at phone size a menu that takes the screen is what
+     every app does, and it gives six destinations room to be typography.
+
+     Registered BEFORE initSmoothScroll, and its closers are bound to the links
+     THEMSELVES rather than delegated off the sheet. Both details are load-order
+     dependent and neither is cosmetic: lockScroll pins the body with
+     `position: fixed`, and a document in that state cannot be scrolled by the
+     anchor handler. Same-element listeners fire in registration order, so
+     closing (which unpins the body) has to be the listener that runs first —
+     a delegated handler on the sheet would only see the click on the way back
+     up, after the jump had already been measured against a pinned document. */
+  function initMobileNav() {
+    var burger = el('navBurger'), sheet = el('navSheet');
+    if (!burger || !sheet) return;
+    var root = document.documentElement;
+    var open = false;
+
+    function set(next) {
+      if (next === open) return;
+      open = next;
+      root.classList.toggle('se-menu', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      sheet.setAttribute('aria-hidden', open ? 'false' : 'true');
+      lockScroll(open);
+      // registerNav suppresses its auto-hide while focus is inside the bar, so a
+      // burger left focused after the sheet closes would pin the bar on screen
+      if (!open) burger.blur();
+    }
+
+    burger.addEventListener('click', function () { set(!open); });
+    sheet.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { set(false); });
+    });
+    // a tap on the sheet's own ground, not on a link
+    sheet.addEventListener('click', function (e) { if (e.target === sheet) set(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+    // a rotation or a resize into the desktop layout must not leave a
+    // full-screen sheet latched over a composition that has its links back
+    addEventListener('resize', function () { if (open && innerWidth > 900) set(false); });
+  }
+
+  /* The FAB is a shortcut to the CTA, and while the hero is on screen the hero
+     is already showing that CTA at full size — so on the one screen where the
+     shortcut is redundant it was also covering the secondary links beside the
+     button it duplicates. It waits for the hero to leave. Observer, not a track:
+     this is a threshold, and the engine's per-frame scrubs are off at tier 1
+     anyway. */
+  function initFabGate() {
+    var fab = document.querySelector('.fab'), hero = el('hero');
+    if (!fab || !hero || !('IntersectionObserver' in window)) return;
+    var root = document.documentElement;
+    root.classList.add('se-athero');
+    new IntersectionObserver(function (entries) {
+      root.classList.toggle('se-athero', entries[0].intersectionRatio > 0.28);
+    }, { threshold: [0, 0.28, 0.6] }).observe(hero);
   }
 
   function initSmoothScroll() {
@@ -1737,11 +1832,14 @@
 
     // Lenis must exist before SE.start() so the conductor can adopt its tick;
     // tracks must be registered before start() measures geometry.
+    // initMobileNav is first so its close-the-sheet listener is registered on
+    // each menu link ahead of the anchor handler — see the note on the function.
+    initMobileNav();
     initSmoothScroll();
     registerTracks();
     window.SE.start();
 
-    initReveal(); initCounters(); initSpotlight();
+    initReveal(); initCounters(); initSpotlight(); initFabGate();
     initMagnetic(); initTilt(); initTrail(); initWorkStage(); initToolkit();
     bindEvents();
   }

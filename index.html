@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- viewport-fit=cover lets the page run edge to edge on a notched phone; every
+       fixed element that could land under a notch or the home indicator pays for
+       it with an env(safe-area-inset-*) pad in mobile.css. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Dale Bedania — Software Engineer & Full-stack Developer based in Pampanga, Philippines. Laravel, React, Next.js, mobile apps, UX/UI design & business automation. Available for freelance & contract work.">
   <meta name="theme-color" content="#fbfbf9">
   <link rel="canonical" href="https://bedaniadale.github.io/portfolio/">
@@ -27,6 +30,9 @@
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="hero.css">
   <link rel="stylesheet" href="scene.css">
+  <!-- Last, on purpose: the phone layer overrides the desktop composition by
+       source order rather than by out-shouting it with !important. -->
+  <link rel="stylesheet" href="mobile.css">
 
   <!-- The opening. This runs before first paint on purpose: the hero's entrance
        states live behind html.is-intro, so the class has to be on the element
@@ -90,8 +96,41 @@
       <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn btn-primary nav-start">
         Start a project <i class="iconify" data-icon="mdi:arrow-top-right"></i>
       </a>
+      <!-- Phone only. The desktop nav has its links in the bar; below 1024 they
+           are display:none, which left the whole page with no way to jump to a
+           section. -->
+      <button type="button" class="nav-burger" id="navBurger"
+              aria-expanded="false" aria-controls="navSheet" aria-label="Open menu">
+        <span class="nav-burger-bars" aria-hidden="true"><i></i><i></i></span>
+      </button>
     </div>
   </header>
+
+  <!-- ── MOBILE MENU SHEET ───────────────────────────────────────────────────
+       A sheet rather than a dropdown: at phone size a menu that covers the
+       screen is the pattern every app uses, and it gives the section list room
+       to be typography instead of a stack of 14px rows. Outside <header> so the
+       fixed bar cannot clip it and so `inset: 0` resolves against the viewport. -->
+  <div class="nav-sheet" id="navSheet" aria-hidden="true">
+    <nav class="nav-sheet-nav" aria-label="Sections">
+      <a href="#work"><span class="nav-sheet-n">01</span> Work</a>
+      <a href="#about"><span class="nav-sheet-n">02</span> About</a>
+      <a href="#services"><span class="nav-sheet-n">03</span> Services</a>
+      <a href="#stack"><span class="nav-sheet-n">04</span> Toolkit</a>
+      <a href="#graphics"><span class="nav-sheet-n">05</span> Design</a>
+      <a href="#certs"><span class="nav-sheet-n">06</span> Credentials</a>
+    </nav>
+    <div class="nav-sheet-foot">
+      <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg nav-sheet-cta">
+        <i class="iconify" data-icon="mdi:facebook-messenger"></i> Start a project
+      </a>
+      <div class="nav-sheet-links">
+        <a href="mailto:dale.bedania10@gmail.com"><i class="iconify" data-icon="mdi:email-outline"></i> Email</a>
+        <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer"><i class="iconify" data-icon="mdi:github"></i> GitHub</a>
+        <a href="https://instagram.com/bedaniadale" target="_blank" rel="noopener noreferrer"><i class="iconify" data-icon="mdi:instagram"></i> Instagram</a>
+      </div>
+    </div>
+  </div>
 
   <main id="top">
 
@@ -134,14 +173,21 @@
         <p class="hero-note">Building practical, clean, and scalable digital products.</p>
       </div>
 
-      <!-- Floating credentials, kept from the original hero data -->
-      <span class="hero-chip hero-chip--edu wel">
-        <i class="iconify" data-icon="mdi:school-outline"></i> Top IT Graduate &rsquo;25 · HAU
-      </span>
-      <span class="hero-chip hero-chip--exp wel"><b>Since 2015</b> writing code</span>
-      <span class="hero-chip hero-chip--loc wel">
-        <i class="iconify" data-icon="mdi:map-marker"></i> Pampanga, PH
-      </span>
+      <!-- Floating credentials, kept from the original hero data.
+           The wrapper is inert on desktop — all three children are absolutely
+           positioned against .hero, so it holds no layout and creates no
+           containing block. On a phone it becomes the flex row that turns the
+           three floaters into one line of credentials under the signature,
+           which is the only place "Pampanga, PH" appears at that width. -->
+      <div class="hero-chips">
+        <span class="hero-chip hero-chip--edu wel">
+          <i class="iconify" data-icon="mdi:school-outline"></i> Top IT Graduate &rsquo;25 · HAU
+        </span>
+        <span class="hero-chip hero-chip--exp wel"><b>Since 2015</b> writing code</span>
+        <span class="hero-chip hero-chip--loc wel">
+          <i class="iconify" data-icon="mdi:map-marker"></i> Pampanga, PH
+        </span>
+      </div>
 
       <div class="hero-actions wel">
         <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn-hire magnetic">

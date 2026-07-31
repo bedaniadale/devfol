@@ -1,0 +1,7 @@
+{
+  "tool_name": "mcp__playwright__browser_take_screenshot",
+  "tool_input_preview": "{\"type\":\"png\",\"scale\":\"css\",\"filename\":\"C:\\\\Users\\\\ADMINI~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-Administrator-Documents-Webdev-devfol\\\\79e0433c-e212-4a8d-becf-f4b296e6da7f\\\\scratchpad\\\\m-01-hero.p...",
+  "error": "### Error\nError: File access denied: C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\claude\\C--Users-Administrator-Documents-Webdev-devfol\\79e0433c-e212-4a8d-becf-f4b296e6da7f\\scratchpad\\m-01-hero.png is outside allowed roots. Allowed roots: C:\\Users\\Administrator\\Documents\\Webdev\\devfol\\.playwright-mcp, C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+  "timestamp": "2026-07-30T12:57:00.068Z",
+  "retry_count": 1
+}

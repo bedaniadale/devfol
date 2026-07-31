@@ -1,0 +1,776 @@
+/* ============================================================================
+   mobile.css — the phone composition
+   ----------------------------------------------------------------------------
+   Loaded LAST. Everything here is inside a width query, so it overrides the
+   desktop layers by source order and never needs !important.
+
+   The desktop page is a cinematic, pointer-driven composition: a full-bleed
+   hero with copy flanking a portrait, a preview card riding the gutter beside
+   the work index, a pinned horizontal rail. None of that survives a 390px
+   viewport with no pointer — the engine knows it (tier 1 turns the scrubs off)
+   but the LAYOUT did not, so the phone was getting the desktop composition
+   folded into one column: a hero 1.2 screens tall whose CTA sat below the fold,
+   an index of fifteen projects with no images in it at all, and a footer whose
+   white wordmark landed on the bright middle of the closing photograph.
+
+   Three rules hold this layer together:
+
+     ONE SCREEN     the hero is exactly 100svh — portrait above, copy below,
+                    the CTA always on the first screen.
+     THUMB REACH    every row is a >=44px target, taps get a real press state,
+                    fixed furniture pays the safe-area insets it sits in.
+     APP MOTION     the phone gets its own motion budget: CSS keyframes and
+                    scroll-driven animations, which run off the main thread, in
+                    place of the per-frame scrubs the engine gates to tier 3.
+   ========================================================================== */
+
+/* ── 1. FOUNDATIONS ──────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  :root {
+    /* one gutter for the whole page, and the height the fixed bar occupies —
+       every section, sheet and floating control measures from these two */
+    --pad-x: clamp(18px, 5vw, 30px);
+    --nav-h: 60px;
+    --safe-b: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Anchor jumps have to clear the fixed bar. The desktop path passes Lenis an
+     explicit -70px offset, but there is no Lenis below the cinema tier — it is
+     scrollIntoView, which honours the scrollport's own padding instead. Without
+     this every menu destination landed with its eyebrow under the app bar. */
+  html { scroll-padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + 14px); }
+
+  /* The container stops being a percentage. A 92% width means the gutter grows
+     with the screen, which is backwards on a phone: 15px at 375 and 30px at 820
+     is the opposite of what either size needs. A fixed gutter that respects the
+     landscape notch is the same edge on every device. */
+  .container {
+    width: 100%;
+    padding-inline: max(var(--pad-x), env(safe-area-inset-left, 0px))
+                    max(var(--pad-x), env(safe-area-inset-right, 0px));
+  }
+
+  /* Touch feedback is most of what makes a page feel like an app. The grey
+     flash is the browser's version of it and it always looks broken, so it goes
+     and a real press state replaces it below. */
+  a, button, .work-hit, .svc-row, .g-tile, .cert-row, .proof-card {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Thumb reach. These are the controls the desktop sheet sizes by their own
+     text — 20px for "Back to top", 23px for each footer link — which is fine for
+     a cursor and under half the 44px a thumb needs. Padding rather than height,
+     so nothing has to be re-centred. */
+  .nav-brand { padding: 5px 0; }
+  .proof-card { padding: 12px 13px; }
+  .footer-links a { padding: 10px 0; }
+  .footer-top { padding: 11px 0; }
+  .hero-link { padding: 13px 6px; }
+
+  /* Section rhythm: the desktop scale is driven by vw, which on a phone
+     collapses to its own minimum anyway. State it directly instead. */
+  .section { padding: 68px 0; }
+  .section-head { margin-bottom: 30px; }
+  .section-lede { font-size: 0.98rem; }
+}
+
+/* Press states. Guarded on `hover: none` so a narrow desktop window keeps its
+   hover affordances and never gets a phone's press scale. */
+@media (max-width: 900px) and (hover: none) {
+  .work-hit, .svc-row, .cert-row, .proof-card, .g-tile,
+  .btn, .btn-hire, .fab, .nav-sheet-nav a {
+    transition: transform 140ms var(--ease), background-color 140ms ease;
+  }
+  .work-hit:active, .svc-row:active, .cert-row:active, .nav-sheet-nav a:active {
+    transform: scale(0.982);
+    background-color: var(--em-soft);
+  }
+  .proof-card:active, .g-tile:active, .btn:active, .btn-hire:active, .fab:active {
+    transform: scale(0.955);
+  }
+  /* hover styling that a touch device can only ever apply as a stuck state */
+  .work-row:hover::before, .svc-row:hover, .tk-chip:hover { background: none; }
+  .g-tile:hover img, .rail-track .g-tile:hover { transform: none; }
+  .g-tile .g-zoom { display: none; }
+}
+
+/* ── 2. NAV — an app bar, plus a sheet ───────────────────────────────────── */
+
+.nav-burger { display: none; }
+
+/* The sheet is defined outside the width query on purpose: it must be
+   inert-but-styled at every size, so a resize while it is open cannot leave a
+   half-styled full-screen panel across the desktop layout. */
+.nav-sheet {
+  /* Between the FAB (140) and the bar (150), deliberately: the bar has to stay
+     ABOVE the sheet, because the button that opened the sheet is the button that
+     closes it — put the sheet on top and the burger is buried under its own
+     backdrop with no way back out. */
+  position: fixed; inset: 0; z-index: 145;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: clamp(24px, 5vh, 44px);
+  padding: calc(var(--nav-h, 60px) + 24px) var(--pad-x, 24px)
+           calc(28px + env(safe-area-inset-bottom, 0px));
+  background: rgba(251, 251, 249, 0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  opacity: 0; visibility: hidden;
+  transition: opacity 320ms var(--ease), visibility 320ms;
+}
+html.se-menu .nav-sheet { opacity: 1; visibility: visible; }
+
+.nav-sheet-nav { display: flex; flex-direction: column; }
+.nav-sheet-nav a {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 14px 6px; border-bottom: 1px solid var(--line);
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(1.6rem, 7.5vw, 2.4rem); line-height: 1.1;
+  letter-spacing: -0.03em; color: var(--ink);
+  /* each row arrives a beat after the one above it, once the sheet is open */
+  opacity: 0; translate: 0 14px;
+  transition: opacity 420ms var(--ease), translate 420ms var(--ease);
+}
+html.se-menu .nav-sheet-nav a { opacity: 1; translate: 0 0; }
+html.se-menu .nav-sheet-nav a:nth-child(1) { transition-delay: 60ms; }
+html.se-menu .nav-sheet-nav a:nth-child(2) { transition-delay: 110ms; }
+html.se-menu .nav-sheet-nav a:nth-child(3) { transition-delay: 160ms; }
+html.se-menu .nav-sheet-nav a:nth-child(4) { transition-delay: 210ms; }
+html.se-menu .nav-sheet-nav a:nth-child(5) { transition-delay: 260ms; }
+html.se-menu .nav-sheet-nav a:nth-child(6) { transition-delay: 310ms; }
+.nav-sheet-n {
+  font-family: var(--mono); font-size: 0.7rem; font-weight: 600;
+  color: var(--em); flex: none;
+}
+
+.nav-sheet-foot {
+  display: flex; flex-direction: column; gap: 18px;
+  opacity: 0; translate: 0 14px;
+  transition: opacity 420ms var(--ease) 340ms, translate 420ms var(--ease) 340ms;
+}
+html.se-menu .nav-sheet-foot { opacity: 1; translate: 0 0; }
+.nav-sheet-cta { justify-content: center; }
+.nav-sheet-links { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.nav-sheet-links a {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.88rem; font-weight: 600; color: var(--ink-soft);
+}
+.nav-sheet-links .iconify { color: var(--em); font-size: 1.05rem; }
+
+@media (max-width: 900px) {
+  /* The bar always carries its own ground on a phone: it sits over the portrait
+     and over dark sections, and a transparent bar over either is unreadable.
+     It also pays the notch inset, since viewport-fit=cover puts it under one. */
+  .nav {
+    height: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+    padding: 0 var(--pad-x);
+    padding-top: env(safe-area-inset-top, 0px);
+    gap: 10px;
+    background: rgba(251, 251, 249, 0.72);
+    backdrop-filter: saturate(170%) blur(12px);
+    -webkit-backdrop-filter: saturate(170%) blur(12px);
+    transition: translate 360ms var(--ease), background 300ms ease, box-shadow 300ms ease;
+  }
+  .nav--scrolled { box-shadow: 0 1px 0 var(--line); background: rgba(251, 251, 249, 0.88); }
+  .nav-cta { gap: 8px; }
+  .nav-start { padding: 13px 16px; font-size: 0.82rem; }
+
+  .nav-burger {
+    display: grid; place-items: center;
+    width: 42px; height: 42px; margin-right: -6px;
+    border: 0; background: none; cursor: pointer; color: var(--ink);
+  }
+  .nav-burger-bars { display: block; width: 20px; height: 12px; position: relative; }
+  .nav-burger-bars i {
+    position: absolute; left: 0; width: 100%; height: 2px; border-radius: 2px;
+    background: currentColor;
+    transition: translate 300ms var(--ease), rotate 300ms var(--ease), width 300ms var(--ease);
+  }
+  .nav-burger-bars i:nth-child(1) { top: 0; }
+  .nav-burger-bars i:nth-child(2) { top: 10px; width: 13px; }
+  html.se-menu .nav-burger-bars i:nth-child(1) { translate: 0 5px; rotate: 45deg; }
+  html.se-menu .nav-burger-bars i:nth-child(2) { translate: 0 -5px; rotate: -45deg; width: 100%; }
+
+  /* the sheet owns the screen while it is open — the bar keeps only its brand
+     and its close button */
+  html.se-menu .nav { background: none; backdrop-filter: none; box-shadow: none; }
+  html.se-menu .nav-start { opacity: 0; pointer-events: none; }
+  .nav-start { transition: opacity 240ms ease; }
+
+  /* An app bar that tucks away when you scroll down. On desktop this is gated
+     to the cinema tier; on a phone it is worth more, because the bar is a
+     larger share of a small screen. */
+  html.se-navhide .nav { translate: 0 calc(-100% - 4px); }
+  html.se-menu.se-navhide .nav { translate: 0 0; }
+}
+
+/* ── 3. HERO — one screen, portrait over copy ─────────────────────────────── */
+
+@media (max-width: 900px) {
+  /* Two bands in one viewport: the portrait takes whatever height the copy does
+     not need, so the CTA is on the first screen at every phone size instead of
+     ~160px below the fold. min-height rather than height, so a short landscape
+     phone grows the block instead of crushing the figure. */
+  .hero {
+    min-height: 100svh;
+    padding: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + 8px) 0
+             calc(18px + var(--safe-b));
+    display: grid;
+    grid-template-rows: minmax(110px, 1fr);
+    row-gap: clamp(10px, 1.9vh, 20px);
+    overflow: clip;
+  }
+  /* the copy blocks share the container's gutter without each restating it */
+  .hero > .hero-side,
+  .hero > .hero-chips,
+  .hero > .hero-actions { width: 100%; max-width: none; padding-inline: var(--pad-x); }
+
+  /* The portrait is sized off the ROW, not off the viewport width: a
+     width-driven figure overflows the band on a short screen and floats in it on
+     a tall one. Bottom-anchored so it stands on the copy below it. */
+  .hero-portrait {
+    position: relative; left: auto; bottom: auto; translate: none;
+    grid-row: 1; place-self: end center;
+    height: 100%; width: auto; margin: 0;
+    /* Two caps, and they hand over to each other. On a phone the ROW is the
+       constraint and neither binds. On a tablet the row is ~700px tall, and a
+       figure filling it is a 466px-wide portrait that owns the whole screen and
+       pushes the CTA back under the fold — so the width cap takes over there and
+       the leftover height becomes air above the figure instead. */
+    max-height: min(52vh, 480px);
+    max-width: min(86vw, 300px);
+  }
+  .hero-portrait img {
+    height: 100%; width: auto; max-width: 100%;
+    object-fit: contain; object-position: bottom center;
+    /* the horizontal feather is dropped: at this size it eats into the shoulders
+       rather than easing an edge nobody can see */
+    -webkit-mask-image: linear-gradient(to bottom, #000 74%, rgba(0, 0, 0, 0) 99%);
+            mask-image: linear-gradient(to bottom, #000 74%, rgba(0, 0, 0, 0) 99%);
+    filter: drop-shadow(0 18px 26px rgba(16, 60, 42, 0.22));
+  }
+
+  /* The ring re-centres on the portrait's head instead of the hero's middle —
+     centred on the block it drew two arcs straight through the headline. */
+  .hero-ring { top: 30%; width: min(92vw, 460px); }
+  .hero-ring i { border-width: 1.5px; border-color: rgba(17, 160, 107, 0.34); }
+  .hero-ring i:nth-child(2) { inset: 10%; border-width: 18px; border-color: rgba(17, 160, 107, 0.07); }
+  .hero-ring i:nth-child(3) { inset: 26%; border-width: 1.5px; border-color: rgba(17, 160, 107, 0.22); }
+  .hero-horizon { height: min(24vh, 190px); }
+
+  /* copy: pill, headline, kicker */
+  .hero-side {
+    position: relative; top: auto; left: auto; right: auto; translate: none;
+    display: flex; flex-direction: column; gap: 12px;
+    text-align: left; align-items: flex-start; margin: 0;
+  }
+  .hero-side--l { gap: 13px; }
+  /* Height is in the clamp, not just width. A headline sized off vw alone is the
+     same 41px on a 390x844 phone and on a 390x667 one, and on the short screen
+     that is the 40px that pushes the CTA under the fold. */
+  .hero-title { font-size: clamp(1.85rem, min(10.5vw, 5.2vh), 3rem); line-height: 0.98; }
+  .hero-kicker { font-size: clamp(0.92rem, 2vh, 1rem); max-width: 34ch; }
+
+  /* The signature. Three stacked blocks — "Dale Bedania", the role, and a note
+     that repeats what the kicker already said — read as the page saying the same
+     thing three times. One row: name, then the rule and the role beside it. */
+  .hero-side--r {
+    flex-direction: row; align-items: center; gap: 14px;
+    text-align: left;
+  }
+  .hero-name { font-size: 1.06rem; line-height: 1.06; letter-spacing: -0.03em; flex: none; }
+  .hero-role { justify-content: flex-start; font-size: 0.85rem; min-width: 0; }
+  .hero-rule { width: 26px; }
+  .hero-note { display: none; }
+
+  /* the three floaters become one line of credentials */
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .hero-chip {
+    display: inline-flex; position: static; translate: none;
+    left: auto; right: auto; top: auto; bottom: auto;
+    padding: 6px 11px; font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.82); box-shadow: 0 4px 14px -8px rgba(16, 60, 42, 0.4);
+  }
+  .hero-chip--loc { order: -1; }
+
+  .hero-actions {
+    position: relative; left: auto; bottom: auto; translate: none;
+    flex-direction: row; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .btn-hire { padding: 15px 24px; font-size: 0.98rem; flex: 1 1 auto; justify-content: center; gap: 10px; }
+  .hero-actions-sub { gap: 12px; flex: none; }
+  .hero-cue { display: none; }
+}
+
+/* 760px catches the phones the 100svh hero is tightest on — an iPhone SE is
+   667 and a small Android is ~720, and both were still being handed the tall
+   screen's stack. The portrait gives up room first: the copy and the CTA are the
+   payload, the figure is the setting. */
+@media (max-width: 900px) and (max-height: 760px) {
+  .hero { grid-template-rows: minmax(84px, 0.72fr); row-gap: 10px; }
+  .hero-chips { display: none; }
+  .hero-side--l { gap: 11px; }
+}
+
+@media (max-width: 380px) {
+  .hero-actions { gap: 12px; }
+  .hero-actions-sub { width: 100%; justify-content: center; }
+  .btn-hire { width: 100%; }
+}
+
+/* ── 4. PROOF BAND ───────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .proof-band { padding: 30px 0 26px; }
+  .proof-band-in { gap: 26px; }
+
+  /* A 3-up flex row that wraps leaves "24h / reply time" orphaned on a second
+     line. A 2x2 board with hairlines makes the wrap the structure. */
+  .proof-band .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    width: 100%; margin: 0;
+    border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+  }
+  .proof-band .hero-stats li {
+    padding: 14px 4px 14px 14px; gap: 3px;
+    border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .stat-num { font-size: 1.85rem; }
+  .stat-label { font-size: 0.78rem; }
+
+  /* The live sites become a swipe rail that bleeds to both edges — five stacked
+     pills spent 200px of the first scroll on five one-line links. */
+  .hero-proof { width: 100%; gap: 10px; }
+  .hero-proof-list {
+    flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x proximity;
+    overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch;
+    gap: 9px; padding: 2px var(--pad-x) 8px;
+    margin-inline: calc(var(--pad-x) * -1);
+    scrollbar-width: none;
+  }
+  .hero-proof-list::-webkit-scrollbar { display: none; }
+  .hero-proof-list > li { flex: 0 0 auto; scroll-snap-align: start; }
+  .proof-go { display: none; }
+}
+
+/* ── 5. MARQUEE — it has to move ─────────────────────────────────────────────
+   The JS marquee is a per-frame transform gated to tier 2, so on a phone the
+   band was a frozen row of words with a mask over both ends: it read as broken
+   rather than as decoration. A CSS keyframe runs it off the main thread for
+   free, and the track is already duplicated so -50% is a seamless loop. */
+
+@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+  html.se-t1 .marquee-track,
+  html.se-t0 .marquee-track { animation: scroll 30s linear infinite; }
+}
+@media (max-width: 900px) {
+  .marquee { padding: 13px 0; }
+  .marquee-item { font-size: 1.12rem; padding: 0 20px; }
+  .marquee-item::after { margin-left: 20px; }
+}
+
+/* ── 6. ABOUT ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  /* The year is 11vw of display type; the "coding since / 2015 — 2026" caption
+     beside it had ~90px to sit in and wrapped into the numeral. It goes under
+     the rail, where it is a caption on a scale rather than a competing column. */
+  .ab-meter-top { display: block; }
+  .ab-year { font-size: clamp(3.4rem, 22vw, 5.6rem); }
+  .ab-span { flex-direction: row; align-items: baseline; gap: 10px; text-align: left; margin-top: 8px; }
+  .ab-span-range { font-size: 0.72rem; }
+  .ab-rail { margin-top: 18px; }
+  .ab-beats { margin-top: 16px; min-height: 4.6em; }
+  .ab-beat span { font-size: 0.96rem; }
+
+  .about-story p { font-size: 1.04rem; line-height: 1.68; }
+  .about-story > p:first-of-type::first-letter { font-size: 2.9em; }
+  .about-quote {
+    max-width: none; font-size: clamp(1.3rem, 6vw, 1.7rem);
+    margin: 34px 0 40px; padding-left: 18px; border-left-width: 2px;
+  }
+
+  /* The credential row was a three-part flex squeezing a 132px photo, a degree
+     block and an honour pill into 340px — the school line ended up right-aligned
+     against nothing. A photo column with the record beside it, honour beneath. */
+  .edu-card {
+    display: grid; grid-template-columns: 104px minmax(0, 1fr);
+    grid-template-areas: "photo main" "track track";
+    gap: 16px; align-items: center; padding: 20px 0;
+  }
+  .edu-photo { grid-area: photo; width: 100%; }
+  .edu-card-main { grid-area: main; }
+  .edu-track { grid-area: track; justify-self: start; }
+  .edu-degree { font-size: 1.24rem; margin-top: 4px; }
+  .edu-sub { margin-top: 9px; font-size: 0.82rem; gap: 8px; }
+  .edu-logo { width: 24px; height: 24px; }
+
+  .award-list li { padding: 13px 4px; font-size: 0.9rem; gap: 12px; }
+}
+
+/* ── 7. SERVICES ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  /* The icon came back. Below 640 it was the first thing dropped, which left
+     nine hairline rows of text as the entire section — the icons are the only
+     visual it has, and at 34px they cost less width than the number did. */
+  .svc-row {
+    grid-template-columns: 36px minmax(0, 1fr);
+    grid-template-areas: "icon title" "icon desc";
+    gap: 2px 14px; padding: 16px 4px; align-items: center;
+  }
+  .svc-n { display: none; }
+  .svc-icon {
+    display: grid; grid-area: icon; align-self: center;
+    width: 36px; height: 36px; border-radius: 11px; font-size: 1.05rem;
+  }
+  .svc-title { grid-area: title; font-size: 1.04rem; }
+  .svc-desc { grid-area: desc; font-size: 0.86rem; padding-top: 3px; }
+  /* the featured marker rode on .svc-n, which is gone — move it to the title */
+  .svc-row.is-featured .svc-title .ln-i::after {
+    content: "\25C6"; margin-left: 7px; color: var(--em); font-size: 0.55em;
+    vertical-align: 0.15em;
+  }
+}
+
+/* ── 8. WORK — the index gets its screenshots back ─────────────────────────
+   The preview card lives in the gutter beside the list, and there is no gutter
+   on a phone, so it is display:none below 1025 — which left the portfolio's
+   fifteen actual projects represented by fifteen lines of text. The shot moves
+   into the row instead: a thumbnail per project, the live domain under the
+   title, and the full case study still one tap away in the modal. */
+
+.work-thumb { display: none; }
+
+@media (max-width: 1024px) {
+  .work-list { border-top-color: var(--line); }
+  .work-hit {
+    grid-template-columns: 76px minmax(0, 1fr);
+    grid-template-areas: "thumb main" "thumb meta";
+    align-items: center; gap: 4px 14px; padding: 13px 4px;
+  }
+  .work-thumb {
+    display: block; grid-area: thumb; position: relative;
+    width: 76px; aspect-ratio: 4 / 3; overflow: hidden;
+    border-radius: 10px; background: var(--bg-alt);
+    border: 1px solid var(--line);
+  }
+  .work-thumb img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    /* a shot that has not decoded yet must not flash a white plate */
+    opacity: 0; transition: opacity 420ms ease;
+  }
+  .work-thumb img.is-on { opacity: 1; }
+  .work-thumb::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(20, 36, 29, 0.06); border-radius: inherit;
+  }
+  .work-n { display: none; }
+  .work-main { grid-area: main; gap: 2px; }
+  .work-title { font-size: 1.02rem; line-height: 1.2; }
+  .work-desc { font-size: 0.83rem; -webkit-line-clamp: 2; max-width: none; }
+  /* the meta row comes back: a live domain is the strongest thing a row can
+     say, and it was the first thing the narrow layout dropped */
+  .work-meta {
+    display: flex; grid-area: meta; flex-direction: row;
+    align-items: center; gap: 10px; padding-top: 3px;
+  }
+  .work-stack { display: none; }
+  .work-host { font-size: 0.68rem; }
+  .work-go, .work-visit { display: none; }
+}
+
+@media (max-width: 400px) {
+  .work-hit { grid-template-columns: 58px minmax(0, 1fr); gap: 3px 11px; }
+  .work-thumb { width: 58px; }
+  .work-desc { -webkit-line-clamp: 1; }
+}
+
+/* ── 9. TOOLKIT ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .tk-row { padding: 18px 0; }
+  .tk-row-head { grid-template-columns: 26px minmax(0, 1fr) auto; gap: 9px; margin-bottom: 12px; }
+  .tk-row-name { font-size: 1.2rem; }
+  .tk-row-count { flex: none; font-size: 0.66rem; }
+  /* The chips' hover plate is padding pulled back with a negative margin, which
+     makes the flex item narrower than the box it paints — so the last chip in a
+     wrapped row painted ~12px past the container and lost its final letter. On
+     touch there is no hover plate to make room for, so there is no negative
+     margin either. */
+  .tk-chips { padding-left: 0; gap: 12px 18px; }
+  .tk-chip { padding: 0; margin: 0; font-size: 0.82rem; gap: 7px; }
+  .tk-chip img { width: 19px; height: 19px; }
+}
+
+/* ── 10. GRAPHICS RAIL — a real carousel ─────────────────────────────────────
+   Below the cinema tier the rail is already a horizontal scroller, but it was a
+   free-scrolling one with no snap and a progress bar that never filled (--rp is
+   written by the pinned rail, which only runs at tier 3). Snap points, bigger
+   plates, and the count and bar driven off the scroller's own position. */
+
+/* The dark plate is `position: absolute; z-index: 0`, and only the LIVE stage
+   lifts its siblings above it (`.rail-stage--live .rail-sticky > *:not(.rail-plate)`).
+   Off that tier the head and the viewport happen to be positioned already and so
+   win on tree order, but .rail-foot is plain in-flow — a positioned z-index:0 box
+   paints over non-positioned content, so the swipe hint and the progress bar were
+   underneath the plate. Not width-scoped: this is every tier below cinema. */
+.rail-stage:not(.rail-stage--live) .rail-sticky > *:not(.rail-plate) {
+  position: relative; z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .rail-stage { padding: 60px 0; }
+  .rail-viewport {
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rail-track {
+    gap: 14px;
+    padding: 8px var(--pad-x) 4px;
+    align-items: center;
+  }
+  .rail-track .g-tile,
+  .rail-track .g-tile:nth-child(3n + 2),
+  .rail-track .g-tile:nth-child(4n + 3) {
+    scroll-snap-align: center; scroll-snap-stop: always;
+    width: min(74vw, 300px); height: auto; aspect-ratio: 3 / 4;
+    border-radius: var(--r);
+  }
+  .rail-track .g-tile:nth-child(even),
+  .rail-track .g-tile:nth-child(4n + 1) { --stagger: 0px; translate: none; }
+  .g-num { font-size: 1.7rem; left: 14px; bottom: 10px; }
+
+  .section-head--rail { margin-bottom: 22px; }
+  .section-head--rail .rail-count { align-self: flex-start; }
+  .rail-foot { margin-top: 18px; gap: 14px; }
+  .rail-plate { border-radius: 0; }
+  /* the swipe hint is the right one here, and it is the one the stage hides */
+  .rail-hint-swipe { display: inline; }
+  .rail-hint-scroll { display: none; }
+}
+
+/* ── 11. JOURNEY ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .xp-row { padding: 15px 2px 15px 0; }
+  .xp-role { font-size: 1.18rem; }
+  .xp-org { font-size: 0.87rem; }
+  .xp-meta { gap: 9px; font-size: 0.67rem; flex-wrap: wrap; }
+  /* the body dim is a reading cue for a scroll that lights one row at a time;
+     on a phone three rows are on screen at once and two of them being at half
+     strength just reads as unfinished text */
+  .xp-body { opacity: 0.82; }
+}
+
+/* ── 12. CREDENTIALS ─────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  /* The narrow ledger dropped the issuer, the date AND the tag, leaving ten
+     certificate names with nothing to attest them. Two lines per row brings the
+     issuer and the date back — they are what makes a credential a credential. */
+  .cert-row {
+    grid-template-columns: 8px minmax(0, 1fr) auto 20px;
+    grid-template-areas: "dot  name   name  check"
+                         "dot  issuer date  check";
+    gap: 3px 11px; padding: 12px 4px; align-items: center;
+  }
+  .cert-dot { grid-area: dot; }
+  .cert-name { grid-area: name; font-size: 0.93rem; line-height: 1.3; }
+  .cert-issuer { display: block; grid-area: issuer; font-size: 0.65rem; }
+  .cert-date { display: block; grid-area: date; font-size: 0.65rem; justify-self: end; }
+  .cert-check { grid-area: check; }
+  .cert-tag { display: none; }
+}
+
+/* ── 13. TESTIMONIALS ────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .say { padding: 26px 0; }
+  .say-quote { font-size: 1.12rem; line-height: 1.44; }
+  .say-mark { font-size: 3rem; top: -0.2em; left: -0.02em; }
+  .say-by { margin-top: 18px; align-items: center; flex-wrap: nowrap; }
+  .say-avatar { width: 34px; height: 34px; font-size: 0.7rem; }
+  .t-stars { margin-left: auto; width: auto; font-size: 0.8rem; }
+  .rating-badge { position: static; margin-top: 12px; }
+}
+
+/* ── 14. THE CLOSE ────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  /* Back to a block. `display: grid; place-items: center` is what optically
+     centres the endcap in its 60svh half on desktop; that half is released here,
+     and the leftover grid was actively harmful — a centred item in an auto track
+     is sized to MAX-CONTENT, so at 320px the container measured 316px against a
+     305px screen and pushed the whole closing panel off the right edge. */
+  #contact { display: block; padding: 60px 0 0; }
+  #contact .cta { padding: 38px 22px 40px; border-radius: var(--r-lg); }
+  .cta-title { font-size: clamp(1.75rem, 8vw, 2.4rem); }
+  .cta-sub { font-size: 0.97rem; max-width: none; }
+  .cta-actions { flex-direction: column; align-self: stretch; gap: 10px; margin-top: 10px; }
+  .cta-actions .btn { justify-content: center; width: 100%; }
+  /* a 15-character email address at btn-lg does not fit a 340px button */
+  .cta-actions .btn-on-dark { font-size: 0.86rem; padding: 13px 16px; }
+
+  .footer { padding: 46px 0 calc(20px + var(--safe-b)); }
+  .footer-inner { flex-direction: column; gap: 30px; padding-bottom: 28px; }
+  .footer-name { font-size: 1.3rem; }
+  .footer-note { max-width: none; }
+  .footer-bottom { padding-top: 20px; font-size: 0.78rem; }
+
+  /* Off the cinema tier both #contact and .footer state #0e1c15 themselves, and
+     only the footer gives that ground up at dusk — so the plunge photograph
+     appeared behind the footer alone, with a hard horizontal seam across the
+     screen where #contact's opaque green-black ended. Either both halves sit on
+     the room or neither does; the CTA card is already glass at dusk, which is
+     the treatment that expects an image behind it. */
+  html.se-dusk #contact { background: transparent; }
+
+  /* The closing photograph is a FIXED full-viewport plate with its scrim baked
+     in, tuned for a desktop endcap where the CTA owns 60svh and the footer 40svh
+     — so the copy lands in the scrim's dark top and bottom. On a phone both
+     min-heights are released, the footer sits wherever the scroll ends, and the
+     wordmark landed on the bright middle of the room at 0.42 alpha: white type
+     on a lit photograph. The footer states its own ground again — a local scrim
+     rather than the field's — so the image still reads through it. */
+  html.se-dusk .footer {
+    background: linear-gradient(180deg, rgba(6, 12, 9, 0.62) 0%, rgba(6, 12, 9, 0.9) 55%, rgba(6, 12, 9, 0.96) 100%);
+  }
+  .footer-name, .footer-role { text-shadow: 0 2px 14px rgba(6, 16, 11, 0.6); }
+}
+
+/* ── 15. FAB ──────────────────────────────────────────────────────────────
+   The labelled pill is ~150x48 of opaque emerald parked over the bottom-right
+   of every section, and on a phone that is body copy it is covering: it sat on
+   the hero's note, on a service description, on a journey role and on a quote.
+   It becomes a circle — the icon already says messenger — and it retires while
+   the menu is open or while the page is being scrolled fast. */
+
+@media (max-width: 900px) {
+  .fab {
+    right: max(16px, env(safe-area-inset-right, 0px));
+    bottom: calc(16px + var(--safe-b));
+    width: 54px; height: 54px; padding: 0; gap: 0;
+    justify-content: center;
+    box-shadow: 0 10px 26px -8px rgba(11, 125, 82, 0.7);
+  }
+  .fab .iconify { font-size: 1.5rem; }
+  .fab-label {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+  }
+  html.se-menu .fab,
+  html.se-athero .fab { opacity: 0; visibility: hidden; translate: 0 12px; pointer-events: none; }
+  /* out of the way while the page is moving under a thumb */
+  html.se-fast .fab { opacity: 0.35; translate: 0 6px; }
+}
+
+/* ── 16. MODALS ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  /* A dialog that starts at the bottom edge and fills the screen is the phone
+     pattern; a centred card with 20px of backdrop showing around it is the
+     desktop one shrunk. */
+  .modal { padding: 0; align-items: flex-end; }
+  .modal-panel {
+    width: 100%; max-height: 92svh;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    transform: translateY(24px);
+  }
+  .modal-body { padding: 22px 20px calc(26px + var(--safe-b)); }
+  .modal-close { top: 10px; right: 10px; width: 36px; height: 36px; }
+  .pm-title { font-size: 1.4rem; }
+  .case-study { padding: 18px 16px; }
+  .modal-panel--cv { height: 92svh; }
+  .modal-cv-head { padding: 14px 16px; }
+  .modal-cv-head h3 { font-size: 1.05rem; }
+  .modal-cv-actions .btn { padding: 9px 14px; font-size: 0.82rem; }
+
+  /* the image viewer stays centred — a full-bleed sheet would letterbox it */
+  .modal-light { align-items: center; padding: 18px; }
+  .modal-panel--image { width: auto; border-radius: 0; transform: scale(0.97); }
+  .modal.open .modal-panel--image { transform: none; }
+  .modal-light .modal-close { top: -46px; right: 0; }
+}
+
+/* ── 17. PHONE MOTION ─────────────────────────────────────────────────────────
+   Tier 1 turns off every per-frame scrub, which is the right call — a phone
+   should not be running a rAF loop that writes twenty custom properties while
+   the compositor is already carrying a fling. Scroll-driven animations give the
+   same effects back for free: they run off the main thread, need no JS at all,
+   and degrade to nothing where they are unsupported (older iOS Safari simply
+   sees a static page, which is exactly what it sees today).
+
+   Every animation below uses `transform`, never `translate:`/`scale:` — those
+   two channels belong to the engine's scrubs, and a keyframe writing the same
+   property would fight whichever one wins the cascade. */
+
+@supports (animation-timeline: view()) {
+  @media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+
+    /* The hero exit. On desktop the portrait lags the copy on the way out and
+       both fade; that whole effect is `html.se-cinema` only, so a phone just
+       slid the hero off as one flat sheet.
+
+       `html:not(.is-intro)` is load-bearing, not tidiness. The opening sets
+       animation-NAME on .wel and nothing else, so with these rules unscoped the
+       cascade handed the opening's own wel-rise/wel-left keyframes MY timeline:
+       the portrait's entrance ran on scroll position instead of on time, which
+       at scroll 0 is progress 0 — its `from` state — so the figure sat at
+       opacity 0 for the entire opening and only appeared once you scrolled past
+       the hero it was the subject of. animation-timeline is not part of the
+       `animation` shorthand's reset in any rule the opening writes, so the only
+       way to keep the two apart is to not have them apply at the same time. */
+    html:not(.is-intro) .hero-portrait {
+      animation: mHeroSubject linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 90%;
+    }
+    html:not(.is-intro) .hero-side--l,
+    html:not(.is-intro) .hero-side--r {
+      animation: mHeroCopy linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 70%;
+    }
+    @keyframes mHeroSubject {
+      to { transform: translateY(6vh) scale(0.96); opacity: 0.15; }
+    }
+    @keyframes mHeroCopy {
+      to { transform: translateY(-4vh); opacity: 0.1; }
+    }
+
+    /* Depth inside the frames that have images in them: the shot drifts against
+       its own crop as the row passes the screen. This is the one effect that
+       reads as "an app" rather than "a page" on a phone, and it costs nothing —
+       the frame is already clipping. */
+    .work-thumb img, .edu-photo > img {
+      animation: mShot linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+    @keyframes mShot {
+      from { transform: scale(1.1) translateY(-2.5%); }
+      to   { transform: scale(1.1) translateY(2.5%); }
+    }
+
+    /* The section head lifts out of its own line as the section arrives. Kept
+       off .reveal's channels (opacity/translate) so the two never collide. */
+    .section-title, .cta-title {
+      animation: mHead linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 90%;
+    }
+    @keyframes mHead {
+      from { transform: translateY(18px); }
+      to   { transform: translateY(0); }
+    }
+  }
+}
+
+/* Reduced motion: this layer adds three moving things, and all three stop. */
+@media (prefers-reduced-motion: reduce) {
+  .nav-sheet, .nav-sheet-nav a, .nav-sheet-foot { transition-duration: 1ms; }
+  .nav-sheet-nav a, .nav-sheet-foot { opacity: 1; translate: none; }
+  .marquee-track { animation: none; }
+}

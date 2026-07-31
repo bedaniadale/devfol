@@ -49,26 +49,26 @@
   "hotPaths": [
     {
       "path": "app.js",
-      "accessCount": 209,
-      "lastAccessed": 1785415818498,
+      "accessCount": 227,
+      "lastAccessed": 1785417607355,
       "type": "file"
     },
     {
       "path": "index.html",
-      "accessCount": 81,
-      "lastAccessed": 1785415493819,
+      "accessCount": 86,
+      "lastAccessed": 1785416849156,
       "type": "file"
     },
     {
       "path": "app.css",
-      "accessCount": 80,
-      "lastAccessed": 1785415105546,
+      "accessCount": 83,
+      "lastAccessed": 1785416509048,
       "type": "file"
     },
     {
       "path": "scene.css",
-      "accessCount": 66,
-      "lastAccessed": 1785415583713,
+      "accessCount": 68,
+      "lastAccessed": 1785418372581,
       "type": "file"
     },
     {
@@ -85,8 +85,14 @@
     },
     {
       "path": "engine.js",
+      "accessCount": 7,
+      "lastAccessed": 1785416240052,
+      "type": "file"
+    },
+    {
+      "path": "server.js",
       "accessCount": 6,
-      "lastAccessed": 1785414972907,
+      "lastAccessed": 1785416143105,
       "type": "file"
     },
     {
@@ -99,12 +105,6 @@
       "path": "aboutme.txt",
       "accessCount": 5,
       "lastAccessed": 1783933009735,
-      "type": "file"
-    },
-    {
-      "path": "server.js",
-      "accessCount": 5,
-      "lastAccessed": 1785415318009,
       "type": "file"
     },
     {
