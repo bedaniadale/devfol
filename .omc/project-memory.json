@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1785410870362,
+  "lastScanned": 1785552870644,
   "projectRoot": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
   "techStack": {
     "languages": [],
@@ -36,7 +36,7 @@
       "path": "works",
       "purpose": null,
       "fileCount": 21,
-      "lastAccessed": 1785410870317,
+      "lastAccessed": 1785552870599,
       "keyFiles": [
         "Bedania_CV.pdf",
         "Bedania_CVFormal.pdf",
@@ -49,302 +49,38 @@
   "hotPaths": [
     {
       "path": "app.js",
-      "accessCount": 232,
-      "lastAccessed": 1785468987269,
-      "type": "file"
-    },
-    {
-      "path": "index.html",
-      "accessCount": 87,
-      "lastAccessed": 1785468873274,
-      "type": "file"
-    },
-    {
-      "path": "app.css",
-      "accessCount": 85,
-      "lastAccessed": 1785468976340,
-      "type": "file"
-    },
-    {
-      "path": "scene.css",
-      "accessCount": 68,
-      "lastAccessed": 1785418372581,
-      "type": "file"
-    },
-    {
-      "path": "",
-      "accessCount": 17,
-      "lastAccessed": 1785468972730,
-      "type": "directory"
-    },
-    {
-      "path": "onepager.css",
-      "accessCount": 14,
-      "lastAccessed": 1782661102264,
-      "type": "file"
-    },
-    {
-      "path": "engine.js",
-      "accessCount": 10,
-      "lastAccessed": 1785468930065,
-      "type": "file"
-    },
-    {
-      "path": "server.js",
-      "accessCount": 7,
-      "lastAccessed": 1785468991463,
-      "type": "file"
-    },
-    {
-      "path": "designer.css",
-      "accessCount": 5,
-      "lastAccessed": 1781946200644,
-      "type": "file"
-    },
-    {
-      "path": "aboutme.txt",
-      "accessCount": 5,
-      "lastAccessed": 1783933009735,
-      "type": "file"
-    },
-    {
-      "path": "designer.html",
-      "accessCount": 4,
-      "lastAccessed": 1781945794173,
-      "type": "file"
-    },
-    {
-      "path": "animation.js",
-      "accessCount": 4,
-      "lastAccessed": 1782660888515,
-      "type": "file"
-    },
-    {
-      "path": "designs.js",
-      "accessCount": 4,
-      "lastAccessed": 1782661745218,
-      "type": "file"
-    },
-    {
-      "path": "designer.js",
-      "accessCount": 3,
-      "lastAccessed": 1781945699303,
+      "accessCount": 32,
+      "lastAccessed": 1785555628413,
       "type": "file"
     },
     {
       "path": "projects.js",
-      "accessCount": 3,
-      "lastAccessed": 1782661744267,
-      "type": "file"
-    },
-    {
-      "path": "techstacks.js",
-      "accessCount": 3,
-      "lastAccessed": 1782661745148,
-      "type": "file"
-    },
-    {
-      "path": "awards.js",
-      "accessCount": 2,
-      "lastAccessed": 1781945085403,
-      "type": "file"
-    },
-    {
-      "path": "restyle.css",
-      "accessCount": 2,
-      "lastAccessed": 1782661375691,
-      "type": "file"
-    },
-    {
-      "path": "education-gallery.js",
       "accessCount": 1,
-      "lastAccessed": 1781939644938,
+      "lastAccessed": 1785553010114,
       "type": "file"
     },
     {
-      "path": "chatbot.js",
+      "path": "server.js",
       "accessCount": 1,
-      "lastAccessed": 1781939649407,
+      "lastAccessed": 1785553023930,
       "type": "file"
     },
     {
-      "path": "chatbot-rules.js",
+      "path": "content-generator-row.png",
       "accessCount": 1,
-      "lastAccessed": 1781939649526,
+      "lastAccessed": 1785555269229,
       "type": "file"
     },
     {
-      "path": "studio-hero.jpeg",
+      "path": "solstice-peek.png",
       "accessCount": 1,
-      "lastAccessed": 1781946098763,
+      "lastAccessed": 1785555596060,
       "type": "file"
     },
     {
-      "path": "studio-projects.jpeg",
+      "path": "peek-check.png",
       "accessCount": 1,
-      "lastAccessed": 1781946117782,
-      "type": "file"
-    },
-    {
-      "path": "studio-casestudy.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1781946139918,
-      "type": "file"
-    },
-    {
-      "path": "studio-cs-timeline.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1781946158258,
-      "type": "file"
-    },
-    {
-      "path": "studio-certs.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1781946180721,
-      "type": "file"
-    },
-    {
-      "path": "studio-stack.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1781946227781,
-      "type": "file"
-    },
-    {
-      "path": "studio-certs2.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1781946249290,
-      "type": "file"
-    },
-    {
-      "path": "studio-mobile-hero.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1781946287227,
-      "type": "file"
-    },
-    {
-      "path": "studio-mobile-trust.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1781946310362,
-      "type": "file"
-    },
-    {
-      "path": "testimonials-light.png",
-      "accessCount": 1,
-      "lastAccessed": 1782125186545,
-      "type": "file"
-    },
-    {
-      "path": "testimonials-dark.png",
-      "accessCount": 1,
-      "lastAccessed": 1782125203600,
-      "type": "file"
-    },
-    {
-      "path": "restyle.js",
-      "accessCount": 1,
-      "lastAccessed": 1782661245961,
-      "type": "file"
-    },
-    {
-      "path": "hero-desktop.png",
-      "accessCount": 1,
-      "lastAccessed": 1783937302622,
-      "type": "file"
-    },
-    {
-      "path": "proof-strip.png",
-      "accessCount": 1,
-      "lastAccessed": 1783937350298,
-      "type": "file"
-    },
-    {
-      "path": "proof-strip2.png",
-      "accessCount": 1,
-      "lastAccessed": 1783937372010,
-      "type": "file"
-    },
-    {
-      "path": "hero-mobile-vp.png",
-      "accessCount": 1,
-      "lastAccessed": 1783937419928,
-      "type": "file"
-    },
-    {
-      "path": "hero-mobile-fixed.png",
-      "accessCount": 1,
-      "lastAccessed": 1783937513282,
-      "type": "file"
-    },
-    {
-      "path": "hero-0.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785301047307,
-      "type": "file"
-    },
-    {
-      "path": "hero-mid.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785301211669,
-      "type": "file"
-    },
-    {
-      "path": "p45.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785301295409,
-      "type": "file"
-    },
-    {
-      "path": "p85.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785301317880,
-      "type": "file"
-    },
-    {
-      "path": "rail.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785301340907,
-      "type": "file"
-    },
-    {
-      "path": "trail.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785301368460,
-      "type": "file"
-    },
-    {
-      "path": "trail2.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785301402565,
-      "type": "file"
-    },
-    {
-      "path": "mobile-rail.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785301535780,
-      "type": "file"
-    },
-    {
-      "path": ".newblock.tmp",
-      "accessCount": 1,
-      "lastAccessed": 1785304819340,
-      "type": "file"
-    },
-    {
-      "path": "t-plunge.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785305118524,
-      "type": "file"
-    },
-    {
-      "path": "v2-hero.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785305320364,
-      "type": "file"
-    },
-    {
-      "path": "v2-rail.jpeg",
-      "accessCount": 1,
-      "lastAccessed": 1785305711338,
+      "lastAccessed": 1785555702953,
       "type": "file"
     }
   ],

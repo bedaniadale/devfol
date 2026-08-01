@@ -1,0 +1,9 @@
+[   15830ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5500/works/solstice.png:0
+[   15837ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5500/works/solstice.png?retry=1:0
+[   15839ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5500/works/solstice.png?retry=2:0
+[   24075ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5500/works/rosetta.png:0
+[   24076ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5500/works/scriptorium.png:0
+[   24085ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5500/works/scriptorium.png?retry=1:0
+[   24086ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5500/works/rosetta.png?retry=1:0
+[   24088ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5500/works/scriptorium.png?retry=2:0
+[   24088ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5500/works/rosetta.png?retry=2:0

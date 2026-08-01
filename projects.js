@@ -53,16 +53,16 @@ let projects = [
         "langs":['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger'],
     },
     { 
-        "title":"Pina Management CMS",
-        "desc": "Developed a custom CMS portal tailored for a real estate company, enabling efficient management of property listings, client records, and transactions. Focused on streamlining workflows and providing a user-friendly interface to improve daily operations.",
+        "title":"Pina Management CRM",
+        "desc": "Developed a custom CRM portal tailored for a real estate company, enabling efficient management of property listings, client records, and transactions. Focused on streamlining workflows and providing a user-friendly interface to improve daily operations.",
         "img": "works/pina.png",
-        "site": "In progress",
+        "site": "Client-based project",
         "role":['Database Administrator', "Full-Stack Developer"],
         "langs":["React","Supabase","Vercel"],
         "caseStudy": {
             "problem": "A real estate company tracked property listings, client records, and transactions across spreadsheets and disconnected tools, making day-to-day operations slow and error-prone.",
             "approach": [
-                "Built a custom CMS with React and Supabase tailored to their real-estate workflow.",
+                "Built a custom CRM with React and Supabase tailored to their real-estate workflow.",
                 "Structured the database for listings, clients, and transactions with data integrity in mind.",
                 "Focused the interface on the team's daily tasks to reduce friction and training time."
             ],
@@ -85,7 +85,7 @@ let projects = [
         "title":"SPUR Mobile App",
         "desc":"Find your next game, running partner, or tennis match. SPUR is a location-based app that connects you with people who share your passion for sports and fitness. Match by skill, find local events, and build your squad.",
         "img":"works/spurapp.png",
-        "site":"In progress",
+        "site":"Client-based project",
         "role":['Mobile Developer', 'UX/UI Designer'],
         "langs":["React Native", "Javascript", "Firebase"],
     },
@@ -126,7 +126,7 @@ let projects = [
         "title": "ResumeForge",
         "desc": "Fill in your details once — ResumeForge handles the rest. Instantly generates a polished, ATS-friendly resume PDF styled after the iconic Harvard format, no design skills or formatting headaches required.",
         "img": "works/resumeforge.png",
-        "site": "In progress",
+        "site": "Client-based project",
         "role": ["Full-Stack Developer", "UX/UI Designer"],
         "langs": ["React", "Node.js", "Tailwind CSS", "PDF Generation"],
     },
@@ -134,7 +134,7 @@ let projects = [
         "title": "ZoneBridge",
         "desc": "Drop a pin on any city or GPS coordinate and instantly see the exact time gap between it and anywhere else in the world. Built for remote teams, frequent travelers, and anyone tired of mental timezone math.",
         "img": "works/zonebridge.png",
-        "site": "In progress",
+        "site": "Client-based project",
         "role": ["Full-Stack Developer", "UX/UI Designer"],
         "langs": ["React", "Tailwind CSS", "Mapbox GL", "Javascript"],
     }
@@ -267,7 +267,7 @@ function buildCaseStudy(cs) {
 }
 
 function integrateLink(site) {
-    if(site === "In progress") {
+    if(site === "Client-based project") {
         return '#home' 
     } 
 
@@ -275,7 +275,7 @@ function integrateLink(site) {
 }
 
 function checkTarget(site) { 
-     if(site === "In progress") {
+     if(site === "Client-based project") {
         return '' 
     } 
 
@@ -283,7 +283,7 @@ function checkTarget(site) {
 }
 
 function siteLabelForMockup(site) {
-    if (site === 'In progress') return 'Preview';
+    if (site === 'Client-based project') return 'Client-based project';
     let s = String(site).replace(/^https?:\/\//i, '').trim();
     if (s.length > 42) return `${s.slice(0, 39)}…`;
     return s;
@@ -339,7 +339,7 @@ function loadProjects() {
         const detailsLabel = hasCase ? 'Read Case Study' : 'View Details';
 
         const siteLabel = siteLabelForMockup(item.site);
-        const siteCta = item.site === 'In progress' ? 'Coming Soon' : 'View Site';
+        const siteCta = item.site === 'Client-based project' ? 'Private to client' : 'View Site';
 
         let project = `
     <article class="${cardClass}">
@@ -422,7 +422,7 @@ function bindProjectDetailsModal() {
             </div>
             <a href="${integrateLink(item.site)}" target="${checkTarget(item.site)}" rel="noopener noreferrer" class="project-modal-link inline-flex items-center gap-2 rounded-full bg-black px-3.5 py-1.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5">
               <span class="iconify" data-icon="mdi:link-variant" style="font-size: 1rem;"></span>
-              <span>${item.site === 'In progress' ? 'Coming Soon' : 'View Site'}</span>
+              <span>${item.site === 'Client-based project' ? 'Private to client' : 'View Site'}</span>
             </a>
           </article>
         `;

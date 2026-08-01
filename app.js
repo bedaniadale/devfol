@@ -8,6 +8,11 @@
 
   /* ───────────────────────────── CONTENT DATA ───────────────────────────── */
 
+  /* Work built for a client lives on the client's own infrastructure — there is
+     no public URL of mine to point at, so a project marked with this carries the
+     label in its host slot and links to contact instead. */
+  var CLIENT_ONLY = 'Client-based project';
+
   var STATS = [
     { value: 10, suffix: '+', label: 'apps shipped' },
     { value: 6,  suffix: '',  label: 'live client sites' },
@@ -83,6 +88,17 @@
       }
     },
     {
+      title: 'Pina Management CRM',
+      desc: 'A custom CRM for a real estate company — manage property listings, client records, and transactions in one place.',
+      img: 'works/pina.png', site: CLIENT_ONLY,
+      role: ['Database Administrator', 'Full-Stack Developer'], langs: ['React', 'Supabase', 'Vercel'],
+      caseStudy: {
+        problem: 'A real estate company tracked listings, clients, and transactions across spreadsheets and disconnected tools — slow and error-prone.',
+        approach: ['Built a custom CRM with React and Supabase tailored to their workflow.', 'Structured the database for listings, clients, and transactions with integrity in mind.', 'Focused the interface on the team’s daily tasks to reduce friction.'],
+        outcome: ['Centralizes listings, clients, and transactions in one portal.', 'Replaces error-prone spreadsheets with a reliable source of truth.', 'Speeds up daily operations around the team’s real tasks.']
+      }
+    },
+    {
       title: 'Kayantabe',
       desc: 'A dynamic volunteerism platform connecting passionate individuals with local community initiatives.',
       img: 'works/kayantabe.png', site: 'kayantabe.com',
@@ -100,72 +116,6 @@
       role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger']
     },
     {
-      title: 'Pina Management CMS',
-      desc: 'A custom CMS for a real estate company — manage property listings, client records, and transactions in one place.',
-      img: 'works/pina.png', site: 'In progress',
-      role: ['Database Administrator', 'Full-Stack Developer'], langs: ['React', 'Supabase', 'Vercel'],
-      caseStudy: {
-        problem: 'A real estate company tracked listings, clients, and transactions across spreadsheets and disconnected tools — slow and error-prone.',
-        approach: ['Built a custom CMS with React and Supabase tailored to their workflow.', 'Structured the database for listings, clients, and transactions with integrity in mind.', 'Focused the interface on the team’s daily tasks to reduce friction.'],
-        outcome: ['Centralizes listings, clients, and transactions in one portal.', 'Replaces error-prone spreadsheets with a reliable source of truth.', 'Speeds up daily operations around the team’s real tasks.']
-      }
-    },
-    {
-      title: 'Veloce Goods',
-      desc: 'A premium headless B2C storefront for a luxury direct-to-consumer fashion & lifestyle brand — cinematic UI, instant search, and near-perfect web vitals.',
-      img: 'works/veloce.png', site: 'In progress',
-      role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['Next.js', 'React', 'Tailwind CSS', 'Stripe'],
-      caseStudy: {
-        problem: 'Traditional e-commerce templates suffer from slow loading speeds and generic layouts, which hurt a brand’s premium perception and lower conversion rates.',
-        approach: ['Designed a cinematic UI/UX with fluid page transitions, responsive micro-interactions, and a distraction-free, multi-step checkout flow.', 'Built zero-latency catalog filtering with smart auto-suggest fuzzy search for an effortless browsing experience.', 'Engineered the storefront from the ground up to hit a near-perfect performance score on mobile and desktop web vitals.'],
-        outcome: ['Accelerated page-load times across the catalog and product pages.', 'Optimized the checkout funnel to directly lower cart-abandonment rates.', 'Boosted conversion metrics through a faster, more premium browsing experience.']
-      }
-    },
-    {
-      title: 'Vanguard Operations',
-      desc: 'A secure, centralized internal management portal for an enterprise operations & corporate asset firm — granular RBAC, an automated queueing engine, and a live operations dashboard.',
-      img: 'works/vanguard.png', site: 'In progress',
-      role: ['Full-Stack Developer', 'Database Administrator'], langs: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
-      caseStudy: {
-        problem: 'Fragmented workflows, reliance on disparate spreadsheets, manual document routing, and a lack of clear user-permission boundaries.',
-        approach: ['Implemented granular role-based access control with strict privilege separation across Super Admin, Manager, and standard staff tiers.', 'Built an automated queueing engine for high-volume document generation, invoice distribution, and email alerts.', 'Created a live operations dashboard with interactive charts and progress trackers for resource allocation and team velocity.'],
-        outcome: ['Centralized scattered company data into a single source of truth.', 'Heavily reduced operational turnaround times.', 'Completely eliminated human data-entry errors through automation.']
-      }
-    },
-    {
-      title: 'Kinetix Health',
-      desc: 'A high-fidelity, cross-platform mobile app (MVP) for an elite boutique fitness-coaching brand — real-time sync, offline-first stability, and polished gesture navigation.',
-      img: 'works/kinetix.png', site: 'In progress',
-      role: ['Mobile Developer', 'UX/UI Designer'], langs: ['React Native', 'Firebase', 'Javascript'],
-      caseStudy: {
-        problem: 'The client needed a dedicated mobile footprint to retain clients, but required a solution that felt genuinely native and highly responsive without a massive development timeline.',
-        approach: ['Built real-time data syncing for 1-on-1 coach-to-client messaging and dynamic workout status updates across devices.', 'Added a deep offline-first caching layer so the app stays fully responsive and usable without an active connection.', 'Designed intuitive gesture navigation paired with smooth, beautifully animated fitness progress charts.'],
-        outcome: ['Delivered a premium digital product with an accelerated time-to-market.', 'Gave clients an engaging, high-end mobile experience.', 'Improved client retention for the coaching brand.']
-      }
-    },
-    {
-      title: 'Veritas Layouts',
-      desc: 'An automated micro-SaaS document engine for an executive & legal productivity startup — a live side-by-side preview, strict layout parsing, and one-click cloud export.',
-      img: 'works/veritas.png', site: 'In progress',
-      role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['React', 'Node.js', 'Tailwind CSS', 'PDF Generation'],
-      caseStudy: {
-        problem: 'Professional industries waste thousands of hours manually typesetting rigid document layouts (corporate templates, academic formats), frequently leading to formatting errors.',
-        approach: ['Built a multi-step form wizard with a pixel-perfect live preview that updates in real time as the user types.', 'Engineered a strict layout-parsing engine that respects rigid text boundaries and typography rules without breaking alignments or overflowing pages.', 'Added one-click high-fidelity PDF export, cloud-storage archiving, and template version-history tracking.'],
-        outcome: ['Productized a tedious manual task into a scalable micro-service.', 'Completely wiped out formatting errors.', 'Cut document-creation time down to seconds.']
-      }
-    },
-    {
-      title: 'OmniReserve',
-      desc: 'A multi-tenant B2B/B2C booking & resource marketplace for high-value asset rentals and multi-vendor scheduling — a bulletproof availability engine and automated split payouts.',
-      img: 'works/omnireserve.png', site: 'In progress',
-      role: ['Full-Stack Developer', 'Database Administrator'], langs: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-      caseStudy: {
-        problem: 'Off-the-shelf booking tools break under complex multi-merchant logic, automated revenue splitting, and timezone-dependent booking overlaps.',
-        approach: ['Built an advanced scheduling backend that prevents overlapping reservations down to the exact minute across changing timezones.', 'Architected an automated split-payout pipeline that securely collects a platform service fee while routing vendor earnings to their accounts.', 'Designed a dual-dashboard experience: a minimal customer reservation flow paired with an in-depth vendor analytics portal.'],
-        outcome: ['Created a self-sustaining marketplace framework.', 'Automated vendor onboarding and booking reconciliation.', 'Enabled operations to scale hands-free.']
-      }
-    },
-    {
       title: 'SPUR Landing Page',
       desc: 'A responsive landing page showcasing the SPUR mobile app — highlighting features and driving downloads.',
       img: 'works/joinspur.png', site: 'joinspurapp.com',
@@ -174,7 +124,7 @@
     {
       title: 'SPUR Mobile App',
       desc: 'Find your next game, running partner, or tennis match. A location-based app connecting people who share a passion for sports & fitness.',
-      img: 'works/spurapp.png', site: 'In progress',
+      img: 'works/spurapp.png', site: CLIENT_ONLY,
       role: ['Mobile Developer', 'UX/UI Designer'], langs: ['React Native', 'Javascript', 'Firebase']
     },
     {
@@ -190,15 +140,114 @@
       role: ['UX/UI Designer', 'Front-end Developer'], langs: ['Wordpress', 'Elementor']
     },
     {
+      title: 'CVL Content Generator',
+      desc: 'A browser-only carousel studio for Complete Vitality Life, a health & longevity brand — one Excel upload becomes a month of on-brand Instagram slides, exported as pixel-exact 1080×1440 PNGs and shared as a live link.',
+      img: 'works/contentgenerator.png', site: CLIENT_ONLY,
+      role: ['Sole Designer & Engineer'], langs: ['React', 'Vite', 'Supabase', 'PostgreSQL', 'xlsx', 'html-to-image', 'JSZip', 'Vercel'],
+      caseStudy: {
+        problem: 'The client publishes educational health content as Instagram carousels — a cover, five to seven body slides, and a call-to-action carrying a required medical disclaimer. The copy was already written in bulk, one post per row in a spreadsheet; everything after that was manual. Slides were laid out by hand in Canva one at a time, type resized per slide because a 12-word slide and a 60-word slide do not fill the same box at the same size, and a 30-post batch meant roughly 200 individual exports, hand-named and hand-foldered into a posting schedule. The bottleneck was never the writing — it was the mechanical distance between a finished spreadsheet and a folder of upload-ready images.',
+        approach: ['Stored a slide as copy plus a template id and rendered it in React at view time, so a 35-carousel project is a few KB of JSON and the PNG only exists at export — produced in the browser, with no render service, queue, or bill that scales with output.', 'Built one Slide component that always draws at true 1080×1440 and scales down with a CSS transform, serving the editor, the thumbnails, the 91-template gallery, the public share view and the hidden export layer — so the export matches the preview by construction rather than by diligence.', 'Made type fit its box automatically: a binary search for the largest size that still fits, eased back off that ceiling so slides do not read as uniformly shouty, with the leftover slack shared out between paragraph gaps instead of one wall of text.', 'Detected workbook shape from the header row rather than asking the user, and wrote the parser on the assumption that real spreadsheets are messy — blank cells, the placeholder markers people actually type, and failures that name the sheet and list the headers it found.', 'Worked around Postgres dropping TOASTed jsonb from the replication payload by bumping a small version integer server-side and treating the realtime event as a doorbell, so an already-open share link updates without a refresh.', 'Downscaled attached images to slide width and moved them to Storage instead of inlining base64, choosing JPEG or PNG by inspecting the alpha channel rather than trusting the file extension.'],
+        outcome: ['A batch that was one-at-a-time manual layout is now upload, pick, export.', 'Brand consistency is enforced by the tool rather than remembered by a person.', 'Export produces the posting schedule directly — correctly named, foldered by day and zero-padded, every PNG exactly 1080×1440.', 'Review became a link that renders the carousel inside Instagram’s own chrome and updates live.', 'Runs on one static deploy plus a free-tier database, because the browser is the render service.']
+      }
+    },
+    {
+      title: 'Solstice',
+      desc: 'Multi-array solar and battery quoting tool with an auditable calculation trail and five generated PDF documents.',
+      img: 'works/solstice.png', site: CLIENT_ONLY,
+      role: ['Frontend Engineer', 'UX/UI Designer'], langs: ['React', 'TypeScript', 'Tailwind CSS', 'decimal.js', '@react-pdf/renderer', 'Vitest'],
+      caseStudy: {
+        problem: 'Solar installers quote from spreadsheets nobody fully trusts. Money rounds differently in a browser than it does in Excel, material quantities get estimated rather than derived from real stock lengths, and when a manager discounts a job there is no record of who approved what or why.',
+        approach: ['Built the pricing engine as a pure TypeScript module with no React or DOM imports, so the same code runs in the browser and under test against the spreadsheet.', 'Implemented Excel’s ROUND, CEILING and FLOOR semantics on decimal.js — half away from zero, with a real significance argument for 4.2 m rail stock and half-day crew bookings.', 'Made every derived figure return its own formula, inputs and rounding note, which gives the on-screen trace panel and the Calculation Trace Sheet PDF for free.', 'Designed an override flow where a discount stays unapplied until a manager approves it, with the approver and timestamp recorded on the document.'],
+        outcome: ['Every figure on screen expands to show the exact formula and inputs that produced it — 106 traced figures in the default state.', '27 engine tests pin the Excel rounding rules, equipment-discount isolation and the full override-and-approval lifecycle.', 'Five audience-specific PDFs generate from a single record: customer quote, materials pick list, internal margin sheet, install job pack and calculation trace sheet.']
+      }
+    },
+    {
+      title: 'Rosetta',
+      desc: 'Client-side workbench that turns an Excel workbook into a working React form — then proves the numbers still match, to the cent.',
+      img: 'works/rosetta.png', site: CLIENT_ONLY,
+      role: ['Frontend Engineer'], langs: ['React', 'TypeScript', 'Tailwind CSS', 'SheetJS', 'HyperFormula', 'decimal.js', 'Zod', 'Vitest'],
+      caseStudy: {
+        problem: 'Migrating a business off a spreadsheet is easy to do badly. Anyone can render cells as a form; the hard part is proving the new app returns the same numbers as the file it replaced. Silent failures are the real danger — a #DIV/0! collapsing to a $0 line total looks fine on screen and quietly corrupts the migration.',
+        approach: ['Parsed workbooks with SheetJS and classified every cell as input, derived, output or static from its dependency edges, then laid the graph out so calculation order reads left to right.', 'Wrote a tokenizer, recursive-descent parser and evaluator covering 14 Excel functions, with anything outside that set flagged for manual review rather than guessed at.', 'Built a parity harness running two independent engines — HyperFormula over the original sheets, my own engine over the generated fields — across five scenarios including scaled quantities, .005 rounding boundaries and forced divide-by-zero.', 'Carried errors as values rather than null, so a #DIV/0! propagates through SUM the way Excel does instead of coercing to zero.'],
+        outcome: ['Both sample workbooks pass green across all five scenarios — 315 cell comparisons on the three-sheet trade quote alone.', 'Agreement holds to $0.005 between two separately written engines, so a green result is real evidence rather than a tautology.', 'Exports a complete mapping spec as JSON and CSV, plus the finished record written back into the original Excel layout with formulas and named ranges intact.']
+      }
+    },
+    {
+      title: 'Scriptorium',
+      desc: 'One job record renders three document templates for two audiences — real vector PDFs generated entirely in the browser.',
+      img: 'works/scriptorium.png', site: CLIENT_ONLY,
+      role: ['Frontend Engineer', 'UX/UI Designer'], langs: ['React', 'TypeScript', 'Tailwind CSS', '@react-pdf/renderer', 'Zustand'],
+      caseStudy: {
+        problem: 'Quoting systems usually keep the customer document and the internal document as two separate templates. They drift. A price gets corrected on one and not the other — or worse, buy prices, margins and supplier names end up in front of the customer.',
+        approach: ['Reduced the customer/internal split to a single FIELD_RULES table; templates ask visible(field, audience) instead of deciding for themselves, so one component renders both copies.', 'Built three paginating PDF templates with repeating table headers, branded chrome and Page n of m, rendered client-side with @react-pdf/renderer — no server, no headless Chrome.', 'Implemented an acceptance flow with a signature canvas that regenerates the PDF with a signature block and timestamp, moving the record from Quote to Job Order.', 'Made every save an immutable snapshot, with a field-level version diff across scalars, customer details, dates and per-line changes to quantity, price, cost, supplier and selection.'],
+        outcome: ['The two copies cannot drift — 10 shared fields, 2 customer-only and 14 internal-only, all driven from one rule table and one component.', 'Conditional narrative sections and their money appear and disappear with line-item selection across all three documents at once.', 'The PDF chrome was lifted wholesale from the Solstice estimator and generalised to an arbitrary job record — the reuse is real, not a story told afterwards.']
+      }
+    },
+    {
+      title: 'Veloce Goods',
+      desc: 'A premium headless B2C storefront for a luxury direct-to-consumer fashion & lifestyle brand — cinematic UI, instant search, and near-perfect web vitals.',
+      img: 'works/veloce.png', site: CLIENT_ONLY,
+      role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['Next.js', 'React', 'Tailwind CSS', 'Stripe'],
+      caseStudy: {
+        problem: 'Traditional e-commerce templates suffer from slow loading speeds and generic layouts, which hurt a brand’s premium perception and lower conversion rates.',
+        approach: ['Designed a cinematic UI/UX with fluid page transitions, responsive micro-interactions, and a distraction-free, multi-step checkout flow.', 'Built zero-latency catalog filtering with smart auto-suggest fuzzy search for an effortless browsing experience.', 'Engineered the storefront from the ground up to hit a near-perfect performance score on mobile and desktop web vitals.'],
+        outcome: ['Accelerated page-load times across the catalog and product pages.', 'Optimized the checkout funnel to directly lower cart-abandonment rates.', 'Boosted conversion metrics through a faster, more premium browsing experience.']
+      }
+    },
+    {
+      title: 'Vanguard Operations',
+      desc: 'A secure, centralized internal management portal for an enterprise operations & corporate asset firm — granular RBAC, an automated queueing engine, and a live operations dashboard.',
+      img: 'works/vanguard.png', site: CLIENT_ONLY,
+      role: ['Full-Stack Developer', 'Database Administrator'], langs: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
+      caseStudy: {
+        problem: 'Fragmented workflows, reliance on disparate spreadsheets, manual document routing, and a lack of clear user-permission boundaries.',
+        approach: ['Implemented granular role-based access control with strict privilege separation across Super Admin, Manager, and standard staff tiers.', 'Built an automated queueing engine for high-volume document generation, invoice distribution, and email alerts.', 'Created a live operations dashboard with interactive charts and progress trackers for resource allocation and team velocity.'],
+        outcome: ['Centralized scattered company data into a single source of truth.', 'Heavily reduced operational turnaround times.', 'Completely eliminated human data-entry errors through automation.']
+      }
+    },
+    {
+      title: 'Kinetix Health',
+      desc: 'A high-fidelity, cross-platform mobile app (MVP) for an elite boutique fitness-coaching brand — real-time sync, offline-first stability, and polished gesture navigation.',
+      img: 'works/kinetix.png', site: CLIENT_ONLY,
+      role: ['Mobile Developer', 'UX/UI Designer'], langs: ['React Native', 'Firebase', 'Javascript'],
+      caseStudy: {
+        problem: 'The client needed a dedicated mobile footprint to retain clients, but required a solution that felt genuinely native and highly responsive without a massive development timeline.',
+        approach: ['Built real-time data syncing for 1-on-1 coach-to-client messaging and dynamic workout status updates across devices.', 'Added a deep offline-first caching layer so the app stays fully responsive and usable without an active connection.', 'Designed intuitive gesture navigation paired with smooth, beautifully animated fitness progress charts.'],
+        outcome: ['Delivered a premium digital product with an accelerated time-to-market.', 'Gave clients an engaging, high-end mobile experience.', 'Improved client retention for the coaching brand.']
+      }
+    },
+    {
+      title: 'Veritas Layouts',
+      desc: 'An automated micro-SaaS document engine for an executive & legal productivity startup — a live side-by-side preview, strict layout parsing, and one-click cloud export.',
+      img: 'works/veritas.png', site: CLIENT_ONLY,
+      role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['React', 'Node.js', 'Tailwind CSS', 'PDF Generation'],
+      caseStudy: {
+        problem: 'Professional industries waste thousands of hours manually typesetting rigid document layouts (corporate templates, academic formats), frequently leading to formatting errors.',
+        approach: ['Built a multi-step form wizard with a pixel-perfect live preview that updates in real time as the user types.', 'Engineered a strict layout-parsing engine that respects rigid text boundaries and typography rules without breaking alignments or overflowing pages.', 'Added one-click high-fidelity PDF export, cloud-storage archiving, and template version-history tracking.'],
+        outcome: ['Productized a tedious manual task into a scalable micro-service.', 'Completely wiped out formatting errors.', 'Cut document-creation time down to seconds.']
+      }
+    },
+    {
+      title: 'OmniReserve',
+      desc: 'A multi-tenant B2B/B2C booking & resource marketplace for high-value asset rentals and multi-vendor scheduling — a bulletproof availability engine and automated split payouts.',
+      img: 'works/omnireserve.png', site: CLIENT_ONLY,
+      role: ['Full-Stack Developer', 'Database Administrator'], langs: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+      caseStudy: {
+        problem: 'Off-the-shelf booking tools break under complex multi-merchant logic, automated revenue splitting, and timezone-dependent booking overlaps.',
+        approach: ['Built an advanced scheduling backend that prevents overlapping reservations down to the exact minute across changing timezones.', 'Architected an automated split-payout pipeline that securely collects a platform service fee while routing vendor earnings to their accounts.', 'Designed a dual-dashboard experience: a minimal customer reservation flow paired with an in-depth vendor analytics portal.'],
+        outcome: ['Created a self-sustaining marketplace framework.', 'Automated vendor onboarding and booking reconciliation.', 'Enabled operations to scale hands-free.']
+      }
+    },
+    {
       title: 'ResumeForge',
       desc: 'Fill in your details once — ResumeForge instantly generates a polished, ATS-friendly resume PDF in the iconic Harvard format.',
-      img: 'works/resumeforge.png', site: 'In progress',
+      img: 'works/resumeforge.png', site: CLIENT_ONLY,
       role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['React', 'Node.js', 'Tailwind CSS', 'PDF Generation']
     },
     {
       title: 'ZoneBridge',
       desc: 'Drop a pin on any city or GPS coordinate and instantly see the exact time gap between it and anywhere in the world.',
-      img: 'works/zonebridge.png', site: 'In progress',
+      img: 'works/zonebridge.png', site: CLIENT_ONLY,
       role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['React', 'Tailwind CSS', 'Mapbox GL', 'Javascript']
     }
   ];
@@ -252,7 +301,11 @@
     'react':'logos:react','react native':'logos:react','supabase':'logos:supabase-icon','laravel':'logos:laravel',
     'tailwind css':'logos:tailwindcss-icon','mysql':'logos:mysql-icon','wordpress':'logos:wordpress-icon',
     'elementor':'simple-icons:elementor','javascript':'logos:javascript','html':'logos:html-5','css':'logos:css-3',
-    'node.js':'logos:nodejs-icon','mapbox gl':'simple-icons:mapbox','hostinger':'simple-icons:hostinger','vercel':'logos:vercel-icon','firebase':'logos:firebase-icon','pdf generation':'mdi:file-pdf-box'
+    'node.js':'logos:nodejs-icon','mapbox gl':'simple-icons:mapbox','hostinger':'simple-icons:hostinger','vercel':'logos:vercel-icon','firebase':'logos:firebase-icon','pdf generation':'mdi:file-pdf-box',
+    'typescript':'logos:typescript-icon','vitest':'logos:vitest','zod':'simple-icons:zod','zustand':'mdi:bear',
+    'sheetjs':'mdi:microsoft-excel','hyperformula':'mdi:function-variant','decimal.js':'mdi:decimal',
+    '@react-pdf/renderer':'mdi:file-pdf-box','vite':'logos:vitejs','postgresql':'logos:postgresql',
+    'xlsx':'mdi:microsoft-excel','html-to-image':'mdi:image-outline','jszip':'mdi:folder-zip-outline'
   };
   function techChip(name) {
     var ic = TECH_ICON[name.toLowerCase()];
@@ -261,10 +314,10 @@
   }
   function roleChip(name) { return '<span class="chip chip-role">' + esc(name) + '</span>'; }
   function siteLabel(site) {
-    if (site === 'In progress') return 'Preview';
+    if (site === CLIENT_ONLY) return CLIENT_ONLY;
     return String(site).replace(/^https?:\/\//i, '');
   }
-  function siteHref(site) { return site === 'In progress' ? '#contact' : 'https://' + site; }
+  function siteHref(site) { return site === CLIENT_ONLY ? '#contact' : 'https://' + site; }
 
   // Resilient image fallback: retry a couple of times (transient dev-server
   // hiccups / aborted lazy loads) before showing the "coming soon" placeholder.
@@ -426,7 +479,7 @@
      screenshot arrives on hover, following the cursor. */
   function renderProjects() {
     el('projectsGrid').innerHTML = PROJECTS.map(function (p, i) {
-      var isLive = p.site !== 'In progress';
+      var isLive = p.site !== CLIENT_ONLY;
       var hasCase = !!p.caseStudy;
       return '<li class="work-row reveal" data-index="' + i + '" style="--i:' + Math.min(i, 6) + '">' +
         '<button type="button" class="work-hit js-open-project" data-index="' + i + '" ' +
@@ -449,7 +502,7 @@
             '<span class="work-stack">' + p.langs.slice(0, 3).map(esc).join(' · ') + '</span>' +
             (isLive
               ? '<span class="work-host"><span class="live-dot"></span>' + esc(siteLabel(p.site)) + '</span>'
-              : '<span class="work-host work-host--wip">In progress</span>') +
+              : '<span class="work-host work-host--wip">' + CLIENT_ONLY + '</span>') +
           '</span>' +
           '<span class="work-go"><i class="iconify" data-icon="mdi:arrow-top-right"></i></span>' +
         '</button>' +
@@ -743,7 +796,7 @@
 
   function openProject(i) {
     var p = PROJECTS[i]; if (!p) return;
-    var cta = p.site === 'In progress' ? 'Unavailable' : 'Visit site';
+    var cta = p.site === CLIENT_ONLY ? 'Private to client' : 'Visit site';
     el('projectModalBody').innerHTML =
       '<div class="pm-shot"><div class="browser-bar"><span></span><span></span><span></span><em>' + esc(siteLabel(p.site)) + '</em></div>' +
       '<div class="project-img-wrap"><img src="' + esc(p.img) + '" alt="' + esc(p.title) + '" onerror="window.__projImgFail(this)"><span class="project-img-fallback">Screenshot coming soon</span></div></div>' +
@@ -751,7 +804,7 @@
       '<p class="pm-desc">' + esc(p.desc) + '</p>' +
       caseStudyHtml(p.caseStudy) +
       '<div class="project-chips">' + p.role.map(roleChip).join('') + p.langs.map(techChip).join('') + '</div>' +
-      (p.site === 'In progress'
+      (p.site === CLIENT_ONLY
         ? '<span class="btn pm-cta pm-cta--off">' + esc(cta) + '</span>'
         : '<a href="' + siteHref(p.site) + '" target="_blank" rel="noopener noreferrer" class="btn btn-primary pm-cta">' + esc(cta) + ' <i class="iconify" data-icon="mdi:arrow-top-right"></i></a>');
     var body = el('projectModalBody'); body.scrollTop = 0;

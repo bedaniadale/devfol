@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"C:\\\\Users\\\\Administrator\\\\Documents\\\\Webdev\\\\devfol\\\\.playwright-mcp\\\\content-generator-row.png\"}",
+  "error": "File does not exist. Note: your current working directory is C:\\Users\\Administrator\\Documents\\Webdev\\devfol.",
+  "timestamp": "2026-08-01T03:34:21.408Z",
+  "retry_count": 1
+}

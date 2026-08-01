@@ -133,15 +133,15 @@
       langs: ['Laravel', 'Tailwind CSS', 'MySQL', 'Hostinger'],
     },
     {
-      title: 'Pina Management CMS',
-      desc: 'A custom CMS portal tailored for a real estate company — property listings, client records, and transactions. Focused on streamlining workflows and a user-friendly interface.',
-      img: 'works/pina.png', site: 'In progress',
+      title: 'Pina Management CRM',
+      desc: 'A custom CRM portal tailored for a real estate company — property listings, client records, and transactions. Focused on streamlining workflows and a user-friendly interface.',
+      img: 'works/pina.png', site: 'Client-based project',
       role: ['Database Administrator', 'Full-Stack Developer'],
       langs: ['React', 'Supabase', 'Vercel'],
       caseStudy: {
         problem: 'A real estate company tracked property listings, client records, and transactions across spreadsheets and disconnected tools, making day-to-day operations slow and error-prone.',
         approach: [
-          'Built a custom CMS with React and Supabase tailored to their real-estate workflow.',
+          'Built a custom CRM with React and Supabase tailored to their real-estate workflow.',
           'Structured the database for listings, clients, and transactions with data integrity in mind.',
           "Focused the interface on the team's daily tasks to reduce friction and training time.",
         ],
@@ -162,7 +162,7 @@
     {
       title: 'SPUR Mobile App',
       desc: 'Location-based app connecting you with people who share your passion for sports and fitness. Match by skill, find local events, build your squad.',
-      img: 'works/spurapp.png', site: 'In progress',
+      img: 'works/spurapp.png', site: 'Client-based project',
       role: ['Mobile Developer', 'UX/UI Designer'],
       langs: ['React Native', 'Javascript', 'Firebase'],
     },
@@ -197,14 +197,14 @@
     {
       title: 'ResumeForge',
       desc: 'Fill in your details once — ResumeForge generates a polished, ATS-friendly resume PDF styled after the iconic Harvard format.',
-      img: 'works/resumeforge.png', site: 'In progress',
+      img: 'works/resumeforge.png', site: 'Client-based project',
       role: ['Full-Stack Developer', 'UX/UI Designer'],
       langs: ['React', 'Node.js', 'Tailwind CSS', 'PDF Generation'],
     },
     {
       title: 'ZoneBridge',
       desc: 'Drop a pin on any city or GPS coordinate and instantly see the exact time gap between it and anywhere else in the world.',
-      img: 'works/zonebridge.png', site: 'In progress',
+      img: 'works/zonebridge.png', site: 'Client-based project',
       role: ['Full-Stack Developer', 'UX/UI Designer'],
       langs: ['React', 'Tailwind CSS', 'Mapbox GL', 'Javascript'],
     },
@@ -545,16 +545,16 @@
      Projects grid
      =================================================== */
   function projectSiteLabel(site) {
-    if (site === 'In progress') return 'Preview';
+    if (site === 'Client-based project') return 'Client-based project';
     let s = String(site).replace(/^https?:\/\//i, '').trim();
     if (s.length > 42) return s.slice(0, 39) + '…';
     return s;
   }
   function projectLink(site) {
-    return site === 'In progress' ? '#contact' : 'https://' + site;
+    return site === 'Client-based project' ? '#contact' : 'https://' + site;
   }
   function projectTarget(site) {
-    return site === 'In progress' ? '' : '_blank';
+    return site === 'Client-based project' ? '' : '_blank';
   }
   function rolesHtml(p) {
     return p.role.map((r) => `<span class="tag tag--role">${esc(r)}</span>`).join('');
@@ -649,7 +649,7 @@
               </button>
               <a href="${esc(projectLink(p.site))}" target="${esc(projectTarget(p.site))}" rel="noopener noreferrer"
                  class="btn btn--primary btn--sm" data-magnetic data-cursor="visit">
-                <span>${p.site === 'In progress' ? 'Coming soon' : 'Visit'}</span>
+                <span>${p.site === 'Client-based project' ? 'Private to client' : 'Visit'}</span>
                 <i class="fa-solid fa-arrow-up-right"></i>
               </a>
             </div>
@@ -681,7 +681,7 @@
         <div class="work-tags pm-tags">${rolesHtml(p)}${langsHtml(p)}</div>
         <a href="${esc(projectLink(p.site))}" target="${esc(projectTarget(p.site))}" rel="noopener noreferrer"
            class="btn btn--primary" data-magnetic>
-          <span>${p.site === 'In progress' ? 'Coming soon' : 'Visit site'}</span>
+          <span>${p.site === 'Client-based project' ? 'Private to client' : 'Visit site'}</span>
           <i class="fa-solid fa-arrow-up-right"></i>
         </a>`;
       modal.classList.add('is-open');
