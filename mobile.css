@@ -124,7 +124,7 @@ html.se-menu .nav-sheet { opacity: 1; visibility: visible; }
 .nav-sheet-nav a {
   display: flex; align-items: baseline; gap: 16px;
   padding: 14px 6px; border-bottom: 1px solid var(--line);
-  font-family: var(--serif); font-weight: 600;
+  font-family: var(--display); font-weight: 600;
   font-size: clamp(1.6rem, 7.5vw, 2.4rem); line-height: 1.1;
   letter-spacing: -0.03em; color: var(--ink);
   /* each row arrives a beat after the one above it, once the sheet is open */

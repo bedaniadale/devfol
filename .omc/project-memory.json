@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1785552870644,
+  "lastScanned": 1785809856451,
   "projectRoot": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
   "techStack": {
     "languages": [],
@@ -35,14 +35,14 @@
     "works": {
       "path": "works",
       "purpose": null,
-      "fileCount": 21,
-      "lastAccessed": 1785552870599,
+      "fileCount": 25,
+      "lastAccessed": 1785809856408,
       "keyFiles": [
         "Bedania_CV.pdf",
         "Bedania_CVFormal.pdf",
         "Bedania_Dale_Resume.pdf",
         "connect4.png",
-        "devfinder.png"
+        "contentgenerator.png"
       ]
     }
   },
@@ -51,6 +51,24 @@
       "path": "app.js",
       "accessCount": 32,
       "lastAccessed": 1785555628413,
+      "type": "file"
+    },
+    {
+      "path": "app.css",
+      "accessCount": 13,
+      "lastAccessed": 1785810096781,
+      "type": "file"
+    },
+    {
+      "path": "layout.css",
+      "accessCount": 3,
+      "lastAccessed": 1785810080971,
+      "type": "file"
+    },
+    {
+      "path": "index.html",
+      "accessCount": 2,
+      "lastAccessed": 1785810028324,
       "type": "file"
     },
     {
@@ -81,6 +99,42 @@
       "path": "peek-check.png",
       "accessCount": 1,
       "lastAccessed": 1785555702953,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 1,
+      "lastAccessed": 1785809876000,
+      "type": "directory"
+    },
+    {
+      "path": "hero.css",
+      "accessCount": 1,
+      "lastAccessed": 1785810051948,
+      "type": "file"
+    },
+    {
+      "path": "mobile.css",
+      "accessCount": 1,
+      "lastAccessed": 1785810053179,
+      "type": "file"
+    },
+    {
+      "path": "poppins-hero.png",
+      "accessCount": 1,
+      "lastAccessed": 1785810145402,
+      "type": "file"
+    },
+    {
+      "path": "poppins-work.png",
+      "accessCount": 1,
+      "lastAccessed": 1785810162237,
+      "type": "file"
+    },
+    {
+      "path": "poppins-mobile.png",
+      "accessCount": 1,
+      "lastAccessed": 1785810184553,
       "type": "file"
     }
   ],
