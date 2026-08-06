@@ -1,0 +1,50 @@
+DALE S. BEDANIA
+(0921) 082 8947 | dale.bedania10@gmail.com | Angeles City, Pampanga, Philippines
+bedaniadale.vercel.app | linkedin.com/in/dale-bedania | github.com/bedaniadale
+
+Dear Hiring Manager,
+
+I am writing to introduce myself and to express my interest in joining your
+team. I am a full-stack web and mobile developer who has spent the last several
+years shipping production systems end-to-end - scoping, UI/UX, backend,
+database, and deployment - for clients across real estate, health, education,
+and sports technology, as well as for a university institutional office. I
+started programming at thirteen, and more than a decade later the appeal is
+unchanged: turning a real problem into something people can actually use.
+
+What I would bring to your team is ownership. On nearly every project I have
+worked on, I was the only developer. The Head of my university's Institutional
+Database Management Office selected me personally to design and build a custom
+employee portal, which I delivered alone - system analysis through production
+deployment - replacing manual, document-heavy HR tracking with a single
+searchable source of truth. I did the same for a real estate firm whose
+operations ran on spreadsheets, and for an Australia-based client for whom I was
+both the sole developer and the primary point of contact. I am comfortable being
+handed an ambiguous problem and a deadline, and returning with something
+deployed.
+
+I build across the whole stack and adapt to whatever a team already runs on.
+That has meant Laravel and PHP, Node.js and Express on the backend; React,
+Angular, and Tailwind CSS on the frontend; React Native and Flutter for mobile;
+MySQL, Supabase, and Firebase for data; and deployments to AWS, Google Cloud,
+Vercel, and traditional hosting. What carries between them is the part that does
+not change with the framework: a data model that will still hold up in a year,
+interfaces that non-technical staff can use without training, and deployments
+that do not depend on me being available. Working solo for most of my career has
+made picking up an unfamiliar tool a routine part of the job rather than an
+obstacle, so I am comfortable joining a codebase built on something I have not
+shipped with yet.
+
+I graduated from Holy Angel University with a BS in Information Technology,
+major in Web Development, where I was named Most Outstanding Graduating Student
+and Most Outstanding On-the-Job Trainee for the program, held Dean's and
+President's List standing, and served as President of the Code Geeks'
+Organization.
+
+My portfolio at bedaniadale.vercel.app has live links and case studies for the
+work described above, and my resume is attached. I would welcome the chance to
+talk about what your team is building and where I could contribute. Thank you
+for your time and consideration.
+
+Sincerely,
+Dale S. Bedania

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dale S. Bedania — Resume</title>
+<style>
+  @page { size: Letter; margin: 0.5in 0.6in; }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 10.5pt;
+    line-height: 1.28;
+    color: #000;
+    margin: 0;
+  }
+
+  /* ---------- Header ---------- */
+  .name {
+    text-align: center;
+    font-size: 19pt;
+    font-weight: bold;
+    letter-spacing: 1.4pt;
+    margin: 0 0 3pt;
+  }
+  .contact {
+    text-align: center;
+    font-size: 9.8pt;
+    line-height: 1.35;
+    margin-bottom: 2pt;
+  }
+  .contact a { color: #000; text-decoration: none; }
+
+  /* ---------- Sections ---------- */
+  h2 {
+    font-size: 10.5pt;
+    font-weight: bold;
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    border-bottom: 1px solid #000;
+    padding-bottom: 1.5pt;
+    margin: 9pt 0 4pt;
+    break-after: avoid;
+  }
+
+  /* Never split an entry or a project across the page break */
+  .entry, .project { break-inside: avoid; }
+
+  .entry { margin-bottom: 5pt; }
+  .entry:last-child { margin-bottom: 0; }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12pt;
+  }
+  .org { font-weight: bold; }
+  .place { font-style: italic; white-space: nowrap; }
+  .role { font-style: italic; }
+  .date { white-space: nowrap; }
+
+  ul {
+    margin: 1.5pt 0 0;
+    padding-left: 14pt;
+  }
+  li { margin-bottom: 1pt; text-align: justify; }
+
+  /* ---------- Projects ---------- */
+  .project { margin-bottom: 3.5pt; }
+  .project:last-child { margin-bottom: 0; }
+  .project .head { font-weight: bold; }
+  .project .stack { font-style: italic; }
+  .project .line { display: block; }
+
+  /* ---------- Skills ---------- */
+  .skills p { margin: 0 0 1.5pt; }
+  .skills .label { font-weight: bold; }
+
+  .summary { margin: 0; text-align: justify; }
+</style>
+</head>
+<body>
+
+  <div class="name">DALE S. BEDANIA</div>
+  <div class="contact">
+    (0921) 082 8947 &nbsp;&bull;&nbsp; dale.bedania10@gmail.com &nbsp;&bull;&nbsp; Angeles City, Pampanga, Philippines<br>
+    bedaniadale.vercel.app &nbsp;&bull;&nbsp; linkedin.com/in/dale-bedania &nbsp;&bull;&nbsp; github.com/bedaniadale
+  </div>
+
+  <h2>Summary</h2>
+  <p class="summary">
+    Full-stack web and mobile developer who has shipped production systems end-to-end &mdash; system analysis, UI/UX,
+    backend, database, and deployment &mdash; for clients across real estate, health, education, and sports tech, plus a
+    university institutional office. Works as the sole developer and direct client contact on every engagement, from first
+    scope to live release. BSIT (Web Development) graduate named <b>Most Outstanding Graduating Student</b> and
+    <b>Most Outstanding On-the-Job Trainee</b> in the program.
+  </p>
+
+  <h2>Education</h2>
+  <div class="entry">
+    <div class="row">
+      <span class="org">Holy Angel University</span>
+      <span class="place">Angeles City, Pampanga</span>
+    </div>
+    <div class="row">
+      <span class="role">Bachelor of Science in Information Technology, Major in Web Development</span>
+      <span class="date">April 2025</span>
+    </div>
+    <ul>
+      <li>Awarded <b>Most Outstanding Graduating Student</b> and <b>Most Outstanding On-the-Job Trainee</b> for BSIT Web Development.</li>
+      <li>Dean&rsquo;s List (2022&ndash;2024) and President&rsquo;s List honoree; recipient of the HAFRD Academic Scholarship.</li>
+      <li>President, Code Geeks&rsquo; Organization (A.Y. 2023&ndash;2024), leading the program&rsquo;s student developer community.</li>
+    </ul>
+  </div>
+
+  <h2>Experience</h2>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">Freelance Full Stack Web &amp; Mobile Developer</span>
+      <span class="place">Remote</span>
+    </div>
+    <div class="row">
+      <span class="role">Self-Employed &mdash; Direct Client Engagements</span>
+      <span class="date">2025 &ndash; Present</span>
+    </div>
+    <ul>
+      <li>Deliver production web and mobile builds for direct clients across real estate, health, education, and sports technology &mdash; including <b>Pina Realty Management</b>, <b>The Zepatide</b>, <b>SPUR</b>, and <b>Umbra</b> (detailed below).</li>
+      <li>Run every engagement solo &mdash; scoping, UI/UX, backend, database, and production deployment &mdash; while serving as the client&rsquo;s single point of contact from first call to live release.</li>
+      <li>Translate business requirements directly into shipped features, and hand over systems the client&rsquo;s own team can operate without ongoing developer support.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">Direct Client (Australia-based)</span>
+      <span class="place">Remote</span>
+    </div>
+    <div class="row">
+      <span class="role">Full Stack Web Developer</span>
+      <span class="date">July 2025 &ndash; August 2025</span>
+    </div>
+    <ul>
+      <li>Served as the sole full-stack developer, owning every assigned project from planning and design through development and deployment.</li>
+      <li>Acted as the client&rsquo;s primary point of contact, translating business requirements directly into shipped features without a middle layer.</li>
+      <li>Delivered tailored solutions across time zones, keeping scope, communication, and release timelines self-managed.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">Holy Angel University &mdash; Institutional Database Management Office</span>
+      <span class="place">Angeles City, Pampanga</span>
+    </div>
+    <div class="row">
+      <span class="role">Full Stack Web Developer, Internship</span>
+      <span class="date">June 2024 &ndash; November 2024</span>
+    </div>
+    <ul>
+      <li>Selected personally by the Head of the IDMO to design and build a custom Employee Portal independently, with minimal supervision.</li>
+      <li>Delivered the full-featured Laravel portal solo &mdash; system analysis, UI/UX design, backend logic, MySQL schema, and role-based access for HR staff and employees.</li>
+      <li>Replaced manual, document-heavy HR tracking with a single searchable source of truth for institutional employee data.</li>
+      <li>Managed end-to-end deployment and release, including production hosting and SSL configuration.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">NILEliteGears &amp; Complete Vitality Life</span>
+      <span class="place">Remote</span>
+    </div>
+    <div class="row">
+      <span class="role">Graphic Designer, Freelance</span>
+      <span class="date">April 2024 &ndash; July 2024</span>
+    </div>
+    <ul>
+      <li>Designed product previews, custom graphics, banners, and promotional images for marketing and e-commerce channels.</li>
+      <li>Optimized visual assets per platform to maximize audience engagement across social media.</li>
+    </ul>
+  </div>
+
+  <h2>Selected Projects</h2>
+
+  <div class="project">
+    <span class="head">HAU IDMO Employee Portal</span> | <span class="stack">Laravel, Tailwind CSS, MySQL, Hostinger</span>
+    <span class="line">Institutional employee portal with role-based access that streamlines HR processes and turns document-heavy record keeping into data searchable in seconds.</span>
+  </div>
+
+  <div class="project">
+    <span class="head">Pina Management CRM</span> | <span class="stack">React, Supabase, Vercel</span>
+    <span class="line">Custom CRM for a real estate firm &mdash; property listings, client records, and transactions in one operational portal, replacing a back office that ran on spreadsheets.</span>
+  </div>
+
+  <div class="project">
+    <span class="head">Kayantabe</span> | <span class="stack">Laravel, Tailwind CSS, MySQL, Hostinger</span>
+    <span class="line">Volunteerism platform that gives organizers and volunteers one home instead of scattered social posts, with mobile-first sign-up built to remove every barrier between wanting to help and showing up.</span>
+  </div>
+
+  <div class="project">
+    <span class="head">Umbra</span> | <span class="stack">Laravel, React.js, Tailwind CSS, MySQL</span>
+    <span class="line">Tutoring marketplace connecting students and parents with nearby tutors &mdash; find, book, and manage sessions end-to-end, built to make learning more accessible and personal.</span>
+  </div>
+
+  <div class="project">
+    <span class="head">SPUR Landing Page</span> | <span class="stack">React, Supabase, Vercel</span>
+    <span class="line">Conversion-focused landing page for the SPUR mobile app, aligned to the brand and built to turn interest into downloads.</span>
+  </div>
+
+  <div class="project">
+    <span class="head">SPUR Mobile App</span> | <span class="stack">React Native, JavaScript, Firebase</span>
+    <span class="line">Find your next game, running partner, or tennis match &mdash; a location-based app that matches players by skill, surfaces local events, and builds their squad with real-time updates.</span>
+  </div>
+
+  <div class="project">
+    <span class="head">The Zepatide</span> | <span class="stack">Figma, React, Supabase, Vercel</span>
+    <span class="line">Brand site for medical-grade products, built on a clean, trustworthy design system that communicates product quality and earns buyer credibility.</span>
+  </div>
+
+  <div class="project">
+    <span class="head">IMMFI</span> | <span class="stack">WordPress, Elementor</span>
+    <span class="line">Rebuilt a modern, user-friendly layout on updated design principles &mdash; sharpening the experience while holding the organization&rsquo;s brand identity across every page.</span>
+  </div>
+
+  <h2>Technical Skills</h2>
+  <div class="skills">
+    <p><span class="label">Languages:</span> PHP, JavaScript, Java, Python, Dart, C++, Visual Basic 6.0</p>
+    <p><span class="label">Frameworks &amp; Libraries:</span> Laravel, React.js, React Native, Angular, Node.js, Express.js, Flutter, Tailwind CSS</p>
+    <p><span class="label">Tools &amp; Platforms:</span> AWS, Google Cloud Console, Supabase, Firebase, MySQL, GitHub, Jira, Figma, Adobe Suite, CLIO</p>
+    <p><span class="label">Core Competencies:</span> Database Design, System Design, RESTful APIs, UI/UX Design, SEO, Cloud Computing, Domain &amp; Hosting Management</p>
+  </div>
+
+</body>
+</html>

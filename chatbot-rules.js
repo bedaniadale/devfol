@@ -16,7 +16,7 @@ var CHATBOT_META = {
   linkedin: 'https://www.linkedin.com/in/dale-bedania/',
   github: 'https://github.com/bedaniadale',
   availability: 'Dale is open to full-time roles and contract or project-based work.',
-  cvPath: 'works/Bedania_CVFormal.pdf',
+  cvPath: 'works/Bedania_Dale_Resume_2026.pdf',
   /** @type {string|null} */
   timezone: null,
   /** @type {string|null} */

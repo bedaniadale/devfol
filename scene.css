@@ -460,13 +460,29 @@ html.se-cinema .xp-row .xp-ghost {
 }
 
 /* ── 4. The portrait develops, and its subject drifts against the frame ─────
-   `round var(--r)` keeps the plate's corners through the wipe, so the clip
-   replaces the frame's radius rather than fighting it — it must track the
-   border-radius app.css gives .edu-photo.
-   The overscale is what buys the parallax its travel: on a ~184x245px plate,
-   1.12 leaves ~29px of slack, and ±9px of drift never reaches an edge. */
-.edu-photo { clip-path: inset(0 calc((1 - var(--wp, 1)) * 100%) 0 0 round var(--r)); }
-.edu-photo > img { scale: 1.12; translate: 0 calc((var(--pp, 0.5) - 0.5) * -18px); }
+   The plate literally develops: colour, contrast and focus all rise together
+   as the credential row crosses the reading band, and the image settles out of
+   its overscale into the frame. That is the one entrance a graduation portrait
+   can take without being cut — the previous left-to-right clip wipe drew a hard
+   vertical edge straight across a face, and it was spent by mid-viewport.
+
+   --wp is the entrance (0→1 on approach); --pp is the slow drift that keeps the
+   plate alive for the whole pass. Both default to their finished value, so with
+   no JS the photograph is simply a photograph.
+
+   Rest scale is 1.04, not 1: the source is square (1000x1001) in a 3:4 plate, so
+   object-fit spends all of its slack horizontally and leaves none vertically.
+   At 1.04 a 245px-tall plate keeps ~10px of vertical overflow, which is what the
+   ±4px drift below travels through without ever exposing the frame edge. */
+.edu-photo { clip-path: inset(0 round var(--r)); }
+.edu-photo > img {
+  scale: calc(1.04 + (1 - var(--wp, 1)) * 0.06);
+  translate: 0 calc((var(--pp, 0.5) - 0.5) * -8px);
+  filter: saturate(calc(0.3 + var(--wp, 1) * 0.7))
+          contrast(calc(0.9 + var(--wp, 1) * 0.1))
+          brightness(calc(1.05 - var(--wp, 1) * 0.05))
+          blur(calc((1 - var(--wp, 1)) * 2.5px));
+}
 
 /* ── 5. The ledger rules itself in ──────────────────────────────────────────
    Same drawn-hairline idiom as .section-head::after, so the recognition list
@@ -832,7 +848,12 @@ html.se-fast .trail-card { opacity: 0 !important; }
      milestones stacked as a plain list instead of cross-fading in one box. */
   .ab-w { opacity: 1 !important; }
   .edu-photo { clip-path: none !important; }
-  .edu-photo > img { scale: 1 !important; translate: none !important; }
+  /* 1.04, matching the scrubbed rest state: at 1 the square source shows the
+     plate's edge. The develop is travel-free, but it is still a change over
+     time, so it resolves to the finished photograph too. */
+  .edu-photo > img {
+    scale: 1.04 !important; translate: none !important; filter: none !important;
+  }
   .ab-rail-fill { scale: 1 1 !important; }
   .ab-rail-dot { left: 100% !important; opacity: 1 !important; }
   .ab-beats { min-height: 0 !important; display: grid; gap: 10px; }

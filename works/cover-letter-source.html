@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dale S. Bedania — Cover Letter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Tokens lifted verbatim from the site's app.css :root, so the letter and the
+     portfolio are the same document in two media. */
+  :root {
+    --bg: #fbfbf9;
+    --bg-alt: #f3f5f0;
+    --ink: #14241d;
+    --ink-soft: #45524a;
+    --muted: #79857a;
+    --line: #e4e8df;
+
+    --em: #11a06b;
+    --em-deep: #0b7d52;
+    --em-bright: #19c281;
+    --em-soft: #e7f4ee;
+
+    --r-sm: 10px;
+    --r: 16px;
+
+    --display: "Poppins", system-ui, sans-serif;
+    --sans: "Poppins", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --track-display: -0.035em;
+    --track-heading: -0.025em;
+  }
+
+  /* Margin lives on the bands, not the page, so the header and footer can bleed
+     edge to edge the way the site's sections do. */
+  @page { size: Letter; margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 9.9pt;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    background: var(--bg);
+    /* Without this Chrome drops every background when printing, which would
+       strip the banners this design is built on. */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Header banner ──────────────────────────────────────────────────────── */
+  .banner {
+    background: linear-gradient(135deg, var(--em-deep) 0%, var(--em) 55%, var(--em-bright) 100%);
+    color: #fff;
+    padding: 27pt 42pt 23pt;
+    position: relative;
+    overflow: hidden;
+  }
+  /* The same oversized ghost ring the site floats behind its sections. */
+  .banner::after {
+    content: "";
+    position: absolute; top: -120pt; right: -70pt;
+    width: 260pt; height: 260pt; border-radius: 50%;
+    border: 1.4pt solid rgba(255, 255, 255, 0.16);
+  }
+  .banner::before {
+    content: "";
+    position: absolute; bottom: -150pt; right: 40pt;
+    width: 200pt; height: 200pt; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .banner-inner { position: relative; z-index: 1; }
+
+  .banner .name {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 30pt;
+    line-height: 1.04;
+    letter-spacing: var(--track-display);
+    margin: 0 0 7pt;
+  }
+  .banner .role {
+    font-family: var(--mono);
+    font-size: 8.2pt;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.86);
+    margin-bottom: 13pt;
+  }
+  .banner .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7pt 16pt;
+    font-size: 8.7pt;
+    color: rgba(255, 255, 255, 0.95);
+    padding-top: 10pt;
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+  }
+  .banner .contact span { white-space: nowrap; }
+  .banner .contact b { font-weight: 500; }
+
+  /* ── Body ───────────────────────────────────────────────────────────────── */
+  .sheet { padding: 21pt 42pt 0; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 7.8pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--em-deep);
+    display: block;
+    margin-bottom: 13pt;
+  }
+
+  .salutation {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 13pt;
+    letter-spacing: var(--track-heading);
+    color: var(--ink);
+    margin: 0 0 12pt;
+  }
+
+  p.par { margin: 0 0 9pt; }
+  p.par b { color: var(--ink); font-weight: 600; }
+
+  /* ── Pull-quote band — the site's .about-quote, at letter scale ─────────── */
+  .quote {
+    background: var(--em-soft);
+    border-left: 3pt solid var(--em);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    padding: 11pt 16pt;
+    margin: 12pt 0;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 11.6pt;
+    line-height: 1.34;
+    letter-spacing: var(--track-heading);
+    color: var(--ink);
+  }
+  .quote .q-mark { color: var(--em); font-weight: 700; }
+
+  /* ── Credential pills ───────────────────────────────────────────────────── */
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5pt;
+    margin: 12pt 0 12pt;
+  }
+  .pill {
+    font-size: 7.9pt;
+    font-weight: 600;
+    color: var(--em-deep);
+    background: var(--em-soft);
+    border: 1px solid rgba(17, 160, 107, 0.18);
+    border-radius: 999px;
+    padding: 4.5pt 10pt;
+    white-space: nowrap;
+  }
+
+  /* Bottom padding clears the fixed footer band, which is ~37pt tall and would
+     otherwise print straight over the signature. */
+  .signoff { margin-top: 13pt; padding-bottom: 50pt; }
+  .signoff .sig-name {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 12.4pt;
+    letter-spacing: var(--track-heading);
+    color: var(--ink);
+    margin-top: 5pt;
+  }
+
+  /* ── Footer band ────────────────────────────────────────────────────────── */
+  .footer {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--ink);
+    color: rgba(255, 255, 255, 0.82);
+    padding: 13pt 42pt;
+    font-family: var(--mono);
+    font-size: 8pt;
+    letter-spacing: 0.055em;
+    display: flex;
+    justify-content: space-between;
+    gap: 14pt;
+  }
+  .footer b { color: var(--em-bright); font-weight: 500; }
+</style>
+</head>
+<body>
+
+  <header class="banner">
+    <div class="banner-inner">
+      <div class="name">Dale S. Bedania</div>
+      <div class="role">Full-Stack Web &amp; Mobile Developer</div>
+      <div class="contact">
+        <span><b>(0921) 082 8947</b></span>
+        <span>dale.bedania10@gmail.com</span>
+        <span>Angeles City, Pampanga, Philippines</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="sheet">
+    <span class="eyebrow">// Cover letter</span>
+
+    <p class="salutation">Dear Hiring Manager,</p>
+
+    <p class="par">
+      I am writing to introduce myself and to express my interest in joining your team. I am a full-stack web and mobile
+      developer who has spent the last several years shipping production systems end-to-end &mdash; scoping, UI/UX,
+      backend, database, and deployment &mdash; for clients across real estate, health, education, and sports technology,
+      as well as for a university institutional office. I started programming at thirteen, and more than a decade later
+      the appeal is unchanged: turning a real problem into something people can actually use.
+    </p>
+
+    <div class="quote">
+      <span class="q-mark">&ldquo;</span>On nearly every project I have worked on, I was the only developer.
+    </div>
+
+    <p class="par">
+      The Head of my university&rsquo;s Institutional Database Management Office selected me personally to design and
+      build a custom employee portal, which I delivered alone &mdash; system analysis through production deployment
+      &mdash; replacing manual, document-heavy HR tracking with a single searchable source of truth. I did the same for a
+      real estate firm whose operations ran on spreadsheets, and for an Australia-based client for whom I was both the
+      sole developer and the primary point of contact. I am comfortable being handed an ambiguous problem and a deadline,
+      and returning with something deployed.
+    </p>
+
+    <p class="par">
+      I build across the whole stack and adapt to whatever a team already runs on. That has meant <b>Laravel</b> and
+      <b>PHP</b>, <b>Node.js</b> and <b>Express</b> on the backend; <b>React</b>, <b>Angular</b>, and <b>Tailwind CSS</b>
+      on the frontend; <b>React Native</b> and <b>Flutter</b> for mobile; <b>MySQL</b>, <b>Supabase</b>, and
+      <b>Firebase</b> for data; and deployments to <b>AWS</b>, <b>Google Cloud</b>, and Vercel. What carries between them
+      is the part that does not change with the framework: a data model that will still hold up in a year, interfaces
+      non-technical staff can use without training, and deployments that do not depend on me being available. Working
+      solo has made picking up an unfamiliar tool routine rather than an obstacle, so I am comfortable joining a codebase
+      built on something I have not shipped with yet.
+    </p>
+
+    <div class="pills">
+      <span class="pill">BS Information Technology &mdash; Web Development, HAU &rsquo;25</span>
+      <span class="pill">Most Outstanding Graduating Student</span>
+      <span class="pill">Most Outstanding On-the-Job Trainee</span>
+      <span class="pill">Dean&rsquo;s &amp; President&rsquo;s List</span>
+      <span class="pill">President, Code Geeks&rsquo; Organization</span>
+    </div>
+
+    <p class="par">
+      My portfolio has live links and case studies for the work above, and my resume is attached. I would welcome the
+      chance to talk about what your team is building. Thank you for your time and consideration.
+    </p>
+
+    <div class="signoff">
+      Sincerely,
+      <div class="sig-name">Dale S. Bedania</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span><b>bedaniadale.vercel.app</b></span>
+    <span>linkedin.com/in/dale-bedania</span>
+    <span>github.com/bedaniadale</span>
+  </footer>
+
+</body>
+</html>

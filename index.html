@@ -511,12 +511,16 @@
       <div class="modal-cv-head">
         <h3 id="cvTitle">Curriculum Vitae</h3>
         <div class="modal-cv-actions">
-          <a href="works/Bedania_Dale_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="iconify" data-icon="mdi:download"></i> Download</a>
+          <!-- download (not target=_blank): the button saves the file straight to
+               disk instead of handing the visitor off to the browser's PDF viewer.
+               The value renames it on the way down, so it lands in a recruiter's
+               downloads folder as a person's name rather than a versioned path. -->
+          <a href="works/Bedania_Dale_Resume_2026.pdf" download="Dale_Bedania_Resume.pdf" class="btn btn-primary"><i class="iconify" data-icon="mdi:download"></i> Download</a>
           <button type="button" class="btn btn-ghost" data-close-cv>Close</button>
         </div>
       </div>
       <div class="modal-cv-body" data-lenis-prevent>
-        <iframe src="works/Bedania_Dale_Resume.pdf#toolbar=1&navpanes=0" title="Dale Bedania CV"></iframe>
+        <iframe src="works/Bedania_Dale_Resume_2026.pdf#toolbar=1&navpanes=0" title="Dale Bedania CV"></iframe>
       </div>
     </div>
   </div>

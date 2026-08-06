@@ -1312,11 +1312,16 @@
     var q = document.querySelector('.about-quote');
     if (q) SE.add(q, 'enter-6vh', 'center-2vh', { prop: '--qp', k: 0.14, minTier: 1, rest: 1 });
 
-    /* 4. The photograph develops left to right, then its subject drifts. */
+    /* 4. The photograph develops — colour, contrast and focus rising together —
+       then its subject drifts against the frame for the rest of the pass.
+       The drift runs from tier 1: it is one custom property feeding a translate
+       on a ~184px plate, which is cheaper than the entrance it accompanies, and
+       gating it at tier 3 left most visitors with a photograph that finished
+       moving halfway up the screen and then sat still. */
     var photo = el('eduPhoto');
     if (photo) {
       SE.add(photo, 'enter-4vh', 'center-14vh', { prop: '--wp', k: 0.10, minTier: 1, rest: 1 });
-      SE.add(photo, 'enter', 'exit', { prop: '--pp', k: 0.12, minTier: 3, rest: 0.5, pad: 0.15 });
+      SE.add(photo, 'enter', 'exit', { prop: '--pp', k: 0.12, minTier: 1, rest: 0.5, pad: 0.15 });
     }
 
     /* 5. The ledger rules itself in. */

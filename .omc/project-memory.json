@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1785809856451,
+  "lastScanned": 1786028782121,
   "projectRoot": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
   "techStack": {
     "languages": [],
@@ -36,7 +36,7 @@
       "path": "works",
       "purpose": null,
       "fileCount": 25,
-      "lastAccessed": 1785809856408,
+      "lastAccessed": 1786028782073,
       "keyFiles": [
         "Bedania_CV.pdf",
         "Bedania_CVFormal.pdf",
@@ -49,14 +49,26 @@
   "hotPaths": [
     {
       "path": "app.js",
-      "accessCount": 32,
-      "lastAccessed": 1785555628413,
+      "accessCount": 34,
+      "lastAccessed": 1786030638648,
       "type": "file"
     },
     {
       "path": "app.css",
-      "accessCount": 13,
-      "lastAccessed": 1785810096781,
+      "accessCount": 15,
+      "lastAccessed": 1786030386101,
+      "type": "file"
+    },
+    {
+      "path": "index.html",
+      "accessCount": 5,
+      "lastAccessed": 1786032102353,
+      "type": "file"
+    },
+    {
+      "path": "scene.css",
+      "accessCount": 4,
+      "lastAccessed": 1786030630109,
       "type": "file"
     },
     {
@@ -66,21 +78,27 @@
       "type": "file"
     },
     {
-      "path": "index.html",
-      "accessCount": 2,
-      "lastAccessed": 1785810028324,
+      "path": "designer.html",
+      "accessCount": 3,
+      "lastAccessed": 1786032109164,
       "type": "file"
     },
     {
       "path": "projects.js",
-      "accessCount": 1,
-      "lastAccessed": 1785553010114,
+      "accessCount": 2,
+      "lastAccessed": 1786029021338,
+      "type": "file"
+    },
+    {
+      "path": "chatbot-rules.js",
+      "accessCount": 2,
+      "lastAccessed": 1786029304436,
       "type": "file"
     },
     {
       "path": "server.js",
-      "accessCount": 1,
-      "lastAccessed": 1785553023930,
+      "accessCount": 2,
+      "lastAccessed": 1786029598633,
       "type": "file"
     },
     {
@@ -135,6 +153,24 @@
       "path": "poppins-mobile.png",
       "accessCount": 1,
       "lastAccessed": 1785810184553,
+      "type": "file"
+    },
+    {
+      "path": "aboutme.txt",
+      "accessCount": 1,
+      "lastAccessed": 1786029169425,
+      "type": "file"
+    },
+    {
+      "path": "awards.js",
+      "accessCount": 1,
+      "lastAccessed": 1786029169455,
+      "type": "file"
+    },
+    {
+      "path": "edu-midwipe.png",
+      "accessCount": 1,
+      "lastAccessed": 1786030483561,
       "type": "file"
     }
   ],

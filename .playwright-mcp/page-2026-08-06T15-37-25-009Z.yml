@@ -1,0 +1,824 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - link "DB Dale Bedania" [ref=f4e3] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=f4e4]: DB
+      - generic [ref=f4e5]: Dale Bedania
+    - navigation "Primary" [ref=f4e6]:
+      - link "Work" [ref=f4e7] [cursor=pointer]:
+        - /url: "#work"
+      - link "About" [ref=f4e8] [cursor=pointer]:
+        - /url: "#about"
+      - link "Services" [ref=f4e9] [cursor=pointer]:
+        - /url: "#services"
+      - link "Credentials" [ref=f4e10] [cursor=pointer]:
+        - /url: "#certs"
+    - link "Start a project" [ref=f4e12] [cursor=pointer]:
+      - /url: https://facebook.com/bedaniadale
+  - main [ref=f4e15]:
+    - generic [ref=f4e18]:
+      - figure:
+        - img "Dale Bedania"
+      - generic [ref=f4e19]:
+        - generic [ref=f4e20]: Available for freelance & contract
+        - heading "Coding since I was 13." [level=1] [ref=f4e22]:
+          - generic [ref=f4e23]: Coding since
+          - generic [ref=f4e26]:
+            - text: I was
+            - emphasis [ref=f4e27]: "13."
+        - paragraph [ref=f4e28]: Now I build web & mobile products businesses run on.
+      - generic [ref=f4e29]:
+        - paragraph [ref=f4e30]: DaleBedania
+        - paragraph [ref=f4e31]: Full-stack Developer
+        - paragraph [ref=f4e33]: Building practical, clean, and scalable digital products.
+      - generic:
+        - generic [ref=f4e34]: Top IT Graduate ’25 · HAU
+        - generic [ref=f4e37]:
+          - generic [ref=f4e38]: Since 2015
+          - text: writing code
+        - generic [ref=f4e39]: Pampanga, PH
+      - generic [ref=f4e42]:
+        - link "Start a project" [ref=f4e43] [cursor=pointer]:
+          - /url: https://facebook.com/bedaniadale
+        - generic [ref=f4e46]:
+          - button "View CV" [ref=f4e47] [cursor=pointer]
+          - link "GitHub" [ref=f4e48] [cursor=pointer]:
+            - /url: https://github.com/bedaniadale
+      - generic: Scroll
+    - generic [ref=f4e50]:
+      - list [ref=f4e51]:
+        - listitem [ref=f4e52]:
+          - generic [ref=f4e53]: "0"
+          - generic [ref=f4e54]: apps shipped
+        - listitem [ref=f4e55]:
+          - generic [ref=f4e56]: "0"
+          - generic [ref=f4e57]: live client sites
+        - listitem [ref=f4e58]:
+          - generic [ref=f4e59]: "2015"
+          - generic [ref=f4e60]: coding since
+        - listitem [ref=f4e61]:
+          - generic [ref=f4e62]: 24h
+          - generic [ref=f4e63]: reply time
+      - generic [ref=f4e64]:
+        - generic [ref=f4e65]: Live client work
+        - list [ref=f4e67]:
+          - listitem [ref=f4e68]:
+            - link "Visit Kayantabe (opens in new tab)" [ref=f4e69] [cursor=pointer]:
+              - /url: https://kayantabe.com
+              - generic [ref=f4e74]: Kayantabe
+              - generic [ref=f4e75]: kayantabe.com
+          - listitem [ref=f4e78]:
+            - link "Visit Umbra (opens in new tab)" [ref=f4e79] [cursor=pointer]:
+              - /url: https://umbra-app.com
+              - generic [ref=f4e84]: Umbra
+              - generic [ref=f4e85]: umbra-app.com
+          - listitem [ref=f4e88]:
+            - link "Visit HAU IDMO (opens in new tab)" [ref=f4e89] [cursor=pointer]:
+              - /url: https://hau-oie-idmo.com
+              - generic [ref=f4e94]: HAU IDMO
+              - generic [ref=f4e95]: hau-oie-idmo.com
+          - listitem [ref=f4e98]:
+            - link "Visit The Zepatide (opens in new tab)" [ref=f4e99] [cursor=pointer]:
+              - /url: https://thezepatide.com
+              - generic [ref=f4e104]: The Zepatide
+              - generic [ref=f4e105]: thezepatide.com
+          - listitem [ref=f4e108]:
+            - link "Visit IMMFI (opens in new tab)" [ref=f4e109] [cursor=pointer]:
+              - /url: https://immfi.org
+              - generic [ref=f4e114]: IMMFI
+              - generic [ref=f4e115]: immfi.org
+    - generic [ref=f4e119]:
+      - generic [ref=f4e120]: Full-Stack Development ✦
+      - generic [ref=f4e121]: UX / UI Design ✦
+      - generic [ref=f4e122]: System Architecture ✦
+      - generic [ref=f4e123]: Mobile Apps ✦
+      - generic [ref=f4e124]: API Integration ✦
+      - generic [ref=f4e125]: Business Automation ✦
+      - generic [ref=f4e126]: Database Design ✦
+      - generic [ref=f4e127]: Cloud Deployment ✦
+      - generic [ref=f4e128]: Full-Stack Development ✦
+      - generic [ref=f4e129]: UX / UI Design ✦
+      - generic [ref=f4e130]: System Architecture ✦
+      - generic [ref=f4e131]: Mobile Apps ✦
+      - generic [ref=f4e132]: API Integration ✦
+      - generic [ref=f4e133]: Business Automation ✦
+      - generic [ref=f4e134]: Database Design ✦
+      - generic [ref=f4e135]: Cloud Deployment ✦
+    - generic [ref=f4e137]:
+      - generic [ref=f4e138]:
+        - generic [ref=f4e139]: // 01 — About
+        - heading "Coding since 2015. Shipping for clients today." [level=2] [ref=f4e140]
+      - generic [ref=f4e141]:
+        - paragraph [ref=f4e142]: Coding since 2015 — over a decade of building, from a first line of HTML to shipped client products.
+        - generic [ref=f4e143]:
+          - generic [ref=f4e144]: "2015"
+          - generic [ref=f4e145]:
+            - generic [ref=f4e146]: Coding since
+            - generic [ref=f4e147]: 2015 — 2026
+        - list [ref=f4e156]:
+          - listitem [ref=f4e157]:
+            - generic [ref=f4e158]: "2015"
+            - generic [ref=f4e159]: First line of code at 13. Self-taught, one broken page at a time.
+          - listitem [ref=f4e160]:
+            - generic [ref=f4e161]: "2019"
+            - generic [ref=f4e162]: First paid build — someone else’s business running on my code.
+          - listitem [ref=f4e163]:
+            - generic [ref=f4e164]: "2022"
+            - generic [ref=f4e165]: Dean’s Lister, and elected president of Code Geeks.
+          - listitem [ref=f4e166]:
+            - generic [ref=f4e167]: "2025"
+            - generic [ref=f4e168]: Top IT Graduate, Holy Angel University.
+          - listitem [ref=f4e169]:
+            - generic [ref=f4e170]: "2026"
+            - generic [ref=f4e171]: Ten products live for real clients. Still building every day.
+      - generic [ref=f4e172]:
+        - paragraph [ref=f4e173]: I started programming in 2015 at the age of 13, driven by curiosity and a love for building things with code. Over a decade later I've grown from a kid tinkering with HTML into a software engineer who ships production-ready applications.
+        - paragraph [ref=f4e174]: I build full-stack web and mobile solutions with a focus on clean architecture, real-world impact, and experiences that actually work for the people using them.
+      - blockquote [ref=f4e175]: “Great development isn't just writing code — it's solving problems, creating seamless experiences, and turning ideas into digital reality.
+      - generic [ref=f4e176]:
+        - generic [ref=f4e177]:
+          - figure [ref=f4e178]:
+            - img "Dale Bedania at his Holy Angel University graduation, Class of 2025" [ref=f4e179]
+          - generic [ref=f4e180]:
+            - paragraph [ref=f4e181]: Web Development track
+            - paragraph [ref=f4e182]: BS Information Technology
+            - paragraph [ref=f4e183]:
+              - generic [ref=f4e185]: Class of 2025 · Holy Angel University
+          - paragraph [ref=f4e186]: Top IT Graduate ’25
+        - generic [ref=f4e189]:
+          - heading "Recognition" [level=3] [ref=f4e190]
+          - list [ref=f4e191]:
+            - listitem [ref=f4e192]:
+              - generic [ref=f4e193]: "01"
+              - generic [ref=f4e194]: Most Outstanding Graduating Student (per program)
+            - listitem [ref=f4e195]:
+              - generic [ref=f4e196]: "02"
+              - generic [ref=f4e197]: Most Outstanding On-the-Job Trainee (per program)
+            - listitem [ref=f4e198]:
+              - generic [ref=f4e199]: "03"
+              - generic [ref=f4e200]: Dean’s Lister (2022–2024)
+            - listitem [ref=f4e201]:
+              - generic [ref=f4e202]: "04"
+              - generic [ref=f4e203]: President’s Lister
+            - listitem [ref=f4e204]:
+              - generic [ref=f4e205]: "05"
+              - generic [ref=f4e206]: HAFRD Academic Scholarship recipient
+            - listitem [ref=f4e207]:
+              - generic [ref=f4e208]: "06"
+              - generic [ref=f4e209]: Code Geeks’ President (A.Y. 2023–2024)
+    - generic [ref=f4e211]:
+      - generic [ref=f4e212]:
+        - generic [ref=f4e213]: // 02 — Services
+        - heading "What I can build for you" [level=2] [ref=f4e214]
+        - paragraph [ref=f4e215]: End-to-end product work — from the first wireframe to a deployed, scalable app.
+      - list [ref=f4e216]:
+        - listitem [ref=f4e217]:
+          - generic [ref=f4e218]: 01◆
+          - generic [ref=f4e223]: Full-stack Web Development
+          - generic [ref=f4e225]: End-to-end web apps with clean code, scalable architecture, and high performance.
+        - listitem [ref=f4e226]:
+          - generic [ref=f4e227]: "02"
+          - generic [ref=f4e232]: System Design & Architecture
+          - generic [ref=f4e234]: Modular blueprints built to handle traffic and keep maximum uptime.
+        - listitem [ref=f4e235]:
+          - generic [ref=f4e236]: "03"
+          - generic [ref=f4e241]: Database Management
+          - generic [ref=f4e243]: Optimized databases — fast queries, clean schemas, solid data integrity.
+        - listitem [ref=f4e244]:
+          - generic [ref=f4e245]: "04"
+          - generic [ref=f4e250]: UX / UI Design
+          - generic [ref=f4e252]: Intuitive, high-converting interfaces for premium digital experiences.
+        - listitem [ref=f4e253]:
+          - generic [ref=f4e254]: "05"
+          - generic [ref=f4e259]: Mobile Development
+          - generic [ref=f4e261]: Cross-platform iOS & Android apps with native performance.
+        - listitem [ref=f4e262]:
+          - generic [ref=f4e263]: 06◆
+          - generic [ref=f4e268]: API Development & Integration
+          - generic [ref=f4e270]: Custom REST APIs, secure third-party integrations, scalable microservices.
+        - listitem [ref=f4e271]:
+          - generic [ref=f4e272]: "07"
+          - generic [ref=f4e277]: Hosting & Domains
+          - generic [ref=f4e279]: Cloud deployments, domain management, and secure SSL configuration.
+        - listitem [ref=f4e280]:
+          - generic [ref=f4e281]: "08"
+          - generic [ref=f4e286]: Workflow Automation
+          - generic [ref=f4e288]: Custom scripts, Zapier / n8n pipelines, and automated business operations.
+        - listitem [ref=f4e289]:
+          - generic [ref=f4e290]: "09"
+          - generic [ref=f4e295]: Graphic Design
+          - generic [ref=f4e297]: High-impact marketing collateral, brand assets, and scroll-stopping visuals.
+    - generic [ref=f4e299]:
+      - generic [ref=f4e300]:
+        - generic [ref=f4e301]: // 03 — Selected work
+        - heading "What I've built — and what I can do" [level=2] [ref=f4e302]
+        - paragraph [ref=f4e303]: A selected few of the things I've made. There's plenty more I can't show publicly — happy to walk you through it on a call.
+      - generic [ref=f4e306]:
+        - complementary
+        - list [ref=f4e307]:
+          - listitem [ref=f4e308]:
+            - button "Holy Angel University IDMO Employee Portal — read case study" [ref=f4e309] [cursor=pointer]:
+              - generic [ref=f4e310]: "01"
+              - generic [ref=f4e311]:
+                - generic [ref=f4e312]: Holy Angel University IDMO Employee Portal
+                - generic [ref=f4e313]: Employee portal for Holy Angel University, streamlining HR processes and data management.
+              - generic [ref=f4e314]: hau-oie-idmo.com
+            - link "Visit Holy Angel University IDMO Employee Portal (opens in new tab)" [ref=f4e320] [cursor=pointer]:
+              - /url: https://hau-oie-idmo.com
+          - listitem [ref=f4e323]:
+            - button "Pina Management CRM — read case study" [ref=f4e324] [cursor=pointer]:
+              - generic [ref=f4e325]: "02"
+              - generic [ref=f4e326]:
+                - generic [ref=f4e327]: Pina Management CRM
+                - generic [ref=f4e328]: A custom CRM for a real estate company — manage property listings, client records, and transactions in one place.
+              - generic [ref=f4e329]: Client-based project
+          - listitem [ref=f4e334]:
+            - button "Kayantabe — read case study" [ref=f4e335] [cursor=pointer]:
+              - generic [ref=f4e336]: "03"
+              - generic [ref=f4e337]:
+                - generic [ref=f4e338]: Kayantabe
+                - generic [ref=f4e339]: A dynamic volunteerism platform connecting passionate individuals with local community initiatives.
+              - generic [ref=f4e340]: kayantabe.com
+            - link "Visit Kayantabe (opens in new tab)" [ref=f4e346] [cursor=pointer]:
+              - /url: https://kayantabe.com
+          - listitem [ref=f4e349]:
+            - button "Umbra — details" [ref=f4e350] [cursor=pointer]:
+              - generic [ref=f4e351]: "04"
+              - generic [ref=f4e352]:
+                - generic [ref=f4e353]: Umbra
+                - generic [ref=f4e354]: A web app connecting students and parents with nearby tutors — find, book, and manage tutoring sessions with ease.
+              - generic [ref=f4e355]: umbra-app.com
+            - link "Visit Umbra (opens in new tab)" [ref=f4e361] [cursor=pointer]:
+              - /url: https://umbra-app.com
+          - listitem [ref=f4e364]:
+            - button "SPUR Landing Page — details" [ref=f4e365] [cursor=pointer]:
+              - generic [ref=f4e366]: "05"
+              - generic [ref=f4e367]:
+                - generic [ref=f4e368]: SPUR Landing Page
+                - generic [ref=f4e369]: A responsive landing page showcasing the SPUR mobile app — highlighting features and driving downloads.
+              - generic [ref=f4e370]: joinspurapp.com
+            - link "Visit SPUR Landing Page (opens in new tab)" [ref=f4e376] [cursor=pointer]:
+              - /url: https://joinspurapp.com
+          - listitem [ref=f4e379]:
+            - button "SPUR Mobile App — details" [ref=f4e380] [cursor=pointer]:
+              - generic [ref=f4e381]: "06"
+              - generic [ref=f4e382]:
+                - generic [ref=f4e383]: SPUR Mobile App
+                - generic [ref=f4e384]: Find your next game, running partner, or tennis match. A location-based app connecting people who share a passion for sports & fitness.
+              - generic [ref=f4e385]: Client-based project
+          - listitem [ref=f4e390]:
+            - button "The Zepatide — details" [ref=f4e391] [cursor=pointer]:
+              - generic [ref=f4e392]: "07"
+              - generic [ref=f4e393]:
+                - generic [ref=f4e394]: The Zepatide
+                - generic [ref=f4e395]: A professional brand site for medical-grade products — clean, trustworthy design that communicates quality and credibility.
+              - generic [ref=f4e396]: thezepatide.com
+            - link "Visit The Zepatide (opens in new tab)" [ref=f4e402] [cursor=pointer]:
+              - /url: https://thezepatide.com
+          - listitem [ref=f4e405]:
+            - button "IMMFI — details" [ref=f4e406] [cursor=pointer]:
+              - generic [ref=f4e407]: "08"
+              - generic [ref=f4e408]:
+                - generic [ref=f4e409]: IMMFI
+                - generic [ref=f4e410]: A modern, user-friendly layout using updated design principles — enhancing UX while keeping brand identity across pages.
+              - generic [ref=f4e411]: immfi.org
+            - link "Visit IMMFI (opens in new tab)" [ref=f4e417] [cursor=pointer]:
+              - /url: https://immfi.org
+          - listitem [ref=f4e420]:
+            - button "CVL Content Generator — read case study" [ref=f4e421] [cursor=pointer]:
+              - generic [ref=f4e422]: "09"
+              - generic [ref=f4e423]:
+                - generic [ref=f4e424]: CVL Content Generator
+                - generic [ref=f4e425]: A browser-only carousel studio for Complete Vitality Life, a health & longevity brand — one Excel upload becomes a month of on-brand Instagram slides, exported as pixel-exact 1080×1440 PNGs and shared as a live link.
+              - generic [ref=f4e426]: Client-based project
+          - listitem [ref=f4e431]:
+            - button "Solstice — read case study" [ref=f4e432] [cursor=pointer]:
+              - generic [ref=f4e433]: "10"
+              - generic [ref=f4e434]:
+                - generic [ref=f4e435]: Solstice
+                - generic [ref=f4e436]: Multi-array solar and battery quoting tool with an auditable calculation trail and five generated PDF documents.
+              - generic [ref=f4e437]: Client-based project
+          - listitem [ref=f4e442]:
+            - button "Rosetta — read case study" [ref=f4e443] [cursor=pointer]:
+              - generic [ref=f4e444]: "11"
+              - generic [ref=f4e445]:
+                - generic [ref=f4e446]: Rosetta
+                - generic [ref=f4e447]: Client-side workbench that turns an Excel workbook into a working React form — then proves the numbers still match, to the cent.
+              - generic [ref=f4e448]: Client-based project
+          - listitem [ref=f4e453]:
+            - button "Scriptorium — read case study" [ref=f4e454] [cursor=pointer]:
+              - generic [ref=f4e455]: "12"
+              - generic [ref=f4e456]:
+                - generic [ref=f4e457]: Scriptorium
+                - generic [ref=f4e458]: One job record renders three document templates for two audiences — real vector PDFs generated entirely in the browser.
+              - generic [ref=f4e459]: Client-based project
+          - listitem [ref=f4e464]:
+            - button "Veloce Goods — read case study" [ref=f4e465] [cursor=pointer]:
+              - generic [ref=f4e466]: "13"
+              - generic [ref=f4e467]:
+                - generic [ref=f4e468]: Veloce Goods
+                - generic [ref=f4e469]: A premium headless B2C storefront for a luxury direct-to-consumer fashion & lifestyle brand — cinematic UI, instant search, and near-perfect web vitals.
+              - generic [ref=f4e470]: Client-based project
+          - listitem [ref=f4e475]:
+            - button "Vanguard Operations — read case study" [ref=f4e476] [cursor=pointer]:
+              - generic [ref=f4e477]: "14"
+              - generic [ref=f4e478]:
+                - generic [ref=f4e479]: Vanguard Operations
+                - generic [ref=f4e480]: A secure, centralized internal management portal for an enterprise operations & corporate asset firm — granular RBAC, an automated queueing engine, and a live operations dashboard.
+              - generic [ref=f4e481]: Client-based project
+          - listitem [ref=f4e486]:
+            - button "Kinetix Health — read case study" [ref=f4e487] [cursor=pointer]:
+              - generic [ref=f4e488]: "15"
+              - generic [ref=f4e489]:
+                - generic [ref=f4e490]: Kinetix Health
+                - generic [ref=f4e491]: A high-fidelity, cross-platform mobile app (MVP) for an elite boutique fitness-coaching brand — real-time sync, offline-first stability, and polished gesture navigation.
+              - generic [ref=f4e492]: Client-based project
+          - listitem [ref=f4e497]:
+            - button "Veritas Layouts — read case study" [ref=f4e498] [cursor=pointer]:
+              - generic [ref=f4e499]: "16"
+              - generic [ref=f4e500]:
+                - generic [ref=f4e501]: Veritas Layouts
+                - generic [ref=f4e502]: An automated micro-SaaS document engine for an executive & legal productivity startup — a live side-by-side preview, strict layout parsing, and one-click cloud export.
+              - generic [ref=f4e503]: Client-based project
+          - listitem [ref=f4e508]:
+            - button "OmniReserve — read case study" [ref=f4e509] [cursor=pointer]:
+              - generic [ref=f4e510]: "17"
+              - generic [ref=f4e511]:
+                - generic [ref=f4e512]: OmniReserve
+                - generic [ref=f4e513]: A multi-tenant B2B/B2C booking & resource marketplace for high-value asset rentals and multi-vendor scheduling — a bulletproof availability engine and automated split payouts.
+              - generic [ref=f4e514]: Client-based project
+          - listitem [ref=f4e519]:
+            - button "ResumeForge — details" [ref=f4e520] [cursor=pointer]:
+              - generic [ref=f4e521]: "18"
+              - generic [ref=f4e522]:
+                - generic [ref=f4e523]: ResumeForge
+                - generic [ref=f4e524]: Fill in your details once — ResumeForge instantly generates a polished, ATS-friendly resume PDF in the iconic Harvard format.
+              - generic [ref=f4e525]: Client-based project
+          - listitem [ref=f4e530]:
+            - button "ZoneBridge — details" [ref=f4e531] [cursor=pointer]:
+              - generic [ref=f4e532]: "19"
+              - generic [ref=f4e533]:
+                - generic [ref=f4e534]: ZoneBridge
+                - generic [ref=f4e535]: Drop a pin on any city or GPS coordinate and instantly see the exact time gap between it and anywhere in the world.
+              - generic [ref=f4e536]: Client-based project
+    - generic [ref=f4e542]:
+      - generic [ref=f4e543]:
+        - generic [ref=f4e544]: // 04 — Toolkit
+        - heading "Technologies I work with" [level=2] [ref=f4e545]
+        - paragraph [ref=f4e546]: 48 tools across 7 disciplines.
+      - list [ref=f4e547]:
+        - listitem [ref=f4e548]:
+          - generic [ref=f4e549]:
+            - generic [ref=f4e550]: "01"
+            - heading "AI & Dev Tools" [level=3] [ref=f4e551]
+            - generic [ref=f4e552]: "04"
+          - list [ref=f4e553]:
+            - listitem [ref=f4e554]:
+              - img "Cursor" [ref=f4e555]
+              - generic [ref=f4e556]: Cursor
+            - listitem [ref=f4e557]:
+              - img "ChatGPT" [ref=f4e558]
+              - generic [ref=f4e559]: ChatGPT
+            - listitem [ref=f4e560]:
+              - img "Claude" [ref=f4e561]
+              - generic [ref=f4e562]: Claude
+            - listitem [ref=f4e563]:
+              - img "Gemini" [ref=f4e564]
+              - generic [ref=f4e565]: Gemini
+        - listitem [ref=f4e566]:
+          - generic [ref=f4e567]:
+            - generic [ref=f4e568]: "02"
+            - heading "Frontend" [level=3] [ref=f4e569]
+            - generic [ref=f4e570]: "09"
+          - list [ref=f4e571]:
+            - listitem [ref=f4e572]:
+              - img "JavaScript" [ref=f4e573]
+              - generic [ref=f4e574]: JavaScript
+            - listitem [ref=f4e575]:
+              - img "TypeScript" [ref=f4e576]
+              - generic [ref=f4e577]: TypeScript
+            - listitem [ref=f4e578]:
+              - img "React" [ref=f4e579]
+              - generic [ref=f4e580]: React
+            - listitem [ref=f4e581]:
+              - img "Next.js" [ref=f4e582]
+              - generic [ref=f4e583]: Next.js
+            - listitem [ref=f4e584]:
+              - img "Vue" [ref=f4e585]
+              - generic [ref=f4e586]: Vue
+            - listitem [ref=f4e587]:
+              - img "Angular" [ref=f4e588]
+              - generic [ref=f4e589]: Angular
+            - listitem [ref=f4e590]:
+              - img "Tailwind" [ref=f4e591]
+              - generic [ref=f4e592]: Tailwind
+            - listitem [ref=f4e593]:
+              - img "Bootstrap" [ref=f4e594]
+              - generic [ref=f4e595]: Bootstrap
+            - listitem [ref=f4e596]:
+              - img "Material UI" [ref=f4e597]
+              - generic [ref=f4e598]: Material UI
+        - listitem [ref=f4e599]:
+          - generic [ref=f4e600]:
+            - generic [ref=f4e601]: "03"
+            - heading "Mobile" [level=3] [ref=f4e602]
+            - generic [ref=f4e603]: "04"
+          - list [ref=f4e604]:
+            - listitem [ref=f4e605]:
+              - img "React Native" [ref=f4e606]
+              - generic [ref=f4e607]: React Native
+            - listitem [ref=f4e608]:
+              - img "Flutter" [ref=f4e609]
+              - generic [ref=f4e610]: Flutter
+            - listitem [ref=f4e611]:
+              - img "Dart" [ref=f4e612]
+              - generic [ref=f4e613]: Dart
+            - listitem [ref=f4e614]:
+              - img "Swift" [ref=f4e615]
+              - generic [ref=f4e616]: Swift
+        - listitem [ref=f4e617]:
+          - generic [ref=f4e618]:
+            - generic [ref=f4e619]: "04"
+            - heading "Backend" [level=3] [ref=f4e620]
+            - generic [ref=f4e621]: "09"
+          - list [ref=f4e622]:
+            - listitem [ref=f4e623]:
+              - img "Node.js" [ref=f4e624]
+              - generic [ref=f4e625]: Node.js
+            - listitem [ref=f4e626]:
+              - img "Express" [ref=f4e627]
+              - generic [ref=f4e628]: Express
+            - listitem [ref=f4e629]:
+              - img "PHP" [ref=f4e630]
+              - generic [ref=f4e631]: PHP
+            - listitem [ref=f4e632]:
+              - img "Laravel" [ref=f4e633]
+              - generic [ref=f4e634]: Laravel
+            - listitem [ref=f4e635]:
+              - img "Python" [ref=f4e636]
+              - generic [ref=f4e637]: Python
+            - listitem [ref=f4e638]:
+              - img "Django" [ref=f4e639]
+              - generic [ref=f4e640]: Django
+            - listitem [ref=f4e641]:
+              - img "Java" [ref=f4e642]
+              - generic [ref=f4e643]: Java
+            - listitem [ref=f4e644]:
+              - img ".NET" [ref=f4e645]
+              - generic [ref=f4e646]: .NET
+            - listitem [ref=f4e647]:
+              - img "Socket.io" [ref=f4e648]
+              - generic [ref=f4e649]: Socket.io
+        - listitem [ref=f4e650]:
+          - generic [ref=f4e651]:
+            - generic [ref=f4e652]: "05"
+            - heading "Database & Cloud" [level=3] [ref=f4e653]
+            - generic [ref=f4e654]: "10"
+          - list [ref=f4e655]:
+            - listitem [ref=f4e656]:
+              - img "MySQL" [ref=f4e657]
+              - generic [ref=f4e658]: MySQL
+            - listitem [ref=f4e659]:
+              - img "PostgreSQL" [ref=f4e660]
+              - generic [ref=f4e661]: PostgreSQL
+            - listitem [ref=f4e662]:
+              - img "MongoDB" [ref=f4e663]
+              - generic [ref=f4e664]: MongoDB
+            - listitem [ref=f4e665]:
+              - img "Supabase" [ref=f4e666]
+              - generic [ref=f4e667]: Supabase
+            - listitem [ref=f4e668]:
+              - img "Firebase" [ref=f4e669]
+              - generic [ref=f4e670]: Firebase
+            - listitem [ref=f4e671]:
+              - img "AWS" [ref=f4e672]
+              - generic [ref=f4e673]: AWS
+            - listitem [ref=f4e674]:
+              - img "Azure" [ref=f4e675]
+              - generic [ref=f4e676]: Azure
+            - listitem [ref=f4e677]:
+              - img "Vercel" [ref=f4e678]
+              - generic [ref=f4e679]: Vercel
+            - listitem [ref=f4e680]:
+              - img "Netlify" [ref=f4e681]
+              - generic [ref=f4e682]: Netlify
+            - listitem [ref=f4e683]:
+              - img "Hostinger" [ref=f4e684]
+              - generic [ref=f4e685]: Hostinger
+        - listitem [ref=f4e686]:
+          - generic [ref=f4e687]:
+            - generic [ref=f4e688]: "06"
+            - heading "Design" [level=3] [ref=f4e689]
+            - generic [ref=f4e690]: "05"
+          - list [ref=f4e691]:
+            - listitem [ref=f4e692]:
+              - img "Figma" [ref=f4e693]
+              - generic [ref=f4e694]: Figma
+            - listitem [ref=f4e695]:
+              - img "Canva" [ref=f4e696]
+              - generic [ref=f4e697]: Canva
+            - listitem [ref=f4e698]:
+              - img "Photoshop" [ref=f4e699]
+              - generic [ref=f4e700]: Photoshop
+            - listitem [ref=f4e701]:
+              - img "Illustrator" [ref=f4e702]
+              - generic [ref=f4e703]: Illustrator
+            - listitem [ref=f4e704]:
+              - img "Premiere" [ref=f4e705]
+              - generic [ref=f4e706]: Premiere
+        - listitem [ref=f4e707]:
+          - generic [ref=f4e708]:
+            - generic [ref=f4e709]: "07"
+            - heading "Platforms & Automation" [level=3] [ref=f4e710]
+            - generic [ref=f4e711]: "07"
+          - list [ref=f4e712]:
+            - listitem [ref=f4e713]:
+              - img "WordPress" [ref=f4e714]
+              - generic [ref=f4e715]: WordPress
+            - listitem [ref=f4e716]:
+              - img "Shopify" [ref=f4e717]
+              - generic [ref=f4e718]: Shopify
+            - listitem [ref=f4e719]:
+              - img "Postman" [ref=f4e720]
+              - generic [ref=f4e721]: Postman
+            - listitem [ref=f4e722]:
+              - img "Jira" [ref=f4e723]
+              - generic [ref=f4e724]: Jira
+            - listitem [ref=f4e725]:
+              - img "Zapier" [ref=f4e726]
+              - generic [ref=f4e727]: Zapier
+            - listitem [ref=f4e728]:
+              - img "Stripe" [ref=f4e729]
+              - generic [ref=f4e730]: Stripe
+            - listitem [ref=f4e731]:
+              - img "Twilio" [ref=f4e732]
+              - generic [ref=f4e733]: Twilio
+    - generic [ref=f4e735]:
+      - generic [ref=f4e736]:
+        - generic [ref=f4e737]:
+          - generic [ref=f4e738]: // 05 — Design practice
+          - heading "Graphic design" [level=2] [ref=f4e739]
+          - paragraph [ref=f4e740]: Posters, social assets, and brand work — a developer who also designs.
+        - generic [ref=f4e741]: 01 / 24
+      - generic [ref=f4e743]:
+        - figure [ref=f4e744] [cursor=pointer]:
+          - img "Graphic design work 1" [ref=f4e745]
+          - generic: "01"
+        - figure [ref=f4e749] [cursor=pointer]:
+          - img "Graphic design work 2" [ref=f4e750]
+          - generic: "02"
+        - figure [ref=f4e754] [cursor=pointer]:
+          - img "Graphic design work 3" [ref=f4e755]
+          - generic: "03"
+        - figure [ref=f4e759] [cursor=pointer]:
+          - img "Graphic design work 4" [ref=f4e760]
+          - generic: "04"
+        - figure [ref=f4e764] [cursor=pointer]:
+          - img "Graphic design work 5" [ref=f4e765]
+          - generic: "05"
+        - figure [ref=f4e769] [cursor=pointer]:
+          - img "Graphic design work 6" [ref=f4e770]
+          - generic: "06"
+        - figure [ref=f4e774] [cursor=pointer]:
+          - img "Graphic design work 7" [ref=f4e775]
+          - generic: "07"
+        - figure [ref=f4e779] [cursor=pointer]:
+          - img "Graphic design work 8" [ref=f4e780]
+          - generic: "08"
+        - figure [ref=f4e784] [cursor=pointer]:
+          - img "Graphic design work 9" [ref=f4e785]
+          - generic: "09"
+        - figure [ref=f4e789] [cursor=pointer]:
+          - img "Graphic design work 10" [ref=f4e790]
+          - generic: "10"
+        - figure [ref=f4e794] [cursor=pointer]:
+          - img "Graphic design work 11" [ref=f4e795]
+          - generic: "11"
+        - figure [ref=f4e799] [cursor=pointer]:
+          - img "Graphic design work 12" [ref=f4e800]
+          - generic: "12"
+        - figure [ref=f4e804] [cursor=pointer]:
+          - img "Graphic design work 13" [ref=f4e805]
+          - generic: "13"
+        - figure [ref=f4e809] [cursor=pointer]:
+          - img "Graphic design work 14" [ref=f4e810]
+          - generic: "14"
+        - figure [ref=f4e814] [cursor=pointer]:
+          - img "Graphic design work 15" [ref=f4e815]
+          - generic: "15"
+        - figure [ref=f4e819] [cursor=pointer]:
+          - img "Graphic design work 16" [ref=f4e820]
+          - generic: "16"
+        - figure [ref=f4e824] [cursor=pointer]:
+          - img "Graphic design work 17" [ref=f4e825]
+          - generic: "17"
+        - figure [ref=f4e829] [cursor=pointer]:
+          - img "Graphic design work 18" [ref=f4e830]
+          - generic: "18"
+        - figure [ref=f4e834] [cursor=pointer]:
+          - img "Graphic design work 19" [ref=f4e835]
+          - generic: "19"
+        - figure [ref=f4e839] [cursor=pointer]:
+          - img "Graphic design work 20" [ref=f4e840]
+          - generic: "20"
+        - figure [ref=f4e844] [cursor=pointer]:
+          - img "Graphic design work 21" [ref=f4e845]
+          - generic: "21"
+        - figure [ref=f4e849] [cursor=pointer]:
+          - img "Graphic design work 22" [ref=f4e850]
+          - generic: "22"
+        - figure [ref=f4e854] [cursor=pointer]:
+          - img "Graphic design work 23" [ref=f4e855]
+          - generic: "23"
+        - figure [ref=f4e859] [cursor=pointer]:
+          - img "Graphic design work 24" [ref=f4e860]
+          - generic: "24"
+      - generic [ref=f4e864]: Keep scrolling ↓
+    - generic [ref=f4e871]:
+      - generic [ref=f4e872]:
+        - generic [ref=f4e873]: // 06 — Journey
+        - heading "Work experience" [level=2] [ref=f4e874]
+        - paragraph [ref=f4e875]: From a first line of code at 13 to shipping production software for clients.
+        - generic [ref=f4e876]: 07 entries · 2015—2026
+      - list [ref=f4e878]:
+        - listitem [ref=f4e879]:
+          - generic: "01"
+          - generic [ref=f4e881]:
+            - paragraph [ref=f4e882]:
+              - generic [ref=f4e883]: Jan 2026 – May 2026
+              - generic [ref=f4e884]: Design
+            - heading "Graphic Designer" [level=3] [ref=f4e885]
+            - paragraph [ref=f4e887]: CompleteVitalityLife
+        - listitem [ref=f4e888]:
+          - generic: "02"
+          - generic [ref=f4e890]:
+            - paragraph [ref=f4e891]:
+              - generic [ref=f4e892]: Contract-based
+              - generic [ref=f4e893]: Development
+            - heading "Full Stack Web Developer" [level=3] [ref=f4e894]
+            - paragraph [ref=f4e896]: Pina Realty Management
+        - listitem [ref=f4e897]:
+          - generic: "03"
+          - generic [ref=f4e899]:
+            - paragraph [ref=f4e900]:
+              - generic [ref=f4e901]: Project-based
+              - generic [ref=f4e902]: Development
+            - heading "Full Stack Web Developer" [level=3] [ref=f4e903]
+            - paragraph [ref=f4e905]: Direct Client · Australia
+        - listitem [ref=f4e906]:
+          - generic: "04"
+          - generic [ref=f4e908]:
+            - paragraph [ref=f4e909]:
+              - generic [ref=f4e910]: Apr 2025
+              - generic [ref=f4e911]: Milestone
+            - heading "Graduated BSIT — Web Development" [level=3] [ref=f4e912]
+            - paragraph [ref=f4e914]: Holy Angel University
+        - listitem [ref=f4e915]:
+          - generic: "05"
+          - generic [ref=f4e917]:
+            - paragraph [ref=f4e918]:
+              - generic [ref=f4e919]: Jun 2024 – Nov 2024
+              - generic [ref=f4e920]: Development
+            - heading "Full Stack Web Developer (Internship)" [level=3] [ref=f4e921]
+            - paragraph [ref=f4e923]: Holy Angel University
+        - listitem [ref=f4e924]:
+          - generic: "06"
+          - generic [ref=f4e926]:
+            - paragraph [ref=f4e927]:
+              - generic [ref=f4e928]: Apr 2024 – Jul 2024
+              - generic [ref=f4e929]: Design
+            - heading "Graphic Designer (Freelance)" [level=3] [ref=f4e930]
+            - paragraph [ref=f4e932]: NILEliteGears & CompleteVitalityLife
+        - listitem [ref=f4e933]:
+          - generic: "07"
+          - generic [ref=f4e935]:
+            - paragraph [ref=f4e936]:
+              - generic [ref=f4e937]: "2015"
+              - generic [ref=f4e938]: The beginning
+            - heading "Hello World! 👋" [level=3] [ref=f4e939]
+            - paragraph [ref=f4e941]: Wrote my first line of code
+    - generic [ref=f4e943]:
+      - generic [ref=f4e944]:
+        - generic [ref=f4e945]: // 07 — Credentials
+        - heading "Certifications" [level=2] [ref=f4e946]
+        - paragraph [ref=f4e947]: 10 earned · 4 issuers · credentials available on request.
+      - list [ref=f4e948]:
+        - listitem [ref=f4e949]:
+          - generic [ref=f4e951]: Red Hat
+          - generic [ref=f4e952]: Red Hat Certified System Administrator (RHCSA)
+          - generic [ref=f4e953]: Industry Standard
+          - generic [ref=f4e954]: Nov 2021
+        - listitem [ref=f4e958]:
+          - generic [ref=f4e960]: Cisco
+          - generic [ref=f4e961]: CCNA Cyber Ops
+          - generic [ref=f4e962]: Networking
+          - generic [ref=f4e963]: Nov 2023
+        - listitem [ref=f4e967]:
+          - generic [ref=f4e969]: Cisco
+          - generic [ref=f4e970]: JavaScript Essentials 1
+          - generic [ref=f4e971]: Development
+          - generic [ref=f4e972]: Sept 2024
+        - listitem [ref=f4e976]:
+          - generic [ref=f4e978]: Google
+          - generic [ref=f4e979]: Google Analytics Certification
+          - generic [ref=f4e980]: Analytics
+          - generic [ref=f4e981]: Oct 2023
+        - listitem [ref=f4e985]:
+          - generic [ref=f4e987]: Google
+          - generic [ref=f4e988]: Use Google Analytics for Your Business
+          - generic [ref=f4e989]: Analytics
+          - generic [ref=f4e990]: Oct 2023
+        - listitem [ref=f4e994]:
+          - generic [ref=f4e996]: Google
+          - generic [ref=f4e997]: Get Started using Google Analytics
+          - generic [ref=f4e998]: Analytics
+          - generic [ref=f4e999]: Oct 2023
+        - listitem [ref=f4e1003]:
+          - generic [ref=f4e1005]: HubSpot Academy
+          - generic [ref=f4e1006]: SEO Certification
+          - generic [ref=f4e1007]: Marketing
+          - generic [ref=f4e1008]: Oct 2023
+        - listitem [ref=f4e1012]:
+          - generic [ref=f4e1014]: HubSpot Academy
+          - generic [ref=f4e1015]: SEO II Certification
+          - generic [ref=f4e1016]: Marketing
+          - generic [ref=f4e1017]: Oct 2023
+        - listitem [ref=f4e1021]:
+          - generic [ref=f4e1023]: Cisco
+          - generic [ref=f4e1024]: Introduction to Cybersecurity
+          - generic [ref=f4e1025]: Security
+          - generic [ref=f4e1026]: Nov 2021
+        - listitem [ref=f4e1030]:
+          - generic [ref=f4e1032]: Cisco
+          - generic [ref=f4e1033]: Introduction to IoT
+          - generic [ref=f4e1034]: Networking
+          - generic [ref=f4e1035]: Nov 2021
+    - generic [ref=f4e1040]:
+      - generic [ref=f4e1041]:
+        - generic [ref=f4e1042]: // 08 — Kind words
+        - heading "What clients say" [level=2] [ref=f4e1043]
+        - generic [ref=f4e1044]: 5.0 average
+      - generic [ref=f4e1047]:
+        - figure [ref=f4e1048]:
+          - generic [ref=f4e1049]:
+            - generic: “
+            - blockquote [ref=f4e1050]: Working with Dale was genuinely a joy. He took the time to understand exactly what our business needed, explained the technical side in a way I could follow, and kept me in the loop at every step. Organized, patient, and easy to collaborate with.
+            - generic [ref=f4e1051]:
+              - generic [ref=f4e1052]: GP
+              - generic [ref=f4e1053]:
+                - generic [ref=f4e1054]: Gabriela Pina
+                - generic [ref=f4e1055]: Pina Realty Management
+              - img "Five out of five" [ref=f4e1056]
+        - figure [ref=f4e1067]:
+          - generic [ref=f4e1068]:
+            - generic: “
+            - blockquote [ref=f4e1069]: One of the most reliable collaborators I’ve worked with. He communicates clearly, hits his deadlines, and is open to feedback without ever getting defensive. A true professional and a great teammate.
+            - generic [ref=f4e1070]:
+              - generic [ref=f4e1071]: DR
+              - generic [ref=f4e1072]:
+                - generic [ref=f4e1073]: Diego Reyes
+                - generic [ref=f4e1074]: CompleteVitalityLife
+              - img "Five out of five" [ref=f4e1075]
+        - figure [ref=f4e1086]:
+          - generic [ref=f4e1087]:
+            - generic: “
+            - blockquote [ref=f4e1088]: I can’t recommend Dale enough. Talented, dependable, and so pleasant to work with. He delivered exactly what we agreed on and then went the extra mile to make it better. I’d choose to work with him every single time.
+            - generic [ref=f4e1089]:
+              - generic [ref=f4e1090]: RK
+              - generic [ref=f4e1091]:
+                - generic [ref=f4e1092]: Regine Kelee
+                - generic [ref=f4e1093]: Direct Client · Australia
+              - img "Five out of five" [ref=f4e1094]
+    - generic [ref=f4e1107]:
+      - generic [ref=f4e1110]: Available for freelance & contract
+      - heading "Have a project in mind?" [level=2] [ref=f4e1112]
+      - paragraph [ref=f4e1113]: Tell me what you're building — a website, a custom platform, a mobile app, or a design refresh. I reply within 24 hours. No obligation, just a quick chat to see if we're a fit.
+      - generic [ref=f4e1114]:
+        - link "Message me" [ref=f4e1115] [cursor=pointer]:
+          - /url: https://facebook.com/bedaniadale
+        - link "dale.bedania10@gmail.com" [ref=f4e1118] [cursor=pointer]:
+          - /url: mailto:dale.bedania10@gmail.com
+  - contentinfo [ref=f4e1121]:
+    - generic [ref=f4e1122]:
+      - generic [ref=f4e1123]:
+        - paragraph [ref=f4e1124]:
+          - generic [ref=f4e1125]: DALE BEDANIA
+        - paragraph [ref=f4e1126]: Software Engineer & Graphic Designer
+        - paragraph [ref=f4e1127]: Building practical, clean, and scalable digital products.
+      - navigation "Footer" [ref=f4e1128]:
+        - heading "Connect" [level=3] [ref=f4e1129]
+        - link "dale.bedania10@gmail.com" [ref=f4e1130] [cursor=pointer]:
+          - /url: mailto:dale.bedania10@gmail.com
+        - link "Dale Bedania" [ref=f4e1133] [cursor=pointer]:
+          - /url: https://facebook.com/bedaniadale
+        - link "@bedaniadale" [ref=f4e1136] [cursor=pointer]:
+          - /url: https://instagram.com/bedaniadale
+        - link "bedaniadale" [ref=f4e1139] [cursor=pointer]:
+          - /url: https://github.com/bedaniadale
+    - generic [ref=f4e1142]:
+      - generic [ref=f4e1143]: © 2026 Dale Bedania. Built from scratch.
+      - link "Back to top" [ref=f4e1144] [cursor=pointer]:
+        - /url: "#top"
+  - link "Message Dale on Facebook" [ref=f4e1147] [cursor=pointer]:
+    - /url: https://facebook.com/bedaniadale
+    - generic [ref=f4e1150]: Let's talk
