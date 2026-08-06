@@ -392,7 +392,7 @@
 .work-peek {
   position: absolute; z-index: 1; pointer-events: none;
   /* flush with the container's right edge, mirroring the list on the left */
-  left: 57.5%; top: 0; width: min(42.5%, 500px);
+  left: 50%; top: 0; width: min(50%, 620px);
   opacity: 0;
   transform: translate3d(0, var(--peek-y, 0px), 0);
   transition: opacity 460ms ease;
@@ -419,9 +419,11 @@
 /* The index keeps to the left half: everything the row carries moves into it,
    the live domain dropping under the title instead of sitting out on the right
    edge where the preview needs the room. */
-/* 52% leaves the longest project title on one line; scaled to 1.055 its right
-   edge still clears the card's left edge at 57.5% */
-.work-list { max-width: 52%; }
+/* The index gives up width so the preview can take it — the shot is the thing
+   a visitor is actually reading here, and at 500px it was smaller than the row
+   that summoned it. 46% still clears the card's left edge at 50% once a hovered
+   row scales to 1.055. */
+.work-list { max-width: 46%; }
 .work-hit {
   grid-template-columns: 50px minmax(0, 1fr) 36px;
   grid-template-areas: "n main go" ". meta .";

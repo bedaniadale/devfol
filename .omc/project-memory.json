@@ -49,38 +49,62 @@
   "hotPaths": [
     {
       "path": "app.js",
-      "accessCount": 34,
-      "lastAccessed": 1786030638648,
+      "accessCount": 45,
+      "lastAccessed": 1786035877413,
+      "type": "file"
+    },
+    {
+      "path": "systems.css",
+      "accessCount": 19,
+      "lastAccessed": 1786036397447,
       "type": "file"
     },
     {
       "path": "app.css",
-      "accessCount": 15,
-      "lastAccessed": 1786030386101,
+      "accessCount": 17,
+      "lastAccessed": 1786035437616,
       "type": "file"
     },
     {
       "path": "index.html",
-      "accessCount": 5,
-      "lastAccessed": 1786032102353,
-      "type": "file"
-    },
-    {
-      "path": "scene.css",
-      "accessCount": 4,
-      "lastAccessed": 1786030630109,
+      "accessCount": 15,
+      "lastAccessed": 1786035819773,
       "type": "file"
     },
     {
       "path": "layout.css",
-      "accessCount": 3,
-      "lastAccessed": 1785810080971,
+      "accessCount": 6,
+      "lastAccessed": 1786036529606,
+      "type": "file"
+    },
+    {
+      "path": "scene.css",
+      "accessCount": 5,
+      "lastAccessed": 1786035438443,
+      "type": "file"
+    },
+    {
+      "path": "engine.js",
+      "accessCount": 4,
+      "lastAccessed": 1786035729219,
+      "type": "file"
+    },
+    {
+      "path": "systems.js",
+      "accessCount": 4,
+      "lastAccessed": 1786036364278,
       "type": "file"
     },
     {
       "path": "designer.html",
       "accessCount": 3,
       "lastAccessed": 1786032109164,
+      "type": "file"
+    },
+    {
+      "path": "server.js",
+      "accessCount": 3,
+      "lastAccessed": 1786034239673,
       "type": "file"
     },
     {
@@ -96,9 +120,9 @@
       "type": "file"
     },
     {
-      "path": "server.js",
+      "path": "vocab.css",
       "accessCount": 2,
-      "lastAccessed": 1786029598633,
+      "lastAccessed": 1786036063210,
       "type": "file"
     },
     {
@@ -171,6 +195,156 @@
       "path": "edu-midwipe.png",
       "accessCount": 1,
       "lastAccessed": 1786030483561,
+      "type": "file"
+    },
+    {
+      "path": "crms/biometric-payroll-hrms/02-hr-dashboard.png",
+      "accessCount": 1,
+      "lastAccessed": 1786033459017,
+      "type": "file"
+    },
+    {
+      "path": "crms/multi-branch-retail-pos/02-multi-branch-dashboard.png",
+      "accessCount": 1,
+      "lastAccessed": 1786033460248,
+      "type": "file"
+    },
+    {
+      "path": "crms/auto-repair-work-order-system/01-dashboard.png",
+      "accessCount": 1,
+      "lastAccessed": 1786033474316,
+      "type": "file"
+    },
+    {
+      "path": "crms/university-enrollment-portal/01-portal-sign-in.png",
+      "accessCount": 1,
+      "lastAccessed": 1786033475789,
+      "type": "file"
+    },
+    {
+      "path": "crms/biometric-payroll-hrms/01-role-based-sign-in.png",
+      "accessCount": 1,
+      "lastAccessed": 1786033476769,
+      "type": "file"
+    },
+    {
+      "path": "crms/PORTFOLIO-DESCRIPTIONS.md",
+      "accessCount": 1,
+      "lastAccessed": 1786033758698,
+      "type": "file"
+    },
+    {
+      "path": "sys-hero.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034310034,
+      "type": "file"
+    },
+    {
+      "path": "sys-shelf.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034333249,
+      "type": "file"
+    },
+    {
+      "path": "sys-modal.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034365310,
+      "type": "file"
+    },
+    {
+      "path": "sys-shelf2.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034471730,
+      "type": "file"
+    },
+    {
+      "path": "sys-shelf3.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034504575,
+      "type": "file"
+    },
+    {
+      "path": "sys-modal2.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034534503,
+      "type": "file"
+    },
+    {
+      "path": "sys-detail.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034580425,
+      "type": "file"
+    },
+    {
+      "path": "sys-detail2.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034604251,
+      "type": "file"
+    },
+    {
+      "path": "sys-wipe.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034680110,
+      "type": "file"
+    },
+    {
+      "path": "sys-mobile.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034726083,
+      "type": "file"
+    },
+    {
+      "path": "sys-modal-mobile.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034751840,
+      "type": "file"
+    },
+    {
+      "path": "sys-marks.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034815198,
+      "type": "file"
+    },
+    {
+      "path": "sys-flow.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034891359,
+      "type": "file"
+    },
+    {
+      "path": "sys-seam.png",
+      "accessCount": 1,
+      "lastAccessed": 1786034918099,
+      "type": "file"
+    },
+    {
+      "path": "fix-top.png",
+      "accessCount": 1,
+      "lastAccessed": 1786035769911,
+      "type": "file"
+    },
+    {
+      "path": "v-about.png",
+      "accessCount": 1,
+      "lastAccessed": 1786036033162,
+      "type": "file"
+    },
+    {
+      "path": "v-pmx.png",
+      "accessCount": 1,
+      "lastAccessed": 1786036107519,
+      "type": "file"
+    },
+    {
+      "path": "v-folder-hover.png",
+      "accessCount": 1,
+      "lastAccessed": 1786036269995,
+      "type": "file"
+    },
+    {
+      "path": "v-folder2.png",
+      "accessCount": 1,
+      "lastAccessed": 1786036340203,
       "type": "file"
     }
   ],

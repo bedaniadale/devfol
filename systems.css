@@ -1,0 +1,946 @@
+/* ============================================================================
+   SYSTEMS — the product side, staged as its own landing page
+   ----------------------------------------------------------------------------
+   Everything above and below #systems is the portfolio: one person, soft white
+   ground, emerald. This is the other business, so it gets the opposite ground.
+   The full-bleed dark slab IS the separation — a visitor should feel they
+   walked into a different site without ever having left the page.
+
+   Two scopes live here and they do not share tokens with app.css beyond the
+   type stack:
+     .sys   — the section on the page
+     .sysx  — the fullscreen system modal (the character select)
+
+   --ac is the per-system accent. It is set inline by systems.js on each folder
+   and on the modal root, so one stylesheet dresses five different products.
+   ============================================================================ */
+
+.sys {
+  --sys-bg: #070d0a;
+  --sys-bg-2: #0c1712;
+  --sys-line: rgba(255, 255, 255, 0.10);
+  --sys-line-2: rgba(255, 255, 255, 0.18);
+  --sys-ink: #f2f6f3;
+  --sys-soft: #a7b5ad;
+  --sys-mute: #6f7d75;
+  --ac: #11a06b;
+
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+  /* full-bleed out of <main>'s flow without a wrapper: the section is a normal
+     block, so 100vw + a negative half-difference margin is enough and does not
+     create a containing block that would break the page's sticky pins. */
+  width: 100%;
+  background: var(--sys-bg);
+  color: var(--sys-ink);
+  padding: clamp(72px, 9vw, 132px) 0 clamp(64px, 8vw, 110px);
+  overflow: clip;
+  font-family: var(--sans);
+}
+
+/* ── Atmosphere ─────────────────────────────────────────────────────────── */
+.sys-atmo { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.sys-atmo > i { position: absolute; display: block; }
+.sys-grid {
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(120% 90% at 50% 8%, #000 20%, transparent 78%);
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 8%, #000 20%, transparent 78%);
+}
+.sys-glow { border-radius: 50%; filter: blur(90px); opacity: .5; }
+.sys-glow--a { width: 44vw; height: 44vw; top: -12vw; left: -8vw; background: rgba(17, 160, 107, .30); }
+.sys-glow--b { width: 38vw; height: 38vw; bottom: -14vw; right: -10vw; background: rgba(59, 110, 246, .18); }
+
+.sys-in { position: relative; z-index: 1; }
+
+/* ── Seams: the visible door in and out of the micro-site ───────────────── */
+.sys-seam {
+  position: absolute; left: 0; right: 0; height: 46px; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: .62rem; letter-spacing: .34em;
+  text-transform: uppercase; color: var(--sys-mute);
+  pointer-events: none;
+}
+.sys-seam--top { top: 0; }
+.sys-seam--bot { bottom: 0; }
+.sys-seam::before, .sys-seam::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sys-line));
+}
+.sys-seam::after { background: linear-gradient(90deg, var(--sys-line), transparent); }
+.sys-seam span { padding: 0 18px; white-space: nowrap; }
+
+/* ── The section's own brand bar ────────────────────────────────────────── */
+.sys-bar {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding-bottom: 26px; margin-bottom: clamp(34px, 5vw, 56px);
+  border-bottom: 1px solid var(--sys-line);
+}
+.sys-mark {
+  display: inline-flex; align-items: baseline; gap: 1px;
+  font-family: var(--mono); font-weight: 700; font-size: .95rem;
+  letter-spacing: .04em; color: var(--sys-ink);
+}
+.sys-mark b {
+  background: var(--ac); color: #04120c; font-weight: 800;
+  padding: 3px 7px; border-radius: 6px; margin-right: 7px; letter-spacing: .02em;
+}
+.sys-mark i { color: var(--ac); font-style: normal; padding: 0 1px; }
+.sys-bar-sub {
+  font-size: .82rem; color: var(--sys-mute); letter-spacing: .01em;
+  padding-left: 16px; border-left: 1px solid var(--sys-line);
+}
+.sys-bar-cta { margin-left: auto; }
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+.sys-hero { max-width: 940px; }
+.sys-kicker {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ac);
+  padding: 7px 14px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04);
+}
+.sys-kicker .sys-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--ac);
+  box-shadow: 0 0 0 0 var(--ac); animation: sysPulse 2.4s infinite;
+}
+@keyframes sysPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(17,160,107,.55); }
+  70%  { box-shadow: 0 0 0 9px rgba(17,160,107,0); }
+  100% { box-shadow: 0 0 0 0 rgba(17,160,107,0); }
+}
+
+.sys-title {
+  margin: 22px 0 0;
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(2.3rem, 6.2vw, 4.5rem);
+  line-height: 1.02; letter-spacing: var(--track-display);
+}
+.sys-title em {
+  font-style: normal; position: relative; color: var(--ac);
+}
+.sys-title em::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: .08em; height: .07em;
+  background: currentColor; opacity: .35; border-radius: 2px;
+}
+.sys-lede {
+  margin-top: 22px; max-width: 60ch;
+  font-size: clamp(1rem, 1.55vw, 1.14rem); line-height: 1.68; color: var(--sys-soft);
+}
+.sys-lede b { color: var(--sys-ink); font-weight: 600; }
+
+.sys-acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.sys-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-weight: 600; font-size: .92rem; line-height: 1;
+  padding: 14px 24px; border-radius: 999px; border: 1.5px solid transparent;
+  cursor: pointer; white-space: nowrap;
+  transition: transform 240ms var(--ease), background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 240ms ease;
+}
+.sys-btn--go {
+  background: var(--ac); color: #04120c;
+  box-shadow: 0 18px 40px -18px var(--ac);
+}
+.sys-btn--go:hover { transform: translateY(-2px); box-shadow: 0 24px 50px -18px var(--ac); }
+.sys-btn--ghost { color: var(--sys-ink); border-color: var(--sys-line-2); background: rgba(255,255,255,.03); }
+.sys-btn--ghost:hover { border-color: var(--ac); color: var(--ac); }
+
+/* Collection totals — the sum of the catalogue, stated once */
+.sys-totals {
+  display: flex; flex-wrap: wrap; gap: clamp(24px, 5vw, 60px);
+  list-style: none; margin: 44px 0 0; padding: 24px 0 0;
+  border-top: 1px solid var(--sys-line);
+}
+.sys-totals li { display: flex; flex-direction: column; gap: 3px; }
+.sys-totals b {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: var(--track-heading);
+  line-height: 1;
+}
+.sys-totals span {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--sys-mute);
+}
+
+/* Value marks */
+/* Explicit column counts, not auto-fit: three marks in a five-column auto-fit
+   track leaves two dead columns hanging off the right. */
+.sys-marks {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px clamp(26px, 3vw, 44px); list-style: none; margin: clamp(48px, 6vw, 76px) 0 0;
+}
+.sys-mark-item { position: relative; padding-top: 22px; border-top: 1px solid var(--sys-line); }
+.sys-mark-item::before {
+  content: ""; position: absolute; top: -1px; left: 0; width: 42px; height: 2px; background: var(--ac);
+}
+.sys-mark-ic {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px;
+  background: rgba(255,255,255,.05); border: 1px solid var(--sys-line);
+  color: var(--ac); font-size: 1.1rem; margin-bottom: 14px;
+}
+.sys-mark-item h4 { font-size: 1.02rem; font-weight: 600; letter-spacing: var(--track-heading); }
+.sys-mark-item p { margin-top: 7px; font-size: .9rem; line-height: 1.62; color: var(--sys-soft); }
+
+/* ── Shelf head ─────────────────────────────────────────────────────────── */
+.sys-shelf-head {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  margin: clamp(64px, 8vw, 104px) 0 clamp(28px, 3.4vw, 42px);
+  padding-bottom: 18px; border-bottom: 1px solid var(--sys-line);
+}
+.sys-shelf-head h3 {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem); letter-spacing: var(--track-display);
+}
+.sys-shelf-head p { margin-top: 8px; font-size: .93rem; color: var(--sys-soft); max-width: 54ch; }
+.sys-shelf-hint {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--sys-mute); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+}
+.sys-shelf-hint i { color: var(--ac); font-size: 1rem; }
+
+/* ── THE FOLDERS ─────────────────────────────────────────────────────────
+   Three layers, so the card reads as an object and not a rectangle:
+     .sysf-back    the back leaf of the folder
+     .sysf-sheets  the papers standing in it — the actual screenshots
+     .sysf-front   the front flap, drawn over the sheets' bottom edge
+   Hover lifts the sheets out of the flap and fans them. That gesture is the
+   whole reason the metaphor is a folder rather than a thumbnail.
+   ───────────────────────────────────────────────────────────────────────── */
+.sys-shelf {
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 32px); list-style: none;
+}
+.sysf { grid-column: span 2; }
+/* five items: the last row carries two, so it is offset to sit centred */
+.sysf:nth-child(4) { grid-column: 2 / span 2; }
+.sysf:nth-child(5) { grid-column: 4 / span 2; }
+
+.sysf-btn {
+  display: block; width: 100%; text-align: left; cursor: pointer;
+  background: none; border: 0; padding: 0; color: inherit; font: inherit;
+}
+.sysf-btn:focus-visible { outline: 2px solid var(--ac); outline-offset: 6px; border-radius: 18px; }
+
+.sysf-btn { perspective: 1400px; position: relative; }
+.sysf-plate {
+  position: relative; display: block; aspect-ratio: 4 / 3;
+  border-radius: 14px 16px 16px 16px;
+  /* The folder clips its own contents. Tuning the fan to stay inside by hand
+     is a losing game — rotation and scale both change the swept width, so any
+     value that fits at one card size spills at another. */
+  overflow: hidden;
+  transition: transform 620ms var(--ease);
+}
+.sysf-back {
+  position: absolute; inset: 0; border-radius: 6px 16px 14px 14px;
+  background: linear-gradient(165deg, color-mix(in srgb, var(--ac) 26%, #0e1a15), #0a1310);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 26px 60px -34px #000;
+  transition: border-color 300ms ease, box-shadow 460ms var(--ease);
+}
+
+/* The papers. Clipped at the bottom by the flap that is drawn over them, so
+   they genuinely look filed rather than stacked on top. */
+/* Layer order inside the plate is explicit, because DOM order alone put the
+   folder's own chrome over the screenshots and sliced them.
+     back  0 — the leaf behind everything
+     front 1 — the flap; its bottom edge still reads as the folder front
+     sheets 3 — the screenshots, always the top layer
+   The sheets also start BELOW the tab and never lift past it, so the tab marks
+   the folder without ever cutting across a screenshot. */
+.sysf-back { z-index: 0; }
+.sysf-front { z-index: 1; }
+
+/* The perspective lives on the sheet wrapper, so each sheet's rotateY reads as
+   a page turning in space rather than as a flat skew. */
+.sysf-sheets {
+  position: absolute; left: 7%; right: 7%; top: 15%; bottom: 22%;
+  display: block; perspective: 900px; z-index: 3;
+}
+.sysf-sheet {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: top left;
+  border-radius: 5px; border: 1px solid rgba(255,255,255,.16);
+  background: #0d1512;
+  box-shadow: 0 14px 30px -14px rgba(0,0,0,.95);
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
+  /* Paper is not translucent. Depth is carried by scale, rotation and
+     brightness — never by opacity, which just let three screenshots print
+     through each other into an unreadable smear. */
+  opacity: 1;
+  transition: transform 680ms var(--ease), filter 520ms ease, box-shadow 520ms ease;
+}
+/* Explicit paint order. In the DOM the sheets run 0,1,2, so without this the
+   BACK sheet is painted last and covers the front one — the other half of the
+   same bug. */
+.sysf-sheet[data-k="0"] { z-index: 3; }
+.sysf-sheet[data-k="1"] { z-index: 2; }
+.sysf-sheet[data-k="2"] { z-index: 1; }
+
+/* At rest the stack is already fanned enough to read as three sheets rather
+   than one image — a perfectly aligned stack just looks like a screenshot. */
+.sysf-sheet[data-k="2"] { transform: translate(-4%, -9px) scale(.92) rotate(-3.2deg); filter: saturate(.5) brightness(.6); }
+.sysf-sheet[data-k="1"] { transform: translate(4%, -5px) scale(.96) rotate(2.2deg); filter: saturate(.62) brightness(.72); }
+.sysf-sheet[data-k="0"] { transform: none; filter: saturate(.86) brightness(.9); }
+
+/* The front flap. The tab is a real tab: a notched block sitting on the flap's
+   top-left with the folder's index in it. */
+.sysf-front { position: absolute; inset: 0; pointer-events: none; }
+.sysf-front-face {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
+  border-radius: 3px 3px 14px 14px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ac) 20%, #101c17), #0a120f 78%);
+  border: 1px solid rgba(255,255,255,.12);
+  border-top-color: color-mix(in srgb, var(--ac) 45%, transparent);
+  box-shadow: 0 -14px 30px -18px rgba(0,0,0,.9);
+  display: flex; align-items: flex-end; padding: 0 16px 14px;
+  transition: transform 460ms var(--ease), border-top-color 300ms ease;
+}
+.sysf-front-label {
+  font-family: var(--mono); font-size: .74rem; letter-spacing: .16em;
+  text-transform: uppercase; color: color-mix(in srgb, var(--ac) 72%, #fff);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sysf-tab {
+  position: absolute; top: 0; left: 0; height: 30px; min-width: 40%;
+  display: flex; align-items: center; gap: 8px; padding: 0 20px 0 14px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ac) 34%, #101c17), color-mix(in srgb, var(--ac) 16%, #0d1712));
+  border: 1px solid rgba(255,255,255,.13); border-bottom: 0;
+  border-radius: 10px 4px 0 0;
+  clip-path: polygon(0 0, 84% 0, 100% 100%, 0 100%);
+  transition: transform 460ms var(--ease);
+}
+.sysf-tab em {
+  font-family: var(--mono); font-style: normal; font-weight: 700; font-size: .74rem;
+  letter-spacing: .1em; color: #fff;
+}
+.sysf-tab .iconify { font-size: .95rem; color: color-mix(in srgb, var(--ac) 70%, #fff); }
+
+/* Sits against .sysf-btn, outside the clipped plate. Aspect-ratio 4/3 matches
+   the plate so the pool stays centred on the folder rather than on the caption
+   below it. */
+.sysf-glow {
+  position: absolute; z-index: -1; pointer-events: none;
+  left: -12%; right: -12%; top: -9%; aspect-ratio: 4 / 3.4;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--ac), transparent 72%);
+  opacity: 0; filter: blur(34px);
+  transition: opacity 480ms ease;
+}
+
+/* Hover / focus: the folder opens.
+   The plate takes a small rotateX against .sysf-btn's perspective, so the whole
+   object tips toward the viewer instead of merely sliding up. Each sheet then
+   swings out on its own rotateY, staggered so the stack unfolds rather than
+   snapping open in one frame. */
+.sysf-btn:hover .sysf-plate,
+.sysf-btn:focus-visible .sysf-plate { transform: translateY(-10px) rotateX(5deg) scale(1.012); }
+.sysf-btn:hover .sysf-back,
+.sysf-btn:focus-visible .sysf-back {
+  border-color: color-mix(in srgb, var(--ac) 55%, transparent);
+  box-shadow: 0 40px 80px -38px #000;
+}
+.sysf-btn:hover .sysf-glow,
+.sysf-btn:focus-visible .sysf-glow { opacity: .34; }
+.sysf-btn:hover .sysf-front-face,
+.sysf-btn:focus-visible .sysf-front-face { transform: translateY(7px) rotateX(11deg); }
+.sysf-btn:hover .sysf-tab,
+.sysf-btn:focus-visible .sysf-tab { transform: translateY(-4px); }
+
+/* The fan stays inside the plate. Spilling past the card edges read as a
+   layout fault rather than as papers being pulled out of a folder. */
+.sysf-btn:hover .sysf-sheet[data-k="0"],
+.sysf-btn:focus-visible .sysf-sheet[data-k="0"] {
+  transform: translateY(-11px) scale(1.03);
+  filter: saturate(1) brightness(1);
+  box-shadow: 0 26px 44px -18px rgba(0,0,0,.95);
+}
+.sysf-btn:hover .sysf-sheet[data-k="1"],
+.sysf-btn:focus-visible .sysf-sheet[data-k="1"] {
+  transform: translate(6%, -7px) scale(.92) rotate(4.5deg) rotateY(-15deg);
+  filter: saturate(.92) brightness(.9);
+  transition-delay: 45ms;
+}
+.sysf-btn:hover .sysf-sheet[data-k="2"],
+.sysf-btn:focus-visible .sysf-sheet[data-k="2"] {
+  transform: translate(-6%, -5px) scale(.89) rotate(-4.5deg) rotateY(15deg);
+  filter: saturate(.84) brightness(.8);
+  transition-delay: 90ms;
+}
+
+/* Folder caption */
+.sysf-info { display: block; padding-top: 18px; }
+.sysf-sector {
+  display: block; font-family: var(--mono); font-size: .66rem; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--ac);
+}
+.sysf-name {
+  display: block; margin-top: 8px;
+  font-family: var(--display); font-weight: 600; font-size: 1.06rem; line-height: 1.32;
+  letter-spacing: var(--track-heading);
+}
+.sysf-tag {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  margin-top: 8px; font-size: .86rem; line-height: 1.55; color: var(--sys-soft);
+}
+.sysf-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--sys-line);
+}
+.sysf-count { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; color: var(--sys-mute); }
+.sysf-open {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .8rem; font-weight: 600; color: var(--ac);
+  transition: gap 260ms var(--ease);
+}
+.sysf-btn:hover .sysf-open { gap: 11px; }
+
+/* ── Flow ───────────────────────────────────────────────────────────────── */
+.sys-flow {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px clamp(22px, 2.6vw, 36px); list-style: none; margin: clamp(64px, 8vw, 100px) 0 0;
+}
+.sys-step { position: relative; padding-top: 20px; border-top: 1px solid var(--sys-line); }
+.sys-step-n {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .18em; color: var(--ac);
+}
+.sys-step h4 { margin-top: 10px; font-size: 1rem; font-weight: 600; letter-spacing: var(--track-heading); }
+.sys-step p { margin-top: 7px; font-size: .87rem; line-height: 1.6; color: var(--sys-soft); }
+
+/* ── Honest note + closing CTA ──────────────────────────────────────────── */
+.sys-note {
+  display: flex; align-items: flex-start; gap: 11px;
+  margin: clamp(40px, 5vw, 64px) 0 0; padding: 16px 20px;
+  border: 1px dashed var(--sys-line-2); border-radius: 14px;
+  font-size: .86rem; line-height: 1.6; color: var(--sys-soft);
+  background: rgba(255,255,255,.02);
+}
+.sys-note .iconify { color: var(--ac); font-size: 1.15rem; flex: none; margin-top: 1px; }
+
+.sys-close {
+  position: relative; overflow: hidden;
+  margin-top: clamp(40px, 5vw, 64px); padding: clamp(34px, 5vw, 58px);
+  border-radius: 22px; border: 1px solid var(--sys-line-2);
+  background:
+    radial-gradient(120% 160% at 12% 0%, rgba(17,160,107,.22), transparent 62%),
+    linear-gradient(180deg, var(--sys-bg-2), #08110d);
+  text-align: center;
+}
+.sys-close h3 {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.5rem, 3.4vw, 2.4rem); letter-spacing: var(--track-display); line-height: 1.12;
+}
+.sys-close p {
+  margin: 14px auto 0; max-width: 52ch; font-size: .96rem; line-height: 1.66; color: var(--sys-soft);
+}
+.sys-close .sys-acts { justify-content: center; }
+
+/* ── Reveal (this section runs its own observer — see systems.js) ───────── */
+.sys .reveal {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 720ms var(--ease) var(--d, 0ms), transform 720ms var(--ease) var(--d, 0ms);
+}
+.sys .reveal.in { opacity: 1; transform: none; }
+
+/* ════════════════════════════════════════════════════════════════════════
+   THE SYSTEM MODAL — character select
+   ------------------------------------------------------------------------
+   Opening is a sequence, not a fade:
+     1. three slanted panels wipe across the viewport (.sysx-wipe)
+     2. behind them the frame is already assembled, so the wipe reveals a
+        finished screen instead of one that then has to build itself
+     3. the identity block, the plate and the roster each run their own
+        entrance under .is-enter, staggered by the --k index in the markup
+   Every entrance animates transform / opacity / clip-path only.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.sysx {
+  --ac: #11a06b;
+  --x-bg: #050907;
+  --x-ink: #f4f8f5;
+  --x-soft: #a3b1a9;
+  --x-mute: #6c7a72;
+  --x-line: rgba(255,255,255,.11);
+
+  position: fixed; inset: 0; z-index: 400;
+  opacity: 0; visibility: hidden;
+  transition: opacity 220ms ease, visibility 220ms;
+  font-family: var(--sans); color: var(--x-ink);
+}
+.sysx.open { opacity: 1; visibility: visible; }
+
+/* The wipe. Three slanted panels that sweep off to the right, revealing the
+   already-assembled frame beneath. */
+.sysx-wipe { position: absolute; inset: 0; z-index: 30; pointer-events: none; overflow: hidden; }
+.sysx-wipe i {
+  position: absolute; left: -30%; width: 160%; height: 34.4%;
+  transform: translateX(-130%) skewX(-14deg);
+  background: linear-gradient(90deg, #060b09 60%, var(--ac));
+}
+.sysx-wipe i:nth-child(1) { top: 0; }
+.sysx-wipe i:nth-child(2) { top: 33.2%; }
+.sysx-wipe i:nth-child(3) { top: 66.4%; }
+.sysx.is-wipe .sysx-wipe i { animation: sysxWipe 780ms cubic-bezier(.7,0,.2,1) forwards; }
+.sysx.is-wipe .sysx-wipe i:nth-child(2) { animation-delay: 60ms; }
+.sysx.is-wipe .sysx-wipe i:nth-child(3) { animation-delay: 120ms; }
+@keyframes sysxWipe {
+  0%   { transform: translateX(-130%) skewX(-14deg); }
+  42%  { transform: translateX(0) skewX(-14deg); }
+  100% { transform: translateX(130%) skewX(-14deg); }
+}
+
+.sysx-frame {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  background: var(--x-bg);
+}
+.sysx-atmo { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.sysx-atmo .sysx-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(110% 80% at 30% 20%, #000 10%, transparent 76%);
+  -webkit-mask-image: radial-gradient(110% 80% at 30% 20%, #000 10%, transparent 76%);
+}
+.sysx-atmo .sysx-beam {
+  position: absolute; inset: -30% -10% auto -30%; height: 90%;
+  background: radial-gradient(60% 60% at 30% 40%, color-mix(in srgb, var(--ac) 30%, transparent), transparent 70%);
+  filter: blur(70px);
+  transition: background 400ms ease;
+}
+
+/* Top bar */
+.sysx-top {
+  position: relative; z-index: 20; flex: none;
+  display: flex; align-items: center; gap: 18px;
+  padding: 14px clamp(16px, 3vw, 34px);
+  border-bottom: 1px solid var(--x-line);
+  background: rgba(5,9,7,.72); backdrop-filter: blur(10px);
+}
+.sys-mark--sm { font-size: .82rem; }
+.sys-mark--sm b { padding: 2px 6px; }
+.sysx-nav { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.sysx-arrow {
+  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  border: 1px solid var(--x-line); background: rgba(255,255,255,.03); color: var(--x-ink);
+  cursor: pointer; font-size: 1.1rem;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+.sysx-arrow:hover { background: var(--ac); border-color: var(--ac); color: #04120c; }
+.sysx-count {
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .1em; color: var(--x-mute);
+  min-width: 62px; text-align: center;
+}
+.sysx-count b { color: var(--ac); font-weight: 700; }
+.sysx-count i { font-style: normal; padding: 0 3px; }
+.sysx-close {
+  width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
+  border: 1px solid var(--x-line); background: rgba(255,255,255,.03); color: var(--x-ink);
+  cursor: pointer; font-size: 1.2rem; margin-left: 8px;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease;
+}
+.sysx-close:hover { background: #fff; color: #050907; border-color: #fff; transform: rotate(90deg); }
+.sysx-arrow:focus-visible, .sysx-close:focus-visible { outline: 2px solid var(--ac); outline-offset: 3px; }
+
+/* Scroll body */
+.sysx-scroll {
+  position: relative; z-index: 10; flex: 1; overflow-y: auto; overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.18) transparent;
+}
+.sysx-scroll::-webkit-scrollbar { width: 9px; }
+.sysx-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,.16); border-radius: 9px; }
+
+/* ── Hero: the character intro ──────────────────────────────────────────── */
+.sysx-hero {
+  position: relative;
+  display: grid; grid-template-columns: minmax(0, .84fr) minmax(0, 1.16fr);
+  gap: clamp(26px, 3.6vw, 58px); align-items: center;
+  padding: clamp(28px, 4vw, 56px) clamp(18px, 4vw, 60px) clamp(30px, 4vw, 54px);
+  min-height: min(760px, calc(100vh - 64px));
+}
+
+/* The name, oversized behind everything — the roster card's ghost type */
+.sysx-ghost {
+  position: absolute; left: -2%; top: 4%; z-index: 0; pointer-events: none;
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(6rem, 17vw, 15rem); line-height: .82;
+  letter-spacing: -.05em; white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,.10);
+  opacity: .9;
+}
+
+.sysx-id { position: relative; z-index: 2; }
+.sysx-sector {
+  display: inline-block;
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--ac); padding-bottom: 10px;
+  border-bottom: 2px solid color-mix(in srgb, var(--ac) 60%, transparent);
+}
+.sysx-code {
+  margin-top: 18px;
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(2.4rem, 5.6vw, 4.4rem); line-height: .98;
+  letter-spacing: var(--track-display);
+}
+.sysx-name {
+  margin-top: 12px; font-size: .95rem; line-height: 1.5; color: var(--x-soft);
+  max-width: 40ch;
+}
+.sysx-tag {
+  margin-top: 18px; padding-left: 16px;
+  border-left: 2px solid color-mix(in srgb, var(--ac) 60%, transparent);
+  font-size: clamp(.98rem, 1.5vw, 1.1rem); line-height: 1.55; color: var(--x-ink);
+  max-width: 44ch;
+}
+.sysx-stats {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 22px; list-style: none; margin-top: 26px; max-width: 420px;
+}
+.sysx-stats li { border-top: 1px solid var(--x-line); padding-top: 10px; }
+.sysx-stats b {
+  display: block; font-family: var(--display); font-weight: 700;
+  font-size: 1.35rem; letter-spacing: var(--track-heading); line-height: 1.1;
+}
+.sysx-stats span {
+  display: block; margin-top: 3px;
+  font-family: var(--mono); font-size: .64rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--x-mute);
+}
+.sysx-acts { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 30px; }
+.sysx-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--sans); font-weight: 600; font-size: .9rem; line-height: 1;
+  padding: 13px 22px; border-radius: 999px; border: 1.5px solid transparent;
+  cursor: pointer; white-space: nowrap;
+  transition: transform 240ms var(--ease), background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 240ms ease;
+}
+.sysx-btn--go { background: var(--ac); color: #04120c; box-shadow: 0 18px 40px -20px var(--ac); }
+.sysx-btn--go:hover { transform: translateY(-2px); box-shadow: 0 24px 48px -20px var(--ac); }
+.sysx-btn--ghost { color: var(--x-ink); border-color: var(--x-line); background: rgba(255,255,255,.03); }
+.sysx-btn--ghost:hover { border-color: var(--ac); color: var(--ac); }
+.sysx-btn:focus-visible { outline: 2px solid var(--ac); outline-offset: 3px; }
+
+/* ── The plate: the screen on show ──────────────────────────────────────── */
+.sysx-view { position: relative; z-index: 2; min-width: 0; }
+.sysx-plate {
+  position: relative; border-radius: 14px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,.14);
+  background: #0a100d;
+  box-shadow: 0 50px 110px -50px #000, 0 0 0 1px rgba(255,255,255,.03) inset,
+              0 26px 90px -60px var(--ac);
+}
+.sysx-chrome {
+  display: flex; align-items: center; gap: 6px;
+  padding: 9px 14px; background: rgba(255,255,255,.045);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.sysx-chrome i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.2); }
+.sysx-chrome i:first-child { background: color-mix(in srgb, var(--ac) 70%, transparent); }
+.sysx-chrome em {
+  margin-left: 10px; font-family: var(--mono); font-style: normal;
+  font-size: .68rem; letter-spacing: .06em; color: var(--x-mute);
+}
+.sysx-shot { position: relative; aspect-ratio: 16 / 9; background: #0a100d; }
+.sysx-img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center;
+  opacity: 0; transition: opacity 300ms ease;
+}
+.sysx-img.is-front { opacity: 1; }
+
+/* the two beats that make a swap read as a select rather than a next-button */
+.sysx-flash {
+  position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; mix-blend-mode: overlay;
+}
+.sysx-slash {
+  position: absolute; top: 0; bottom: 0; width: 42%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--ac) 55%, #fff) 48%, transparent);
+  opacity: 0; transform: translateX(-160%) skewX(-16deg);
+}
+
+.sysx-plate.is-swap { animation: sysxSlam 420ms var(--ease); }
+.sysx-plate.is-swap .sysx-flash { animation: sysxFlash 340ms ease-out; }
+.sysx-plate.is-swap .sysx-slash { animation: sysxSlash 520ms cubic-bezier(.6,0,.2,1); }
+.sysx-plate.is-swap.from-left .sysx-slash { animation-name: sysxSlashL; }
+@keyframes sysxSlam {
+  0%   { transform: scale(1.035); }
+  55%  { transform: scale(.995); }
+  100% { transform: scale(1); }
+}
+@keyframes sysxFlash { 0% { opacity: .5; } 100% { opacity: 0; } }
+@keyframes sysxSlash {
+  0%   { opacity: 0; transform: translateX(-160%) skewX(-16deg); }
+  18%  { opacity: .85; }
+  100% { opacity: 0; transform: translateX(360%) skewX(-16deg); }
+}
+@keyframes sysxSlashL {
+  0%   { opacity: 0; transform: translateX(360%) skewX(-16deg); }
+  18%  { opacity: .85; }
+  100% { opacity: 0; transform: translateX(-160%) skewX(-16deg); }
+}
+
+/* Caption under the plate */
+.sysx-cap { display: flex; gap: 14px; align-items: flex-start; margin-top: 18px; min-height: 62px; }
+.sysx-cap-n {
+  font-family: var(--mono); font-weight: 700; font-size: 1.5rem; line-height: 1;
+  color: color-mix(in srgb, var(--ac) 62%, transparent);
+}
+.sysx-cap h3 { font-size: 1.02rem; font-weight: 600; letter-spacing: var(--track-heading); }
+.sysx-cap p { margin-top: 5px; font-size: .87rem; line-height: 1.55; color: var(--x-soft); max-width: 62ch; }
+.sysx-cap.is-swap { animation: sysxCap 420ms var(--ease); }
+@keyframes sysxCap {
+  0%   { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* ── The roster ─────────────────────────────────────────────────────────── */
+.sysx-roster {
+  display: flex; align-items: center; gap: 10px; margin-top: 18px;
+  overflow-x: auto; padding-bottom: 4px; scrollbar-width: none;
+}
+.sysx-roster::-webkit-scrollbar { display: none; }
+.sysx-thumb {
+  position: relative; flex: none; width: clamp(84px, 9vw, 116px); aspect-ratio: 16 / 10;
+  border-radius: 8px; overflow: hidden; cursor: pointer; padding: 0;
+  border: 1px solid var(--x-line); background: #0a100d;
+  transition: transform 300ms var(--ease), border-color 240ms ease, box-shadow 300ms ease;
+}
+.sysx-thumb img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top left;
+  filter: saturate(.5) brightness(.55); transition: filter 300ms ease;
+}
+.sysx-thumb-n {
+  position: absolute; left: 5px; bottom: 4px;
+  font-family: var(--mono); font-size: .62rem; font-weight: 700; letter-spacing: .08em;
+  color: #fff; text-shadow: 0 1px 4px #000;
+}
+.sysx-thumb::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 2px; background: var(--ac);
+  transform: scaleX(0); transform-origin: left; transition: transform 300ms var(--ease);
+}
+.sysx-thumb:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--ac) 50%, transparent); }
+.sysx-thumb:hover img { filter: saturate(.9) brightness(.85); }
+.sysx-thumb.is-on {
+  border-color: var(--ac);
+  box-shadow: 0 0 0 1px var(--ac), 0 12px 26px -14px var(--ac);
+  transform: translateY(-4px);
+}
+.sysx-thumb.is-on img { filter: none; }
+.sysx-thumb.is-on::after { transform: scaleX(1); }
+.sysx-thumb:focus-visible { outline: 2px solid var(--ac); outline-offset: 3px; }
+/* Outside the roster, not in it: the roster is a horizontal scroller, and a
+   hint parked at the end of one is a hint nobody ever scrolls to. */
+.sysx-roster-hint {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 12px;
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .1em;
+  color: var(--x-mute);
+}
+.sysx-roster-hint b {
+  display: inline-grid; place-items: center; min-width: 19px; height: 19px; padding: 0 4px;
+  border: 1px solid var(--x-line); border-radius: 4px; background: rgba(255,255,255,.04);
+  color: var(--x-soft); font-weight: 600; font-size: .68rem; line-height: 1;
+}
+
+/* ── The entrance ───────────────────────────────────────────────────────── */
+.sysx.is-enter .sysx-ghost { animation: sysxGhost 1100ms var(--ease) 180ms both; }
+.sysx.is-enter .sysx-id > * { animation: sysxRise 700ms var(--ease) both; animation-delay: calc(260ms + var(--k, 0) * 62ms); }
+.sysx.is-enter .sysx-plate { animation: sysxPlateIn 820ms var(--ease) 220ms both; }
+.sysx.is-enter .sysx-plate .sysx-flash { animation: sysxFlash 560ms ease-out 340ms; }
+.sysx.is-enter .sysx-plate .sysx-slash { animation: sysxSlash 900ms cubic-bezier(.6,0,.2,1) 300ms; }
+.sysx.is-enter .sysx-cap { animation: sysxRise 700ms var(--ease) 560ms both; }
+.sysx.is-enter .sysx-thumb { animation: sysxThumbIn 560ms var(--ease) both; animation-delay: calc(620ms + var(--k, 0) * 70ms); }
+.sysx.is-enter .sysx-roster-hint { animation: sysxRise 600ms var(--ease) 1s both; }
+
+@keyframes sysxGhost {
+  0%   { opacity: 0; transform: translateX(-46px) scale(1.04); }
+  100% { opacity: .9; transform: none; }
+}
+@keyframes sysxRise {
+  0%   { opacity: 0; transform: translateY(26px); clip-path: inset(0 0 100% 0); }
+  100% { opacity: 1; transform: none; clip-path: inset(0 0 -10% 0); }
+}
+@keyframes sysxPlateIn {
+  0%   { opacity: 0; transform: scale(1.12) translateX(4%); clip-path: inset(0 100% 0 0); }
+  55%  { opacity: 1; }
+  100% { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+}
+@keyframes sysxThumbIn {
+  0%   { opacity: 0; transform: translateY(20px) rotate(-4deg) scale(.9); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* ── Detail: the rest of the product page ───────────────────────────────── */
+.sysx-detail {
+  position: relative; z-index: 2;
+  width: min(92%, 1080px); margin: 0 auto;
+  padding: clamp(48px, 6vw, 90px) 0 clamp(60px, 8vw, 110px);
+  border-top: 1px solid var(--x-line);
+}
+.sysx-h {
+  display: block;
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .26em; text-transform: uppercase;
+  color: var(--ac); margin-bottom: 18px;
+}
+.sysx-h--gap { margin-top: 30px; }
+
+.sysx-story { max-width: 76ch; margin-bottom: clamp(48px, 6vw, 76px); }
+.sysx-story p {
+  font-size: clamp(.98rem, 1.4vw, 1.08rem); line-height: 1.78; color: var(--x-soft);
+}
+.sysx-story p + p { margin-top: 18px; }
+.sysx-story strong { color: var(--x-ink); font-weight: 600; }
+
+.sysx-block + .sysx-block { margin-top: clamp(44px, 5.5vw, 72px); }
+
+.sysx-feats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px; list-style: none;
+}
+.sysx-feat {
+  padding: 22px; border-radius: 14px;
+  border: 1px solid var(--x-line); background: rgba(255,255,255,.025);
+  transition: border-color 260ms ease, background 260ms ease, transform 260ms var(--ease);
+}
+.sysx-feat:hover { border-color: color-mix(in srgb, var(--ac) 45%, transparent); background: rgba(255,255,255,.045); transform: translateY(-3px); }
+.sysx-feat-ic {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px;
+  background: color-mix(in srgb, var(--ac) 16%, transparent);
+  color: var(--ac); font-size: 1.1rem; margin-bottom: 14px;
+}
+.sysx-feat h4 { font-size: 1rem; font-weight: 600; letter-spacing: var(--track-heading); }
+.sysx-feat p { margin-top: 8px; font-size: .87rem; line-height: 1.62; color: var(--x-soft); }
+
+.sysx-under {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px 34px; list-style: none; counter-reset: u;
+}
+.sysx-under-item { position: relative; padding: 16px 0 0 0; border-top: 1px solid var(--x-line); counter-increment: u; }
+.sysx-under-item::before {
+  content: counter(u, decimal-leading-zero);
+  position: absolute; top: -1px; right: 0;
+  font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; color: var(--x-mute);
+}
+.sysx-under-item h4 { font-size: .96rem; font-weight: 600; letter-spacing: var(--track-heading); padding-right: 34px; }
+.sysx-under-item p { margin-top: 7px; font-size: .86rem; line-height: 1.62; color: var(--x-soft); }
+
+.sysx-split {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(30px, 4vw, 60px); margin-top: clamp(44px, 5.5vw, 72px);
+}
+.sysx-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.sysx-chip {
+  font-size: .8rem; font-weight: 500; padding: 7px 14px; border-radius: 999px;
+  border: 1px solid var(--x-line); background: rgba(255,255,255,.03); color: var(--x-soft);
+}
+.sysx-chip--tech {
+  font-family: var(--mono); font-size: .74rem; letter-spacing: .02em;
+  border-color: color-mix(in srgb, var(--ac) 34%, transparent);
+  color: color-mix(in srgb, var(--ac) 78%, #fff);
+  background: color-mix(in srgb, var(--ac) 10%, transparent);
+}
+.sysx-incl { list-style: none; display: grid; gap: 9px; }
+.sysx-incl li { display: flex; align-items: center; gap: 10px; font-size: .89rem; color: var(--x-soft); }
+.sysx-incl .iconify { color: var(--ac); font-size: 1.05rem; flex: none; }
+.sysx-fine {
+  display: flex; gap: 9px; margin-top: 20px; padding-top: 16px;
+  border-top: 1px dashed var(--x-line);
+  font-size: .8rem; line-height: 1.6; color: var(--x-mute);
+}
+.sysx-fine .iconify { color: var(--ac); font-size: 1rem; flex: none; margin-top: 2px; }
+
+.sysx-cta {
+  margin-top: clamp(52px, 6vw, 84px); padding: clamp(32px, 4.4vw, 56px);
+  border-radius: 20px; border: 1px solid var(--x-line); text-align: center;
+  background:
+    radial-gradient(110% 150% at 15% 0%, color-mix(in srgb, var(--ac) 22%, transparent), transparent 62%),
+    rgba(255,255,255,.025);
+}
+.sysx-cta h3 {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.4rem, 3vw, 2.1rem); letter-spacing: var(--track-display); line-height: 1.16;
+}
+.sysx-cta h3 em { font-style: normal; color: var(--ac); }
+.sysx-cta p { margin: 13px auto 0; max-width: 52ch; font-size: .93rem; line-height: 1.66; color: var(--x-soft); }
+.sysx-cta-acts { display: flex; flex-wrap: wrap; gap: 11px; justify-content: center; margin-top: 24px; }
+
+.sysx-next {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: clamp(40px, 5vw, 64px); padding-top: 22px; border-top: 1px solid var(--x-line);
+}
+.sysx-next-k { font-family: var(--mono); font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; color: var(--x-mute); }
+.sysx-next-btn {
+  display: inline-flex; align-items: center; gap: 12px; cursor: pointer;
+  background: none; border: 0; padding: 0; color: var(--x-ink);
+  font-family: var(--display); font-weight: 600; font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  letter-spacing: var(--track-heading);
+  transition: gap 260ms var(--ease), color 200ms ease;
+}
+.sysx-next-btn:hover { gap: 20px; color: var(--ac); }
+.sysx-next-btn .iconify { color: var(--ac); }
+.sysx-next-btn:focus-visible { outline: 2px solid var(--ac); outline-offset: 4px; }
+
+/* Modal content reveal — observed against .sysx-scroll, not the viewport */
+.sysx .reveal {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 640ms var(--ease) var(--d, 0ms), transform 640ms var(--ease) var(--d, 0ms);
+}
+.sysx .reveal.in { opacity: 1; transform: none; }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .sys-shelf { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .sysf, .sysf:nth-child(4), .sysf:nth-child(5) { grid-column: span 2; }
+  .sys-marks { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .sys-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sysx-hero { grid-template-columns: 1fr; min-height: 0; gap: 30px; }
+  .sysx-ghost { font-size: clamp(4.4rem, 22vw, 9rem); top: 1%; }
+  .sysx-stats { max-width: none; }
+}
+
+@media (max-width: 720px) {
+  .sys { padding: 60px 0 56px; }
+  .sys-bar { gap: 10px; }
+  .sys-bar-sub { padding-left: 0; border-left: 0; font-size: .76rem; }
+  .sys-shelf { grid-template-columns: minmax(0, 1fr); }
+  .sysf, .sysf:nth-child(4), .sysf:nth-child(5) { grid-column: 1 / -1; }
+  .sys-totals { gap: 20px 32px; }
+  .sys-totals li { min-width: 40%; }
+  .sys-marks, .sys-flow { grid-template-columns: minmax(0, 1fr); }
+
+  .sysx-top { padding: 11px 14px; }
+  .sysx-hero { padding: 22px 16px 28px; }
+  .sysx-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; }
+  .sysx-acts .sysx-btn { flex: 1 1 auto; justify-content: center; }
+  .sysx-roster-hint { display: none; }
+  .sysx-detail { width: 90%; }
+  .sysx-cap { min-height: 0; }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────
+   The wipe, the slam and the fan are the whole point of this section, and
+   they are also exactly what a visitor who asked for less motion does not
+   want. Everything below resolves to the finished state instantly. */
+@media (prefers-reduced-motion: reduce) {
+  .sys .reveal, .sysx .reveal { opacity: 1; transform: none; transition: none; }
+  .sys-kicker .sys-dot { animation: none; }
+  .sysf-plate, .sysf-back, .sysf-sheet, .sysf-front-face, .sysf-tab, .sysf-glow { transition: none; }
+  .sysx.is-wipe .sysx-wipe i { animation: none; display: none; }
+  .sysx.is-enter .sysx-ghost,
+  .sysx.is-enter .sysx-id > *,
+  .sysx.is-enter .sysx-plate,
+  .sysx.is-enter .sysx-plate .sysx-flash,
+  .sysx.is-enter .sysx-plate .sysx-slash,
+  .sysx.is-enter .sysx-cap,
+  .sysx.is-enter .sysx-thumb,
+  .sysx.is-enter .sysx-roster-hint { animation: none; }
+  .sysx-plate.is-swap, .sysx-cap.is-swap { animation: none; }
+}

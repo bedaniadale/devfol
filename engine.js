@@ -222,7 +222,22 @@
       // arithmetic cull — no layout
       var vTop = t.g.top - SE.y;
       if (vTop > SE.vh * (1 + t.pad) || vTop + t.g.h < -SE.vh * t.pad) {
-        if (t.live) { t.live = false; pending.push(t); }
+        /* A culled track has to RESOLVE, not freeze. Scrolling by hand always
+           passes through a range, so the damped value lands on 0 or 1 on its
+           own — but an instant jump (the footer's back-to-top, dragging the
+           scrollbar, Home) leaves the range in a single frame, and whatever
+           partial value the track held is then held forever. That is what
+           stranded the closing plunge at 1: jump to the top and the end
+           photograph was still lying over the hero.
+
+           Snapping to the endpoint the track fell off toward is the same value
+           the damping would have reached had the scroll been continuous. */
+        var end = SE.y <= t.a ? 0 : 1;
+        if (t.live || t.pd !== end) {
+          t.live = false;
+          t.p = t.pd = end;
+          if (pending.indexOf(t) === -1) pending.push(t);
+        }
         continue;
       }
       if (!t.live) { t.live = true; pending.push(t); }

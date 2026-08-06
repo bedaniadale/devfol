@@ -30,6 +30,15 @@
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="hero.css">
   <link rel="stylesheet" href="scene.css">
+  <!-- The product side. Self-contained and scoped to .sys / .sysx — it shares
+       the type stack and nothing else, because it is deliberately the inverse
+       of the page it sits inside. -->
+  <link rel="stylesheet" href="systems.css">
+  <!-- The Systems design language brought back onto the light page: seam
+       eyebrows, the grid field, chrome plates, accent ticks, and the
+       character-select entrance on the project modal. After scene.css so it
+       can override the section-head geometry. -->
+  <link rel="stylesheet" href="vocab.css">
   <!-- Last, on purpose: the phone layer overrides the desktop composition by
        source order rather than by out-shouting it with !important. -->
   <link rel="stylesheet" href="mobile.css">
@@ -72,6 +81,10 @@
     <div class="hero-ring" id="ring"><i></i><i></i><i></i><i></i></div>
   </div>
   <div class="grain" aria-hidden="true"></div>
+  <!-- The same 72px lattice that sits behind #systems, inverted for the light
+       ground and masked away from the edges. Fixed and inert: one composited
+       layer, no repaint. -->
+  <div class="fieldgrid" aria-hidden="true"></div>
   <div class="spotlight" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
@@ -83,6 +96,7 @@
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#work">Work</a>
+      <a href="#systems">Systems</a>
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#certs">Credentials</a>
@@ -114,11 +128,12 @@
   <div class="nav-sheet" id="navSheet" aria-hidden="true">
     <nav class="nav-sheet-nav" aria-label="Sections">
       <a href="#work"><span class="nav-sheet-n">01</span> Work</a>
-      <a href="#about"><span class="nav-sheet-n">02</span> About</a>
-      <a href="#services"><span class="nav-sheet-n">03</span> Services</a>
-      <a href="#stack"><span class="nav-sheet-n">04</span> Toolkit</a>
-      <a href="#graphics"><span class="nav-sheet-n">05</span> Design</a>
-      <a href="#certs"><span class="nav-sheet-n">06</span> Credentials</a>
+      <a href="#systems"><span class="nav-sheet-n">02</span> Systems</a>
+      <a href="#about"><span class="nav-sheet-n">03</span> About</a>
+      <a href="#services"><span class="nav-sheet-n">04</span> Services</a>
+      <a href="#stack"><span class="nav-sheet-n">05</span> Toolkit</a>
+      <a href="#graphics"><span class="nav-sheet-n">06</span> Design</a>
+      <a href="#certs"><span class="nav-sheet-n">07</span> Credentials</a>
     </nav>
     <div class="nav-sheet-foot">
       <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg nav-sheet-cta">
@@ -343,6 +358,90 @@
       </div>
     </section>
 
+    <!-- ── SYSTEMS — the product side, staged as its own landing page ──────
+         Everything above and below this block is the portfolio: one person,
+         soft-white ground, emerald. This is the other business — finished
+         systems sold as products — so it is given the opposite ground, its own
+         brand mark and its own hero rather than another `.section`. The
+         full-bleed dark slab IS the separation: a visitor should feel they
+         walked into a different site without ever leaving the page.
+
+         Everything inside the two <ol>s and the marks list is written by
+         systems.js from the catalogue in crms/PORTFOLIO-DESCRIPTIONS.md. -->
+    <section class="sys" id="systems" aria-labelledby="sysTitle">
+      <div class="sys-atmo" aria-hidden="true">
+        <i class="sys-grid"></i>
+        <i class="sys-glow sys-glow--a"></i>
+        <i class="sys-glow sys-glow--b"></i>
+      </div>
+      <div class="sys-seam sys-seam--top" aria-hidden="true"><span>Now entering — the product side</span></div>
+
+      <div class="sys-in container">
+
+        <!-- Its own brand bar. The page has a nav; this micro-site has a mark. -->
+        <div class="sys-bar reveal">
+          <span class="sys-mark"><b>DB</b>SYSTEMS</span>
+          <span class="sys-bar-sub">Finished business systems, ready to deploy</span>
+          <a href="#sysShelf" class="sys-btn sys-btn--ghost sys-bar-cta">Browse the catalogue</a>
+        </div>
+
+        <header class="sys-hero">
+          <p class="sys-kicker reveal"><span class="sys-dot"></span> I also sell systems</p>
+          <h2 class="sys-title reveal" id="sysTitle">
+            Stop paying to build<br>what already <em>runs.</em>
+          </h2>
+          <p class="sys-lede reveal">
+            Five production-grade business systems, already built. Each one implements the full
+            rule engine a real operator needs — <b>payroll statutory tables, prerequisite graphs,
+            inventory ledgers, clinical scheduling, work-order lifecycles</b> — with role-based
+            access and a deterministic demo dataset you can drive today. Buy the one that fits your
+            operation, and I configure, integrate and hand it over.
+          </p>
+          <div class="sys-acts reveal">
+            <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="sys-btn sys-btn--go">
+              Book a live walkthrough <i class="iconify" data-icon="mdi:arrow-right"></i>
+            </a>
+            <a href="#sysShelf" class="sys-btn sys-btn--ghost">
+              See the five systems <i class="iconify" data-icon="mdi:folder-multiple-outline"></i>
+            </a>
+          </div>
+          <ul class="sys-totals reveal" id="sysTotals"></ul>
+          <ul class="sys-marks" id="sysMarks"></ul>
+        </header>
+
+        <div class="sys-shelf-head reveal">
+          <div>
+            <h3>The catalogue</h3>
+            <p>Open a folder to walk the real screens. Every screenshot is the running build — no mockups.</p>
+          </div>
+          <span class="sys-shelf-hint">
+            <i class="iconify" data-icon="mdi:cursor-default-click-outline"></i> Click a folder
+          </span>
+        </div>
+        <ol class="sys-shelf" id="sysShelf"></ol>
+
+        <ol class="sys-flow" id="sysFlow"></ol>
+        <p class="sys-note reveal" id="sysNote"></p>
+
+        <div class="sys-close reveal">
+          <h3>Not sure which one fits?</h3>
+          <p>
+            Tell me how your operation runs today. I will point you at the closest system, show you
+            the live build, and be honest about what would have to be built rather than configured.
+          </p>
+          <div class="sys-acts">
+            <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="sys-btn sys-btn--go">
+              <i class="iconify" data-icon="mdi:facebook-messenger"></i> Message me
+            </a>
+            <a href="mailto:dale.bedania10@gmail.com" class="sys-btn sys-btn--ghost">
+              <i class="iconify" data-icon="mdi:email-outline"></i> dale.bedania10@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="sys-seam sys-seam--bot" aria-hidden="true"><span>Back to the portfolio</span></div>
+    </section>
+
     <!-- ── TECH STACK ────────────────────────────────────────────────────── -->
     <section class="section section-alt" id="stack">
       <div class="container">
@@ -486,12 +585,32 @@
     </div>
   </footer>
 
-  <!-- ── PROJECT MODAL ───────────────────────────────────────────────────── -->
-  <div class="modal" id="projectModal" aria-hidden="true">
-    <div class="modal-backdrop" data-close-modal></div>
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
-      <button type="button" class="modal-close" data-close-modal aria-label="Close"><i class="iconify" data-icon="mdi:close"></i></button>
-      <div class="modal-body" id="projectModalBody" data-lenis-prevent></div>
+  <!-- ── PROJECT MODAL (fullscreen case file) ─────────────────────────────
+       Keeps the .modal class so app.js's openModal/closeModal, the Escape
+       handler and every [data-close-modal] still drive it unchanged; .pmx only
+       takes it fullscreen and gives it the systems modal's entrance — the wipe
+       over an already-assembled frame, then the staggered rise.
+       Everything inside #projectModalBody is written by app.js. -->
+  <div class="modal pmx" id="projectModal" aria-hidden="true">
+    <div class="pmx-wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="pmx-frame" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+      <div class="pmx-atmo" aria-hidden="true"><i class="pmx-grid"></i><i class="pmx-beam"></i></div>
+      <header class="pmx-top">
+        <span class="pmx-brand"><b>DB</b>Selected work</span>
+        <div class="pmx-nav">
+          <button type="button" class="pmx-arrow" data-proj-step="-1" aria-label="Previous project">
+            <i class="iconify" data-icon="mdi:chevron-left"></i>
+          </button>
+          <span class="pmx-count"><b id="pmxIdx">01</b><i>/</i><span id="pmxTot">01</span></span>
+          <button type="button" class="pmx-arrow" data-proj-step="1" aria-label="Next project">
+            <i class="iconify" data-icon="mdi:chevron-right"></i>
+          </button>
+        </div>
+        <button type="button" class="pmx-close" data-close-modal aria-label="Close">
+          <i class="iconify" data-icon="mdi:close"></i>
+        </button>
+      </header>
+      <div class="pmx-scroll" id="projectModalBody" data-lenis-prevent></div>
     </div>
   </div>
 
@@ -501,6 +620,34 @@
     <div class="modal-panel modal-panel--image" role="dialog" aria-modal="true">
       <button type="button" class="modal-close" data-close-design aria-label="Close"><i class="iconify" data-icon="mdi:close"></i></button>
       <div class="modal-body" id="designModalBody" data-lenis-prevent></div>
+    </div>
+  </div>
+
+  <!-- ── SYSTEM MODAL (fullscreen product page / character select) ────────
+       Not a .modal: this one covers the viewport rather than sitting in it,
+       and its opening is a wipe over an already-assembled frame instead of a
+       panel fading up. Everything inside #sysxScroll is written by systems.js
+       per system; only the chrome is markup. -->
+  <div class="sysx" id="systemModal" aria-hidden="true">
+    <div class="sysx-wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="sysx-frame" role="dialog" aria-modal="true" aria-labelledby="sysxName">
+      <div class="sysx-atmo" aria-hidden="true"><i class="sysx-grid"></i><i class="sysx-beam"></i></div>
+      <header class="sysx-top">
+        <span class="sys-mark sys-mark--sm"><b>DB</b>SYSTEMS</span>
+        <div class="sysx-nav">
+          <button type="button" class="sysx-arrow" data-sys-step="-1" aria-label="Previous system">
+            <i class="iconify" data-icon="mdi:chevron-left"></i>
+          </button>
+          <span class="sysx-count"><b id="sysxIdx">01</b><i>/</i><span id="sysxTot">05</span></span>
+          <button type="button" class="sysx-arrow" data-sys-step="1" aria-label="Next system">
+            <i class="iconify" data-icon="mdi:chevron-right"></i>
+          </button>
+        </div>
+        <button type="button" class="sysx-close" data-close-sys aria-label="Close">
+          <i class="iconify" data-icon="mdi:close"></i>
+        </button>
+      </header>
+      <div class="sysx-scroll" id="sysxScroll" data-lenis-prevent></div>
     </div>
   </div>
 
@@ -533,5 +680,9 @@
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script src="engine.js"></script>
   <script src="app.js"></script>
+  <!-- After app.js so it can borrow the page's scroll lock, and before
+       DOMContentLoaded fires so the shelf is in the document by the time the
+       engine measures the page. -->
+  <script src="systems.js"></script>
 </body>
 </html>

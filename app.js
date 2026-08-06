@@ -785,6 +785,11 @@
   function openModal(modal) { modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); lockScroll(true); }
   function closeModal(modal) { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); lockScroll(false); }
 
+  /* systems.js is a separate layer with its own fullscreen modal. It borrows
+     this lock rather than shipping a second one — two implementations would
+     fight over body position and over Lenis's stop/start. */
+  window.__pf = { lockScroll: lockScroll, openModal: openModal, closeModal: closeModal };
+
   function caseStudyHtml(cs) {
     if (!cs) return '';
     var blocks = '';
@@ -794,22 +799,118 @@
     return '<div class="case-study"><span class="cs-eyebrow"><i class="iconify" data-icon="mdi:star-four-points-outline"></i> Case study</span>' + blocks + '</div>';
   }
 
-  function openProject(i) {
+  /* ── The project modal — character select, in daylight ────────────────────
+     Same choreography as the systems modal (systems.js): three panels wipe
+     across an already-assembled frame, then the identity block, the plate and
+     the case file each run their own staggered entrance under .is-enter. The
+     --k index on each child is what the CSS staggers against.
+
+     paintProject() writes; openProject() opens; stepProject() moves through the
+     catalogue without ever closing. Replaying the entrance is a class removal,
+     a forced reflow and a class add — done in one place, playProject(). */
+
+  var curProject = -1;
+
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+  function playProject(replayWipe) {
+    var m = el('projectModal');
+    if (!m || reduced) return;
+    if (replayWipe) { m.classList.remove('is-wipe'); void m.offsetWidth; m.classList.add('is-wipe'); }
+    m.classList.remove('is-enter');
+    void m.offsetWidth;
+    m.classList.add('is-enter');
+  }
+
+  function paintProject(i) {
     var p = PROJECTS[i]; if (!p) return;
-    var cta = p.site === CLIENT_ONLY ? 'Private to client' : 'Visit site';
-    el('projectModalBody').innerHTML =
-      '<div class="pm-shot"><div class="browser-bar"><span></span><span></span><span></span><em>' + esc(siteLabel(p.site)) + '</em></div>' +
-      '<div class="project-img-wrap"><img src="' + esc(p.img) + '" alt="' + esc(p.title) + '" onerror="window.__projImgFail(this)"><span class="project-img-fallback">Screenshot coming soon</span></div></div>' +
-      '<h3 class="pm-title">' + esc(p.title) + '</h3>' +
-      '<p class="pm-desc">' + esc(p.desc) + '</p>' +
-      caseStudyHtml(p.caseStudy) +
-      '<div class="project-chips">' + p.role.map(roleChip).join('') + p.langs.map(techChip).join('') + '</div>' +
-      (p.site === CLIENT_ONLY
-        ? '<span class="btn pm-cta pm-cta--off">' + esc(cta) + '</span>'
-        : '<a href="' + siteHref(p.site) + '" target="_blank" rel="noopener noreferrer" class="btn btn-primary pm-cta">' + esc(cta) + ' <i class="iconify" data-icon="mdi:arrow-top-right"></i></a>');
-    var body = el('projectModalBody'); body.scrollTop = 0;
-    openModal(el('projectModal'));
+    curProject = i;
+
+    var live = p.site !== CLIENT_ONLY;
+    var cta = live ? 'Visit site' : 'Private to client';
+    var next = PROJECTS[(i + 1) % PROJECTS.length];
+
+    var idxEl = el('pmxIdx'), totEl = el('pmxTot');
+    if (idxEl) idxEl.textContent = pad2(i + 1);
+    if (totEl) totEl.textContent = pad2(PROJECTS.length);
+
+    var hero =
+      '<section class="pmx-hero">' +
+        '<span class="pmx-ghost" aria-hidden="true">' + esc(p.title) + '</span>' +
+        '<div class="pmx-id">' +
+          '<span class="pmx-kicker" style="--k:0">' + esc(p.role[0] || 'Project') + '</span>' +
+          '<h3 class="pmx-title" id="projectModalTitle" style="--k:1">' + esc(p.title) + '</h3>' +
+          '<p class="pmx-desc" style="--k:2">' + esc(p.desc) + '</p>' +
+          '<div class="pmx-roles" style="--k:3">' + p.role.map(roleChip).join('') + '</div>' +
+          '<div class="pmx-acts" style="--k:4">' +
+            (live
+              ? '<a href="' + siteHref(p.site) + '" target="_blank" rel="noopener noreferrer" class="btn btn-primary">' +
+                  esc(cta) + ' <i class="iconify" data-icon="mdi:arrow-top-right"></i></a>'
+              : '<span class="btn btn-ghost pm-cta--off"><i class="iconify" data-icon="mdi:lock-outline"></i> ' + esc(cta) + '</span>') +
+            (p.caseStudy
+              ? '<button type="button" class="pmx-jump" data-proj-scroll>Read the case study <i class="iconify" data-icon="mdi:chevron-down"></i></button>'
+              : '') +
+          '</div>' +
+        '</div>' +
+        '<div class="pmx-view">' +
+          '<div class="pmx-plate">' +
+            '<span class="pmx-chrome" aria-hidden="true"><i></i><i></i><i></i><em>' + esc(siteLabel(p.site)) + '</em></span>' +
+            '<div class="pmx-shot">' +
+              '<img src="' + esc(p.img) + '" alt="' + esc(p.title) + '" onerror="window.__projImgFail(this)">' +
+              '<span class="pmx-fallback">Screenshot coming soon</span>' +
+              '<span class="pmx-flash" aria-hidden="true"></span>' +
+              '<span class="pmx-slash" aria-hidden="true"></span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="pmx-cap"><b>' + pad2(i + 1) + '</b> ' + esc(siteLabel(p.site)) + '</div>' +
+        '</div>' +
+      '</section>';
+
+    var detail =
+      '<section class="pmx-detail" id="pmxDetail">' +
+        (p.caseStudy
+          ? '<div class="pmx-block" style="--k:0"><h4 class="pmx-h">Case study</h4>' + caseStudyHtml(p.caseStudy) + '</div>'
+          : '') +
+        '<div class="pmx-block" style="--k:1">' +
+          '<h4 class="pmx-h">Built with</h4>' +
+          '<div class="project-chips">' + p.langs.map(techChip).join('') + '</div>' +
+        '</div>' +
+        '<div class="pmx-cta" style="--k:2">' +
+          '<h4>Want something like this built for you?</h4>' +
+          '<p>Tell me what you have in mind. I reply within 24 hours — no obligation, just a quick chat to see if we are a fit.</p>' +
+          '<div class="pmx-cta-acts">' +
+            '<a class="btn btn-primary btn-lg" href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer">' +
+              '<i class="iconify" data-icon="mdi:facebook-messenger"></i> Message me</a>' +
+            '<a class="btn btn-ghost btn-lg" href="mailto:dale.bedania10@gmail.com">' +
+              '<i class="iconify" data-icon="mdi:email-outline"></i> dale.bedania10@gmail.com</a>' +
+          '</div>' +
+        '</div>' +
+        '<nav class="pmx-next" style="--k:3" aria-label="Other projects">' +
+          '<span class="pmx-next-k">Next project</span>' +
+          '<button type="button" class="pmx-next-btn" data-proj-step="1">' +
+            '<span>' + esc(next.title) + '</span><i class="iconify" data-icon="mdi:arrow-right"></i>' +
+          '</button>' +
+        '</nav>' +
+      '</section>';
+
+    var body = el('projectModalBody');
+    body.innerHTML = hero + detail;
+    body.scrollTop = 0;
     if (window.Iconify) Iconify.scan(body);
+  }
+
+  function openProject(i) {
+    var m = el('projectModal'); if (!m) return;
+    m.classList.add('is-wipe');
+    paintProject(i);
+    openModal(m);
+    playProject(false);
+  }
+
+  function stepProject(d) {
+    if (curProject < 0) return;
+    paintProject((curProject + d + PROJECTS.length) % PROJECTS.length);
+    playProject(true);
   }
 
   function openDesign(i) {
@@ -1468,10 +1569,15 @@
 
     var hidden = false, fastSince = 0;
     SE.addFrame(function () {
-      // scroll-spy
-      var best = -1;
+      /* Scroll-spy: the LOWEST section already past the reading line, not the
+         last link that happens to qualify. The bar's order is editorial — Work
+         first, then Systems — while those sections sit fourth and fifth in the
+         document, so "last qualifying link" lit whichever entry came latest in
+         the nav rather than whichever section the visitor is actually in. */
+      var best = -1, bestTop = -1;
       for (var i = 0; i < secs.length; i++) {
-        if (secs[i] != null && secs[i] - 0.34 * SE.vh <= SE.y) best = i;
+        if (secs[i] == null || secs[i] - 0.34 * SE.vh > SE.y) continue;
+        if (secs[i] >= bestTop) { bestTop = secs[i]; best = i; }
       }
       if (best !== activeIdx) {
         if (links[activeIdx]) links[activeIdx].classList.remove('is-active');
@@ -1836,6 +1942,28 @@
     // CV
     var cvBtn = el('openCv');
     if (cvBtn) cvBtn.addEventListener('click', function () { openModal(el('cvModal')); });
+    /* Project modal: step through the catalogue without closing, and jump to
+       the case study. Delegated on the modal itself because its body is
+       rewritten on every step. */
+    var pm = el('projectModal');
+    if (pm) {
+      pm.addEventListener('click', function (e) {
+        if (!e.target.closest) return;
+        var step = e.target.closest('[data-proj-step]');
+        if (step) { stepProject(+step.dataset.projStep); return; }
+        if (e.target.closest('[data-proj-scroll]')) {
+          var target = el('pmxDetail'), body = el('projectModalBody');
+          if (target && body) body.scrollTo({ top: target.offsetTop - 40, behavior: reduced ? 'auto' : 'smooth' });
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (!pm.classList.contains('open')) return;
+        var t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); stepProject(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); stepProject(-1); }
+      });
+    }
     // closers
     document.querySelectorAll('[data-close-modal]').forEach(function (n) { n.addEventListener('click', function () { closeModal(el('projectModal')); }); });
     document.querySelectorAll('[data-close-design]').forEach(function (n) { n.addEventListener('click', function () { closeModal(el('designModal')); }); });
