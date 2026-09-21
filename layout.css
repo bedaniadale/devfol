@@ -462,7 +462,7 @@
     inset: 2px 0 3px -14px;
     background: linear-gradient(95deg, var(--em-deep) 0%, var(--em) 62%, var(--em-bright) 100%);
     border-radius: 12px;
-    box-shadow: 0 20px 44px -26px rgba(11, 125, 82, 0.75);
+    box-shadow: 0 20px 44px -26px rgba(29, 78, 216, 0.75);
     transition: opacity 320ms var(--ease);
   }
   .work-row.is-active::before, .work-row:hover::before, .work-row:focus-within::before { opacity: 1; }
@@ -556,13 +556,13 @@
 .footer-bottom { padding-top: clamp(16px, 2.2vh, 24px); }
 
 /* ONE ground under both halves, or the merge reads as two stacked panels.
-   In cinema the plunged #field (#0e1c15) is already painting the viewport, so
-   the footer drops its own --ink fill (#14241d) and lets it through — those two
+   In cinema the plunged #field (#0f1a2e) is already painting the viewport, so
+   the footer drops its own --ink fill (#0f172a) and lets it through — those two
    greens differ just enough to draw a hairline across the seam. Off cinema
    there is no field to plunge, so both halves state the colour themselves. */
 html.se-cinema .footer { background: transparent; }
 html:not(.se-cinema) #contact,
-html:not(.se-cinema) .footer { background: #0e1c15; }
+html:not(.se-cinema) .footer { background: #0f1a2e; }
 
 /* Below tier 3 the panel is not the last frame of a scroll story, it is just
    the end of a page — release both min-heights so nothing is squeezed. */
@@ -570,4 +570,89 @@ html:not(.se-cinema) .footer { background: #0e1c15; }
   #contact { min-height: 0; padding: clamp(48px, 8vh, 90px) 0 0; }
   #contact .cta { padding: clamp(40px, 7vw, 72px); }
   .footer { min-height: 0; padding: clamp(40px, 6vh, 64px) 0 24px; }
+}
+
+/* ── WORK — column grid with the screenshots shown up front ─────────────────
+   Replaces the reading-line index + gutter preview. Three columns on desktop,
+   two on tablet, one on a phone. The card is the same browser-window plate the
+   modal uses, so the section and the case file read as one object. */
+.wk-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px); list-style: none; margin: 0; padding: 0;
+}
+.wk-card { position: relative; min-width: 0; }
+.wk-hit {
+  display: flex; flex-direction: column; width: 100%; height: 100%; text-align: left;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  overflow: hidden; cursor: pointer; font: inherit; color: inherit; padding: 0;
+  box-shadow: var(--shadow-sm);
+  transition: transform 320ms var(--ease), box-shadow 320ms var(--ease), border-color 200ms ease;
+}
+.wk-hit:hover, .wk-hit:focus-visible {
+  transform: translateY(-4px); border-color: rgba(37, 99, 235, 0.35); box-shadow: var(--shadow);
+}
+.wk-hit:focus-visible { outline: 2px solid var(--em); outline-offset: 3px; }
+/* the window: chrome strip drawn with radial-gradient lights, shot below it */
+.wk-shot {
+  position: relative; display: block; aspect-ratio: 16 / 10; background: var(--bg-alt);
+  border-bottom: 1px solid var(--line); overflow: hidden; padding-top: 26px;
+}
+.wk-shot::before {
+  content: ""; position: absolute; z-index: 2; inset: 0 0 auto 0; height: 26px;
+  background:
+    radial-gradient(circle 3.5px at 15px 13px, var(--em) 99%, transparent 100%),
+    radial-gradient(circle 3.5px at 28px 13px, var(--line-strong) 99%, transparent 100%),
+    radial-gradient(circle 3.5px at 41px 13px, var(--line-strong) 99%, transparent 100%),
+    var(--bg-alt);
+  border-bottom: 1px solid var(--line);
+}
+.wk-shot img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top;
+  opacity: 0; transition: opacity 420ms ease, transform 700ms var(--ease);
+}
+.wk-shot img.is-on { opacity: 1; }
+.wk-hit:hover .wk-shot img { transform: scale(1.03); }
+.wk-shot.noimg::after {
+  content: "Screenshot coming soon"; position: absolute; inset: 26px 0 0 0;
+  display: grid; place-items: center; font-family: var(--mono); font-size: 0.72rem;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+.wk-body { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 18px; flex: 1; }
+.wk-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.wk-n { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; }
+.wk-host {
+  display: inline-flex; align-items: center; gap: 6px; min-width: 0;
+  font-family: var(--mono); font-size: 0.7rem; color: var(--em-deep);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.wk-host--wip { color: var(--muted); }
+.wk-host .iconify { font-size: 0.85rem; }
+.wk-title { font-weight: 600; font-size: 1.02rem; line-height: 1.25; letter-spacing: var(--track-heading); }
+.wk-hit:hover .wk-title { color: var(--em-deep); }
+.wk-desc {
+  font-size: 0.86rem; color: var(--ink-soft); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.wk-stack { margin-top: auto; padding-top: 8px; font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
+/* the external-link affordance sits over the shot, outside the button */
+.wk-visit {
+  position: absolute; top: 34px; right: 10px; z-index: 3;
+  width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(255, 255, 255, 0.92); color: var(--ink); border: 1px solid var(--line);
+  opacity: 0; transition: opacity 200ms ease, color 200ms ease;
+}
+.wk-card:hover .wk-visit, .wk-visit:focus-visible { opacity: 1; }
+.wk-visit:hover { color: var(--em-deep); }
+
+@media (max-width: 1024px) {
+  .wk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .wk-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .wk-visit { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wk-hit, .wk-shot img { transition: none; }
+  .wk-hit:hover { transform: none; }
+  .wk-hit:hover .wk-shot img { transform: none; }
 }

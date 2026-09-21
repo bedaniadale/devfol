@@ -253,9 +253,9 @@ html.se-menu .nav-sheet-foot { opacity: 1; translate: 0 0; }
   /* The ring re-centres on the portrait's head instead of the hero's middle —
      centred on the block it drew two arcs straight through the headline. */
   .hero-ring { top: 30%; width: min(92vw, 460px); }
-  .hero-ring i { border-width: 1.5px; border-color: rgba(17, 160, 107, 0.34); }
-  .hero-ring i:nth-child(2) { inset: 10%; border-width: 18px; border-color: rgba(17, 160, 107, 0.07); }
-  .hero-ring i:nth-child(3) { inset: 26%; border-width: 1.5px; border-color: rgba(17, 160, 107, 0.22); }
+  .hero-ring i { border-width: 1.5px; border-color: rgba(37, 99, 235, 0.34); }
+  .hero-ring i:nth-child(2) { inset: 10%; border-width: 18px; border-color: rgba(37, 99, 235, 0.07); }
+  .hero-ring i:nth-child(3) { inset: 26%; border-width: 1.5px; border-color: rgba(37, 99, 235, 0.22); }
   .hero-horizon { height: min(24vh, 190px); }
 
   /* copy: pill, headline, kicker */
@@ -619,7 +619,7 @@ html.se-menu .nav-sheet-foot { opacity: 1; translate: 0 0; }
   .footer-note { max-width: none; }
   .footer-bottom { padding-top: 20px; font-size: 0.78rem; }
 
-  /* Off the cinema tier both #contact and .footer state #0e1c15 themselves, and
+  /* Off the cinema tier both #contact and .footer state #0f1a2e themselves, and
      only the footer gives that ground up at dusk — so the plunge photograph
      appeared behind the footer alone, with a hard horizontal seam across the
      screen where #contact's opaque green-black ended. Either both halves sit on
@@ -653,7 +653,7 @@ html.se-menu .nav-sheet-foot { opacity: 1; translate: 0 0; }
     bottom: calc(16px + var(--safe-b));
     width: 54px; height: 54px; padding: 0; gap: 0;
     justify-content: center;
-    box-shadow: 0 10px 26px -8px rgba(11, 125, 82, 0.7);
+    box-shadow: 0 10px 26px -8px rgba(29, 78, 216, 0.7);
   }
   .fab .iconify { font-size: 1.5rem; }
   .fab-label {

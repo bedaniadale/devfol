@@ -343,18 +343,30 @@
             A selected few of the things I've made. There's plenty more I can't show publicly — happy to walk you through it on a call.
           </p>
         </div>
-        <div class="work-split">
-          <!-- a small preview that glides down the gutter to whichever row is
-               active — beside the index, never over it -->
-          <aside class="work-peek" aria-hidden="true">
-            <div class="work-peek-card">
-              <!-- two layers so a swap is a real crossfade, never a flash -->
-              <img class="work-peek-img is-front" alt="" src="">
-              <img class="work-peek-img" alt="" src="">
-            </div>
-          </aside>
-          <ol class="work-list" id="projectsGrid"></ol>
+        <!-- A column grid with every screenshot visible up front. The gutter
+             preview that followed the reading line is gone: a visitor should
+             see the work without having to scroll into each row first. -->
+        <ol class="wk-grid" id="projectsGrid"></ol>
+      </div>
+    </section>
+
+    <!-- ── TECH STACK ────────────────────────────────────────────────────── -->
+    <section class="section section-alt" id="stack">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">// 04 — Toolkit</span>
+          <h2 class="section-title">Technologies I work with</h2>
+          <p class="section-lede" id="stackLede"></p>
         </div>
+        <!-- Seven chapters, one per discipline. The category is the heading and
+             the tools are its detail — the two previous attempts both made all
+             48 tools visually equal, which erased the grouping and left a wall
+             of identical boxes a client had to read one word at a time.
+
+             No filter control: the rows ARE the grouping, so a legend that
+             isolates one would be a second way to do what the layout already
+             does. -->
+        <ol class="tk-index" id="stackIndex"></ol>
       </div>
     </section>
 
@@ -440,26 +452,6 @@
         </div>
       </div>
       <div class="sys-seam sys-seam--bot" aria-hidden="true"><span>Back to the portfolio</span></div>
-    </section>
-
-    <!-- ── TECH STACK ────────────────────────────────────────────────────── -->
-    <section class="section section-alt" id="stack">
-      <div class="container">
-        <div class="section-head reveal">
-          <span class="eyebrow">// 04 — Toolkit</span>
-          <h2 class="section-title">Technologies I work with</h2>
-          <p class="section-lede" id="stackLede"></p>
-        </div>
-        <!-- Seven chapters, one per discipline. The category is the heading and
-             the tools are its detail — the two previous attempts both made all
-             48 tools visually equal, which erased the grouping and left a wall
-             of identical boxes a client had to read one word at a time.
-
-             No filter control: the rows ARE the grouping, so a legend that
-             isolates one would be a second way to do what the layout already
-             does. -->
-        <ol class="tk-index" id="stackIndex"></ol>
-      </div>
     </section>
 
     <!-- ── GRAPHICS (pinned horizontal rail) ─────────────────────────────── -->

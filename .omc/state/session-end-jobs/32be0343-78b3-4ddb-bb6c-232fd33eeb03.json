@@ -1,0 +1,276 @@
+{
+  "version": 1,
+  "jobId": "283481ac-47d0-40a5-9676-bd13dbb9239b",
+  "sessionId": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+  "scopeKey": "823335ba840a243083fc7051f08890a863a1310f5cd607a2865c688ecf68afb7",
+  "revision": 2,
+  "createdAt": "2026-09-15T16:44:34.932Z",
+  "updatedAt": "2026-09-15T16:44:35.112Z",
+  "producerGraceExpiresAt": "2026-09-15T16:45:04.933Z",
+  "bestEffortDeadlineAt": "2026-09-15T16:45:55.933Z",
+  "producers": {
+    "core": {
+      "state": "sealed",
+      "intentKey": "5c59da6b3411c4099a8906c241b310b433e156172a60fe7f5863222c2408f75b",
+      "payloadDigest": "5c59da6b3411c4099a8906c241b310b433e156172a60fe7f5863222c2408f75b",
+      "sealedAt": "2026-09-15T16:44:35.112Z",
+      "sealedBy": "foreground"
+    },
+    "wiki": {
+      "state": "no-op",
+      "sealedAt": "2026-09-15T16:44:34.932Z",
+      "sealedBy": "wiki-producer"
+    }
+  },
+  "actions": {
+    "foreground-cleanup": {
+      "class": "required",
+      "phase": "deferred-required",
+      "status": "completed",
+      "attempts": 0,
+      "idempotencyKey": "febf6dba2f2536433960a07f7cedce72e946b43ced0896570df80f017b8914d2",
+      "payload": {
+        "transcriptPath": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+        "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+        "reason": "other",
+        "input": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "transcript_path": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+          "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+          "scratchpad_dir": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\claude\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03\\scratchpad",
+          "prompt_id": "8322ce02-86b3-44a1-ae02-11b7fe247e43",
+          "hook_event_name": "SessionEnd",
+          "reason": "other"
+        },
+        "metrics": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "ended_at": "2026-09-15T16:44:34.931Z",
+          "reason": "other",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {},
+        "foregroundResult": {
+          "removedTransientFiles": 3,
+          "completedAt": "2026-09-15T16:44:35.111Z"
+        }
+      },
+      "budgetMs": 9000,
+      "completedAt": "2026-09-15T16:44:35.112Z",
+      "lastOutcomeCode": "completed"
+    },
+    "wiki-capture": {
+      "class": "required",
+      "phase": "deferred-required",
+      "status": "completed",
+      "attempts": 0,
+      "idempotencyKey": "1719cd1ef5b51e0269b78c4cb8c9308c9c1f7b82fd1c067fc034c060f23863f5",
+      "payload": {},
+      "budgetMs": 9000,
+      "completedAt": "2026-09-15T16:44:34.932Z"
+    },
+    "team-cleanup": {
+      "class": "required",
+      "phase": "deferred-required",
+      "status": "pending",
+      "attempts": 0,
+      "idempotencyKey": "cee6ac31df545408e1e822247ac249b3f8182a98a5fe8e448ae3b251e55bdee1",
+      "payload": {
+        "transcriptPath": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+        "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+        "reason": "other",
+        "input": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "transcript_path": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+          "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+          "scratchpad_dir": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\claude\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03\\scratchpad",
+          "prompt_id": "8322ce02-86b3-44a1-ae02-11b7fe247e43",
+          "hook_event_name": "SessionEnd",
+          "reason": "other"
+        },
+        "metrics": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "ended_at": "2026-09-15T16:44:34.931Z",
+          "reason": "other",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 9000
+    },
+    "python-cleanup": {
+      "class": "required",
+      "phase": "deferred-required",
+      "status": "pending",
+      "attempts": 0,
+      "idempotencyKey": "1f1370c4ac056606059d517e2f106b602d8cbcb04587b3fcc5f3b9f89e649cd0",
+      "payload": {
+        "transcriptPath": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+        "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+        "reason": "other",
+        "input": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "transcript_path": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+          "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+          "scratchpad_dir": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\claude\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03\\scratchpad",
+          "prompt_id": "8322ce02-86b3-44a1-ae02-11b7fe247e43",
+          "hook_event_name": "SessionEnd",
+          "reason": "other"
+        },
+        "metrics": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "ended_at": "2026-09-15T16:44:34.931Z",
+          "reason": "other",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 9000
+    },
+    "reply-cleanup": {
+      "class": "required",
+      "phase": "deferred-required",
+      "status": "pending",
+      "attempts": 0,
+      "idempotencyKey": "0b3a8b47c28b26d56aca004d4f572b96c118f16819c0d35162418816f9a5420a",
+      "payload": {
+        "transcriptPath": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+        "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+        "reason": "other",
+        "input": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "transcript_path": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+          "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+          "scratchpad_dir": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\claude\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03\\scratchpad",
+          "prompt_id": "8322ce02-86b3-44a1-ae02-11b7fe247e43",
+          "hook_event_name": "SessionEnd",
+          "reason": "other"
+        },
+        "metrics": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "ended_at": "2026-09-15T16:44:34.931Z",
+          "reason": "other",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 9000
+    },
+    "callback": {
+      "class": "best-effort",
+      "phase": "deferred-best-effort",
+      "status": "pending",
+      "attempts": 0,
+      "idempotencyKey": "d068ede2655bf89e0c0950e087d0603d7dcf45538e94f20a654d08c6f4841895",
+      "payload": {
+        "transcriptPath": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+        "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+        "reason": "other",
+        "input": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "transcript_path": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+          "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+          "scratchpad_dir": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\claude\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03\\scratchpad",
+          "prompt_id": "8322ce02-86b3-44a1-ae02-11b7fe247e43",
+          "hook_event_name": "SessionEnd",
+          "reason": "other"
+        },
+        "metrics": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "ended_at": "2026-09-15T16:44:34.931Z",
+          "reason": "other",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 2000
+    },
+    "notification": {
+      "class": "best-effort",
+      "phase": "deferred-best-effort",
+      "status": "pending",
+      "attempts": 0,
+      "idempotencyKey": "89c0438ff63097ce04beb60efb87292ff68a7af350a0ee331f3de9dbf42d62fc",
+      "payload": {
+        "transcriptPath": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+        "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+        "reason": "other",
+        "input": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "transcript_path": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+          "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+          "scratchpad_dir": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\claude\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03\\scratchpad",
+          "prompt_id": "8322ce02-86b3-44a1-ae02-11b7fe247e43",
+          "hook_event_name": "SessionEnd",
+          "reason": "other"
+        },
+        "metrics": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "ended_at": "2026-09-15T16:44:34.931Z",
+          "reason": "other",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 2000
+    },
+    "openclaw": {
+      "class": "best-effort",
+      "phase": "deferred-best-effort",
+      "status": "pending",
+      "attempts": 0,
+      "idempotencyKey": "31fe8f6e1cf204e27006de511df257326fdd98655122ca437013e8779ffc735b",
+      "payload": {
+        "transcriptPath": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+        "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+        "reason": "other",
+        "input": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "transcript_path": "C:\\Users\\Administrator\\.claude\\projects\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03.jsonl",
+          "cwd": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
+          "scratchpad_dir": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\claude\\C--Users-Administrator-Documents-Webdev-devfol\\32be0343-78b3-4ddb-bb6c-232fd33eeb03\\scratchpad",
+          "prompt_id": "8322ce02-86b3-44a1-ae02-11b7fe247e43",
+          "hook_event_name": "SessionEnd",
+          "reason": "other"
+        },
+        "metrics": {
+          "session_id": "32be0343-78b3-4ddb-bb6c-232fd33eeb03",
+          "ended_at": "2026-09-15T16:44:34.931Z",
+          "reason": "other",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 2000
+    }
+  },
+  "owner": null,
+  "phase": "ready"
+}

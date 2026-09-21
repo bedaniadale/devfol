@@ -99,6 +99,23 @@
       }
     },
     {
+      title: 'PinaAi — Agents for your CRM',
+      desc: 'An AI layer built on top of the Pina Management CRM — ask about bids, leads, deals and mail in plain language, get a daily brief, run estimates, and let agents act on the CRM behind an approval gate.',
+      img: 'works/pinaai.png', site: 'pina-ai.netlify.app',
+      role: ['Full-Stack Developer', 'AI Engineer'], langs: ['React', 'Supabase', 'Gemini AI', 'Netlify'],
+      caseStudy: {
+        problem: 'The CRM held every listing, client and deal, but getting an answer out of it still meant clicking through screens and reading records one by one. The team wanted to ask the system questions, have it summarise the day, and hand off repetitive follow-ups — without an AI that could quietly change live data.',
+        approach: ['Built PinaAi as a separate React app on the same Supabase project as the CRM, so it reads the real listings, leads, deals and mail rather than a copy.', 'Wired Gemini to the CRM data through a conversation workspace — Ask anything, a Daily brief, an Estimating tool and a Comp Playbook — with every reply showing “what it did” and its cost.', 'Split agents into Automations and Assistants and put doing behind an Approvals queue: reading is free, any action on CRM data waits for a human to approve it.', 'Added Usage & cost and Activity views so the office can see exactly what the AI touched and what it spent.'],
+        outcome: ['The team asks the CRM questions in plain language instead of digging through screens.', 'Repetitive follow-ups run as agents, with a human approving every write.', 'Every answer is traceable — what was read, what was done, and what it cost.']
+      }
+    },
+    {
+      title: 'The Zepatide',
+      desc: 'A professional brand site for medical-grade products — clean, trustworthy design that communicates quality and credibility.',
+      img: 'works/zepatide.png', site: 'thezepatide.com',
+      role: ['UX/UI Designer', 'Front-end Developer'], langs: ['React', 'Supabase', 'Hostinger', 'Cloudflare Pages']
+    },
+    {
       title: 'Kayantabe',
       desc: 'A dynamic volunteerism platform connecting passionate individuals with local community initiatives.',
       img: 'works/kayantabe.png', site: 'kayantabe.com',
@@ -108,6 +125,12 @@
         approach: ['Led the project end-to-end and built it on Laravel.', 'Created flows for organizations to post initiatives and for volunteers to join.', 'Designed a responsive, mobile-first UI to make sign-up frictionless.', 'Structured the data model so organizers could track participation.'],
         outcome: ['Gave volunteers and organizers one platform, replacing scattered posts.', 'Made it simple for organizations to launch initiatives.', 'Streamlined sign-ups with far less friction.']
       }
+    },
+    {
+      title: 'IMMFI',
+      desc: 'A modern, user-friendly layout using updated design principles — enhancing UX while keeping brand identity across pages.',
+      img: 'works/immfi.png', site: 'immfi.org',
+      role: ['UX/UI Designer', 'Front-end Developer'], langs: ['Wordpress', 'Elementor']
     },
     {
       title: 'Umbra',
@@ -126,18 +149,6 @@
       desc: 'Find your next game, running partner, or tennis match. A location-based app connecting people who share a passion for sports & fitness.',
       img: 'works/spurapp.png', site: CLIENT_ONLY,
       role: ['Mobile Developer', 'UX/UI Designer'], langs: ['React Native', 'Javascript', 'Firebase']
-    },
-    {
-      title: 'The Zepatide',
-      desc: 'A professional brand site for medical-grade products — clean, trustworthy design that communicates quality and credibility.',
-      img: 'works/zepatide.png', site: 'thezepatide.com',
-      role: ['UX/UI Designer', 'Front-end Developer'], langs: ['React', 'Supabase', 'Vercel']
-    },
-    {
-      title: 'IMMFI',
-      desc: 'A modern, user-friendly layout using updated design principles — enhancing UX while keeping brand identity across pages.',
-      img: 'works/immfi.png', site: 'immfi.org',
-      role: ['UX/UI Designer', 'Front-end Developer'], langs: ['Wordpress', 'Elementor']
     },
     {
       title: 'CVL Content Generator',
@@ -305,7 +316,8 @@
     'typescript':'logos:typescript-icon','vitest':'logos:vitest','zod':'simple-icons:zod','zustand':'mdi:bear',
     'sheetjs':'mdi:microsoft-excel','hyperformula':'mdi:function-variant','decimal.js':'mdi:decimal',
     '@react-pdf/renderer':'mdi:file-pdf-box','vite':'logos:vitejs','postgresql':'logos:postgresql',
-    'xlsx':'mdi:microsoft-excel','html-to-image':'mdi:image-outline','jszip':'mdi:folder-zip-outline'
+    'xlsx':'mdi:microsoft-excel','html-to-image':'mdi:image-outline','jszip':'mdi:folder-zip-outline',
+    'cloudflare pages':'logos:cloudflare-icon','gemini ai':'logos:google-gemini','netlify':'logos:netlify-icon'
   };
   function techChip(name) {
     var ic = TECH_ICON[name.toLowerCase()];
@@ -474,40 +486,35 @@
     rows.forEach(function (r) { obs.observe(r); });
   }
 
-  /* Work is an index, not a card wall. Fifteen screenshot cards is a grid you
-     scroll past; fifteen typographic rows is a list you read — and the
-     screenshot arrives on hover, following the cursor. */
+  /* Work is a column grid of cards with the screenshot shown up front — every
+     project is visible at a glance, and the card opens the case file. The
+     thumbnail is decorative (the title names the project) so alt is empty and it
+     stays out of the button's accessible name. Lazy + async: nineteen shots must
+     not compete with the hero for the first paint. */
   function renderProjects() {
     el('projectsGrid').innerHTML = PROJECTS.map(function (p, i) {
       var isLive = p.site !== CLIENT_ONLY;
       var hasCase = !!p.caseStudy;
-      return '<li class="work-row reveal" data-index="' + i + '" style="--i:' + Math.min(i, 6) + '">' +
-        '<button type="button" class="work-hit js-open-project" data-index="' + i + '" ' +
+      return '<li class="wk-card reveal" data-index="' + i + '" style="--i:' + Math.min(i % 3, 2) + '">' +
+        '<button type="button" class="wk-hit js-open-project" data-index="' + i + '" ' +
           'aria-label="' + esc(p.title) + ' — ' + (hasCase ? 'read case study' : 'details') + '">' +
-          '<span class="work-n">' + pad(i + 1) + '</span>' +
-          /* The thumbnail is markup, not an enhancement: below 1025px the gutter
-             preview is display:none, so without this the work section has no
-             images in it at all. It is decorative here — the row's own label
-             already names the project — so alt is empty and it stays out of the
-             accessible name of the button wrapping it. Lazy + async: fifteen
-             shots must not compete with the hero for the first paint. */
-          '<span class="work-thumb"><img src="' + esc(p.img) + '" alt="" loading="lazy" ' +
+          '<span class="wk-shot"><img src="' + esc(p.img) + '" alt="" loading="lazy" ' +
             'decoding="async" onload="this.classList.add(\'is-on\')" ' +
-            'onerror="this.remove()"></span>' +
-          '<span class="work-main">' +
-            '<span class="work-title">' + esc(p.title) + '</span>' +
-            '<span class="work-desc">' + esc(p.desc) + '</span>' +
+            'onerror="this.parentElement.classList.add(\'noimg\')"></span>' +
+          '<span class="wk-body">' +
+            '<span class="wk-head">' +
+              '<span class="wk-n">' + pad(i + 1) + '</span>' +
+              (isLive
+                ? '<span class="wk-host"><span class="live-dot"></span>' + esc(siteLabel(p.site)) + '</span>'
+                : '<span class="wk-host wk-host--wip"><i class="iconify" data-icon="mdi:lock-outline"></i>Client project</span>') +
+            '</span>' +
+            '<span class="wk-title">' + esc(p.title) + '</span>' +
+            '<span class="wk-desc">' + esc(p.desc) + '</span>' +
+            '<span class="wk-stack">' + p.langs.slice(0, 4).map(esc).join(' · ') + '</span>' +
           '</span>' +
-          '<span class="work-meta">' +
-            '<span class="work-stack">' + p.langs.slice(0, 3).map(esc).join(' · ') + '</span>' +
-            (isLive
-              ? '<span class="work-host"><span class="live-dot"></span>' + esc(siteLabel(p.site)) + '</span>'
-              : '<span class="work-host work-host--wip">' + CLIENT_ONLY + '</span>') +
-          '</span>' +
-          '<span class="work-go"><i class="iconify" data-icon="mdi:arrow-top-right"></i></span>' +
         '</button>' +
         (isLive
-          ? '<a class="work-visit" href="' + siteHref(p.site) + '" target="_blank" rel="noopener noreferrer" ' +
+          ? '<a class="wk-visit" href="' + siteHref(p.site) + '" target="_blank" rel="noopener noreferrer" ' +
             'aria-label="Visit ' + esc(p.title) + ' (opens in new tab)"><i class="iconify" data-icon="mdi:open-in-new"></i></a>'
           : '') +
       '</li>';

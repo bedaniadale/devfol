@@ -140,7 +140,7 @@ html.se-cinema .hero-sticky > .hero { padding: 0; }
 }
 .hero-cue-rail {
   width: 2px; height: 54px;
-  background: linear-gradient(var(--em), rgba(17, 160, 107, 0));
+  background: linear-gradient(var(--em), rgba(37, 99, 235, 0));
 }
 .hero-cue-dot { background: var(--em); box-shadow: 0 0 10px var(--em-glow); }
 .hero-cue-text {
@@ -159,8 +159,8 @@ html.se-cinema .hero-sticky > .hero { padding: 0; }
 /* ── RAIL — a dark band ─────────────────────────────────────────────────── */
 .rail-plate {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: #0e1c15;
-  background-image: radial-gradient(70% 60% at 50% 8%, rgba(17, 160, 107, 0.16), transparent 70%);
+  background: #0f1a2e;
+  background-image: radial-gradient(70% 60% at 50% 8%, rgba(37, 99, 235, 0.16), transparent 70%);
 }
 .rail-stage--live .rail-sticky > *:not(.rail-plate) { position: relative; z-index: 1; }
 .rail-stage:not(.rail-stage--live) .rail-plate { border-radius: var(--r-lg); }
@@ -177,9 +177,9 @@ html.se-cinema .hero-sticky > .hero { padding: 0; }
 .section-head--rail .section-lede { color: #f2f5f1; }
 .section-head--rail .eyebrow { color: var(--em-bright); }
 .section-head--rail .ink-accent { color: var(--em-bright); }
-.section-head--rail .section-lede { color: #9db1a6; }
+.section-head--rail .section-lede { color: #94a3b8; }
 .section-head--rail .rail-count {
-  font-family: var(--mono); font-size: 0.78rem; color: #9db1a6;
+  font-family: var(--mono); font-size: 0.78rem; color: #94a3b8;
   padding: 8px 16px; border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.16); background: rgba(255, 255, 255, 0.05);
   white-space: nowrap; flex: none;
@@ -210,7 +210,7 @@ html.se-cinema .hero-sticky > .hero { padding: 0; }
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: linear-gradient(to top, rgba(6, 16, 11, 0.78), transparent 46%);
 }
-.rail-foot { color: #9db1a6; }
+.rail-foot { color: #94a3b8; }
 .rail-stage--live .rail-progress { background: rgba(255, 255, 255, 0.14); }
 .rail-stage--live .rail-hint .iconify { color: var(--em-bright); }
 

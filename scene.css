@@ -99,7 +99,7 @@ html.se-cinema #heroStage .hero-chip { transition: none; }
 #field > i[data-f="1"] { background: #f5f7f1; }
 #field > i[data-f="2"] { background: #eff3ec; }
 #field > i[data-f="3"] { background: #e8f1ea; }
-#field > i[data-f="4"] { background: #0e1c15; }
+#field > i[data-f="4"] { background: #0f1a2e; }
 
 /* The closing image. A photograph on the same mechanism as the tones: one more
    fixed plate, crossfaded by opacity, nothing repainted per frame. `cover` on a
@@ -112,7 +112,7 @@ html.se-cinema #heroStage .hero-chip { transition: none; }
    across the middle, which is where the stage is.
 
    Near-neutral, not the plunge's own green-black: this photograph is lit warm,
-   and a #0e1c15 scrim at these alphas turns the whole frame the same dead teal.
+   and a #0f1a2e scrim at these alphas turns the whole frame the same dead teal.
    The emerald belongs to the card sitting on the image, not to the room. */
 #field > i[data-f="5"] {
   background:
@@ -156,7 +156,7 @@ html.se-dusk #field > i.field-glow {
    the footer keeps its own --ink background and must never inherit a flipped
    token, so it is deliberately NOT in this list. */
 html.se-dusk #contact {
-  --ink: #eef5f0; --ink-soft: #b6c6bd; --muted: #7f9389;
+  --ink: #f1f5f9; --ink-soft: #cbd5e1; --muted: #94a3b8;
   --line: rgba(255, 255, 255, 0.10);
 }
 html.se-dusk #contact .section-title,
@@ -167,9 +167,9 @@ html.se-dusk .nav--scrolled {
   background: rgba(12, 24, 18, 0.82);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.09);
 }
-html.se-dusk .nav--scrolled .nav-brand-mark { background: #eef5f0; color: #0e1c15; }
-html.se-dusk .nav--scrolled .nav-brand-text { color: #eef5f0; }
-html.se-dusk .nav--scrolled .nav-links a { color: #b6c6bd; }
+html.se-dusk .nav--scrolled .nav-brand-mark { background: #f1f5f9; color: #0f1a2e; }
+html.se-dusk .nav--scrolled .nav-brand-text { color: #f1f5f9; }
+html.se-dusk .nav--scrolled .nav-links a { color: #cbd5e1; }
 html.se-dusk .nav--scrolled .nav-links a:hover { color: #fff; }
 html.se-dusk .nav--scrolled,
 html.se-dusk .nav--scrolled .nav-brand-mark,
@@ -213,7 +213,7 @@ html.se-dusk .cta {
   /* glass, not blur: the scrim in the field layer has already darkened the
      photograph, so alpha alone is enough and there is no backdrop-filter to pay
      for on a panel this size */
-  background: linear-gradient(150deg, rgba(14, 58, 42, 0.74) 0%, rgba(18, 34, 27, 0.8) 80%);
+  background: linear-gradient(150deg, rgba(30, 58, 138, 0.74) 0%, rgba(15, 23, 42, 0.8) 80%);
   transition: background 460ms ease;
 }
 
@@ -328,7 +328,7 @@ html.se-cinema .hero-title .ln-i { opacity: var(--lo, 1); }
 @property --u { syntax: '<number>'; inherits: true; initial-value: 0; }
 .hero-title .ink-accent::after { display: none; }
 .hero-title .ink-accent {
-  background-image: linear-gradient(rgba(17, 160, 107, 0.26), rgba(17, 160, 107, 0.26));
+  background-image: linear-gradient(rgba(37, 99, 235, 0.26), rgba(37, 99, 235, 0.26));
   background-repeat: no-repeat;
   background-position: 0 88%;
   background-size: calc(var(--u, 0) * 100%) 0.11em;
@@ -345,7 +345,7 @@ html.se-cinema .hero-title .ln-i { opacity: var(--lo, 1); }
 .section-title  { --rv-y: 18px; --i: 1; --rv-step: 90ms; }
 .section-lede   { --rv-y: 14px; --i: 2; --rv-step: 100ms; }
 .svc-row        { --rv-y: 22px; --rv-step: 60ms; }
-.work-row       { --rv-y: 26px; --rv-step: 55ms; }
+.work-row, .wk-card { --rv-y: 26px; --rv-step: 55ms; }
 .cert-row       { --rv-y: 14px; --rv-step: 46ms; }
 .xp-row         { --rv-y: 24px; --rv-step: 64ms; }
 .say            { --rv-y: 26px; --rv-step: 110ms; }
