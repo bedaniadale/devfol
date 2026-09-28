@@ -1,0 +1,25 @@
+[  309107ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/pinaai.webp:0
+[  331090ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/zepatide.webp:0
+[  331372ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/kayantabe.webp:0
+[  331916ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/immfi.webp:0
+[  331950ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/umbra.webp:0
+[  332416ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/joinspur.webp:0
+[  332983ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/spurapp.webp:0
+[  333066ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/contentgenerator.webp:0
+[  333416ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/solstice.webp:0
+[  333449ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/rosetta.webp:0
+[  333667ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/scriptorium.webp:0
+[  350023ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/veloce.webp:0
+[  350899ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/vanguard.webp:0
+[  351116ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/kinetix.webp:0
+[  351183ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/veritas.webp:0
+[  351233ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/omnireserve.webp:0
+[  351266ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/resumeforge.webp:0
+[  351299ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/zonebridge.webp:0
+[  351350ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/crms/web/auto-repair-work-order-system/02-work-order-board.webp:0
+[  351383ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/crms/web/biometric-payroll-hrms/02-hr-dashboard.webp:0
+[  351433ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/crms/web/multi-branch-retail-pos/03-point-of-sale-register.webp:0
+[  351499ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/crms/web/multi-doctor-ehr-clinic/01-clinic-dashboard.webp:0
+[  351599ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/crms/web/university-enrollment-portal/03-online-enrollment.webp:0
+[  752043ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5500/works/web/pina.webp:0
+[  752175ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://bryllim.com/:0

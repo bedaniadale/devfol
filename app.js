@@ -114,7 +114,7 @@
       title: 'The Zepatide',
       desc: 'A professional brand site for medical-grade products — clean, trustworthy design that communicates quality and credibility.',
       img: 'works/zepatide.png', site: 'thezepatide.com',
-      role: ['UX/UI Designer', 'Front-end Developer'], langs: ['React', 'Supabase', 'Hostinger', 'Cloudflare Pages']
+      role: ['Full-Stack Developer', 'UX/UI Designer'], langs: ['React', 'Supabase', 'Hostinger', 'Cloudflare Pages']
     },
     {
       title: 'Kayantabe',
@@ -296,7 +296,7 @@
       body: 'Working with Dale was genuinely a joy. He took the time to understand exactly what our business needed, explained the technical side in a way I could follow, and kept me in the loop at every step. Organized, patient, and easy to collaborate with.' },
     { name: 'Diego Reyes', role: 'CompleteVitalityLife', initials: 'DR',
       body: 'One of the most reliable collaborators I’ve worked with. He communicates clearly, hits his deadlines, and is open to feedback without ever getting defensive. A true professional and a great teammate.' },
-    { name: 'Regine Kelee', role: 'Direct Client · Australia', initials: 'RK',
+    { name: 'Regine Lahoy', role: 'Direct Client · Australia', initials: 'RL',
       body: 'I can’t recommend Dale enough. Talented, dependable, and so pleasant to work with. He delivered exactly what we agreed on and then went the extra mile to make it better. I’d choose to work with him every single time.' }
   ];
 

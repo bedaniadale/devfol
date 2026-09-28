@@ -57,15 +57,21 @@
   },
   "hotPaths": [
     {
-      "path": "site.js",
-      "accessCount": 10,
-      "lastAccessed": 1790359607062,
+      "path": "index.html",
+      "accessCount": 21,
+      "lastAccessed": 1790576180360,
       "type": "file"
     },
     {
-      "path": "index.html",
-      "accessCount": 9,
-      "lastAccessed": 1790359539342,
+      "path": "site.js",
+      "accessCount": 14,
+      "lastAccessed": 1790576083651,
+      "type": "file"
+    },
+    {
+      "path": "site.css",
+      "accessCount": 11,
+      "lastAccessed": 1790577526538,
       "type": "file"
     },
     {
@@ -75,9 +81,15 @@
       "type": "file"
     },
     {
-      "path": "site.css",
+      "path": "works/Dale_Bedania_Client_Resume.pdf",
+      "accessCount": 5,
+      "lastAccessed": 1790576813345,
+      "type": "file"
+    },
+    {
+      "path": "resume.html",
       "accessCount": 4,
-      "lastAccessed": 1790359531858,
+      "lastAccessed": 1790576938240,
       "type": "file"
     },
     {
@@ -97,6 +109,24 @@
       "accessCount": 2,
       "lastAccessed": 1790359618562,
       "type": "file"
+    },
+    {
+      "path": "prerender.js",
+      "accessCount": 2,
+      "lastAccessed": 1790576401409,
+      "type": "file"
+    },
+    {
+      "path": "works/Dale_Bedania_Resume_ATS.pdf",
+      "accessCount": 2,
+      "lastAccessed": 1790576948482,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 2,
+      "lastAccessed": 1790577938163,
+      "type": "directory"
     },
     {
       "path": "hero-main.png",
@@ -165,12 +195,6 @@
       "type": "file"
     },
     {
-      "path": "",
-      "accessCount": 1,
-      "lastAccessed": 1790358317620,
-      "type": "directory"
-    },
-    {
       "path": "hero.png",
       "accessCount": 1,
       "lastAccessed": 1790359144675,
@@ -204,6 +228,18 @@
       "path": ".playwright-mcp/m-hero.jpg",
       "accessCount": 1,
       "lastAccessed": 1790359256897,
+      "type": "file"
+    },
+    {
+      "path": "index-editorial.html",
+      "accessCount": 1,
+      "lastAccessed": 1790576563191,
+      "type": "file"
+    },
+    {
+      "path": "client-resume.html",
+      "accessCount": 1,
+      "lastAccessed": 1790576711858,
       "type": "file"
     }
   ],

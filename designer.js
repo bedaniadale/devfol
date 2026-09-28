@@ -170,7 +170,7 @@
       title: 'The Zepatide',
       desc: 'Professional website establishing a strong brand identity for medical-grade products. Clean, trustworthy design that communicates quality.',
       img: 'works/zepatide.png', site: 'thezepatide.com',
-      role: ['UX/UI Designer', 'Front-end Developer'],
+      role: ['Full-Stack Developer', 'UX/UI Designer'],
       langs: ['React', 'Supabase', 'Vercel'],
     },
     {

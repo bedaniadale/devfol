@@ -94,7 +94,7 @@ let projects = [
       "desc": "Created a professional website to establish a strong brand identity for medical-grade products. Focused on a clean, trustworthy design that communicates product quality while enhancing credibility and customer engagement.",
         "img": "works/zepatide.png",
         "site": "thezepatide.com", 
-        "role":['UX/UI Designer', "Front-end Developer"],
+        "role":['Full-Stack Developer', 'UX/UI Designer'],
         "langs":["React", "Supabase", "Vercel"],
     },
     { 

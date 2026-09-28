@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"C:\\\\Users\\\\Administrator\\\\Documents\\\\Webdev\\\\devfol\\\\works\\\\Dale_Bedania_Client_Resume.pdf\",\"pages\":\"2-3\"}",
+  "error": "pdftoppm is not installed. Install poppler-utils (e.g. `brew install poppler` or `apt-get install poppler-utils`) to enable PDF page rendering.",
+  "timestamp": "2026-09-28T06:26:18.318Z",
+  "retry_count": 1
+}
