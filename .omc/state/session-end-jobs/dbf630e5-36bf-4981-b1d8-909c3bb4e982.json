@@ -3,9 +3,9 @@
   "jobId": "ddc0f0af-9ab8-4850-b50f-1bcf1b53f959",
   "sessionId": "dbf630e5-36bf-4981-b1d8-909c3bb4e982",
   "scopeKey": "e674a8c24d6b444c85b78cc561e23cce9fba45e2abc6460dd1147423ce878605",
-  "revision": 0,
+  "revision": 1,
   "createdAt": "2026-09-28T07:00:36.814Z",
-  "updatedAt": "2026-09-28T07:00:36.814Z",
+  "updatedAt": "2026-09-28T10:09:43.603Z",
   "producerGraceExpiresAt": "2026-09-28T07:01:06.814Z",
   "bestEffortDeadlineAt": "2026-09-28T07:01:57.814Z",
   "producers": {
@@ -15,7 +15,9 @@
       "payloadDigest": "a5e2a3e9fcb93fa071913f35103fee9b63d113e8bb1769d307cf2728ba1288f4"
     },
     "wiki": {
-      "state": "absent"
+      "state": "no-op",
+      "sealedAt": "2026-09-28T10:09:43.603Z",
+      "sealedBy": "wiki-producer"
     }
   },
   "actions": {
@@ -46,7 +48,7 @@
     "wiki-capture": {
       "class": "required",
       "phase": "deferred-required",
-      "status": "pending",
+      "status": "completed",
       "attempts": 0,
       "idempotencyKey": "a90fcab039d5921f246d4e2da6ca7d8751de4e7b33488ba3970fe96e8ceba3d3",
       "payload": {
@@ -65,7 +67,8 @@
         "initialTeamNames": [],
         "openClawRouting": {}
       },
-      "budgetMs": 9000
+      "budgetMs": 9000,
+      "completedAt": "2026-09-28T10:09:43.603Z"
     },
     "team-cleanup": {
       "class": "required",

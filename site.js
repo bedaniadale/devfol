@@ -181,13 +181,13 @@
       if (!p) return;
       $('caseBody').innerHTML = caseHtml(p);
       dlg.showModal();
-      document.body.classList.add('is-locked');
+      syncLock();
       dlg.scrollTop = 0;
     });
     $('caseClose').addEventListener('click', function () { dlg.close(); });
     // Click on the backdrop (the dialog element itself, outside its content) closes.
     dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
-    dlg.addEventListener('close', function () { document.body.classList.remove('is-locked'); });
+    dlg.addEventListener('close', syncLock);
   }
 
   /* ───────────────────────────── interactions ──────────────────────────── */
@@ -235,17 +235,25 @@
     show(0);
   }
 
-  /* "All projects" in the section head shows / hides the full list below
-     the deck. The list is in the markup, so without JS it is always shown. */
+  /* The page stays locked while any modal is open: a case study can sit on
+     top of the all-projects list, and closing it must not unlock the page. */
+  function syncLock() {
+    document.body.classList.toggle('is-locked', !!document.querySelector('dialog[open]'));
+  }
+
+  /* "All projects" opens every project in a modal; a row opens its case
+     study on top (initCaseDialog's click handler). */
   function initMore() {
-    var btn = $('allToggle'), list = $('allProjects'), label = btn.firstChild;
-    btn.addEventListener('click', function () {
-      var open = !list.classList.contains('is-open');
-      list.classList.toggle('is-open', open);
-      btn.setAttribute('aria-expanded', String(open));
-      label.nodeValue = open ? 'Hide list ' : 'All projects ';
-      if (open) list.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    var dlg = $('allProjects');
+    if (typeof dlg.showModal !== 'function') return;
+    $('allOpen').addEventListener('click', function () {
+      dlg.showModal();
+      syncLock();
+      dlg.scrollTop = 0;
     });
+    $('allClose').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('close', syncLock);
   }
 
   function initNav() {

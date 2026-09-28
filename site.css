@@ -295,8 +295,10 @@ html:not(.js) .deck-nav { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .deck-card { transition: none; } }
 
-.all { margin-top: clamp(32px, 4vw, 48px); }
-.js .all:not(.is-open) { display: none; }
+/* The all-projects modal reuses the case-study dialog chrome, a little narrower. */
+.all { width: min(760px, calc(100% - 24px)); }
+.all .case-body { padding-top: 20px; }
+.all .case-desc { margin-bottom: 8px; font-size: 16px; }
 .plist { display: grid; grid-template-columns: 1fr; }
 .plist li { border-top: 1px solid var(--line); }
 .plist { border-bottom: 1px solid var(--line); }
