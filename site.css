@@ -158,8 +158,23 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* ── hero ─────────────────────────────────────────────────────────────────── */
 
 .hero { padding: clamp(40px, 8vw, 88px) 0 clamp(48px, 6vw, 64px); }
-.hero-avatar { width: 76px; height: 76px; margin-bottom: 20px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; background: #1b1f22; }
-@media (min-width: 1024px) { .hero-avatar { display: none; } }
+.hero-in { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 36px; align-items: center; }
+.hero-photo { position: relative; margin: 0; border-radius: 18px; overflow: hidden; background: #1b1f22; box-shadow: var(--shadow); }
+.hero-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
+.hero-photo figcaption {
+  position: absolute; left: 10px; right: 10px; bottom: 10px;
+  display: flex; flex-direction: column; padding: 8px 12px; border-radius: 10px;
+  background: rgb(10 12 12 / .55); color: #fff; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  font-size: 12.5px; line-height: 1.35;
+}
+.hero-photo figcaption span { color: rgb(255 255 255 / .75); }
+/* Stacked: the photo becomes a small portrait above the headline. */
+@media (max-width: 720px) {
+  .hero-in { grid-template-columns: 1fr; gap: 20px; }
+  .hero-photo { order: -1; width: 88px; border-radius: 50%; box-shadow: none; }
+  .hero-photo img { aspect-ratio: 1; }
+  .hero-photo figcaption { display: none; }
+}
 .status {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 6px 12px 6px 10px; border-radius: 999px;
