@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- viewport-fit=cover lets the page run edge to edge on a notched phone; every
+       fixed element that could land under a notch or the home indicator pays for
+       it with an env(safe-area-inset-*) pad in mobile.css. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Dale Bedania — Software Engineer & Full-stack Developer based in Pampanga, Philippines. Laravel, React, Next.js, mobile apps, UX/UI design & business automation. Available for freelance & contract work.">
+  <meta name="theme-color" content="#fbfbf9">
+  <link rel="canonical" href="https://bedaniadale.github.io/portfolio/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Dale Bedania — Software Engineer & Full-stack Developer | Philippines">
+  <meta property="og:description" content="I turn ideas into fast, scalable web & mobile products. 10+ apps shipped · 9+ years coding · Open for work.">
+  <meta property="og:image" content="https://bedaniadale.github.io/portfolio/main.jpg">
+  <meta property="og:url" content="https://bedaniadale.github.io/portfolio/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dale Bedania — Software Engineer & Full-stack Developer">
+  <meta name="twitter:description" content="I turn ideas into fast, scalable web & mobile products. 10+ apps shipped · 9+ years coding.">
+  <meta name="twitter:image" content="https://bedaniadale.github.io/portfolio/main.jpg">
+  <link rel="icon" type="image/jpeg" href="main.jpg">
+  <link rel="apple-touch-icon" href="main.jpg">
+  <title>Dale Bedania — Software Engineer &amp; Full-stack Developer | Philippines</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@iconify/iconify@3.1.1/dist/iconify.min.js"></script>
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="layout.css">
+  <link rel="stylesheet" href="hero.css">
+  <link rel="stylesheet" href="scene.css">
+  <!-- The product side. Self-contained and scoped to .sys / .sysx — it shares
+       the type stack and nothing else, because it is deliberately the inverse
+       of the page it sits inside. -->
+  <link rel="stylesheet" href="systems.css">
+  <!-- The Systems design language brought back onto the light page: seam
+       eyebrows, the grid field, chrome plates, accent ticks, and the
+       character-select entrance on the project modal. After scene.css so it
+       can override the section-head geometry. -->
+  <link rel="stylesheet" href="vocab.css">
+  <!-- Last, on purpose: the phone layer overrides the desktop composition by
+       source order rather than by out-shouting it with !important. -->
+  <link rel="stylesheet" href="mobile.css">
+
+  <!-- The opening. This runs before first paint on purpose: the hero's entrance
+       states live behind html.is-intro, so the class has to be on the element
+       BEFORE the first frame or the page paints assembled and then jumps apart.
+
+       It is also the reason the hidden state is applied by SCRIPT rather than
+       sitting in the stylesheet — nothing is ever hidden unless the code that
+       un-hides it is already running. Scripts off, or this block throwing, and
+       the page is simply the finished page. The timeout is the last resort: if
+       app.js never boots, the opening still resolves rather than freezing the
+       hero mid-entrance. -->
+  <script>
+    (function () {
+      var r = document.documentElement;
+      try {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        r.classList.add('is-intro');
+        setTimeout(function () { r.classList.remove('is-intro'); }, 4000);
+      } catch (e) { r.classList.remove('is-intro'); }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Decorative layers -->
+  <!-- Colour field: fixed full-viewport tone that the page scrolls through.
+       Crossfaded by opacity over fixed-colour layers — never by interpolating
+       a colour per frame. Sits below .grain (z1) and .spotlight (z0). -->
+  <div id="field" aria-hidden="true">
+    <i data-f="1"></i><i data-f="2"></i><i data-f="3"></i><i data-f="4"></i>
+    <!-- 5 is the closing photograph: the plunge lands in a room rather than in
+         a flat tone. Same crossfade as the tones, so it costs one more plate. -->
+    <i data-f="5"></i>
+    <i class="field-glow"></i>
+    <!-- Travelling ring. Lives in the field, not the hero, so it survives the
+         hero's pin release and carries through the whole page. -->
+    <div class="hero-ring" id="ring"><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+  <!-- The same 72px lattice that sits behind #systems, inverted for the light
+       ground and masked away from the edges. Fixed and inert: one composited
+       layer, no repaint. -->
+  <div class="fieldgrid" aria-hidden="true"></div>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <!-- ── NAV ─────────────────────────────────────────────────────────────── -->
+  <header class="nav wel" id="nav">
+    <a href="#top" class="nav-brand">
+      <span class="nav-brand-mark">DB</span>
+      <span class="nav-brand-text">Dale Bedania</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#systems">Systems</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#certs">Credentials</a>
+    </nav>
+    <div class="nav-cta">
+      <!-- Designer Mode hidden for now — restore this block to bring it back
+      <a href="designer.html" class="nav-ghost" aria-label="Switch to Designer mode">
+        <i class="iconify" data-icon="mdi:palette-swatch"></i><span>Designer</span>
+      </a>
+      -->
+      <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn btn-primary nav-start">
+        Start a project <i class="iconify" data-icon="mdi:arrow-top-right"></i>
+      </a>
+      <!-- Phone only. The desktop nav has its links in the bar; below 1024 they
+           are display:none, which left the whole page with no way to jump to a
+           section. -->
+      <button type="button" class="nav-burger" id="navBurger"
+              aria-expanded="false" aria-controls="navSheet" aria-label="Open menu">
+        <span class="nav-burger-bars" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── MOBILE MENU SHEET ───────────────────────────────────────────────────
+       A sheet rather than a dropdown: at phone size a menu that covers the
+       screen is the pattern every app uses, and it gives the section list room
+       to be typography instead of a stack of 14px rows. Outside <header> so the
+       fixed bar cannot clip it and so `inset: 0` resolves against the viewport. -->
+  <div class="nav-sheet" id="navSheet" aria-hidden="true">
+    <nav class="nav-sheet-nav" aria-label="Sections">
+      <a href="#work"><span class="nav-sheet-n">01</span> Work</a>
+      <a href="#systems"><span class="nav-sheet-n">02</span> Systems</a>
+      <a href="#about"><span class="nav-sheet-n">03</span> About</a>
+      <a href="#services"><span class="nav-sheet-n">04</span> Services</a>
+      <a href="#stack"><span class="nav-sheet-n">05</span> Toolkit</a>
+      <a href="#graphics"><span class="nav-sheet-n">06</span> Design</a>
+      <a href="#certs"><span class="nav-sheet-n">07</span> Credentials</a>
+    </nav>
+    <div class="nav-sheet-foot">
+      <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg nav-sheet-cta">
+        <i class="iconify" data-icon="mdi:facebook-messenger"></i> Start a project
+      </a>
+      <div class="nav-sheet-links">
+        <a href="mailto:dale.bedania10@gmail.com"><i class="iconify" data-icon="mdi:email-outline"></i> Email</a>
+        <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer"><i class="iconify" data-icon="mdi:github"></i> GitHub</a>
+        <a href="https://instagram.com/bedaniadale" target="_blank" rel="noopener noreferrer"><i class="iconify" data-icon="mdi:instagram"></i> Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+
+    <!-- ── HERO (cinematic stage: pins, then pushes through) ─────────────── -->
+    <div class="hero-stage" id="heroStage">
+    <div class="hero-sticky" id="heroSticky">
+    <section class="hero" id="hero">
+      <div class="hero-orbs wel" aria-hidden="true">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+      </div>
+      <div class="hero-ring wel" id="heroRing" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+      <!-- The portrait is the subject: centred, bottom-anchored, full-bleed -->
+      <figure class="hero-portrait wel" id="heroPhoto">
+        <img src="dale_transparent.png" alt="Dale Bedania" width="408" height="612">
+      </figure>
+
+      <!-- Copy flanks the portrait rather than sitting in a column beside it -->
+      <!-- .reveal is gone from the hero: it is a scroll-into-view mechanism, and
+           the hero is in view at load, so it fired all of these at once anyway.
+           The opening below choreographs them instead. .hero-title is the one
+           exception — splitHeroTitle() already owns its line mask, and two
+           entrance systems on one element would fight. -->
+      <div class="hero-side hero-side--l">
+        <span class="pill pill-status wel">
+          <span class="pill-dot"></span> Available for freelance &amp; contract
+        </span>
+        <h1 class="hero-title">
+          <span class="line">Coding since</span>
+          <span class="line">I was <em class="ink-accent">13.</em></span>
+        </h1>
+        <p class="hero-kicker wel">Now I build web &amp; mobile products businesses run on.</p>
+      </div>
+
+      <div class="hero-side hero-side--r wel">
+        <p class="hero-name">Dale<br>Bedania</p>
+        <p class="hero-role"><span class="hero-rule" aria-hidden="true"></span>Full-stack Developer</p>
+        <p class="hero-note">Building practical, clean, and scalable digital products.</p>
+      </div>
+
+      <!-- Floating credentials, kept from the original hero data.
+           The wrapper is inert on desktop — all three children are absolutely
+           positioned against .hero, so it holds no layout and creates no
+           containing block. On a phone it becomes the flex row that turns the
+           three floaters into one line of credentials under the signature,
+           which is the only place "Pampanga, PH" appears at that width. -->
+      <div class="hero-chips">
+        <span class="hero-chip hero-chip--edu wel">
+          <i class="iconify" data-icon="mdi:school-outline"></i> Top IT Graduate &rsquo;25 · HAU
+        </span>
+        <span class="hero-chip hero-chip--exp wel"><b>Since 2015</b> writing code</span>
+        <span class="hero-chip hero-chip--loc wel">
+          <i class="iconify" data-icon="mdi:map-marker"></i> Pampanga, PH
+        </span>
+      </div>
+
+      <div class="hero-actions wel">
+        <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn-hire magnetic">
+          Start a project <i class="iconify" data-icon="mdi:arrow-right"></i>
+        </a>
+        <span class="hero-actions-sub">
+          <button type="button" class="hero-link" id="openCv">View CV</button>
+          <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="hero-link">GitHub</a>
+        </span>
+      </div>
+
+      <!-- Foreground horizon — drops away as the ring rises -->
+      <div class="hero-horizon wel" id="heroHorizon" aria-hidden="true"></div>
+      <div class="hero-cue wel" id="heroCue" aria-hidden="true">
+        <span class="hero-cue-rail"><span class="hero-cue-dot"></span></span>
+        <span class="hero-cue-text">Scroll</span>
+      </div>
+    </section>
+    </div>
+    </div>
+
+    <!-- ── PROOF BAND — stats + live client work, lifted out of the hero ──── -->
+    <section class="proof-band">
+      <div class="container proof-band-in">
+        <ul class="hero-stats reveal" id="heroStats"></ul>
+        <div class="hero-proof reveal">
+          <span class="hero-proof-label"><span class="live-dot"></span> Live client work</span>
+          <ul class="hero-proof-list" id="heroProof"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MARQUEE ───────────────────────────────────────────────────────── -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+
+    <!-- ── ABOUT ─────────────────────────────────────────────────────────── -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">// 01 — About</span>
+          <h2 class="section-title">Coding since <span class="ink-accent">2015</span>. Shipping for clients today.</h2>
+        </div>
+        <!-- Three acts, each the full container width. Nothing is paired against
+             a sibling column, so nothing has to be height-matched — which is
+             what made the old 1.3fr/1fr split fall apart. -->
+
+        <!-- ACT 1 — the decade, scrubbed into one line of type. The readout is
+             written by the scroll conductor; the markup carries the start year
+             so the block is complete and correct with no JS at all. -->
+        <div class="ab-meter reveal" id="abMeter">
+          <p class="sr-only">Coding since 2015 — over a decade of building, from a first line of HTML to shipped client products.</p>
+          <div class="ab-meter-top" aria-hidden="true">
+            <span class="ab-year" id="abYear">2015</span>
+            <span class="ab-span">
+              <span class="ab-k">Coding since</span>
+              <span class="ab-span-range">2015 &mdash; 2026</span>
+            </span>
+          </div>
+          <div class="ab-rail" id="abRail" aria-hidden="true">
+            <i class="ab-rail-fill"></i>
+            <i class="ab-rail-dot"></i>
+          </div>
+          <ol class="ab-beats" id="abBeats" aria-hidden="true"></ol>
+        </div>
+
+        <!-- ACT 2 — the story. Words ink in just ahead of the reading line. -->
+        <div class="about-story reveal">
+          <p>
+            I started programming in 2015 at the age of 13, driven by curiosity and a love for
+            building things with code. Over a decade later I've grown from a kid tinkering with HTML
+            into a software engineer who ships production-ready applications.
+          </p>
+          <p>
+            I build full-stack web and mobile solutions with a focus on clean architecture,
+            real-world impact, and experiences that actually work for the people using them.
+          </p>
+        </div>
+
+        <blockquote class="about-quote reveal">
+          <span class="q-mark">“</span>Great development isn't just writing code — it's solving
+          problems, creating seamless experiences, and turning ideas into digital reality.
+        </blockquote>
+
+        <!-- ACT 3 — the credentials. -->
+        <div class="about-cred">
+          <!-- One record row: portrait, degree, honour. The graduation shot is a
+               head-and-shoulders portrait, so it is sized as a credential
+               photograph — a full-width plate cropped it into a billboard face.
+               .edu-card is also the travelling ring's About anchor (registerRing). -->
+          <div class="edu-card reveal">
+            <figure class="edu-photo" id="eduPhoto">
+              <img src="grad_dale.jpg" alt="Dale Bedania at his Holy Angel University graduation, Class of 2025" loading="lazy" decoding="async">
+            </figure>
+            <div class="edu-card-main">
+              <p class="edu-school">Web Development track</p>
+              <p class="edu-degree">BS Information Technology</p>
+              <p class="edu-sub">
+                <img src="haulogo.png" alt="" class="edu-logo" aria-hidden="true">
+                <span><b>Class of 2025</b> · Holy Angel University</span>
+              </p>
+            </div>
+            <p class="edu-track">
+              <i class="iconify" data-icon="mdi:trophy-outline"></i>
+              Top IT Graduate &rsquo;25
+            </p>
+          </div>
+
+          <div class="ab-ledger reveal">
+            <h3 class="ab-k ab-ledger-k">Recognition</h3>
+            <ol class="award-list" id="awardList"></ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SERVICES ──────────────────────────────────────────────────────── -->
+    <section class="section section-alt" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">// 02 — Services</span>
+          <h2 class="section-title">What I can build for you</h2>
+          <p class="section-lede">End-to-end product work — from the first wireframe to a deployed, scalable app.</p>
+        </div>
+        <ol class="svc-list" id="servicesGrid"></ol>
+      </div>
+    </section>
+
+    <!-- ── WORK / PROJECTS ───────────────────────────────────────────────── -->
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">// 03 — Selected work</span>
+          <h2 class="section-title">What I've built — and what I can do</h2>
+          <p class="section-lede">
+            <i class="iconify" data-icon="mdi:lock-outline"></i>
+            A selected few of the things I've made. There's plenty more I can't show publicly — happy to walk you through it on a call.
+          </p>
+        </div>
+        <!-- A column grid with every screenshot visible up front. The gutter
+             preview that followed the reading line is gone: a visitor should
+             see the work without having to scroll into each row first. -->
+        <ol class="wk-grid" id="projectsGrid"></ol>
+      </div>
+    </section>
+
+    <!-- ── TECH STACK ────────────────────────────────────────────────────── -->
+    <section class="section section-alt" id="stack">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">// 04 — Toolkit</span>
+          <h2 class="section-title">Technologies I work with</h2>
+          <p class="section-lede" id="stackLede"></p>
+        </div>
+        <!-- Seven chapters, one per discipline. The category is the heading and
+             the tools are its detail — the two previous attempts both made all
+             48 tools visually equal, which erased the grouping and left a wall
+             of identical boxes a client had to read one word at a time.
+
+             No filter control: the rows ARE the grouping, so a legend that
+             isolates one would be a second way to do what the layout already
+             does. -->
+        <ol class="tk-index" id="stackIndex"></ol>
+      </div>
+    </section>
+
+    <!-- ── SYSTEMS — the product side, staged as its own landing page ──────
+         Everything above and below this block is the portfolio: one person,
+         soft-white ground, emerald. This is the other business — finished
+         systems sold as products — so it is given the opposite ground, its own
+         brand mark and its own hero rather than another `.section`. The
+         full-bleed dark slab IS the separation: a visitor should feel they
+         walked into a different site without ever leaving the page.
+
+         Everything inside the two <ol>s and the marks list is written by
+         systems.js from the catalogue in crms/PORTFOLIO-DESCRIPTIONS.md. -->
+    <section class="sys" id="systems" aria-labelledby="sysTitle">
+      <div class="sys-atmo" aria-hidden="true">
+        <i class="sys-grid"></i>
+        <i class="sys-glow sys-glow--a"></i>
+        <i class="sys-glow sys-glow--b"></i>
+      </div>
+      <div class="sys-seam sys-seam--top" aria-hidden="true"><span>Now entering — the product side</span></div>
+
+      <div class="sys-in container">
+
+        <!-- Its own brand bar. The page has a nav; this micro-site has a mark. -->
+        <div class="sys-bar reveal">
+          <span class="sys-mark"><b>DB</b>SYSTEMS</span>
+          <span class="sys-bar-sub">Finished business systems, ready to deploy</span>
+          <a href="#sysShelf" class="sys-btn sys-btn--ghost sys-bar-cta">Browse the catalogue</a>
+        </div>
+
+        <header class="sys-hero">
+          <p class="sys-kicker reveal"><span class="sys-dot"></span> I also sell systems</p>
+          <h2 class="sys-title reveal" id="sysTitle">
+            Stop paying to build<br>what already <em>runs.</em>
+          </h2>
+          <p class="sys-lede reveal">
+            Five production-grade business systems, already built. Each one implements the full
+            rule engine a real operator needs — <b>payroll statutory tables, prerequisite graphs,
+            inventory ledgers, clinical scheduling, work-order lifecycles</b> — with role-based
+            access and a deterministic demo dataset you can drive today. Buy the one that fits your
+            operation, and I configure, integrate and hand it over.
+          </p>
+          <div class="sys-acts reveal">
+            <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="sys-btn sys-btn--go">
+              Book a live walkthrough <i class="iconify" data-icon="mdi:arrow-right"></i>
+            </a>
+            <a href="#sysShelf" class="sys-btn sys-btn--ghost">
+              See the five systems <i class="iconify" data-icon="mdi:folder-multiple-outline"></i>
+            </a>
+          </div>
+          <ul class="sys-totals reveal" id="sysTotals"></ul>
+          <ul class="sys-marks" id="sysMarks"></ul>
+        </header>
+
+        <div class="sys-shelf-head reveal">
+          <div>
+            <h3>The catalogue</h3>
+            <p>Open a folder to walk the real screens. Every screenshot is the running build — no mockups.</p>
+          </div>
+          <span class="sys-shelf-hint">
+            <i class="iconify" data-icon="mdi:cursor-default-click-outline"></i> Click a folder
+          </span>
+        </div>
+        <ol class="sys-shelf" id="sysShelf"></ol>
+
+        <ol class="sys-flow" id="sysFlow"></ol>
+        <p class="sys-note reveal" id="sysNote"></p>
+
+        <div class="sys-close reveal">
+          <h3>Not sure which one fits?</h3>
+          <p>
+            Tell me how your operation runs today. I will point you at the closest system, show you
+            the live build, and be honest about what would have to be built rather than configured.
+          </p>
+          <div class="sys-acts">
+            <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="sys-btn sys-btn--go">
+              <i class="iconify" data-icon="mdi:facebook-messenger"></i> Message me
+            </a>
+            <a href="mailto:dale.bedania10@gmail.com" class="sys-btn sys-btn--ghost">
+              <i class="iconify" data-icon="mdi:email-outline"></i> dale.bedania10@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="sys-seam sys-seam--bot" aria-hidden="true"><span>Back to the portfolio</span></div>
+    </section>
+
+    <!-- ── GRAPHICS (pinned horizontal rail) ─────────────────────────────── -->
+    <section class="rail-stage" id="graphics">
+      <div class="rail-sticky" id="graphicsSticky">
+        <div class="rail-plate" aria-hidden="true"></div>
+        <div class="container section-head section-head--rail reveal">
+          <div>
+            <span class="eyebrow">// 05 — Design practice</span>
+            <h2 class="section-title">Graphic <span class="ink-accent">design</span></h2>
+            <p class="section-lede">Posters, social assets, and brand work — a developer who also designs.</p>
+          </div>
+          <span class="rail-count" id="graphicsCount"></span>
+        </div>
+        <div class="rail-viewport" id="graphicsViewport">
+          <div class="rail-track" id="graphicsRail"></div>
+        </div>
+        <div class="container rail-foot">
+          <span class="rail-hint">
+            <i class="iconify" data-icon="mdi:gesture-swipe-horizontal"></i>
+            <span class="rail-hint-swipe">Swipe to browse</span>
+            <span class="rail-hint-scroll">Keep scrolling ↓</span>
+          </span>
+          <span class="rail-progress"><span id="graphicsProgress"></span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── EXPERIENCE — a career rail that branches ───────────────────────
+         Not a card timeline. One spine is drawn by scroll, a comet rides it,
+         and each entry wires itself off the spine as it reaches the reading
+         band. Every scrubbed value is composited; nothing here changes the
+         document height, which the engine's geometry cache depends on. -->
+    <section class="section section-alt" id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">// 06 — Journey</span>
+          <h2 class="section-title">Work experience</h2>
+          <p class="section-lede">From a first line of code at 13 to shipping production software for clients.</p>
+          <span class="xp-count" id="journeyCount"></span>
+        </div>
+        <div class="xp">
+          <div class="xp-rail" aria-hidden="true">
+            <span class="xp-rail-fill"></span>
+            <span class="xp-comet"></span>
+          </div>
+          <ol class="xp-list" id="journey"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CERTIFICATIONS ────────────────────────────────────────────────── -->
+    <section class="section" id="certs">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">// 07 — Credentials</span>
+          <h2 class="section-title">Certifications</h2>
+          <p class="section-lede">10 earned · 4 issuers · credentials available on request.</p>
+        </div>
+        <ol class="cert-ledger" id="certsGrid"></ol>
+      </div>
+    </section>
+
+    <!-- ── TESTIMONIALS ──────────────────────────────────────────────────── -->
+    <section class="section section-alt" id="testimonials">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">// 08 — Kind words</span>
+          <h2 class="section-title">What clients say</h2>
+          <span class="rating-badge"><i class="iconify" data-icon="mdi:star"></i> 5.0 average</span>
+        </div>
+        <!-- Three voices, set as a magazine spread rather than three cards. The
+             words are the asset here; a card shrinks them to caption size and
+             spends the space on a border instead. -->
+        <div class="says" id="saysList"></div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT / CTA ─────────────────────────────────────────────────── -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="cta reveal" id="ctaTrail">
+          <div class="cta-orbs" aria-hidden="true"><span></span><span></span></div>
+          <div class="trail-layer" id="trailLayer" aria-hidden="true"></div>
+          <span class="pill pill-status pill-on-dark"><span class="pill-dot"></span> Available for freelance &amp; contract</span>
+          <h2 class="cta-title">Have a project in mind?</h2>
+          <p class="cta-sub">
+            Tell me what you're building — a website, a custom platform, a mobile app, or a design
+            refresh. I reply within 24 hours. No obligation, just a quick chat to see if we're a fit.
+          </p>
+          <div class="cta-actions">
+            <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg magnetic">
+              <i class="iconify" data-icon="mdi:facebook-messenger"></i> Message me
+            </a>
+            <a href="mailto:dale.bedania10@gmail.com" class="btn btn-on-dark btn-lg magnetic">
+              <i class="iconify" data-icon="mdi:email-outline"></i> dale.bedania10@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <p class="footer-name">DALE BEDANIA</p>
+        <p class="footer-role">Software Engineer &amp; Graphic Designer</p>
+        <p class="footer-note">Building practical, clean, and scalable digital products.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <h3>Connect</h3>
+        <a href="mailto:dale.bedania10@gmail.com"><i class="iconify" data-icon="mdi:email-outline"></i> dale.bedania10@gmail.com</a>
+        <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer"><i class="iconify" data-icon="mdi:facebook"></i> Dale Bedania</a>
+        <a href="https://instagram.com/bedaniadale" target="_blank" rel="noopener noreferrer"><i class="iconify" data-icon="mdi:instagram"></i> @bedaniadale</a>
+        <a href="https://github.com/bedaniadale" target="_blank" rel="noopener noreferrer"><i class="iconify" data-icon="mdi:github"></i> bedaniadale</a>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> Dale Bedania. Built from scratch.</span>
+      <a href="#top" class="footer-top">Back to top <i class="iconify" data-icon="mdi:arrow-up"></i></a>
+    </div>
+  </footer>
+
+  <!-- ── PROJECT MODAL (fullscreen case file) ─────────────────────────────
+       Keeps the .modal class so app.js's openModal/closeModal, the Escape
+       handler and every [data-close-modal] still drive it unchanged; .pmx only
+       takes it fullscreen and gives it the systems modal's entrance — the wipe
+       over an already-assembled frame, then the staggered rise.
+       Everything inside #projectModalBody is written by app.js. -->
+  <div class="modal pmx" id="projectModal" aria-hidden="true">
+    <div class="pmx-wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="pmx-frame" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+      <div class="pmx-atmo" aria-hidden="true"><i class="pmx-grid"></i><i class="pmx-beam"></i></div>
+      <header class="pmx-top">
+        <span class="pmx-brand"><b>DB</b>Selected work</span>
+        <div class="pmx-nav">
+          <button type="button" class="pmx-arrow" data-proj-step="-1" aria-label="Previous project">
+            <i class="iconify" data-icon="mdi:chevron-left"></i>
+          </button>
+          <span class="pmx-count"><b id="pmxIdx">01</b><i>/</i><span id="pmxTot">01</span></span>
+          <button type="button" class="pmx-arrow" data-proj-step="1" aria-label="Next project">
+            <i class="iconify" data-icon="mdi:chevron-right"></i>
+          </button>
+        </div>
+        <button type="button" class="pmx-close" data-close-modal aria-label="Close">
+          <i class="iconify" data-icon="mdi:close"></i>
+        </button>
+      </header>
+      <div class="pmx-scroll" id="projectModalBody" data-lenis-prevent></div>
+    </div>
+  </div>
+
+  <!-- ── DESIGN (GRAPHICS) MODAL ─────────────────────────────────────────── -->
+  <div class="modal modal-light" id="designModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-design></div>
+    <div class="modal-panel modal-panel--image" role="dialog" aria-modal="true">
+      <button type="button" class="modal-close" data-close-design aria-label="Close"><i class="iconify" data-icon="mdi:close"></i></button>
+      <div class="modal-body" id="designModalBody" data-lenis-prevent></div>
+    </div>
+  </div>
+
+  <!-- ── SYSTEM MODAL (fullscreen product page / character select) ────────
+       Not a .modal: this one covers the viewport rather than sitting in it,
+       and its opening is a wipe over an already-assembled frame instead of a
+       panel fading up. Everything inside #sysxScroll is written by systems.js
+       per system; only the chrome is markup. -->
+  <div class="sysx" id="systemModal" aria-hidden="true">
+    <div class="sysx-wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="sysx-frame" role="dialog" aria-modal="true" aria-labelledby="sysxName">
+      <div class="sysx-atmo" aria-hidden="true"><i class="sysx-grid"></i><i class="sysx-beam"></i></div>
+      <header class="sysx-top">
+        <span class="sys-mark sys-mark--sm"><b>DB</b>SYSTEMS</span>
+        <div class="sysx-nav">
+          <button type="button" class="sysx-arrow" data-sys-step="-1" aria-label="Previous system">
+            <i class="iconify" data-icon="mdi:chevron-left"></i>
+          </button>
+          <span class="sysx-count"><b id="sysxIdx">01</b><i>/</i><span id="sysxTot">05</span></span>
+          <button type="button" class="sysx-arrow" data-sys-step="1" aria-label="Next system">
+            <i class="iconify" data-icon="mdi:chevron-right"></i>
+          </button>
+        </div>
+        <button type="button" class="sysx-close" data-close-sys aria-label="Close">
+          <i class="iconify" data-icon="mdi:close"></i>
+        </button>
+      </header>
+      <div class="sysx-scroll" id="sysxScroll" data-lenis-prevent></div>
+    </div>
+  </div>
+
+  <!-- ── CV MODAL ────────────────────────────────────────────────────────── -->
+  <div class="modal" id="cvModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-cv></div>
+    <div class="modal-panel modal-panel--cv" role="dialog" aria-modal="true" aria-labelledby="cvTitle">
+      <div class="modal-cv-head">
+        <h3 id="cvTitle">Curriculum Vitae</h3>
+        <div class="modal-cv-actions">
+          <!-- download (not target=_blank): the button saves the file straight to
+               disk instead of handing the visitor off to the browser's PDF viewer.
+               The value renames it on the way down, so it lands in a recruiter's
+               downloads folder as a person's name rather than a versioned path. -->
+          <a href="works/Bedania_Dale_Resume_2026.pdf" download="Dale_Bedania_Resume.pdf" class="btn btn-primary"><i class="iconify" data-icon="mdi:download"></i> Download</a>
+          <button type="button" class="btn btn-ghost" data-close-cv>Close</button>
+        </div>
+      </div>
+      <div class="modal-cv-body" data-lenis-prevent>
+        <iframe src="works/Bedania_Dale_Resume_2026.pdf#toolbar=1&navpanes=0" title="Dale Bedania CV"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <a href="https://facebook.com/bedaniadale" target="_blank" rel="noopener noreferrer" class="fab" aria-label="Message Dale on Facebook">
+    <i class="iconify" data-icon="mdi:facebook-messenger"></i>
+    <span class="fab-label">Let's talk</span>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+  <!-- After app.js so it can borrow the page's scroll lock, and before
+       DOMContentLoaded fires so the shelf is in the document by the time the
+       engine measures the page. -->
+  <script src="systems.js"></script>
+</body>
+</html>

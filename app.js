@@ -60,6 +60,7 @@
     { icon: 'mdi:palette-outline', title: 'UX / UI Design', desc: 'Intuitive, high-converting interfaces for premium digital experiences.' },
     { icon: 'mdi:cellphone-cog', title: 'Mobile Development', desc: 'Cross-platform iOS & Android apps with native performance.' },
     { icon: 'mdi:api', title: 'API Development & Integration', desc: 'Custom REST APIs, secure third-party integrations, scalable microservices.', featured: true },
+    { icon: 'mdi:brain', title: 'AI Integrations', desc: 'LLM-powered features and agents wired into your data — with human approval on every action.' },
     { icon: 'mdi:cloud-cog-outline', title: 'Hosting & Domains', desc: 'Cloud deployments, domain management, and secure SSL configuration.' },
     { icon: 'mdi:robot-happy-outline', title: 'Workflow Automation', desc: 'Custom scripts, Zapier / n8n pipelines, and automated business operations.' },
     { icon: 'mdi:image-edit-outline', title: 'Graphic Design', desc: 'High-impact marketing collateral, brand assets, and scroll-stopping visuals.' }
