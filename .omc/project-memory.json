@@ -93,6 +93,12 @@
       "type": "file"
     },
     {
+      "path": "",
+      "accessCount": 3,
+      "lastAccessed": 1790590023195,
+      "type": "directory"
+    },
+    {
       "path": "main.jpg",
       "accessCount": 2,
       "lastAccessed": 1790358867002,
@@ -121,12 +127,6 @@
       "accessCount": 2,
       "lastAccessed": 1790576948482,
       "type": "file"
-    },
-    {
-      "path": "",
-      "accessCount": 2,
-      "lastAccessed": 1790577938163,
-      "type": "directory"
     },
     {
       "path": "hero-main.png",
