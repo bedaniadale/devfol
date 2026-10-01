@@ -1,0 +1,7 @@
+{
+  "tool_name": "mcp__playwright__browser_run_code_unsafe",
+  "tool_input_preview": "{\"code\":\"async (page) => {\\n  const errors = []; page.on('pageerror', e => errors.push(e.message));\\n  const ctx = page.context(); const pages0 = ctx.pages().length;\\n  await page.setViewportSize({ wi...",
+  "error": "### Error\nTimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#lbPrev')\u001b[22m\n\u001b[2m    - locator resolved to <button id=\"lbPrev\" type=\"button\" class=\"lb-btn\" aria-label=\"Previous design\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, ...",
+  "timestamp": "2026-10-01T13:01:14.162Z",
+  "retry_count": 1
+}

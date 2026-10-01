@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects Layout Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Same tokens as site.css so the preview matches the real site. */
+:root {
+  --bg: #fafaf8; --bg-alt: #f3f3ef; --surface: #fff;
+  --ink: #111413; --ink-2: #3b403e; --muted: #6a706d;
+  --line: #e4e4de; --line-2: #d4d4cc;
+  --accent: #0d7a53; --accent-ink: #fff; --accent-soft: #e5f3ec;
+  --font: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, Menlo, Consolas, monospace;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1110; --bg-alt: #131716; --surface: #171b1a;
+    --ink: #eef0ee; --ink-2: #c3c8c5; --muted: #8d9490;
+    --line: #242a28; --line-2: #323936;
+    --accent: #3ccf96; --accent-ink: #06140e; --accent-soft: #11261d;
+    color-scheme: dark;
+  }
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+h2, h3, p, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; }
+.wrap { max-width: 784px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); }
+
+/* ── preview chrome (not part of the design) ── */
+.switch { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.switch .wrap { display: flex; gap: 8px; align-items: center; padding-block: 12px; flex-wrap: wrap; }
+.switch span { font: 500 12px var(--mono); color: var(--muted); margin-right: 6px; text-transform: uppercase; letter-spacing: .08em; }
+.switch button { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 14px; }
+.switch button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.note { margin-top: 10px; font-size: 14px; color: var(--muted); max-width: 60ch; }
+.variant[hidden] { display: none; }
+
+/* ── shared section header (unchanged from site) ── */
+section { padding: 64px 0 96px; }
+.eyebrow { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.head h2 { font-size: 34px; letter-spacing: -.03em; line-height: 1.15; margin: 8px 0 12px; }
+.head p { color: var(--ink-2); max-width: 56ch; }
+.text-link { display: inline-flex; gap: 6px; align-items: center; color: var(--accent); text-decoration: none; font-weight: 500; font-size: 15px; }
+.text-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.head .text-link { margin-top: 16px; }
+.ic { width: 1em; height: 1em; }
+.stack { font: 500 12px/1.5 var(--mono); color: var(--muted); }
+.status { font: 500 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+.status.live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+/* ════════════════════════════════════════════════════════════════════════
+   A — Index + preview
+   A numbered table of contents. The selected row drives a large screenshot
+   above it. Reads like a magazine contents page, not a card stack.
+   ════════════════════════════════════════════════════════════════════════ */
+.ix { margin-top: 40px; }
+.ix-stage { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-alt); }
+.ix-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: 0; transform: scale(1.02); transition: opacity .45s var(--ease), transform .6s var(--ease); }
+.ix-stage img.on { opacity: 1; transform: none; }
+.ix-cap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; padding: 14px 0 0; }
+.ix-cap p { color: var(--ink-2); font-size: 15px; max-width: 52ch; }
+.ix-list { margin-top: 28px; border-top: 1px solid var(--ink); }
+.ix-row { width: 100%; display: grid; grid-template-columns: 44px 1fr auto 20px; align-items: baseline; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); text-align: left; transition: padding .3s var(--ease); }
+.ix-n { font: 500 13px var(--mono); color: var(--muted); }
+.ix-t { font-size: 22px; font-weight: 600; letter-spacing: -.02em; color: var(--muted); transition: color .2s; }
+.ix-k { font: 500 12px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.ix-a { color: var(--muted); opacity: 0; transform: translateX(-6px); transition: .25s var(--ease); align-self: center; }
+.ix-row:hover .ix-t, .ix-row[aria-selected="true"] .ix-t { color: var(--ink); }
+.ix-row[aria-selected="true"] { padding-left: 10px; }
+.ix-row[aria-selected="true"] .ix-n { color: var(--accent); }
+.ix-row[aria-selected="true"] .ix-a { opacity: 1; transform: none; color: var(--accent); }
+@media (max-width: 560px) { .ix-row { grid-template-columns: 32px 1fr 20px; } .ix-k { display: none; } .ix-t { font-size: 19px; } }
+
+/* ════════════════════════════════════════════════════════════════════════
+   B — Window tiles
+   Flat two-column grid. Each project is its real screenshot in a minimal
+   browser frame with a caption underneath — no card box, no pills.
+   ════════════════════════════════════════════════════════════════════════ */
+.tiles { margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 28px; }
+.tile { text-decoration: none; display: flex; flex-direction: column; gap: 14px; }
+.tile:first-child { grid-column: 1 / -1; }
+.win { border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); overflow: hidden; transition: transform .35s var(--ease), border-color .2s; }
+.win-bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+.win-bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); box-shadow: 13px 0 0 var(--line-2), 26px 0 0 var(--line-2); margin-right: 26px; }
+.win-bar span { font: 400 11px var(--mono); color: var(--muted); flex: 1; text-align: center; padding: 2px 8px; background: var(--bg-alt); border-radius: 5px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.win-shot { aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-alt); }
+.tile:first-child .win-shot { aspect-ratio: 16 / 8; }
+.win-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 1.2s var(--ease); }
+.tile:hover .win { border-color: var(--ink); transform: translateY(-3px); }
+.tile:hover .win-shot img { transform: translateY(-4%); }
+.tile-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.tile h3 { font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
+.tile p { font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+@media (max-width: 620px) { .tiles { grid-template-columns: 1fr; } }
+
+/* ════════════════════════════════════════════════════════════════════════
+   C — Spread
+   Alternating full-width rows: big number + text on one side, screenshot
+   bleeding off the other. Long scroll, no carousel, no controls.
+   ════════════════════════════════════════════════════════════════════════ */
+.spread { margin-top: 48px; display: grid; gap: 56px; }
+.sp { display: grid; grid-template-columns: 1fr 1.25fr; gap: 32px; align-items: center; }
+.sp:nth-child(even) .sp-shot { order: -1; }
+.sp-num { font: 500 13px var(--mono); color: var(--accent); display: flex; align-items: center; gap: 10px; }
+.sp-num::after { content: ""; height: 1px; width: 40px; background: var(--accent); }
+.sp h3 { font-size: 26px; font-weight: 600; letter-spacing: -.03em; line-height: 1.15; margin: 12px 0 10px; }
+.sp p { color: var(--ink-2); font-size: 15px; line-height: 1.6; }
+.sp .stack { margin-top: 14px; font-size: 12px; color: var(--muted); }
+.sp:nth-child(even) { grid-template-columns: 1.25fr 1fr; }
+.sp-links { display: flex; gap: 18px; align-items: center; margin-top: 18px; flex-wrap: wrap; }
+.sp-btn { font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--ink); text-decoration: none; display: inline-flex; gap: 6px; align-items: center; transition: background .2s, color .2s; }
+.sp-btn:hover { background: var(--ink); color: var(--bg); }
+.sp-shot { position: relative; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; background: var(--accent-soft); padding: 22px 0 0 22px; }
+.sp:nth-child(even) .sp-shot { padding: 22px 22px 0 0; }
+.sp-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top left; border-radius: 8px 0 0 0; box-shadow: 0 10px 30px -12px rgb(0 0 0 / .25); }
+.sp:nth-child(even) .sp-shot img { border-radius: 0 8px 0 0; }
+@media (max-width: 620px) { .sp, .sp:nth-child(even) { grid-template-columns: 1fr; gap: 18px; } .sp:nth-child(even) .sp-shot { order: 0; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="out" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="switch">
+  <div class="wrap">
+    <span>Preview</span>
+    <button type="button" data-v="a" aria-pressed="true">A · Index</button>
+    <button type="button" data-v="b" aria-pressed="false">B · Window tiles</button>
+    <button type="button" data-v="c" aria-pressed="false">C · Spread</button>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Selected work</p>
+      <h2>Projects</h2>
+      <p>A few highlights below, or open the full list. Much of my client work is private; I'm happy to walk you through more on a call.</p>
+      <a class="text-link" href="#">All projects <svg class="ic"><use href="#arr"/></svg></a>
+      <p class="note" id="note"></p>
+    </div>
+
+    <!-- A -->
+    <div class="variant" data-v="a">
+      <div class="ix">
+        <div class="ix-stage" id="ixStage"></div>
+        <div class="ix-cap"><p id="ixDesc"></p><span class="stack" id="ixStack"></span></div>
+        <div class="ix-list" role="tablist" id="ixList"></div>
+      </div>
+    </div>
+
+    <!-- B -->
+    <div class="variant" data-v="b" hidden><div class="tiles" id="tiles"></div></div>
+
+    <!-- C -->
+    <div class="variant" data-v="c" hidden><div class="spread" id="spread"></div></div>
+  </div>
+</section>
+
+<script>
+const P = [
+  { t: 'HAU IDMO Portal', k: 'University HR portal', live: true, img: 'hauoieidmo', url: 'hau-oie-idmo.com',
+    d: 'Employee portal for Holy Angel University, streamlining HR processes and data management.', s: 'Laravel · Tailwind CSS · MySQL · Hostinger' },
+  { t: 'Pina CRM', k: 'Real-estate CRM', live: false, img: 'pina', url: '',
+    d: 'A custom CRM for a real estate company — manage property listings, client records, and transactions in one place.', s: 'React · Supabase · Vercel' },
+  { t: 'PinaAi', k: 'AI agents', live: true, img: 'pinaai', url: 'pina-ai.netlify.app',
+    d: 'An AI layer on top of the Pina CRM — ask about bids, leads and deals in plain language, get a daily brief, and let agents act behind an approval gate.', s: 'React · Supabase · Gemini AI · Netlify' },
+  { t: 'The Zepatide', k: 'Brand site', live: true, img: 'zepatide', url: 'thezepatide.com',
+    d: 'A professional brand site for medical-grade products — clean, trustworthy design that communicates quality.', s: 'React · Supabase · Cloudflare Pages' },
+  { t: 'Umbra', k: 'Tutoring platform', live: true, img: 'umbra', url: 'umbra-app.com',
+    d: 'A web app connecting students and parents with nearby tutors — find, book, and manage sessions with ease.', s: 'Laravel · Tailwind CSS · MySQL' },
+];
+const src = p => `works/web/${p.img}.webp`;
+const status = p => `<span class="status${p.live ? ' live' : ''}">${p.live ? 'Live' : 'Client'}</span>`;
+const pad = i => String(i + 1).padStart(2, '0');
+
+/* A */
+const stage = document.getElementById('ixStage');
+stage.innerHTML = P.map((p, i) => `<img src="${src(p)}" alt="${p.t} screenshot" class="${i ? '' : 'on'}">`).join('');
+document.getElementById('ixList').innerHTML = P.map((p, i) => `
+  <button class="ix-row" role="tab" aria-selected="${!i}" data-i="${i}">
+    <span class="ix-n">${pad(i)}</span><span class="ix-t">${p.t}</span><span class="ix-k">${p.k}</span>
+    <svg class="ic ix-a"><use href="#arr"/></svg>
+  </button>`).join('');
+const pickA = i => {
+  stage.querySelectorAll('img').forEach((im, j) => im.classList.toggle('on', i === j));
+  document.querySelectorAll('.ix-row').forEach((r, j) => r.setAttribute('aria-selected', i === j));
+  document.getElementById('ixDesc').textContent = P[i].d;
+  document.getElementById('ixStack').textContent = P[i].s;
+};
+document.querySelectorAll('.ix-row').forEach(r => {
+  const i = +r.dataset.i;
+  r.addEventListener('mouseenter', () => pickA(i));
+  r.addEventListener('focus', () => pickA(i));
+  r.addEventListener('click', () => pickA(i));
+});
+pickA(0);
+
+/* B */
+document.getElementById('tiles').innerHTML = P.slice(0, 5).map(p => `
+  <a class="tile" href="#">
+    <div class="win">
+      <div class="win-bar"><i></i><span>${p.url || 'private · client build'}</span></div>
+      <div class="win-shot"><img src="${src(p)}" alt="" loading="lazy"></div>
+    </div>
+    <div class="tile-meta"><h3>${p.t}</h3>${status(p)}</div>
+    <p>${p.d}</p>
+    <span class="stack">${p.s}</span>
+  </a>`).join('');
+
+/* C */
+document.getElementById('spread').innerHTML = P.slice(0, 4).map((p, i) => `
+  <article class="sp">
+    <div>
+      <span class="sp-num">${pad(i)} — ${p.k}</span>
+      <h3>${p.t}</h3>
+      <p>${p.d}</p>
+      <p class="stack">${p.s}</p>
+      <div class="sp-links">
+        <a class="sp-btn" href="#">Case study <svg class="ic"><use href="#arr"/></svg></a>
+        ${p.url ? `<a class="text-link" href="#">${p.url} <svg class="ic"><use href="#out"/></svg></a>` : status(p)}
+      </div>
+    </div>
+    <div class="sp-shot"><img src="${src(p)}" alt="${p.t} screenshot" loading="lazy"></div>
+  </article>`).join('');
+
+/* switcher */
+const notes = {
+  a: 'A — Index: numbered contents list; hovering a row swaps the big screenshot above. Very editorial, compact, no cards at all.',
+  b: 'B — Window tiles: screenshots framed as mini browser windows in a flat grid, first project featured wide. Shows the actual work.',
+  c: 'C — Spread: alternating screenshot / text rows, like a printed case-study spread. Most room for each project; longest scroll.',
+};
+const show = v => {
+  document.querySelectorAll('.variant').forEach(el => el.hidden = el.dataset.v !== v);
+  document.querySelectorAll('.switch button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === v));
+  document.getElementById('note').textContent = notes[v];
+};
+document.querySelectorAll('.switch button').forEach(b => b.addEventListener('click', () => show(b.dataset.v)));
+show('a');
+</script>
+</body>
+</html>

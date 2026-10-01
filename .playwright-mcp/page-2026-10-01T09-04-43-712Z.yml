@@ -1,0 +1,99 @@
+- generic [active] [ref=f3e1]:
+  - generic [ref=f3e3]:
+    - generic [ref=f3e4]: Preview
+    - button "D · Pile" [pressed] [ref=f3e5] [cursor=pointer]
+    - button "E · Folders" [ref=f3e6] [cursor=pointer]
+    - button "F · Rolodex" [ref=f3e7] [cursor=pointer]
+  - generic [ref=f3e9]:
+    - generic [ref=f3e10]:
+      - paragraph [ref=f3e11]: Selected work
+      - heading "Projects" [level=2] [ref=f3e12]
+      - paragraph [ref=f3e13]: Flip through a few highlights, or open the full list. Much of my client work is private; I'm happy to walk you through more on a call.
+      - link "All projects" [ref=f3e14] [cursor=pointer]:
+        - /url: "#"
+      - paragraph [ref=f3e17]: "D — Pile: cards stacked straight up behind each other, no fan or tilt. Drag/swipe the top card away (or press Next) and it slides to the bottom of the pile."
+    - generic [ref=f3e18]:
+      - generic "Featured projects" [ref=f3e19]:
+        - article [ref=f3e20]:
+          - generic [ref=f3e21]:
+            - img "HAU IDMO Portal screenshot" [ref=f3e23]
+            - generic [ref=f3e24]:
+              - generic [ref=f3e25]:
+                - generic [ref=f3e26]: 01University HR portal
+                - generic [ref=f3e27]: Live
+              - heading "HAU IDMO Portal" [level=3] [ref=f3e28]
+              - paragraph [ref=f3e29]: Employee portal for Holy Angel University, streamlining HR processes and data management.
+              - paragraph [ref=f3e30]: Laravel · Tailwind CSS · MySQL · Hostinger
+              - generic [ref=f3e31]:
+                - link "Read case study" [ref=f3e32] [cursor=pointer]:
+                  - /url: "#"
+                - link "hau-oie-idmo.com" [ref=f3e35] [cursor=pointer]:
+                  - /url: "#"
+        - article [ref=f3e38]:
+          - generic [ref=f3e39]:
+            - img "Pina CRM screenshot" [ref=f3e41]
+            - generic [ref=f3e42]:
+              - generic [ref=f3e43]:
+                - generic [ref=f3e44]: 02Real-estate CRM
+                - generic [ref=f3e45]: Client
+              - heading "Pina CRM" [level=3] [ref=f3e46]
+              - paragraph [ref=f3e47]: A custom CRM for a real estate company — manage property listings, client records, and transactions in one place.
+              - paragraph [ref=f3e48]: React · Supabase · Vercel
+              - link "Read case study" [ref=f3e50] [cursor=pointer]:
+                - /url: "#"
+        - article [ref=f3e53]:
+          - generic [ref=f3e54]:
+            - img "PinaAi screenshot" [ref=f3e56]
+            - generic [ref=f3e57]:
+              - generic [ref=f3e58]:
+                - generic [ref=f3e59]: 03AI agents
+                - generic [ref=f3e60]: Live
+              - heading "PinaAi" [level=3] [ref=f3e61]
+              - paragraph [ref=f3e62]: An AI layer on top of the Pina CRM — ask about bids, leads and deals in plain language, get a daily brief, and let agents act behind an approval gate.
+              - paragraph [ref=f3e63]: React · Supabase · Gemini AI · Netlify
+              - generic [ref=f3e64]:
+                - link "Read case study" [ref=f3e65] [cursor=pointer]:
+                  - /url: "#"
+                - link "pina-ai.netlify.app" [ref=f3e68] [cursor=pointer]:
+                  - /url: "#"
+        - article [ref=f3e71]:
+          - generic [ref=f3e72]:
+            - img "The Zepatide screenshot" [ref=f3e74]
+            - generic [ref=f3e75]:
+              - generic [ref=f3e76]:
+                - generic [ref=f3e77]: 04Brand site
+                - generic [ref=f3e78]: Live
+              - heading "The Zepatide" [level=3] [ref=f3e79]
+              - paragraph [ref=f3e80]: A professional brand site for medical-grade products — clean, trustworthy design that communicates quality.
+              - paragraph [ref=f3e81]: React · Supabase · Cloudflare Pages
+              - generic [ref=f3e82]:
+                - link "Read case study" [ref=f3e83] [cursor=pointer]:
+                  - /url: "#"
+                - link "thezepatide.com" [ref=f3e86] [cursor=pointer]:
+                  - /url: "#"
+        - article [ref=f3e89]:
+          - generic [ref=f3e90]:
+            - img "Umbra screenshot" [ref=f3e92]
+            - generic [ref=f3e93]:
+              - generic [ref=f3e94]:
+                - generic [ref=f3e95]: 05Tutoring platform
+                - generic [ref=f3e96]: Live
+              - heading "Umbra" [level=3] [ref=f3e97]
+              - paragraph [ref=f3e98]: A web app connecting students and parents with nearby tutors — find, book, and manage sessions with ease.
+              - paragraph [ref=f3e99]: Laravel · Tailwind CSS · MySQL
+              - generic [ref=f3e100]:
+                - link "Read case study" [ref=f3e101] [cursor=pointer]:
+                  - /url: "#"
+                - link "umbra-app.com" [ref=f3e104] [cursor=pointer]:
+                  - /url: "#"
+      - generic [ref=f3e107]:
+        - button "Prev" [ref=f3e108] [cursor=pointer]
+        - generic [ref=f3e111]:
+          - generic [ref=f3e112]: 01 / 05
+          - generic [ref=f3e113]:
+            - button "Project 1" [ref=f3e114] [cursor=pointer]
+            - button "Project 2" [ref=f3e115] [cursor=pointer]
+            - button "Project 3" [ref=f3e116] [cursor=pointer]
+            - button "Project 4" [ref=f3e117] [cursor=pointer]
+            - button "Project 5" [ref=f3e118] [cursor=pointer]
+        - button "Next" [ref=f3e119] [cursor=pointer]

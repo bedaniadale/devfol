@@ -1,0 +1,55 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]: Preview
+    - button "A · Index" [ref=e5] [cursor=pointer]
+    - button "B · Window tiles" [active] [pressed] [ref=e6] [cursor=pointer]
+    - button "C · Spread" [ref=e7] [cursor=pointer]
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - paragraph [ref=e11]: Selected work
+      - heading "Projects" [level=2] [ref=e12]
+      - paragraph [ref=e13]: A few highlights below, or open the full list. Much of my client work is private; I'm happy to walk you through more on a call.
+      - link "All projects" [ref=e14] [cursor=pointer]:
+        - /url: "#"
+      - paragraph [ref=e17]: "B — Window tiles: screenshots framed as mini browser windows in a flat grid, first project featured wide. Shows the actual work."
+    - generic [ref=e61]:
+      - link "hau-oie-idmo.com HAU IDMO Portal Live Employee portal for Holy Angel University, streamlining HR processes and data management. Laravel · Tailwind CSS · MySQL · Hostinger" [ref=e62] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e63]: hau-oie-idmo.com
+        - generic [ref=e68]:
+          - heading "HAU IDMO Portal" [level=3] [ref=e69]
+          - generic [ref=e70]: Live
+        - paragraph [ref=e71]: Employee portal for Holy Angel University, streamlining HR processes and data management.
+        - generic [ref=e72]: Laravel · Tailwind CSS · MySQL · Hostinger
+      - link "private · client build Pina CRM Client A custom CRM for a real estate company — manage property listings, client records, and transactions in one place. React · Supabase · Vercel" [ref=e73] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e74]: private · client build
+        - generic [ref=e79]:
+          - heading "Pina CRM" [level=3] [ref=e80]
+          - generic [ref=e81]: Client
+        - paragraph [ref=e82]: A custom CRM for a real estate company — manage property listings, client records, and transactions in one place.
+        - generic [ref=e83]: React · Supabase · Vercel
+      - link "pina-ai.netlify.app PinaAi Live An AI layer on top of the Pina CRM — ask about bids, leads and deals in plain language, get a daily brief, and let agents act behind an approval gate. React · Supabase · Gemini AI · Netlify" [ref=e84] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e85]: pina-ai.netlify.app
+        - generic [ref=e90]:
+          - heading "PinaAi" [level=3] [ref=e91]
+          - generic [ref=e92]: Live
+        - paragraph [ref=e93]: An AI layer on top of the Pina CRM — ask about bids, leads and deals in plain language, get a daily brief, and let agents act behind an approval gate.
+        - generic [ref=e94]: React · Supabase · Gemini AI · Netlify
+      - link "thezepatide.com The Zepatide Live A professional brand site for medical-grade products — clean, trustworthy design that communicates quality. React · Supabase · Cloudflare Pages" [ref=e95] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e96]: thezepatide.com
+        - generic [ref=e101]:
+          - heading "The Zepatide" [level=3] [ref=e102]
+          - generic [ref=e103]: Live
+        - paragraph [ref=e104]: A professional brand site for medical-grade products — clean, trustworthy design that communicates quality.
+        - generic [ref=e105]: React · Supabase · Cloudflare Pages
+      - link "umbra-app.com Umbra Live A web app connecting students and parents with nearby tutors — find, book, and manage sessions with ease. Laravel · Tailwind CSS · MySQL" [ref=e106] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e107]: umbra-app.com
+        - generic [ref=e112]:
+          - heading "Umbra" [level=3] [ref=e113]
+          - generic [ref=e114]: Live
+        - paragraph [ref=e115]: A web app connecting students and parents with nearby tutors — find, book, and manage sessions with ease.
+        - generic [ref=e116]: Laravel · Tailwind CSS · MySQL

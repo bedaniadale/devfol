@@ -1,0 +1,62 @@
+- generic [ref=f2e1]:
+  - generic [ref=f2e3]:
+    - generic [ref=f2e4]: Preview
+    - button "A · Index" [ref=f2e5] [cursor=pointer]
+    - button "B · Window tiles" [ref=f2e6] [cursor=pointer]
+    - button "C · Spread" [active] [pressed] [ref=f2e7] [cursor=pointer]
+  - generic [ref=f2e9]:
+    - generic [ref=f2e10]:
+      - paragraph [ref=f2e11]: Selected work
+      - heading "Projects" [level=2] [ref=f2e12]
+      - paragraph [ref=f2e13]: A few highlights below, or open the full list. Much of my client work is private; I'm happy to walk you through more on a call.
+      - link "All projects" [ref=f2e14] [cursor=pointer]:
+        - /url: "#"
+      - paragraph [ref=f2e17]: "C — Spread: alternating screenshot / text rows, like a printed case-study spread. Most room for each project; longest scroll."
+    - generic [ref=f2e61]:
+      - article [ref=f2e62]:
+        - generic [ref=f2e63]:
+          - generic [ref=f2e64]: 01 — University HR portal
+          - heading "HAU IDMO Portal" [level=3] [ref=f2e65]
+          - paragraph [ref=f2e66]: Employee portal for Holy Angel University, streamlining HR processes and data management.
+          - paragraph [ref=f2e67]: Laravel · Tailwind CSS · MySQL · Hostinger
+          - generic [ref=f2e68]:
+            - link "Case study" [ref=f2e69] [cursor=pointer]:
+              - /url: "#"
+            - link "hau-oie-idmo.com" [ref=f2e72] [cursor=pointer]:
+              - /url: "#"
+        - img "HAU IDMO Portal screenshot" [ref=f2e76]
+      - article [ref=f2e77]:
+        - generic [ref=f2e78]:
+          - generic [ref=f2e79]: 02 — Real-estate CRM
+          - heading "Pina CRM" [level=3] [ref=f2e80]
+          - paragraph [ref=f2e81]: A custom CRM for a real estate company — manage property listings, client records, and transactions in one place.
+          - paragraph [ref=f2e82]: React · Supabase · Vercel
+          - generic [ref=f2e83]:
+            - link "Case study" [ref=f2e84] [cursor=pointer]:
+              - /url: "#"
+            - generic [ref=f2e87]: Client
+        - img "Pina CRM screenshot" [ref=f2e89]
+      - article [ref=f2e90]:
+        - generic [ref=f2e91]:
+          - generic [ref=f2e92]: 03 — AI agents
+          - heading "PinaAi" [level=3] [ref=f2e93]
+          - paragraph [ref=f2e94]: An AI layer on top of the Pina CRM — ask about bids, leads and deals in plain language, get a daily brief, and let agents act behind an approval gate.
+          - paragraph [ref=f2e95]: React · Supabase · Gemini AI · Netlify
+          - generic [ref=f2e96]:
+            - link "Case study" [ref=f2e97] [cursor=pointer]:
+              - /url: "#"
+            - link "pina-ai.netlify.app" [ref=f2e100] [cursor=pointer]:
+              - /url: "#"
+        - img "PinaAi screenshot" [ref=f2e104]
+      - article [ref=f2e105]:
+        - generic [ref=f2e106]:
+          - generic [ref=f2e107]: 04 — Brand site
+          - heading "The Zepatide" [level=3] [ref=f2e108]
+          - paragraph [ref=f2e109]: A professional brand site for medical-grade products — clean, trustworthy design that communicates quality.
+          - paragraph [ref=f2e110]: React · Supabase · Cloudflare Pages
+          - generic [ref=f2e111]:
+            - link "Case study" [ref=f2e112] [cursor=pointer]:
+              - /url: "#"
+            - link "thezepatide.com" [ref=f2e115] [cursor=pointer]:
+              - /url: "#"
+        - img "The Zepatide screenshot" [ref=f2e119]

@@ -95,21 +95,23 @@
   /* ─────────────────────────────── render ──────────────────────────────── */
 
   /* Card deck: every featured project is a card stacked in one grid cell;
-     initDeck() assigns the centre / left / right / back positions. The first
-     card is centred in the markup so the no-JS page shows it. */
+     initDeck() fans them out like a hand of cards around the active one. The
+     first card is centred in the markup so the no-JS page shows it. */
   function deckHtml() {
     var n = 0;
     return PROJECTS.map(function (p, i) {
       if (!p.featured) return '';
-      return '<article class="deck-card ' + (n++ === 0 ? 'is-center' : 'is-back') + '">' +
-        '<div class="deck-pills"><span class="pill pill-accent">' + esc(p.badge) + '</span>' + pill(p) + '</div>' +
-        '<div class="deck-id"><span class="deck-thumb">' + img(p.img, '', 1600, 900) + '</span>' +
-          '<h3>' + esc(p.short || p.title) + '</h3></div>' +
+      var num = String(++n).padStart(2, '0');
+      return '<article class="deck-card ' + (n === 1 ? 'is-center' : 'is-back') + '">' +
+        '<div class="deck-top"><span><b>' + num + '</b> · ' + esc(p.badge) + '</span>' +
+          '<span class="deck-status' + (isLive(p) ? ' is-live' : '') + '">' + (isLive(p) ? 'Live' : 'Client') + '</span></div>' +
+        '<div class="deck-id"><h3>' + esc(p.short || p.title) + '</h3>' +
+          '<span class="deck-thumb">' + img(p.img, '', 1600, 900) + '</span></div>' +
         '<p class="deck-desc">' + esc(p.desc) + '</p>' +
         '<p class="deck-stack">' + esc(p.langs.slice(0, 4).join(' · ')) + '</p>' +
         '<div class="deck-actions">' +
-          '<button type="button" class="btn btn-primary btn-sm" data-case="' + i + '">' + (p.caseStudy ? 'Case study' : 'Details') + ' ' + icon('arrow') + '</button>' +
-          (isLive(p) ? siteLink(p, 'text-link') : '') +
+          '<button type="button" class="deck-btn" data-case="' + i + '">' + (p.caseStudy ? 'Case study' : 'Details') + ' ' + icon('arrow') + '</button>' +
+          (isLive(p) ? siteLink(p, 'deck-url') : '') +
         '</div>' +
       '</article>';
     }).join('');
@@ -142,9 +144,9 @@
   }
 
   function designHtml() {
-    return GRAPHICS.map(function (f) {
+    return GRAPHICS.map(function (f, i) {
       var src = 'works/graphics/' + f;
-      return '<li><a href="' + esc(src) + '" target="_blank" rel="noopener noreferrer" aria-label="Open design in a new tab">' +
+      return '<li><a href="' + esc(src) + '" target="_blank" rel="noopener noreferrer" data-lb="' + i + '" aria-label="View design ' + (i + 1) + '">' +
         img(src, '', 600, 600) + '</a></li>';
     }).join('');
   }
@@ -196,6 +198,12 @@
     var deck = $('deck');
     var cards = [].slice.call(deck.querySelectorAll('.deck-card'));
     var n = cards.length, active = 0;
+    var count = $('deckCount'), seg = $('deckSeg');
+    var pad = function (v) { return String(v).padStart(2, '0'); };
+    seg.innerHTML = cards.map(function (_, i) {
+      return '<button type="button" data-go="' + i + '" aria-label="Project ' + (i + 1) + '"></button>';
+    }).join('');
+    var segs = [].slice.call(seg.children);
 
     function show(next) {
       active = (next + n) % n;
@@ -203,13 +211,18 @@
         // Signed distance from the active card, wrapped so the deck is a ring.
         var d = (i - active + n) % n;
         if (d > n / 2) d -= n;
-        var pos = d === 0 ? 'is-center' : d === -1 ? 'is-left' : d === 1 ? 'is-right' : 'is-back';
-        c.className = 'deck-card ' + pos;
+        var ad = Math.abs(d);
+        c.className = 'deck-card ' + (d === 0 ? 'is-center' : ad <= 2 ? 'is-side' : 'is-back');
+        c.setAttribute('data-ad', ad);
+        c.style.setProperty('--d', d);
+        c.style.setProperty('--ad', ad);
         // Only the centre card's controls are reachable; the side cards are
         // click targets that bring themselves forward.
-        c.setAttribute('aria-hidden', String(pos !== 'is-center'));
-        c.querySelectorAll('a, button').forEach(function (el) { el.tabIndex = pos === 'is-center' ? 0 : -1; });
+        c.setAttribute('aria-hidden', String(d !== 0));
+        c.querySelectorAll('a, button').forEach(function (el) { el.tabIndex = d === 0 ? 0 : -1; });
       });
+      count.innerHTML = pad(active + 1) + ' <span>/ ' + pad(n) + '</span>';
+      segs.forEach(function (b, i) { b.setAttribute('aria-current', String(i === active)); });
     }
 
     // Capture phase, so a click anywhere on a side card (even on its button)
@@ -223,6 +236,14 @@
     }, true);
     $('deckPrev').addEventListener('click', function () { show(active - 1); });
     $('deckNext').addEventListener('click', function () { show(active + 1); });
+    seg.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-go]');
+      if (b) show(+b.getAttribute('data-go'));
+    });
+    deck.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(active + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(active - 1); }
+    });
 
     var x0 = null;
     deck.addEventListener('pointerdown', function (e) { x0 = e.clientX; });
@@ -233,6 +254,45 @@
     });
 
     show(0);
+  }
+
+  /* Design viewer: the grid links open the full image in a dialog with
+     prev / next instead of leaving the page. Without JS they still open the
+     image in a new tab. */
+  function initLightbox() {
+    var dlg = $('lightbox');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var n = GRAPHICS.length, at = 0;
+
+    function show(i) {
+      at = (i + n) % n;
+      var src = 'works/graphics/' + GRAPHICS[at];
+      $('lbImg').src = src;
+      $('lbImg').alt = 'Design ' + (at + 1) + ' of ' + n;
+      $('lbOpen').href = src;
+      $('lbCount').textContent = String(at + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
+    }
+
+    $('designList').addEventListener('click', function (e) {
+      var a = e.target.closest('[data-lb]');
+      if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      show(+a.getAttribute('data-lb'));
+      dlg.showModal();
+      syncLock();
+    });
+    $('lbPrev').addEventListener('click', function () { show(at - 1); });
+    $('lbNext').addEventListener('click', function () { show(at + 1); });
+    $('lbClose').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') show(at - 1);
+      if (e.key === 'ArrowRight') show(at + 1);
+    });
+    // Clicking the dimmed area around the image closes.
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg || e.target.classList.contains('lb-stage')) dlg.close();
+    });
+    dlg.addEventListener('close', syncLock);
   }
 
   /* The page stays locked while any modal is open: a case study can sit on
@@ -305,7 +365,7 @@
 
   function boot() {
     Object.keys(LISTS).forEach(function (id) { $(id).innerHTML = LISTS[id](); });
-    initDeck(); initCaseDialog(); initMore(); initNav(); initReveal();
+    initDeck(); initCaseDialog(); initLightbox(); initMore(); initNav(); initReveal();
     $('year').textContent = new Date().getFullYear();
   }
 
