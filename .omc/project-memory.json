@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1790845050657,
+  "lastScanned": 1791212362879,
   "projectRoot": "C:\\Users\\Administrator\\Documents\\Webdev\\devfol",
   "techStack": {
     "languages": [],
@@ -36,7 +36,7 @@
       "path": "crms",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1790845050610,
+      "lastAccessed": 1791212362844,
       "keyFiles": [
         "PORTFOLIO-DESCRIPTIONS.md"
       ]
@@ -45,7 +45,7 @@
       "path": "works",
       "purpose": null,
       "fileCount": 33,
-      "lastAccessed": 1790845050613,
+      "lastAccessed": 1791212362845,
       "keyFiles": [
         "Bedania_CV.pdf",
         "Bedania_CVFormal.pdf",
@@ -58,14 +58,14 @@
   "hotPaths": [
     {
       "path": "index.html",
-      "accessCount": 31,
-      "lastAccessed": 1790859561151,
+      "accessCount": 32,
+      "lastAccessed": 1791212375990,
       "type": "file"
     },
     {
       "path": "site.js",
-      "accessCount": 25,
-      "lastAccessed": 1790859563118,
+      "accessCount": 28,
+      "lastAccessed": 1791212396922,
       "type": "file"
     },
     {
@@ -93,16 +93,16 @@
       "type": "file"
     },
     {
+      "path": "",
+      "accessCount": 5,
+      "lastAccessed": 1791212372629,
+      "type": "directory"
+    },
+    {
       "path": "resume.html",
       "accessCount": 4,
       "lastAccessed": 1790576938240,
       "type": "file"
-    },
-    {
-      "path": "",
-      "accessCount": 4,
-      "lastAccessed": 1790599479681,
-      "type": "directory"
     },
     {
       "path": "projects-preview.html",
