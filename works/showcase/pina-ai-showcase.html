@@ -1,0 +1,803 @@
+<meta charset="utf-8">
+<title>PinaAi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400;62..125,500;62..125,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an estimator's bid sheet. Plaster-grey ground with a faint scale ruler, wide condensed headlines, quantities set in mono like a takeoff. Amber marks "waiting for a person", the app's blue marks action. Screens stay light. */
+:root{
+  --ground:#e9eae7; --ground-2:#dfe0dc; --tick:rgba(40,46,52,.10);
+  --ink:#16191d; --ink-2:#4c535b; --ink-3:#7c838b; --rule:#c8cbc6; --paper:#f8f8f6;
+  --accent:#1976D2; --accent-ink:#1a5fb0; --wait:#b7790f; --wait-soft:#f6e3b4;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --a-primary:#1976D2; --a-link:#2457a8; --a-prog:#3b78e7; --a-inset:#f7f7f5;
+  --a-900:#0f172a; --a-500:#64748b; --a-400:#94a3b8; --a-300:#cbd5e1; --a-200:#e2e8f0; --a-100:#f1f5f9;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#14161a; --ground-2:#1a1d22; --tick:rgba(220,226,232,.08);
+  --ink:#eceef0; --ink-2:#aab1b9; --ink-3:#7f8790; --rule:#2c3138; --paper:#1b1f24;
+  --accent:#5aa2f0; --accent-ink:#8cbff5; --wait:#e6b04a; --wait-soft:#3a2f17; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --ground:#14161a; --ground-2:#1a1d22; --tick:rgba(220,226,232,.08);
+  --ink:#eceef0; --ink-2:#aab1b9; --ink-3:#7f8790; --rule:#2c3138; --paper:#1b1f24;
+  --accent:#5aa2f0; --accent-ink:#8cbff5; --wait:#e6b04a; --wait-soft:#3a2f17; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--display);font-weight:500;font-stretch:80%;letter-spacing:-.01em;text-wrap:balance;margin:0}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.lede{font-size:clamp(17px,1.6vw,20px);color:var(--ink-2);max-width:62ch}
+/* ruler along the top of each band: the scale bar on a drawing */
+section.band{padding-block:clamp(56px,8vw,104px);position:relative}
+section.band::before{content:"";position:absolute;left:0;right:0;top:0;height:14px;border-top:1px solid var(--rule);
+  background:repeating-linear-gradient(90deg,var(--tick) 0 1px,transparent 1px 12px),repeating-linear-gradient(90deg,var(--rule) 0 1px,transparent 1px 120px);
+  background-size:auto 6px,auto 14px;background-repeat:repeat-x;background-position:0 0,0 0}
+.band-head{display:grid;gap:14px;margin-bottom:clamp(28px,4vw,48px);max-width:780px}
+.band-head h2{font-size:clamp(34px,4.8vw,60px);line-height:1}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:20px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);flex-wrap:wrap}
+.topbar b{color:var(--ink);font-weight:500}
+.mark{display:inline-flex;align-items:center;gap:10px}
+.mark .tile{width:24px;height:24px;border-radius:7px;background:var(--accent);display:inline-grid;place-items:center;color:#fff}
+.mark .tile svg{width:14px;height:14px}
+
+.hero{padding-block:clamp(24px,5vw,56px) clamp(56px,8vw,104px)}
+.hero-top{display:grid;gap:28px;align-items:end}
+@media (min-width:980px){.hero-top{grid-template-columns:1.25fr .75fr}}
+.hero h1{font-size:clamp(56px,10.5vw,148px);line-height:.86;font-stretch:72%;letter-spacing:-.025em;font-weight:600}
+.hero h1 span{display:block;color:var(--ink-3);font-weight:400}
+.hero .pitch{font-size:clamp(18px,1.9vw,22px);color:var(--ink-2);line-height:1.45;max-width:38ch}
+.status{display:grid;gap:0;border:1px solid var(--rule);background:var(--paper);font-size:14px;margin-top:18px}
+.status div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:9px 14px;border-bottom:1px solid var(--rule)}
+.status div:last-child{border-bottom:0}
+.status dt{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
+.status dd{margin:0;color:var(--ink)}
+.status .w{color:var(--wait);font-weight:500}
+.stage{margin-top:clamp(28px,4vw,48px);position:relative}
+
+.tblock{display:grid;grid-template-columns:auto 1fr auto;border:1px solid var(--rule);background:var(--paper);font-family:var(--mono);font-size:11.5px;color:var(--ink-2);margin-top:12px}
+.tblock > div{padding:8px 12px;border-right:1px solid var(--rule);min-width:0}
+.tblock > div:last-child{border-right:0}
+.tblock b{color:var(--ink);font-weight:500}
+@media (max-width:560px){.tblock{grid-template-columns:1fr}.tblock > div{border-right:0;border-bottom:1px solid var(--rule)}.tblock > div:last-child{border-bottom:0}}
+
+.browser{border-radius:12px;background:#22262c;overflow:hidden;box-shadow:0 30px 60px -32px rgba(20,24,30,.5),0 0 0 1px rgba(20,24,30,.08)}
+.browser .chrome{display:flex;align-items:center;gap:7px;padding:10px 14px}
+.browser .chrome i.b{width:10px;height:10px;border-radius:50%;background:#3d434c;display:block}
+.browser .chrome .url{margin-left:12px;flex:1;max-width:420px;height:24px;border-radius:7px;background:#2f343b;color:#a0a8b3;font-family:var(--mono);font-size:11px;display:flex;align-items:center;padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fit{overflow:hidden;position:relative;background:#fff}
+.fit > .app{transform-origin:top left}
+.phone{border-radius:42px;background:#1b1f25;padding:10px;box-shadow:0 30px 60px -28px rgba(20,24,30,.55)}
+.phone .fit{border-radius:33px}
+.phone .notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:96px;height:26px;border-radius:14px;background:#1b1f25;z-index:3}
+
+/* rules: the two promises */
+.rules{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:clamp(28px,4vw,44px)}
+.rules div{background:var(--paper);padding:20px 20px 22px;display:grid;gap:8px;align-content:start}
+.rules .k{font-family:var(--mono);font-size:11.5px;color:var(--accent-ink);letter-spacing:.08em;text-transform:uppercase}
+.rules h4{font-size:24px;line-height:1.1}
+.rules p{font-size:15px;color:var(--ink-2)}
+
+.two{display:grid;gap:clamp(24px,4vw,56px)}
+@media (min-width:900px){.two{grid-template-columns:1.1fr .9fr}}
+.problem p + p{margin-top:14px}
+.problem p{color:var(--ink-2);max-width:60ch}
+.problem strong{color:var(--ink);font-weight:500}
+.who{display:grid;border-top:1px solid var(--rule);margin:0}
+.who div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.who dt{font-family:var(--display);font-stretch:85%;font-size:20px;font-weight:500}
+.who dd{margin:0;color:var(--ink-2);font-size:15px}
+@media (max-width:520px){.who div{grid-template-columns:1fr;gap:2px}}
+
+.feature{display:grid;gap:clamp(20px,3vw,40px);align-items:start;padding-block:clamp(32px,5vw,60px)}
+.feature + .feature{border-top:1px dashed var(--rule)}
+@media (min-width:980px){.feature{grid-template-columns:330px 1fr}.feature.flip{grid-template-columns:1fr 330px}.feature.flip .copy{order:2}}
+.feature .copy{display:grid;gap:14px}
+.feature h3{font-size:clamp(28px,3.2vw,40px);line-height:1}
+.feature .copy p{color:var(--ink-2)}
+.feature ul{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.feature li{font-size:15px;color:var(--ink-2);padding-left:18px;position:relative}
+.feature li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--accent)}
+.feature li b{color:var(--ink);font-weight:500}
+.fig{min-width:0}
+
+.flow{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.flow li{background:var(--paper);padding:20px 18px 22px;display:grid;gap:8px;align-content:start}
+.flow .n{font-family:var(--mono);font-size:12px;color:var(--accent-ink);letter-spacing:.08em}
+.flow h4{font-size:22px;line-height:1.05}
+.flow p{font-size:14.5px;color:var(--ink-2)}
+.flow .who-does{font-family:var(--mono);font-size:11px;letter-spacing:.04em;margin-top:4px;color:var(--ink-3)}
+.flow .who-does.p{color:var(--wait)}
+
+.gallery{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:start}
+.gallery figure{min-width:0}
+@media (min-width:980px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-flow:dense}.gallery .wide{grid-column:span 2}.gallery .tall{grid-row:span 2}}
+.gallery figure{margin:0}
+.gallery figcaption{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);margin-top:10px}
+.gallery figcaption b{color:var(--ink);font-weight:500}
+
+.kit{display:grid;gap:20px}
+@media (min-width:900px){.kit{grid-template-columns:repeat(2,1fr)}.kit .full{grid-column:1/-1}}
+.sheet{background:var(--paper);border:1px solid var(--rule);padding:clamp(18px,2.4vw,28px);min-width:0}
+.sheet h3{font-size:26px;margin-bottom:4px}
+.sheet .note{font-size:14px;color:var(--ink-2);margin-bottom:18px}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px}
+.sw{display:grid;gap:6px;font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+.sw i{display:block;height:56px;border-radius:10px;border:1px solid rgba(20,24,30,.08)}
+.sw b{color:var(--ink);font-weight:500;font-family:var(--body);font-size:13px}
+.kit-demo{background:#fff;border-radius:14px;padding:16px;border:1px solid rgba(20,24,30,.06)}
+.typescale div{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--rule)}
+.typescale div:last-child{border-bottom:0}
+.typescale code{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.typescale span{overflow-wrap:anywhere;min-width:0}
+.vocab{display:grid;gap:0;margin-top:4px}
+.vocab div{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:9px 0;border-bottom:1px solid var(--rule);font-size:14.5px}
+.vocab div:last-child{border-bottom:0}
+.vocab s{color:var(--ink-3)}
+
+.roadmap{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.roadmap div{background:var(--paper);padding:20px;display:grid;gap:8px;align-content:start}
+.roadmap .st{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--wait)}
+.roadmap h4{font-size:22px}
+.roadmap p{font-size:14.5px;color:var(--ink-2)}
+.credits{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-block:28px 40px;border-top:1px solid var(--rule);margin-top:clamp(40px,6vw,72px);font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.credits b{color:var(--ink);font-weight:500}
+
+/* ================= APP SCREENS (PinaAi, workspace kit, always light) ================= */
+.app{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:var(--a-900);background:#fff;font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.app *{box-sizing:border-box}
+.app svg.lucide{width:16px;height:16px;flex-shrink:0}
+.app svg.i35{width:14px;height:14px}
+.shell{display:grid;grid-template-columns:240px 1fr}
+.side{background:#fff;border-right:1px solid var(--a-200);padding:14px 12px;display:flex;flex-direction:column;gap:2px;min-height:100%}
+.brand{display:flex;gap:10px;align-items:center;padding:4px 6px 16px}
+.brand .lg{width:36px;height:36px;border-radius:10px;background:var(--a-primary);color:#fff;display:grid;place-items:center}
+.brand b{display:block;font-weight:600;font-size:14.5px}
+.brand small{display:block;font-size:12px;color:var(--a-500)}
+.side a{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:9px;font-size:14px;color:#334155}
+.side a svg.lucide{color:#64748b}
+.side a.on{background:#eef3fc;color:var(--a-link);box-shadow:inset 2px 0 0 var(--a-primary)}
+.side a.on svg.lucide{color:var(--a-link)}
+.side .cnt{margin-left:auto;background:#f6e3b4;color:#7a4f0a;border-radius:999px;font-size:11.5px;padding:0 7px;line-height:18px}
+.side .grp{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--a-400);padding:14px 10px 6px}
+.side .waitbox{margin-top:auto;border-radius:14px;background:#eef3fc;padding:12px 14px;display:grid;gap:4px}
+.side .waitbox b{color:var(--a-link);font-weight:500;font-size:14px}
+.side .waitbox span{font-size:12.5px;color:#475569}
+.side .waitbox i{font-style:normal;justify-self:start;margin-top:6px;background:var(--a-primary);color:#fff;font-size:12.5px;border-radius:999px;padding:4px 12px;font-weight:500}
+.side .me{display:flex;align-items:center;gap:10px;border:1px solid var(--a-200);border-radius:14px;padding:8px 10px;margin-top:10px;font-size:13px}
+.main{background:linear-gradient(180deg,#f3f6fa 0,#fff 260px);min-width:0}
+.hd{padding:20px 26px 14px;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.hd h2{font-family:Inter;font-size:26px;font-weight:500;letter-spacing:-.01em;margin:0}
+.hd .sub{font-size:14px;color:var(--a-500);margin-top:2px}
+.back{font-size:13px;color:var(--a-500);display:flex;align-items:center;gap:4px;margin-bottom:8px}
+.body{padding:4px 26px 26px;display:grid;gap:16px}
+.card{border:1px solid rgba(226,232,240,.8);border-radius:16px;background:#fff;padding:18px 20px;min-width:0}
+.sh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.sh .t{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:500;white-space:nowrap}
+.sh .t svg.lucide{width:20px;height:20px}
+.lnk{color:var(--a-link);display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.muted{color:var(--a-500)} .sm{font-size:14px} .xs{font-size:13px}
+.inset{border-radius:12px;background:var(--a-inset);padding:12px 16px}
+.insets{display:grid;gap:8px}
+.row{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.row .l{display:flex;align-items:center;gap:12px;min-width:0}
+.rt{font-size:15px;font-weight:500;line-height:1.3}
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 9px;font-size:13px;line-height:20px;white-space:nowrap}
+.pill svg.lucide{width:13px;height:13px}
+.t-slate{background:#fff;color:#1e293b;box-shadow:inset 0 0 0 1px var(--a-200)}
+.t-blue{background:#dde8fb;color:#2457a8}.t-emerald{background:#dcf0d7;color:#2f7a2b}.t-amber{background:#f6e3b4;color:#7a4f0a}.t-red{background:#f6d9da;color:#9b2323}.t-violet{background:#e7e3fb;color:#4b3db0}
+.btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;border-radius:9px;padding:0 14px;font-size:14px;white-space:nowrap}
+.btn.p{background:var(--a-primary);color:#fff;font-weight:500}
+.btn.o{border:1px solid var(--a-300);background:#fff}
+.btn.sm{min-height:32px;font-size:13.5px;padding:0 12px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{border:1px solid rgba(226,232,240,.8);border-radius:16px;padding:14px 18px;background:#fff}
+.kpi .k{font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--a-500)}
+.kpi .v{font-size:24px;font-weight:500;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:13px;color:var(--a-500)}
+.kpi.hot{background:#fffaf0;border-color:#f3dfae}
+.glyph{width:40px;height:40px;border-radius:12px;background:#dde8fb;color:#2457a8;display:grid;place-items:center;flex-shrink:0}
+.glyph.s{width:32px;height:32px;border-radius:10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chipm{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--a-200);border-radius:999px;padding:3px 10px;font-size:12.5px;color:#475569;background:#fff}
+.tabs{display:flex;gap:24px;border-bottom:1px solid var(--a-200);padding:0 26px;font-size:14px;color:var(--a-500)}
+.tabs span{padding:10px 0;border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;gap:6px;align-items:center}
+.tabs span.on{color:var(--a-900);border-color:var(--a-primary);font-weight:500}
+.steps{border:1px solid var(--a-200);border-radius:14px;overflow:hidden;background:#fff}
+.step{display:grid;grid-template-columns:28px 1fr auto;gap:10px;padding:11px 14px;border-bottom:1px solid var(--a-100);align-items:start}
+.step:last-child{border-bottom:0}
+.step .ic{width:26px;height:26px;border-radius:8px;border:1px solid var(--a-200);display:grid;place-items:center;color:#64748b}
+.step .ic svg.lucide{width:13px;height:13px}
+.step .nm{font-size:14.5px;font-weight:500}
+.step .nm span{font-weight:400;color:var(--a-400);font-size:12.5px;margin-left:6px}
+.step .no{font-size:12px;color:var(--a-400);font-variant-numeric:tabular-nums}
+.bubble-me{justify-self:end;background:var(--a-primary);color:#fff;border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:14.5px;font-weight:500;max-width:70%}
+.working{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--a-500)}
+.dots{display:inline-flex;gap:3px}.dots i{width:5px;height:5px;border-radius:50%;background:var(--a-400);display:block}
+.composer{border:1.5px solid var(--a-primary);border-radius:14px;padding:12px 14px;display:grid;gap:10px;background:#fff}
+.composer .ph{color:var(--a-400);font-size:14px}
+.kv{display:grid;grid-template-columns:150px 1fr;border:1px solid var(--a-200);border-radius:12px;overflow:hidden;font-size:14px}
+.kv > div{padding:10px 14px;border-bottom:1px solid var(--a-100)}
+.kv > div:nth-child(odd){background:var(--a-inset);font-size:11.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--a-500)}
+.kv > div:nth-last-child(-n+2){border-bottom:0}
+.lines{width:100%;border-collapse:collapse;font-size:14px}
+.lines th{text-align:left;font-size:11.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--a-500);padding:8px 12px;border-bottom:1px solid var(--a-200);white-space:nowrap}
+.lines td{padding:9px 12px;border-bottom:1px solid var(--a-100);white-space:nowrap;font-variant-numeric:tabular-nums}
+.lines tr.sec td{background:var(--a-inset);font-weight:500;font-size:13px;color:#334155}
+.lines td.r,.lines th.r{text-align:right}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px}
+.call{border-radius:12px;padding:11px 14px;display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.call.warn{background:#f6e3b4;color:#6b4508}.call.info{background:#dde8fb;color:#2457a8}.call.ok{background:#dcf0d7;color:#2f7a2b}.call.danger{background:#f4d9da;color:#8f1f1f}
+.call svg.lucide{margin-top:2px;opacity:.85}
+.call b{font-weight:500}
+.sheetrow{display:grid;grid-template-columns:20px 64px 1fr auto;gap:10px;align-items:start;padding:10px 16px;border-bottom:1px solid var(--a-100)}
+.sheetrow:last-child{border-bottom:0}
+.cb{width:16px;height:16px;border-radius:4px;background:var(--a-primary);margin-top:3px;display:grid;place-items:center;color:#fff}
+.cb svg.lucide{width:11px;height:11px;stroke-width:3}
+.cb.off{background:#fff;box-shadow:inset 0 0 0 1px var(--a-300)}
+.sheetno{color:var(--a-primary);font-weight:600;font-size:15px}
+.toggle{width:36px;height:20px;border-radius:999px;background:var(--a-primary);position:relative;flex-shrink:0}
+.toggle::after{content:"";position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.toggle.off{background:var(--a-300)}.toggle.off::after{right:auto;left:2px}
+.bar{height:8px;border-radius:999px;background:var(--a-100);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--a-prog);border-radius:999px}
+.m{background:#fff}
+.m .sbar{height:44px;display:flex;justify-content:space-between;align-items:center;padding:0 26px 0 30px;font-size:14px;font-weight:600}
+.m .appbar{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid var(--a-200)}
+.m .appbar .tt{font-size:17px;font-weight:500}
+.m .mb{padding:14px;display:grid;gap:12px}
+.m .card{padding:14px;border-radius:16px}
+.m-scroll{height:100%;position:relative;overflow:hidden}
+@media (prefers-reduced-motion:no-preference){.stage .browser{animation:rise .8s cubic-bezier(.22,1,.36,1) both}@keyframes rise{from{transform:translateY(16px)}to{transform:none}}}
+</style>
+
+<div class="wrap">
+  <header class="topbar">
+    <span class="mark"><span class="tile"><i data-lucide="sparkles"></i></span><b>PinaAi</b></span>
+    <span>Product case study · Nov 2026</span>
+  </header>
+</div>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div style="display:grid;gap:22px">
+        <span class="eyebrow">Agents for your CRM</span>
+        <h1>PinaAi<span>Agents that stop and ask.</span></h1>
+        <p class="pitch">AI agents that read the CRM, prepare the work, and wait. Nothing is sent or changed until a person says yes.</p>
+      </div>
+      <div>
+        <dl class="status">
+          <div><dt>For</dt><dd>Pina Realty and AP Plastering, on the same logins as the CRM</dd></div>
+          <div><dt>First agent</dt><dd>Takeoff estimator: turns a finished takeoff into a draft estimate</dd></div>
+          <div><dt>Status</dt><dd class="w">Built and walked through in demo mode. AI is switched off until the team turns it on.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="browser">
+        <div class="chrome"><i class="b"></i><i class="b"></i><i class="b"></i><span class="url">pinaai.app/agents/takeoff-estimator</span></div>
+        <div class="fit" data-fit="1280">
+          <div class="app" style="width:1280px">
+            <div class="shell">
+              <aside class="side">
+                <div class="brand"><span class="lg"><i data-lucide="sparkles"></i></span><span><b>PinaAi</b><small>Agents for your CRM</small></span></div>
+                <a><i data-lucide="home"></i>Home</a><a><i data-lucide="message-square"></i>Ask anything</a><a><i data-lucide="sunrise"></i>Daily brief</a><a><i data-lucide="ruler"></i>Estimating</a><a><i data-lucide="check-square"></i>Approvals<span class="cnt">2</span></a><a><i data-lucide="activity"></i>Activity</a>
+                <div class="grp">Agents</div>
+                <a><i data-lucide="repeat"></i>Automations</a><a class="on"><i data-lucide="bot"></i>Assistants</a>
+                <div class="grp">Set up</div>
+                <a><i data-lucide="receipt"></i>Usage &amp; cost</a><a><i data-lucide="settings"></i>Settings</a><a><i data-lucide="help-circle"></i>How this works</a>
+                <div style="height:40px"></div>
+                <div class="waitbox"><b>2 waiting for you</b><span>Agents stop before anything is sent or changed.</span><i>Review them</i></div>
+                <div class="me"><span class="pill t-blue" style="width:30px;height:30px;justify-content:center;padding:0">MV</span><div><div style="font-weight:500">Marco Villanueva</div><div class="xs muted">Senior estimator</div></div></div>
+              </aside>
+              <div class="main">
+                <div class="hd">
+                  <div>
+                    <div class="back"><i data-lucide="arrow-left" class="i35"></i>All agents</div>
+                    <div style="display:flex;gap:14px;align-items:center">
+                      <span class="glyph"><i data-lucide="message-square"></i></span>
+                      <div><h2>Takeoff estimator</h2><div class="sub">Turns a finished takeoff into a draft estimate</div></div>
+                    </div>
+                    <div class="chips" style="margin-top:10px"><span class="chipm"><i data-lucide="message-square" class="i35"></i>Assistant</span><span class="chipm"><i data-lucide="repeat" class="i35"></i>On demand only</span><span class="chipm"><i data-lucide="calendar" class="i35"></i>Last run 4 minutes ago</span></div>
+                  </div>
+                  <div style="display:flex;gap:8px"><span class="btn o"><i data-lucide="repeat"></i>Run on a schedule</span><span class="btn o"><i data-lucide="flask-conical"></i>Try it out</span><span class="btn o"><i data-lucide="sliders-horizontal"></i>Edit</span></div>
+                </div>
+                <div class="tabs"><span class="on">Chat</span><span>Approvals <span class="pill t-amber" style="padding:0 7px">1</span></span><span>Activity</span><span>Brief</span></div>
+                <div class="body" style="grid-template-columns:1fr 1fr;align-items:start;padding-top:18px">
+                  <div style="display:grid;gap:12px">
+                    <div class="bubble-me">Build a draft estimate for Cedar Ridge Dental from its takeoff.</div>
+                    <div class="working"><span class="dots"><i></i><i></i><i></i></span>Working on it… <span class="mono">0:14</span></div>
+                    <div class="steps">
+                      <div class="step"><span class="ic"><i data-lucide="wrench"></i></span><div><div class="nm">Look up leads <span>9:02 AM</span></div><div class="xs lnk">Show the technical detail</div></div><span class="no">#1</span></div>
+                      <div class="step"><span class="ic"><i data-lucide="chevron-right"></i></span><div><div class="nm">Result — Look up leads <span>9:02 AM</span></div><div class="sm muted">Found 1 lead.</div></div><span class="no">#2</span></div>
+                      <div class="step"><span class="ic"><i data-lucide="wrench"></i></span><div><div class="nm">List drawings on a bid <span>9:02 AM</span></div><div class="sm muted">Found 4 sheets. 3 section sheets have no scale set.</div></div><span class="no">#3</span></div>
+                      <div class="step"><span class="ic"><i data-lucide="wrench"></i></span><div><div class="nm">Read the takeoff measurements <span>9:03 AM</span></div><div class="sm muted">22 measurements on 2 calibrated sheets.</div></div><span class="no">#4</span></div>
+                      <div class="step"><span class="ic"><i data-lucide="book-open"></i></span><div><div class="nm">Check the price book <span>9:03 AM</span></div><div class="sm muted">Three coat stucco, $18.00–$22.00/SF sell range.</div></div><span class="no">#5</span></div>
+                    </div>
+                  </div>
+                  <div class="card" style="padding:16px 18px">
+                    <div class="sh" style="margin-bottom:10px"><div class="t" style="font-size:15.5px"><span class="glyph s"><i data-lucide="file-spreadsheet" class="i35"></i></span>Draft estimate · Cedar Ridge Dental</div><span class="pill t-slate">Stays in-house</span></div>
+                    <div class="kv">
+                      <div>What happens</div><div>A new draft estimate is created on approval. The final price of every line stays with you.</div>
+                      <div>Measurements</div><div>22, from sheets A-201 and A-202</div>
+                      <div>Left out</div><div>A-301, A-302, A-303: no scale set</div>
+                    </div>
+                    <table class="lines" style="margin-top:10px">
+                      <thead><tr><th>Line</th><th class="r">Qty</th><th class="r">Suggested</th></tr></thead>
+                      <tbody>
+                        <tr class="sec"><td colspan="3">Takeoff · Area</td></tr>
+                        <tr><td>Stucco wall, 3-coat</td><td class="r">3,418 SF</td><td class="r">$18.00/SF</td></tr>
+                        <tr><td>Soffit, smooth finish</td><td class="r">612 SF</td><td class="r">$21.00/SF</td></tr>
+                        <tr class="sec"><td colspan="3">Takeoff · Length</td></tr>
+                        <tr><td>Casing bead</td><td class="r">284 LF</td><td class="r">$2.40/LF</td></tr>
+                      </tbody>
+                    </table>
+                    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><span class="btn o sm">Reject</span><span class="btn p sm"><i data-lucide="check" class="i35"></i>Approve &amp; create draft</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tblock"><div><b>Fig. 1</b></div><div>Takeoff estimator mid-run, with the draft it prepared waiting for approval</div><div>Sample bid</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PROBLEM ============================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="band-head"><span class="eyebrow">The problem · who it's for</span><h2>Estimators spend their day re-typing what's already in the CRM.</h2></div>
+    <div class="two">
+      <div class="problem">
+        <p><strong>The CRM already holds the whole estimating machine:</strong> calibrated drawings, measured markups, assemblies, a price book and estimates. Turning a finished takeoff into a draft estimate is still copy-and-paste work, and so are the follow-up emails, the deadline checks and the morning catch-up.</p>
+        <p>An assistant could do that prep. But an AI that can email clients or change a live bid is a risk no contractor should take on trust. One confidently wrong square footage can lose a job.</p>
+        <p>PinaAi is built around that worry. Agents read freely and do the preparation. Anything that would send, change or create something becomes a card that waits for a person.</p>
+      </div>
+      <dl class="who">
+        <div><dt>Estimators</dt><dd>Get a draft estimate from their own takeoff, with every gap called out.</dd></div>
+        <div><dt>Sales &amp; acquisition</dt><dd>Get first replies, follow-ups and a daily brief drafted for them.</dd></div>
+        <div><dt>Owners</dt><dd>Decide what each agent may see, cap the monthly spend and see every run.</dd></div>
+        <div><dt>New users</dt><dd>Have a two-minute "How this works" page and buttons that say exactly what they do.</dd></div>
+      </dl>
+    </div>
+    <div class="rules">
+      <div><span class="k">Rule 1</span><h4>Reading is free. Doing needs a yes.</h4><p>Agents look things up on their own. Every email, note or estimate they prepare waits in Approvals.</p></div>
+      <div><span class="k">Rule 2</span><h4>The agent never measures.</h4><p>Quantities only come from takeoff markups a person drew on a sheet a person calibrated. A sheet with no scale is reported, not guessed.</p></div>
+      <div><span class="k">Rule 3</span><h4>The price stays with you.</h4><p>Rates are suggested from the company price book. Approving never overwrites a price an estimator already set.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FEATURES ============================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="band-head"><span class="eyebrow">Key features</span><h2>Six screens, one promise.</h2><p class="lede">Each screen below is redrawn from the app with sample data. Agents run on the server, so closing the tab doesn't stop a run.</p></div>
+
+    <!-- Home -->
+    <article class="feature">
+      <div class="copy">
+        <span class="eyebrow">Home</span>
+        <h3>What's waiting for you comes first.</h3>
+        <p>Four numbers, a box to ask a question, the approvals waiting and what ran recently. The approval cards are full previews, so you can read the actual email from the home screen.</p>
+        <ul><li><b>Waiting for you</b> is the number that reads first</li><li><b>Spent today</b> sits beside it, in dollars</li><li><b>Recent activity</b> links every answer to its run</li></ul>
+      </div>
+      <div class="fig">
+        <div class="browser"><div class="chrome"><i class="b"></i><i class="b"></i><i class="b"></i><span class="url">pinaai.app</span></div>
+          <div class="fit" data-fit="1040"><div class="app" style="width:1040px"><div class="main">
+            <div class="hd"><div><h2>Good morning, Marco</h2><div class="sub" style="color:#1976D2;font-size:18px;font-weight:500">2 things need your yes</div></div></div>
+            <div class="body">
+              <div class="kpis">
+                <div class="kpi hot"><div class="k">Waiting for you</div><div class="v" style="color:#7a4f0a">2</div><div class="s">Oldest 3 hours</div></div>
+                <div class="kpi"><div class="k">Running now</div><div class="v">1</div><div class="s">Bid follow-up</div></div>
+                <div class="kpi"><div class="k">Agents</div><div class="v">4</div><div class="s">2 on a schedule</div></div>
+                <div class="kpi"><div class="k">Spent today</div><div class="v">$0.21</div><div class="s">of $40 this month</div></div>
+              </div>
+              <div class="composer"><span class="ph">Ask about a bid, a lead, or your inbox…</span><div style="display:flex;justify-content:flex-end"><span class="btn p sm"><i data-lucide="arrow-up" class="i35"></i>Ask</span></div></div>
+              <div class="card">
+                <div class="sh"><div class="t"><i data-lucide="check-square"></i>Waiting for your approval</div><span class="lnk sm">All approvals</span></div>
+                <div class="insets">
+                  <div class="inset">
+                    <div class="row"><div class="l"><span class="glyph s"><i data-lucide="mail" class="i35"></i></span><div><div class="rt">Email to Bayview Builders · bid follow-up</div><div class="xs muted">Bid follow-up · 6:40 AM · lapses in 14 days</div></div></div><span class="pill t-red"><i data-lucide="send"></i>Leaves the company</span></div>
+                    <div style="background:#fff;border-radius:10px;padding:10px 14px;margin-top:10px;font-size:14px;line-height:1.6">Hi Dana, following up on our plastering bid for the Bayview Townhomes, sent Oct 24. Happy to walk through the scope or adjust alternates if that helps your numbers.</div>
+                    <div style="display:flex;gap:14px;justify-content:flex-end;margin-top:10px;font-size:14px;align-items:center"><span class="muted">Reject</span><span class="lnk">Edit, then approve</span><span class="btn p sm">Approve &amp; send</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div></div></div>
+        </div>
+        <div class="tblock"><div><b>Fig. 2</b></div><div>Home, with an email that leaves the company held for a person</div><div>Desktop</div></div>
+      </div>
+    </article>
+
+    <!-- Read drawings -->
+    <article class="feature flip">
+      <div class="copy">
+        <span class="eyebrow">Read the drawings</span>
+        <h3>Sort a 161-sheet set before anyone opens it.</h3>
+        <p>Upload a bid's drawing set and PinaAi sorts it by the sheet titles: which sheets look like plaster work, which to leave out, and why. You check the list before any reading is paid for.</p>
+        <ul><li><b>Scope report</b>: the scope of work and what to measure, with page numbers</li><li><b>Takeoff readiness</b> flags sheets with no scale set</li><li><b>Nothing is deleted</b>: left-out sheets stay on the bid</li></ul>
+      </div>
+      <div class="fig">
+        <div class="browser"><div class="chrome"><i class="b"></i><i class="b"></i><i class="b"></i><span class="url">pinaai.app/estimating/read-drawings</span></div>
+          <div class="fit" data-fit="1040"><div class="app" style="width:1040px"><div class="main">
+            <div class="hd"><div><h2>Read the drawings</h2><div class="sub">The scope of work and what needs measuring, by sheet number, read straight off a bid's drawing set.</div></div><div style="display:flex;gap:8px"><span class="btn o"><i data-lucide="arrow-left"></i>Estimating</span><span class="btn p"><i data-lucide="upload"></i>Upload a set</span></div></div>
+            <div class="body">
+              <div class="card">
+                <div class="row" style="align-items:flex-start"><div><div class="xs muted" style="text-transform:uppercase;letter-spacing:.06em;font-weight:500">Sorted the set</div><div style="font-size:19px;font-weight:500;margin-top:2px">31 of 161 sheets look like yours</div><div class="sm muted" style="margin-top:2px">Read off the sheet titles, not the drawings, so check the list before you spend on it.</div></div><div style="display:flex;gap:8px"><span class="btn o">Back</span><span class="btn p"><i data-lucide="scan-text"></i>Read 31 sheets</span></div></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:16px;align-items:start">
+                <div class="card" style="padding:0">
+                  <div class="row" style="padding:14px 16px;border-bottom:1px solid #e2e8f0"><span class="rt" style="display:flex;gap:8px;align-items:center"><i data-lucide="check" style="color:#2f7a2b"></i>Reading these</span><span class="xs muted">31</span></div>
+                  <div class="sheetrow"><span class="cb"><i data-lucide="check"></i></span><span class="sheetno">A-201</span><div><div class="sm">EXTERIOR ELEVATIONS · BLDG A</div><div class="xs muted">elevations, exterior finish callouts</div></div><span class="pill t-emerald">Scale set</span></div>
+                  <div class="sheetrow"><span class="cb"><i data-lucide="check"></i></span><span class="sheetno">A-202</span><div><div class="sm">EXTERIOR ELEVATIONS · BLDG B</div><div class="xs muted">elevations, stucco and trim</div></div><span class="pill t-emerald">Scale set</span></div>
+                  <div class="sheetrow"><span class="cb"><i data-lucide="check"></i></span><span class="sheetno">A-301</span><div><div class="sm">BUILDING SECTIONS</div><div class="xs muted">wall assemblies, lath and WRB</div></div><span class="pill t-amber">No scale</span></div>
+                  <div class="sheetrow"><span class="cb"><i data-lucide="check"></i></span><span class="sheetno">A-401</span><div><div class="sm">REFLECTED CEILING PLANS</div><div class="xs muted">possible plaster soffits</div></div><span class="pill t-amber">No scale</span></div>
+                  <div class="sheetrow"><span class="cb off"></span><span class="sheetno" style="color:#94a3b8">M-101</span><div><div class="sm muted">MECHANICAL PLAN · LEVEL 1</div><div class="xs muted">leaving out: no plaster scope</div></div><span class="pill t-slate">Left out</span></div>
+                </div>
+                <div class="card">
+                  <div class="sh"><div class="t" style="font-size:16px"><i data-lucide="ruler"></i>Takeoff readiness</div></div>
+                  <div style="font-size:28px;font-weight:500" class="num">2 of 5</div>
+                  <div class="sm muted">sheets ready to measure</div>
+                  <div class="bar" style="margin:10px 0 14px"><i style="width:40%"></i></div>
+                  <div class="call warn"><i data-lucide="alert-triangle"></i><div><b>3 sheets have no scale</b><div>Scale printed on the sheet: 1/4" = 1'-0". Set this one by hand in the CRM.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div></div></div>
+        </div>
+        <div class="tblock"><div><b>Fig. 3</b></div><div>Sheet triage and takeoff readiness on a sample set</div><div>Desktop</div></div>
+      </div>
+    </article>
+
+    <!-- Draft estimate -->
+    <article class="feature">
+      <div class="copy">
+        <span class="eyebrow">Takeoff estimator</span>
+        <h3>A draft estimate, grouped the way an estimator reads it.</h3>
+        <p>The estimator agent reads the takeoff a person measured, applies the same assemblies and waste factors as the CRM, and proposes lines. Approving it writes a draft estimate into the CRM's own estimate tables.</p>
+        <ul><li><b>Every line says where it came from</b>: measured, or not measured and why</li><li><b>Stale check</b>: if a measurement moves before approval, the approval fails loudly</li><li><b>Assumptions</b> written out for the estimator to confirm</li></ul>
+      </div>
+      <div class="fig">
+        <div class="browser"><div class="chrome"><i class="b"></i><i class="b"></i><i class="b"></i><span class="url">pinaai.app/approvals</span></div>
+          <div class="fit" data-fit="1040"><div class="app" style="width:1040px"><div class="main">
+            <div class="body" style="padding-top:22px">
+              <div class="card">
+                <div class="row" style="margin-bottom:12px"><div class="l"><span class="glyph s"><i data-lucide="bot" class="i35"></i></span><div><div class="rt">Draft estimate: Cedar Ridge Dental · v3 Takeoff <span class="pill t-slate" style="margin-left:6px">Stays in-house</span></div><div class="xs muted">Takeoff estimator · 9:04 AM · <span class="lnk">See the run</span></div></div></div><span class="pill t-amber"><i data-lucide="clock"></i>Lapses in 14 days</span></div>
+                <div class="kv">
+                  <div>Bid</div><div>Cedar Ridge Dental Office · 2 buildings</div>
+                  <div>What happens</div><div>A new draft estimate, created on approval. Prices marked "suggested" come from your price book and can be changed in the CRM. Lines with no fitting rate land at 0. The final price of every line stays with you.</div>
+                  <div>Measurements used</div><div>22</div>
+                </div>
+                <table class="lines" style="margin-top:14px">
+                  <thead><tr><th>Line</th><th class="r">Quantity</th><th>Source</th><th class="r">Suggested rate</th><th class="r">Line total</th></tr></thead>
+                  <tbody>
+                    <tr class="sec"><td colspan="5">Takeoff · Area</td></tr>
+                    <tr><td>Stucco wall, 3-coat on lath</td><td class="r">3,418.20 SF</td><td><span class="pill t-emerald">measured</span></td><td class="r">$18.00/SF</td><td class="r">$61,527.60</td></tr>
+                    <tr><td>Soffit, smooth finish</td><td class="r">612.40 SF</td><td><span class="pill t-emerald">measured</span></td><td class="r">$21.00/SF</td><td class="r">$12,860.40</td></tr>
+                    <tr class="sec"><td colspan="5">Takeoff · Length</td></tr>
+                    <tr><td>Casing bead</td><td class="r">284.00 LF</td><td><span class="pill t-emerald">measured</span></td><td class="r">$2.40/LF</td><td class="r">$681.60</td></tr>
+                    <tr><td>Weep screed</td><td class="r">196.50 LF</td><td><span class="pill t-emerald">measured</span></td><td class="r">$3.10/LF</td><td class="r">$609.15</td></tr>
+                    <tr class="sec"><td colspan="5">General</td></tr>
+                    <tr><td>Mobilization</td><td class="r">1 LS</td><td><span class="pill t-slate">not measured</span></td><td class="r">$2,500.00/LS</td><td class="r">$2,500.00</td></tr>
+                    <tr><td>Scaffolding</td><td class="r">1 LS</td><td><span class="pill t-slate">not measured</span></td><td class="r muted">no rate · $0</td><td class="r muted">$0.00</td></tr>
+                  </tbody>
+                </table>
+                <div class="call info" style="margin-top:12px"><i data-lucide="info"></i><div><b>Assumption.</b> Three-coat stucco over lath and WRB on exterior walls. Sheets A-301, A-302 and A-303 are not in this estimate because no scale is set.</div></div>
+                <div style="display:flex;justify-content:flex-end;gap:14px;align-items:center;margin-top:14px;font-size:14px"><span class="muted">Reject with a reason</span><span class="btn p">Approve &amp; create draft in the CRM</span></div>
+              </div>
+            </div>
+          </div></div></div>
+        </div>
+        <div class="tblock"><div><b>Fig. 4</b></div><div>Draft estimate approval card</div><div>Units SF · LF · LS</div></div>
+      </div>
+    </article>
+
+    <!-- Chat -->
+    <article class="feature flip">
+      <div class="copy">
+        <span class="eyebrow">Ask anything</span>
+        <h3>Ask a question, get an answer or a card.</h3>
+        <p>Chat runs a real agent on the server. A question gets a read-only answer. A request to draft something puts an approval card right inside the conversation. If a run fails, it says why in plain English and does not invent an answer.</p>
+        <ul><li><b>Answers cite the runs</b> behind them</li><li><b>Drafts arrive as cards</b>, never as sent mail</li></ul>
+      </div>
+      <div class="fig">
+        <div class="browser"><div class="chrome"><i class="b"></i><i class="b"></i><i class="b"></i><span class="url">pinaai.app/chat</span></div>
+          <div class="fit" data-fit="1040"><div class="app" style="width:1040px"><div class="main">
+            <div class="hd"><div><h2>Ask anything</h2><div class="sub">Answers come from the CRM. Anything that would change it comes back as a card.</div></div></div>
+            <div class="body" style="max-width:820px;margin:0 auto;width:100%">
+              <div class="bubble-me">Which bids are due this week, and which are not ready?</div>
+              <div class="card">
+                <div style="font-size:15px;line-height:1.65">Three bids are due by Friday, Nov 7:</div>
+                <div class="insets" style="margin-top:10px">
+                  <div class="inset row"><div><div class="rt">Cedar Ridge Dental Office</div><div class="sm muted">Due Wed 2:00 PM · draft estimate waiting for your approval</div></div><span class="pill t-amber">Needs your yes</span></div>
+                  <div class="inset row"><div><div class="rt">Harbor Point Retail, Phase 2</div><div class="sm muted">Due Thu 10:00 AM · takeoff not started, 0 of 14 sheets scaled</div></div><span class="pill t-red">Not ready</span></div>
+                  <div class="inset row"><div><div class="rt">Bayview Townhomes</div><div class="sm muted">Due Fri 5:00 PM · submitted Oct 24, follow-up drafted</div></div><span class="pill t-emerald">Sent</span></div>
+                </div>
+                <div class="xs muted" style="margin-top:10px">From 3 lookups · <span class="lnk">See the run</span></div>
+              </div>
+              <div class="composer"><span class="ph">Ask about a bid, a lead, or your inbox…</span><div style="display:flex;justify-content:flex-end"><span class="btn p sm"><i data-lucide="arrow-up" class="i35"></i>Ask</span></div></div>
+            </div>
+          </div></div></div>
+        </div>
+        <div class="tblock"><div><b>Fig. 5</b></div><div>A read-only answer in chat</div><div>Desktop</div></div>
+      </div>
+    </article>
+
+    <!-- Workshop -->
+    <article class="feature">
+      <div class="copy">
+        <span class="eyebrow">Agent workshop</span>
+        <h3>Build an agent from a brief, then rehearse it.</h3>
+        <p>An agent is a written brief, a list of tools and the parts of the CRM it may reach. Six ready-made templates open as editable drafts. A test run does everything a real run does except queue anything.</p>
+        <ul><li><b>Tools explained in one human sentence</b>, not the model's instructions</li><li><b>Schedules in plain English</b> with the next run in Manila time</li><li><b>Scopes</b> can only narrow what the owner can already see</li></ul>
+      </div>
+      <div class="fig">
+        <div class="browser"><div class="chrome"><i class="b"></i><i class="b"></i><i class="b"></i><span class="url">pinaai.app/assistants/new</span></div>
+          <div class="fit" data-fit="1040"><div class="app" style="width:1040px"><div class="main">
+            <div class="hd"><div><h2>New agent</h2><div class="sub">Started from the template "Bid follow-up"</div></div><div style="display:flex;gap:8px"><span class="btn o"><i data-lucide="flask-conical"></i>Test run</span><span class="btn p">Save agent</span></div></div>
+            <div class="body" style="grid-template-columns:1fr 1fr;align-items:start">
+              <div style="display:grid;gap:16px">
+                <div class="card">
+                  <div class="sh"><div class="t"><i data-lucide="file-text"></i>Brief</div></div>
+                  <div class="inset" style="font-size:14px;line-height:1.65">Find bids we submitted more than 10 days ago with no reply. For each one, draft a short, friendly follow-up to the GC contact. Mention the bid date and offer to adjust alternates. Never mention price.</div>
+                </div>
+                <div class="card">
+                  <div class="sh"><div class="t"><i data-lucide="calendar-clock"></i>Schedule</div></div>
+                  <div class="inset"><div class="rt">Every weekday at 7:00 AM</div><div class="sm muted">Next run: Mon, Nov 3, 7:00 AM Manila time</div></div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="sh"><div class="t"><i data-lucide="wrench"></i>Tools</div><span class="xs muted">4 chosen</span></div>
+                <div class="insets">
+                  <div class="inset row"><div><div class="rt">Look up leads <span class="pill t-blue" style="margin-left:4px">Reads</span></div><div class="sm muted">Finds bids and leads by name, stage or date.</div></div><span class="toggle"></span></div>
+                  <div class="inset row"><div><div class="rt">Read an email thread <span class="pill t-blue" style="margin-left:4px">Reads</span></div><div class="sm muted">Checks whether the GC already replied.</div></div><span class="toggle"></span></div>
+                  <div class="inset row"><div><div class="rt">Draft an email <span class="pill t-amber" style="margin-left:4px">Needs a yes</span></div><div class="sm muted">Writes the email and stops for your approval.</div></div><span class="toggle"></span></div>
+                  <div class="inset row"><div><div class="rt">Draft an estimate <span class="pill t-amber" style="margin-left:4px">Needs a yes</span></div><div class="sm muted">Only from a measured takeoff. Off for this agent.</div></div><span class="toggle off"></span></div>
+                </div>
+              </div>
+            </div>
+          </div></div></div>
+        </div>
+        <div class="tblock"><div><b>Fig. 6</b></div><div>The workshop, building a follow-up agent from a template</div><div>Desktop</div></div>
+      </div>
+    </article>
+
+    <!-- Usage -->
+    <article class="feature flip">
+      <div class="copy">
+        <span class="eyebrow">Usage &amp; cost</span>
+        <h3>Every cent counted, with a hard limit.</h3>
+        <p>Usage shows this month, today and last month, a daily chart and cost per agent. The owner sets a monthly limit. Once it's reached, a run is refused before it starts, with the amount and the limit in the message.</p>
+        <ul><li><b>A kill switch</b> keeps the model off until the team turns it on</li><li><b>CSV export</b> by day, agent or person</li></ul>
+      </div>
+      <div class="fig">
+        <div class="browser"><div class="chrome"><i class="b"></i><i class="b"></i><i class="b"></i><span class="url">pinaai.app/usage</span></div>
+          <div class="fit" data-fit="1040"><div class="app" style="width:1040px"><div class="main">
+            <div class="hd"><div><h2>Usage &amp; cost</h2><div class="sub">Estimated spend across every agent, chat and document you have run.</div></div><span class="btn o"><i data-lucide="download"></i>Export days</span></div>
+            <div class="body">
+              <div class="kpis">
+                <div class="kpi"><div class="k">This month</div><div class="v">$6.84</div><div class="s">of the $40.00 limit</div><div class="bar" style="margin-top:8px"><i style="width:17%"></i></div></div>
+                <div class="kpi"><div class="k">Today</div><div class="v">$0.21</div><div class="s">9 runs</div></div>
+                <div class="kpi"><div class="k">Last month</div><div class="v">$11.20</div><div class="s">212 runs</div></div>
+                <div class="kpi"><div class="k">Runs</div><div class="v">148</div><div class="s">this month</div></div>
+              </div>
+              <div class="card">
+                <div class="sh"><div class="t"><i data-lucide="bar-chart-3"></i>Spend by day</div><span class="xs muted">These are estimates.</span></div>
+                <svg viewBox="0 0 940 150" width="100%" aria-label="Daily spend for October">
+                  <g stroke="#f1f5f9"><line x1="40" y1="20" x2="940" y2="20"/><line x1="40" y1="70" x2="940" y2="70"/><line x1="40" y1="120" x2="940" y2="120"/></g>
+                  <g font-family="Inter,sans-serif" font-size="11" fill="#94a3b8"><text x="0" y="24">$0.60</text><text x="0" y="74">$0.30</text><text x="0" y="124">$0</text></g>
+                  <g fill="#3b78e7">
+                    <rect x="52" y="96" width="18" height="24" rx="3"/><rect x="82" y="84" width="18" height="36" rx="3"/><rect x="112" y="102" width="18" height="18" rx="3"/><rect x="142" y="60" width="18" height="60" rx="3"/><rect x="172" y="90" width="18" height="30" rx="3"/><rect x="202" y="108" width="18" height="12" rx="3"/><rect x="232" y="112" width="18" height="8" rx="3"/>
+                    <rect x="262" y="78" width="18" height="42" rx="3"/><rect x="292" y="66" width="18" height="54" rx="3"/><rect x="322" y="88" width="18" height="32" rx="3"/><rect x="352" y="94" width="18" height="26" rx="3"/><rect x="382" y="72" width="18" height="48" rx="3"/><rect x="412" y="106" width="18" height="14" rx="3"/><rect x="442" y="113" width="18" height="7" rx="3"/>
+                    <rect x="472" y="82" width="18" height="38" rx="3"/><rect x="502" y="40" width="18" height="80" rx="3"/><rect x="532" y="76" width="18" height="44" rx="3"/><rect x="562" y="92" width="18" height="28" rx="3"/><rect x="592" y="86" width="18" height="34" rx="3"/><rect x="622" y="104" width="18" height="16" rx="3"/><rect x="652" y="112" width="18" height="8" rx="3"/>
+                    <rect x="682" y="80" width="18" height="40" rx="3"/><rect x="712" y="70" width="18" height="50" rx="3"/><rect x="742" y="90" width="18" height="30" rx="3"/><rect x="772" y="84" width="18" height="36" rx="3"/><rect x="802" y="74" width="18" height="46" rx="3"/><rect x="832" y="104" width="18" height="16" rx="3"/>
+                    <rect x="862" y="99" width="18" height="21" rx="3" fill="#1976D2"/>
+                  </g>
+                  <g font-family="Inter,sans-serif" font-size="11" fill="#94a3b8"><text x="52" y="142">Oct 1</text><text x="472" y="142">Oct 15</text><text x="842" y="142">Oct 28</text></g>
+                </svg>
+              </div>
+              <div class="call warn"><i data-lucide="shield-alert"></i><div><b>Run refused before it started.</b> This month's spend is $0.52 and the limit is $0.50. Raise the limit in Settings to run agents again.</div></div>
+            </div>
+          </div></div></div>
+        </div>
+        <div class="tblock"><div><b>Fig. 7</b></div><div>Usage, with the spend limit refusing a run</div><div>USD, estimated</div></div>
+      </div>
+    </article>
+    <p class="lede" style="font-size:16px;margin-top:8px">Also in the app: a Daily brief written each morning, a Comp Playbook where an investor analyst keeps its comp rules in plain words, Activity with every run and its steps, and the "How this works" page.</p>
+  </div>
+</section>
+
+<!-- ============================== FLOW ============================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="band-head"><span class="eyebrow">The user flow</span><h2>From a drawing set to a draft estimate in the CRM.</h2><p class="lede">People do the measuring and the pricing. The agent does the reading and the paperwork in between. Each step says who does it.</p></div>
+    <ol class="flow">
+      <li><span class="n">STEP 1</span><h4>Upload the set</h4><p>Pick the bid and upload its drawing set.</p><span class="who-does">Estimator</span></li>
+      <li><span class="n">STEP 2</span><h4>Sort the sheets</h4><p>PinaAi sorts the set by title and flags the sheets with no scale.</p><span class="who-does">Agent, then a check by the estimator</span></li>
+      <li><span class="n">STEP 3</span><h4>Measure</h4><p>The estimator calibrates and measures in the CRM's takeoff workspace.</p><span class="who-does">Estimator, in the CRM</span></li>
+      <li><span class="n">STEP 4</span><h4>Run the estimator</h4><p>The agent reads the takeoff and the price book and drafts the lines.</p><span class="who-does">Agent</span></li>
+      <li><span class="n">STEP 5</span><h4>Review the card</h4><p>Approve, edit, or reject with a reason the agent reads next time.</p><span class="who-does p">Waits for a person</span></li>
+      <li><span class="n">STEP 6</span><h4>Price and send</h4><p>The draft lands in the CRM estimate. The estimator sets final prices.</p><span class="who-does">Estimator, in the CRM</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================== GALLERY ============================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="band-head"><span class="eyebrow">Screens</span><h2>Approve from your phone.</h2><p class="lede">At phone width the sidebar folds into a menu, tables scroll inside their own box and every button stays 44px tall.</p></div>
+    <div class="gallery">
+      <figure class="tall">
+        <div class="phone"><div class="fit" data-fit="390" style="position:relative"><div class="notch"></div>
+          <div class="app m" style="width:390px;height:800px"><div class="m-scroll">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="i35"></i><i data-lucide="wifi" class="i35"></i><i data-lucide="battery-full" class="i35"></i></span></div>
+            <div class="appbar"><i data-lucide="menu"></i><span class="tt">Approvals</span><span class="pill t-amber">2</span></div>
+            <div class="mb">
+              <div class="chips"><span class="pill t-blue" style="padding:4px 12px">Waiting 2</span><span class="pill t-slate" style="padding:4px 12px">Approved</span><span class="pill t-slate" style="padding:4px 12px">Rejected</span></div>
+              <div class="card">
+                <div class="rt">Email to Bayview Builders</div><div class="xs muted" style="margin:2px 0 8px">Bid follow-up · 6:40 AM</div>
+                <span class="pill t-red"><i data-lucide="send"></i>Leaves the company</span>
+                <div class="inset" style="font-size:14px;line-height:1.55;margin-top:10px">Hi Dana, following up on our plastering bid for the Bayview Townhomes, sent Oct 24…</div>
+                <div class="xs muted" style="margin-top:10px">This sends from your mailbox and can't be taken back.</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><span class="btn o" style="justify-content:center;min-height:44px">Edit</span><span class="btn p" style="justify-content:center;min-height:44px">Approve &amp; send</span></div>
+              </div>
+              <div class="card">
+                <div class="rt">Add note to Harbor Point Retail</div><div class="xs muted" style="margin:2px 0 8px">Bid deadline watch · 7:02 AM</div>
+                <span class="pill t-slate">Stays in-house</span>
+                <div class="inset" style="font-size:14px;margin-top:10px">Due Thu 10:00 AM. No sheets scaled yet.</div>
+              </div>
+            </div>
+          </div></div>
+        </div></div>
+        <figcaption><b>Approvals</b> · phone</figcaption>
+      </figure>
+      <figure class="tall">
+        <div class="phone"><div class="fit" data-fit="390" style="position:relative"><div class="notch"></div>
+          <div class="app m" style="width:390px;height:800px"><div class="m-scroll">
+            <div class="sbar"><span>7:05</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="i35"></i><i data-lucide="wifi" class="i35"></i><i data-lucide="battery-full" class="i35"></i></span></div>
+            <div class="appbar"><i data-lucide="menu"></i><span class="tt">Daily brief</span><i data-lucide="sunrise"></i></div>
+            <div class="mb">
+              <div><div style="font-size:20px;font-weight:500">Today's brief</div><div class="sm muted">Monday, Nov 3 · written 7:00 AM Manila</div></div>
+              <div class="card" style="display:grid;gap:10px;font-size:14.5px;line-height:1.6">
+                <div><b style="font-weight:500">Bids.</b> Three are due this week. Harbor Point has no scaled sheets yet and is due Thursday.</div>
+                <div><b style="font-weight:500">Waiting on you.</b> A draft estimate for Cedar Ridge Dental and one follow-up email.</div>
+                <div><b style="font-weight:500">Leads.</b> Two new seller leads came in overnight. Neither has been called.</div>
+              </div>
+              <div class="call info"><i data-lucide="info"></i><div>The brief only reads. It never sends or changes anything.</div></div>
+              <div class="xs muted">Earlier briefs</div>
+              <div class="inset row sm"><span>Friday, Oct 31</span><i data-lucide="chevron-right" class="i35"></i></div>
+              <div class="inset row sm"><span>Thursday, Oct 30</span><i data-lucide="chevron-right" class="i35"></i></div>
+            </div>
+          </div></div>
+        </div></div>
+        <figcaption><b>Daily brief</b> · phone</figcaption>
+      </figure>
+      <figure class="wide">
+        <div class="browser"><div class="chrome"><i class="b"></i><i class="b"></i><i class="b"></i><span class="url">pinaai.app/comp-playbook</span></div>
+          <div class="fit" data-fit="900"><div class="app" style="width:900px"><div class="main">
+            <div class="hd"><div><h2>Comp Playbook</h2><div class="sub">How you run comps, in your words. The analyst follows these rules and nothing else.</div></div><span class="btn p"><i data-lucide="plus"></i>Add a rule</span></div>
+            <div class="body">
+              <div class="card"><div class="insets">
+                <div class="inset row"><div class="rt" style="font-weight:400">Only use sales from the last 6 months unless there are fewer than 3.</div><span class="lnk sm">Edit</span></div>
+                <div class="inset row"><div class="rt" style="font-weight:400">Stay within half a mile, and never cross the 210 freeway.</div><span class="lnk sm">Edit</span></div>
+                <div class="inset row"><div class="rt" style="font-weight:400">Match bedrooms exactly. Square footage within 15%.</div><span class="lnk sm">Edit</span></div>
+              </div></div>
+            </div>
+          </div></div></div>
+        </div>
+        <figcaption><b>Comp Playbook</b> · rules for the investor deal analyst</figcaption>
+      </figure>
+      <figure class="wide">
+        <div class="browser"><div class="chrome"><i class="b"></i><i class="b"></i><i class="b"></i><span class="url">pinaai.app/how-it-works</span></div>
+          <div class="fit" data-fit="900"><div class="app" style="width:900px"><div class="main">
+            <div class="hd"><div><h2>How this works</h2><div class="sub">About two minutes. Read this before you approve anything.</div></div></div>
+            <div class="body" style="grid-template-columns:repeat(3,1fr)">
+              <div class="card"><span class="glyph s"><i data-lucide="eye" class="i35"></i></span><div class="rt" style="margin-top:10px">Agents read</div><div class="sm muted">They can look up anything you can see in the CRM, and nothing more.</div></div>
+              <div class="card"><span class="glyph s"><i data-lucide="hand" class="i35"></i></span><div class="rt" style="margin-top:10px">Then they stop</div><div class="sm muted">Emails, notes and estimates wait in Approvals until you say yes.</div></div>
+              <div class="card"><span class="glyph s"><i data-lucide="undo-2" class="i35"></i></span><div class="rt" style="margin-top:10px">You can say no</div><div class="sm muted">Reject with a reason and the agent reads it on its next run.</div></div>
+            </div>
+          </div></div></div>
+        </div>
+        <figcaption><b>How this works</b> · the plain-English explainer</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== UI KIT ============================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="band-head"><span class="eyebrow">UI kit in context</span><h2>The CRM's kit, plus a vocabulary for trust.</h2><p class="lede">PinaAi uses the same workspace kit as the CRM, so it feels like part of it. What it adds is a set of states and words that make it clear what an agent did and what it is asking for.</p></div>
+    <div class="kit">
+      <div class="sheet">
+        <h3>Colour</h3>
+        <p class="note">One blue for action. Amber always means "waiting for a person". Red marks anything that leaves the company.</p>
+        <div class="swatches">
+          <div class="sw"><i style="background:#1976D2"></i><b>Primary</b>#1976D2</div>
+          <div class="sw"><i style="background:#2457a8"></i><b>Link ink</b>#2457A8</div>
+          <div class="sw"><i style="background:#f6e3b4"></i><b>Waiting</b>#F6E3B4</div>
+          <div class="sw"><i style="background:#f6d9da"></i><b>Leaves company</b>#F6D9DA</div>
+          <div class="sw"><i style="background:#f7f7f5"></i><b>Inset row</b>#F7F7F5</div>
+          <div class="sw"><i style="background:linear-gradient(180deg,#f3f6fa,#fff)"></i><b>Page wash</b>#F3F6FA</div>
+        </div>
+        <div class="kit-demo" style="margin-top:16px"><div class="app" style="background:transparent"><div class="chips">
+          <span class="pill t-amber"><i data-lucide="clock"></i>Needs your yes</span><span class="pill t-red"><i data-lucide="send"></i>Leaves the company</span><span class="pill t-slate">Stays in-house</span><span class="pill t-blue">Reads</span><span class="pill t-emerald">measured</span><span class="pill t-emerald"><i data-lucide="check"></i>Succeeded</span><span class="pill t-red">Failed</span>
+        </div></div></div>
+      </div>
+      <div class="sheet">
+        <h3>Words</h3>
+        <p class="note">Jargon is deleted before it's explained. Buttons say exactly what will happen.</p>
+        <div class="vocab">
+          <div><s>Approve</s><span>Approve &amp; send</span></div>
+          <div><s>Trigger</s><span>Started by</span></div>
+          <div><s>manual</s><span>You pressed Run</span></div>
+          <div><s>Payload</s><span>The technical detail</span></div>
+          <div><s>Dry run</s><span>Try it out</span></div>
+          <div><s>Tool description</s><span>One human sentence per tool</span></div>
+        </div>
+      </div>
+      <div class="sheet full">
+        <h3>Components, as they appear on screen</h3>
+        <p class="note">Inter throughout, nothing heavier than medium weight, no shadows on content. Quantities use tabular figures.</p>
+        <div class="kit-demo"><div class="app" style="background:transparent">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start">
+            <div class="steps">
+              <div class="step"><span class="ic"><i data-lucide="wrench"></i></span><div><div class="nm">Run step <span>9:02 AM</span></div><div class="xs lnk">Show the technical detail</div></div><span class="no">#1</span></div>
+              <div class="step"><span class="ic"><i data-lucide="chevron-right"></i></span><div><div class="nm">Result <span>9:02 AM</span></div><div class="sm muted">Found 1 lead.</div></div><span class="no">#2</span></div>
+            </div>
+            <div class="waitbox" style="border-radius:14px;background:#eef3fc;padding:12px 14px;display:grid;gap:4px"><b style="color:#2457a8;font-weight:500">2 waiting for you</b><span class="xs" style="color:#475569">Agents stop before anything is sent or changed.</span><span class="btn p sm" style="justify-self:start;border-radius:999px;margin-top:6px">Review them</span></div>
+            <div style="display:grid;gap:10px">
+              <div class="kv" style="grid-template-columns:110px 1fr"><div>What happens</div><div>A new draft estimate, on approval.</div></div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="btn p sm">Approve &amp; send</span><span class="btn o sm">Try it out</span></div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CLOSING ============================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="band-head"><span class="eyebrow">What's next</span><h2>Start with one agent, prove it, then widen.</h2><p class="lede">The plan is to switch on the takeoff estimator first and run it alongside an estimator on live bids before anyone relies on it.</p></div>
+    <div class="roadmap">
+      <div><span class="st">Next</span><h4>Go live with one agent</h4><p>Apply the schema from the CRM, switch the model on, and run the takeoff estimator next to a person on real bids.</p></div>
+      <div><span class="st">After that</span><h4>Mail and documents</h4><p>Connect email, files and calendar through the CRM's existing Microsoft sign-in.</p></div>
+      <div><span class="st">Planned</span><h4>Lead tools</h4><p>One-button jobs for leads, built the same way as the estimating tools, with every change queued for approval.</p></div>
+      <div><span class="st">Planned</span><h4>Team view</h4><p>Let managers see their team's agents and runs, using the same rules as the CRM.</p></div>
+    </div>
+    <footer class="credits">
+      <span><b>PinaAi</b> · designed and built in-house for Pina</span>
+      <span>React · TypeScript · Supabase · Gemini</span>
+      <span>Screens redrawn from the demo build with sample data</span>
+    </footer>
+  </div>
+</section>
+
+<script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+<script>
+(function(){
+  try{ if(window.lucide) window.lucide.createIcons(); }catch(e){}
+  var els=[].slice.call(document.querySelectorAll('[data-fit]'));
+  els.forEach(function(w){ if(w.firstElementChild && w.firstElementChild.classList.contains('notch')){ w.appendChild(w.firstElementChild); } });
+  function fitOne(w){ var c=w.firstElementChild; if(!c) return; var W=+w.getAttribute('data-fit'); var s=Math.min(1,w.clientWidth/W); c.style.transform='scale('+s+')'; w.style.height=(c.offsetHeight*s)+'px'; }
+  function all(){ els.forEach(fitOne); }
+  all();
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(all); els.forEach(function(w){ro.observe(w);}); }
+  window.addEventListener('load',all);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(all);
+})();
+</script>

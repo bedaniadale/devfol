@@ -1,0 +1,873 @@
+<meta charset="utf-8">
+<title>Pina Apps</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400;62..125,600;62..125,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a job-site field manual. Stucco-grey ground, a dark ink hero band with hi-vis tape, condensed
+   display type, dimension-line rules between sections. Phone screens lead; one desktop screen.
+   Single deliberate light look (PDF deliverable), every colour set explicitly. */
+:root{
+  --ground:#e9e7e2; --ground-2:#dedbd4; --paper:#f7f6f3; --ink:#16181D; --ink-2:#4a4d55; --ink-3:#7d8088;
+  --rule:#c9c5bb; --tape:#f2b51d; --accent:#1976D2;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  /* app tokens from PinaApps src/lib/ui.ts + tailwind.config.js */
+  --a-canvas:#F1F3F6; --a-ink:#16181D; --a-brand:#1976D2; --a-brand-50:#EFF6FF;
+  --a-900:#0f172a; --a-700:#334155; --a-600:#475569; --a-500:#64748b; --a-400:#94a3b8; --a-200:#e2e8f0; --a-100:#f1f5f9; --a-50:#f8fafc;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.lede{font-size:clamp(17px,1.6vw,20px);color:var(--ink-2);max-width:62ch}
+
+/* dimension-line divider: |<----- label ----->| */
+.dim{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin-bottom:clamp(24px,3vw,36px)}
+.dim::before,.dim::after{content:"";flex:1;height:1px;background:var(--ink-3)}
+.dim b{font-weight:500;color:var(--ink)}
+.dim i{width:1px;height:12px;background:var(--ink-3);display:block}
+
+section.band{padding-block:clamp(56px,8vw,104px)}
+.band-head{display:grid;gap:14px;margin-bottom:clamp(28px,4vw,48px);max-width:780px}
+.band-head h2{font-size:clamp(34px,5vw,64px);line-height:.95;font-weight:800;font-stretch:72%;text-transform:uppercase;letter-spacing:-.01em}
+
+/* hero */
+.hero{background:var(--ink);color:#f3f1ec;position:relative;overflow:hidden;padding-block:0 clamp(48px,6vw,80px)}
+.tape{height:18px;background:repeating-linear-gradient(-45deg,var(--tape) 0 22px,#16181D 22px 44px)}
+.topbar{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:22px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#a3a39d}
+.topbar b{color:#fff;font-weight:500}
+.mark{display:inline-flex;align-items:center;gap:10px}
+.mark span{width:24px;height:24px;border-radius:8px;background:#fff;color:var(--ink);display:inline-grid;place-items:center;font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:0}
+.hero-grid{display:grid;gap:40px;align-items:center;padding-top:clamp(16px,3vw,40px)}
+@media (min-width:960px){.hero-grid{grid-template-columns:1.15fr .85fr}}
+.hero h1{font-size:clamp(64px,12vw,168px);line-height:.82;font-weight:800;font-stretch:66%;text-transform:uppercase;letter-spacing:-.01em}
+.hero h1 span{color:var(--tape)}
+.pitch{font-size:clamp(18px,2vw,23px);color:#cfccc4;max-width:36ch;margin-top:22px;line-height:1.45}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.hero-meta span{font-family:var(--mono);font-size:12px;border:1px solid #3a3d44;border-radius:999px;padding:5px 12px;color:#d8d5cd}
+.hero-phones{display:flex;gap:18px;justify-content:center;align-items:flex-end}
+.hero-phones .phone:first-child{width:min(300px,56%)}
+.hero-phones .phone:last-child{width:min(250px,44%);margin-bottom:40px}
+
+.tblock{display:grid;grid-template-columns:auto 1fr auto;border:1px solid var(--rule);background:var(--paper);font-family:var(--mono);font-size:11.5px;color:var(--ink-2);margin-top:14px}
+.tblock > div{padding:8px 12px;border-right:1px solid var(--rule);min-width:0}
+.tblock > div:last-child{border-right:0}
+.tblock b{color:var(--ink);font-weight:500}
+.hero .tblock{background:transparent;border-color:#3a3d44;color:#a3a39d}
+.hero .tblock > div{border-color:#3a3d44}
+.hero .tblock b{color:#fff}
+
+/* frames */
+.phone{border-radius:44px;background:#0b0c0f;padding:10px;box-shadow:0 30px 60px -28px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06)}
+.phone .fit{border-radius:35px}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:96px;height:26px;border-radius:14px;background:#0b0c0f;z-index:3}
+.fit{overflow:hidden;position:relative;background:var(--a-canvas)}
+.fit > .app{transform-origin:top left}
+.browser{border-radius:14px;background:#2a2c31;overflow:hidden;box-shadow:0 30px 60px -30px rgba(22,24,29,.5)}
+.browser .chrome{display:flex;align-items:center;gap:7px;padding:10px 14px}
+.browser .chrome i{width:10px;height:10px;border-radius:50%;background:#474a52;display:block}
+.browser .chrome .url{margin-left:12px;height:24px;flex:1;max-width:420px;border-radius:7px;background:#383b42;color:#a9acb4;font-family:var(--mono);font-size:11px;display:flex;align-items:center;padding:0 10px;white-space:nowrap;overflow:hidden}
+
+/* problem */
+.two{display:grid;gap:clamp(24px,4vw,56px)}
+@media (min-width:900px){.two{grid-template-columns:1.05fr .95fr}}
+.problem p{color:var(--ink-2);max-width:60ch}
+.problem p + p{margin-top:14px}
+.problem strong{color:var(--ink);font-weight:600}
+.who{margin:0;border-top:2px solid var(--ink)}
+.who div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.who dt{font-family:var(--display);font-weight:600;font-stretch:85%;font-size:19px;text-transform:uppercase}
+.who dd{margin:0;color:var(--ink-2);font-size:15px}
+@media (max-width:520px){.who div{grid-template-columns:1fr;gap:2px}}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0;border-top:2px solid var(--ink);margin-top:clamp(32px,4vw,52px)}
+.facts div{padding:18px 18px 4px 0;border-right:1px solid var(--rule)}
+.facts div + div{padding-left:18px}
+.facts div:last-child{border-right:0}
+.facts b{display:block;font-family:var(--display);font-weight:800;font-stretch:70%;font-size:clamp(40px,4.6vw,60px);line-height:.9;font-variant-numeric:tabular-nums}
+.facts span{display:block;margin-top:8px;font-size:14px;color:var(--ink-2)}
+
+/* features */
+.feature{display:grid;gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(36px,5vw,64px);border-top:1px solid var(--rule)}
+.feature:first-of-type{border-top:0}
+@media (min-width:900px){.feature{grid-template-columns:1fr 1fr}.feature.flip .copy{order:2}}
+.feature .copy{display:grid;gap:14px;align-content:start}
+.feature > *{min-width:0}
+.feature .copy > .num{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.1em}
+.feature h3{font-size:clamp(30px,3.6vw,46px);line-height:.95;font-weight:800;font-stretch:72%;text-transform:uppercase}
+.feature .copy p{color:var(--ink-2)}
+.feature ul{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:9px}
+.feature li{font-size:15px;color:var(--ink-2);padding-left:22px;position:relative}
+.feature li::before{content:"";position:absolute;left:0;top:.5em;width:10px;height:10px;background:var(--tape);transform:rotate(45deg)}
+.feature li b{color:var(--ink);font-weight:600}
+.phones{display:flex;gap:20px;justify-content:center;align-items:flex-start}
+.phones .phone{width:min(290px,48%)}
+.phones.one .phone{width:min(310px,80%)}
+
+/* flow */
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border-top:2px solid var(--ink)}
+.flow li{padding:18px 16px 20px 0;display:grid;gap:8px;align-content:start;border-right:1px solid var(--rule)}
+.flow li + li{padding-left:16px}
+.flow li:last-child{border-right:0}
+.flow .n{font-family:var(--display);font-weight:800;font-stretch:66%;font-size:44px;line-height:.9;color:var(--tape);-webkit-text-stroke:1px var(--ink)}
+.flow h4{font-weight:600;font-stretch:85%;font-size:20px;text-transform:uppercase}
+.flow p{font-size:14.5px;color:var(--ink-2)}
+.flow .where{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+
+/* gallery */
+.gallery{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));align-items:start}
+.gallery figure{margin:0}
+.gallery figcaption{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);margin-top:12px}
+.gallery figcaption b{color:var(--ink);font-weight:500}
+
+/* kit */
+.kit{display:grid;gap:20px}
+@media (min-width:900px){.kit{grid-template-columns:1fr 1fr}}
+.sheet{background:var(--paper);border:1px solid var(--rule);padding:clamp(18px,2.4vw,28px);min-width:0}
+.sheet.full{grid-column:1/-1}
+.sheet h3{font-weight:800;font-stretch:72%;text-transform:uppercase;font-size:26px}
+.sheet .note{font-size:14px;color:var(--ink-2);margin:4px 0 18px}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px}
+.sw{display:grid;gap:6px;font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+.sw i{display:block;height:56px;border-radius:12px;border:1px solid rgba(22,24,29,.1)}
+.sw b{color:var(--ink);font-weight:600;font-family:var(--body);font-size:13px}
+.typescale div{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--rule)}
+.typescale div:last-child{border-bottom:0}
+.typescale code{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.demo{background:var(--a-canvas);border-radius:18px;padding:18px}
+
+/* roadmap */
+.roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));border-top:2px solid var(--ink)}
+.roadmap div{padding:20px 20px 8px 0;border-right:1px solid var(--rule);display:grid;gap:8px;align-content:start}
+.roadmap div + div{padding-left:20px}
+.roadmap div:last-child{border-right:0}
+.roadmap .st{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.roadmap h4{font-weight:600;font-stretch:85%;font-size:21px;text-transform:uppercase}
+.roadmap p{font-size:14.5px;color:var(--ink-2)}
+.credits{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-block:28px 40px;border-top:1px solid var(--rule);margin-top:clamp(40px,6vw,72px);font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.credits b{color:var(--ink);font-weight:500}
+
+/* ================= APP SCREENS (Pina Apps look) ================= */
+.app{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:var(--a-900);background:var(--a-canvas);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased;font-feature-settings:'cv11','ss01'}
+.app *{box-sizing:border-box}
+.app svg.lucide{width:18px;height:18px;flex-shrink:0}
+.app .s16 svg.lucide, .app svg.s16{width:16px;height:16px}
+.app svg.s14{width:14px;height:14px}
+.m{position:relative;height:100%}
+.sbar{height:46px;display:flex;justify-content:space-between;align-items:center;padding:0 28px 0 32px;font-size:14px;font-weight:600}
+.top{display:flex;align-items:center;justify-content:space-between;padding:4px 16px 0}
+.ib{width:44px;height:44px;border-radius:999px;border:1px solid rgba(226,232,240,.8);background:#fff;display:grid;place-items:center;color:var(--a-700)}
+.ttl{font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.sub{font-size:13px;color:var(--a-500)}
+.body{padding:10px 16px 120px;display:grid;gap:12px}
+.card{border-radius:16px;border:1px solid rgba(226,232,240,.7);background:#fff;padding:16px}
+.inset{border-radius:12px;background:var(--a-50);box-shadow:inset 0 0 0 1px var(--a-100);padding:12px}
+.eb{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--a-500)}
+.st{font-size:15px;font-weight:600}
+.meta{font-size:12px;color:var(--a-500)}
+.big{font-size:26px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;border-radius:999px;padding:2px 8px;font-size:11px;font-weight:600}
+.p-neutral{background:#f1f5f9;color:#334155}.p-accent{background:#EFF6FF;color:#1976D2}.p-success{background:#ecfdf5;color:#047857}.p-warning{background:#fffbeb;color:#92400e}.p-danger{background:#fef2f2;color:#b91c1c}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--a-200);background:#fff;font-size:13px;font-weight:500;color:var(--a-700);white-space:nowrap}
+.chip.on{background:var(--a-ink);border-color:var(--a-ink);color:#fff}
+.chips{display:flex;gap:8px;overflow:hidden}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border-radius:999px;padding:0 20px;font-size:14px;font-weight:500;white-space:nowrap}
+.btn.ink{background:var(--a-ink);color:#fff}
+.btn.sec{border:1px solid var(--a-200);background:#fff;color:#1e293b}
+.btn.acc{background:var(--a-brand);color:#fff}
+.inp{min-height:44px;border-radius:12px;border:1px solid var(--a-200);background:#fff;padding:11px 14px;font-size:15px;color:var(--a-900)}
+.inp.ph{color:var(--a-400)}
+.inp.focus{border-color:var(--a-brand);box-shadow:0 0 0 3px rgba(25,118,210,.18)}
+.lbl{font-size:12px;font-weight:500;color:var(--a-600);margin-bottom:6px;display:block}
+.search{display:flex;align-items:center;gap:8px;min-height:44px;border-radius:999px;background:#fff;border:1px solid rgba(226,232,240,.8);padding:0 16px;color:var(--a-400);font-size:15px}
+.tile{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--a-brand-50);color:var(--a-brand)}
+.tile.dark{background:var(--a-ink);color:#fff}
+.tabbar{position:absolute;left:12px;right:12px;bottom:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;border-radius:999px;border:1px solid rgba(226,232,240,.7);background:#fff;padding:6px;box-shadow:0 1px 2px rgb(16 24 40/.06),0 8px 24px -6px rgb(16 24 40/.14)}
+.tabbar div{height:52px;border-radius:999px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;font-weight:500;color:var(--a-500)}
+.tabbar div.on{background:var(--a-ink);color:#fff}
+.tabbar svg.lucide{width:20px;height:20px}
+.homebar{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:130px;height:5px;border-radius:3px;background:#0f172a}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#e8ebf0;border-radius:999px;padding:4px}
+.seg span{text-align:center;padding:7px 0;border-radius:999px;font-size:13px;font-weight:500;color:var(--a-600)}
+.seg span.on{background:#fff;color:var(--a-900);box-shadow:0 1px 2px rgb(16 24 40/.08)}
+.li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-top:1px solid var(--a-100)}
+.li:first-child{border-top:0;padding-top:2px}
+.num{font-variant-numeric:tabular-nums}
+.bar{height:6px;border-radius:999px;background:var(--a-100);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;background:var(--a-brand)}
+.fab{position:absolute;right:16px;bottom:112px;display:inline-flex;align-items:center;gap:8px;height:56px;border-radius:999px;background:var(--a-ink);color:#fff;padding:0 22px 0 18px;font-size:15px;font-weight:600;box-shadow:0 1px 2px rgb(16 24 40/.06),0 8px 24px -6px rgb(16 24 40/.24)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:12px}
+.cal .h{color:var(--a-400);font-weight:600;font-size:11px;padding-bottom:4px}
+.cal span{height:36px;display:grid;place-items:center;border-radius:10px;position:relative;font-variant-numeric:tabular-nums;color:var(--a-700)}
+.cal span.o{color:var(--a-400)}
+.cal span.t{background:var(--a-ink);color:#fff;font-weight:600}
+.cal span .d{position:absolute;bottom:4px;width:5px;height:5px;border-radius:50%}
+.ev{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--a-100)}
+.ev:first-child{border-top:0}
+.ev .day{text-align:center;line-height:1.05}
+.ev .day b{display:block;font-size:18px;font-weight:600}
+.ev .day small{font-size:10px;font-weight:600;color:var(--a-500);text-transform:uppercase}
+.av{width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:600;border:2px solid #fff;margin-left:-6px}
+.av:first-child{margin-left:0}
+.ring{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#059669 0 78%,#e2e8f0 78% 100%);flex-shrink:0}
+.ring div{width:66px;height:66px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;line-height:1}
+.ring b{font-size:22px;font-weight:600}
+.bubble{max-width:80%;padding:9px 13px;font-size:14px;line-height:1.4}
+.bubble.in{background:#fff;border:1px solid var(--a-200);border-radius:18px 18px 18px 6px}
+.bubble.out{background:var(--a-brand);color:#fff;border-radius:18px 18px 6px 18px;justify-self:end}
+/* desktop shell */
+.desk{display:grid;grid-template-columns:248px 1fr;height:100%;background:var(--a-canvas)}
+.side{padding:12px 0 12px 12px}
+.side .in{height:100%;border-radius:28px;background:var(--a-ink);color:#fff;padding:20px 12px;display:flex;flex-direction:column;gap:22px}
+.side .brand{display:flex;gap:12px;align-items:center;padding:0 8px}
+.side .brand span{width:40px;height:40px;border-radius:16px;background:#fff;color:var(--a-ink);display:grid;place-items:center;font-weight:700;font-size:14px}
+.side .nav{display:grid;gap:4px}
+.side .nav div{display:flex;gap:12px;align-items:center;min-height:42px;padding:0 12px;border-radius:999px;font-size:14px;color:#cbd5e1}
+.side .nav div.on{background:rgba(255,255,255,.12);color:#fff}
+.side .grp{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#64748b;padding:0 12px 6px}
+.ed{display:grid;grid-template-columns:56px 1fr 280px;gap:12px;padding:16px 20px 20px;height:calc(100% - 76px)}
+.tools{background:#fff;border:1px solid rgba(226,232,240,.7);border-radius:20px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 0}
+.tools span{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:var(--a-600);position:relative}
+.tools span.on{background:var(--a-ink);color:#fff}
+.tools span em{position:absolute;right:2px;bottom:1px;font-style:normal;font-size:9px;font-weight:600;color:var(--a-400)}
+.tools span.on em{color:#94a3b8}
+.canvas{background:#fff;border:1px solid rgba(226,232,240,.7);border-radius:20px;overflow:hidden;position:relative}
+</style>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <div class="tape"></div>
+  <div class="wrap">
+    <header class="topbar"><span class="mark"><span>PA</span><b>Pina Apps</b></span><span>Product case study · Nov 2026</span></header>
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow" style="color:#a3a39d">Field tools for Pina CRM</span>
+        <h1 style="margin-top:14px">Pina<br><span>Apps</span></h1>
+        <p class="pitch">Quick tools for the people who aren't at a desk. Bid a stucco job on the walk, bill a milestone from the truck, log a lead from a business card. Everything you save lands in the CRM.</p>
+        <div class="hero-meta"><span>Installable web app</span><span>Same login as the CRM</span><span>Access granted per app</span><span>Phone first, works on desktop</span></div>
+      </div>
+      <div class="hero-phones">
+        <!-- My Apps -->
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib" style="font-weight:700;font-size:13px;color:var(--a-ink)">PA</span><span class="ib" style="background:#EFF6FF;color:#1976D2;font-size:13px;font-weight:600;border:0">RM</span></div>
+            <div class="body">
+              <div><div class="ttl">My Apps</div><div class="sub">Quick tools connected to Pina CRM</div></div>
+              <div class="search"><i data-lucide="search"></i>Search apps</div>
+              <div class="eb" style="margin-top:4px">Pinned</div>
+              <div class="card" style="display:flex;gap:14px;align-items:center;padding:14px"><span class="tile dark"><i data-lucide="hammer"></i></span><div style="flex:1;min-width:0"><div class="st">AP Plastering — Field &amp; Bid</div><div class="meta">Bids, projects, invoices, schedule</div></div><i data-lucide="chevron-right" style="color:#94a3b8"></i></div>
+              <div class="eb" style="margin-top:4px">Apps</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div class="card" style="padding:14px;display:grid;gap:10px"><span class="tile"><i data-lucide="calculator"></i></span><div><div class="st" style="font-size:14px">MLS Analyzer</div><div class="meta">Run a deal in a minute</div></div></div>
+                <div class="card" style="padding:14px;display:grid;gap:10px"><span class="tile"><i data-lucide="ruler"></i></span><div><div class="st" style="font-size:14px">Floor Plans</div><div class="meta">Sketch it on site</div></div></div>
+                <div class="card" style="padding:14px;display:grid;gap:10px"><span class="tile"><i data-lucide="user-plus"></i></span><div><div class="st" style="font-size:14px">Quick Lead</div><div class="meta">Saved straight to the CRM</div></div></div>
+                <div class="card" style="padding:14px;display:grid;gap:10px"><span class="tile"><i data-lucide="message-square-text"></i></span><div><div class="st" style="font-size:14px">Texts</div><div class="meta">Your Quo lines</div></div></div>
+                <div class="card" style="padding:14px;display:grid;gap:10px"><span class="tile"><i data-lucide="calendar-check-2"></i></span><div><div class="st" style="font-size:14px">My Day</div><div class="meta">Follow-ups and tasks</div></div></div>
+                <div class="card" style="padding:14px;display:grid;gap:10px"><span class="tile"><i data-lucide="search"></i></span><div><div class="st" style="font-size:14px">Lead Lookup</div><div class="meta">Find anyone in the CRM</div></div></div>
+              </div>
+            </div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+        <!-- Bids quick entry -->
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib"><i data-lucide="chevron-left"></i></span><span class="pill p-warning" style="font-size:12px">Not saved</span></div>
+            <div class="body">
+              <div><div class="ttl">New bid</div><div class="sub">Proposal 26-0418 · 1084 Jaime Dr</div></div>
+              <div class="seg"><span>Details</span><span class="on">Scope</span><span>Labor</span><span>Milestones</span></div>
+              <div class="card">
+                <span class="lbl">Quick entry — type what you see on the walk</span>
+                <div class="inp focus" style="font-size:14px">14 windows, retaining wall, 2 columns, 800 sf stucco|</div>
+              </div>
+              <div class="card">
+                <div class="row" style="margin-bottom:6px"><span class="st">Scope items</span><span class="meta">4 items</span></div>
+                <div class="li"><div><div style="font-weight:500">Window Openings</div><div class="meta num">14 EA × $85.00</div></div><b class="num" style="font-weight:600">$1,190</b></div>
+                <div class="li"><div><div style="font-weight:500">Retaining Wall</div><div class="meta num">320 SF × $9.50</div></div><b class="num" style="font-weight:600">$3,040</b></div>
+                <div class="li"><div><div style="font-weight:500">Columns</div><div class="meta num">2 EA × $450.00</div></div><b class="num" style="font-weight:600">$900</b></div>
+                <div class="li"><div><div style="font-weight:500">Three-Coat Stucco</div><div class="meta num">800 SF × $7.25</div></div><b class="num" style="font-weight:600">$5,800</b></div>
+              </div>
+            </div>
+            <div class="tabbar"><div class="on"><i data-lucide="file-pen-line"></i>Bids</div><div><i data-lucide="folder-kanban"></i>Projects</div><div><i data-lucide="receipt"></i>Invoices</div><div><i data-lucide="calendar-days"></i>Schedule</div></div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+      </div>
+    </div>
+    <div class="tblock" style="margin-top:36px"><div><b>Fig. 1</b></div><div>My Apps landing · a new AP Plastering bid on the walk</div><div>Sample data</div></div>
+  </div>
+</section>
+
+<!-- ============================== PROBLEM ============================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="dim"><i></i><b>The problem</b><i></i></div>
+    <div class="band-head"><h2>The CRM lives on a desk. The work doesn't.</h2></div>
+    <div class="two">
+      <div class="problem">
+        <p><strong>Pina's CRM runs the office: leads, deals, bids, crews and payroll.</strong> But estimators walk job sites, crews start work at 6 am, and agents meet sellers at the kitchen table. None of them want a full CRM on a phone.</p>
+        <p>AP Plastering's owner sketched what the field needed in a single-page concept: write a bid on the walk, turn it into a scope of work, bill it by milestone, and see who is on which job. The office should see all of it without anyone retyping it later.</p>
+        <p>Pina Apps is that concept, built properly. Each app is one job done well on a phone, and every save writes to the same records the office already uses.</p>
+      </div>
+      <dl class="who">
+        <div><dt>Estimators</dt><dd>Price a stucco job while standing in front of it, then send the scope of work as a PDF.</dd></div>
+        <div><dt>Project managers</dt><dd>Track won jobs, holds and change orders, and bill each milestone when it's done.</dd></div>
+        <div><dt>Agents &amp; reps</dt><dd>Log a lead from a business card, run a property's numbers, answer texts.</dd></div>
+        <div><dt>Admins</dt><dd>Decide who gets which app. People only see the apps they were given.</dd></div>
+      </dl>
+    </div>
+    <div class="facts">
+      <div><b>7</b><span>apps in the catalog today</span></div>
+      <div><b>1</b><span>login, the same one used for the CRM</span></div>
+      <div><b>0</b><span>retyping: bids, invoices and leads write to CRM records</span></div>
+      <div><b>44px</b><span>minimum touch target, sized for gloves and sunlight</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FEATURES ============================== -->
+<section class="band" style="background:var(--ground-2)">
+  <div class="wrap">
+    <div class="dim"><i></i><b>Key features</b><i></i></div>
+    <div class="band-head"><h2>One job per app.</h2><p class="lede">AP Plastering — Field &amp; Bid is the flagship. Four more apps cover the realty side. Screens are redrawn from the app with sample data.</p></div>
+
+    <!-- Bids -->
+    <article class="feature">
+      <div class="copy">
+        <span class="num">AP PLASTERING · BIDS</span>
+        <h3>Type the walk. Get a scope of work.</h3>
+        <p>The estimator types what they see, like "14 windows, 2 columns, 800 sf stucco", and the app turns it into priced scope items. Labor, man-days and the payment schedule follow from the same entry.</p>
+        <ul>
+          <li><b>Quick entry</b> reads English and Spanish trade terms into 16 scope categories</li>
+          <li><b>Standard milestones</b>: Mobilization 10%, Lath 25%, Scratch 30%, Brown 25%, Finish 10%</li>
+          <li><b>Scope of work PDF</b> with proposal numbers the CRM shares, like 26-0418</li>
+        </ul>
+      </div>
+      <div class="phones">
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib"><i data-lucide="chevron-left"></i></span><span class="ib"><i data-lucide="file-down"></i></span></div>
+            <div class="body">
+              <div><div class="ttl">Labor</div><div class="sub">Proposal 26-0418 · 1084 Jaime Dr</div></div>
+              <div class="seg"><span>Details</span><span>Scope</span><span class="on">Labor</span><span>Milestones</span></div>
+              <div class="card" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div><div class="eb">Estimated man-days</div><div class="big">11.5</div></div>
+                <div><div class="eb">Estimated labor cost</div><div class="big">$4,370</div></div>
+              </div>
+              <div class="card">
+                <div class="st" style="margin-bottom:6px">Crew day rates</div>
+                <div class="li"><span>Plasterer</span><span class="num meta" style="font-size:14px;color:#334155">$304 / day</span></div>
+                <div class="li"><span>Lather</span><span class="num meta" style="font-size:14px;color:#334155">$272 / day</span></div>
+                <div class="li"><span>Laborer</span><span class="num meta" style="font-size:14px;color:#334155">$216 / day</span></div>
+              </div>
+              <div class="card" style="background:#16181D;color:#fff;border:0">
+                <div class="eb" style="color:#94a3b8">Contract total</div>
+                <div class="big" style="font-size:32px">$14,280.00</div>
+                <div style="font-size:12px;color:#94a3b8;margin-top:2px">Scope $10,930 · misc $850 · margin 18%</div>
+              </div>
+            </div>
+            <div class="tabbar"><div class="on"><i data-lucide="file-pen-line"></i>Bids</div><div><i data-lucide="folder-kanban"></i>Projects</div><div><i data-lucide="receipt"></i>Invoices</div><div><i data-lucide="calendar-days"></i>Schedule</div></div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib"><i data-lucide="chevron-left"></i></span><span class="ib"><i data-lucide="file-down"></i></span></div>
+            <div class="body">
+              <div><div class="ttl">Milestones</div><div class="sub">Schedule of values · total 100%</div></div>
+              <div class="seg"><span>Details</span><span>Scope</span><span>Labor</span><span class="on">Milestones</span></div>
+              <div class="card">
+                <div class="li"><div><div style="font-weight:500">Mobilization</div><div class="meta">Due at start</div></div><div style="text-align:right"><b class="num" style="font-weight:600">$1,428</b><div class="meta num">10%</div></div></div>
+                <div class="li"><div><div style="font-weight:500">Lath</div><div class="meta">Paper-backed lath, screeds</div></div><div style="text-align:right"><b class="num" style="font-weight:600">$3,570</b><div class="meta num">25%</div></div></div>
+                <div class="li"><div><div style="font-weight:500">Scratch Coat</div><div class="meta">First coat</div></div><div style="text-align:right"><b class="num" style="font-weight:600">$4,284</b><div class="meta num">30%</div></div></div>
+                <div class="li"><div><div style="font-weight:500">Brown Coat</div><div class="meta">Second coat</div></div><div style="text-align:right"><b class="num" style="font-weight:600">$3,570</b><div class="meta num">25%</div></div></div>
+                <div class="li"><div><div style="font-weight:500">Finish Coat</div><div class="meta">Color coat, walk-through</div></div><div style="text-align:right"><b class="num" style="font-weight:600">$1,428</b><div class="meta num">10%</div></div></div>
+              </div>
+              <div class="row card" style="padding:12px 16px"><span class="st">Total %</span><span class="pill p-success" style="font-size:12px"><i data-lucide="check" class="s14"></i>100%</span></div>
+              <span class="btn ink" style="width:100%"><i data-lucide="file-text"></i>Preview scope of work PDF</span>
+            </div>
+            <div class="tabbar"><div class="on"><i data-lucide="file-pen-line"></i>Bids</div><div><i data-lucide="folder-kanban"></i>Projects</div><div><i data-lucide="receipt"></i>Invoices</div><div><i data-lucide="calendar-days"></i>Schedule</div></div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+      </div>
+    </article>
+
+    <!-- Projects + invoices -->
+    <article class="feature flip">
+      <div class="copy">
+        <span class="num">AP PLASTERING · PROJECTS &amp; INVOICES</span>
+        <h3>Win it, then bill it a milestone at a time.</h3>
+        <p>Every bid sits in Waiting, Won or Lost. Bids sent from the office show up too, tagged "From CRM". When a job is won, the Invoices tab lists its milestones as Upcoming, Ready to Bill or Invoiced.</p>
+        <ul>
+          <li><b>On hold</b> with an estimated restart date, so the schedule stays honest</li>
+          <li><b>Change orders</b> add or deduct, and approved ones roll into the contract</li>
+          <li><b>One invoice per milestone</b>, numbered like 26-0418-2, never billed twice</li>
+        </ul>
+      </div>
+      <div class="phones">
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib" style="font-weight:700;font-size:13px">PA</span><span class="ib"><i data-lucide="settings"></i></span></div>
+            <div class="body">
+              <div><div class="ttl">Projects</div><div class="sub">Won contract value $186,420</div></div>
+              <div class="search" style="min-height:40px"><i data-lucide="search"></i>Search projects</div>
+              <div class="chips"><span class="chip">Waiting <b style="font-weight:600">6</b></span><span class="chip on">Won <b style="font-weight:600">9</b></span><span class="chip">Lost <b style="font-weight:600">3</b></span></div>
+              <div class="card" style="padding:14px">
+                <div class="row"><span class="st">Oak Hollow Residence</span><span class="pill p-success">Won</span></div>
+                <div class="meta" style="margin-top:2px">1084 Jaime Dr · Rialto</div>
+                <div class="row" style="margin-top:10px"><span class="num" style="font-weight:600">$14,280</span><span class="meta">2 of 5 billed</span></div>
+                <div class="bar" style="margin-top:6px"><i style="width:35%"></i></div>
+              </div>
+              <div class="card" style="padding:14px">
+                <div class="row"><span class="st">Redlands Medical Office</span><span class="pill p-accent">From CRM</span></div>
+                <div class="meta" style="margin-top:2px">Bldg B · Redlands</div>
+                <div class="row" style="margin-top:10px"><span class="num" style="font-weight:600">$68,940</span><span class="pill p-neutral">+1 change order</span></div>
+              </div>
+              <div class="card" style="padding:14px">
+                <div class="row"><span class="st">Cedar Ave Duplex</span><span class="pill p-warning"><i data-lucide="pause" class="s14"></i>On hold</span></div>
+                <div class="meta" style="margin-top:2px">Est. restart Nov 17 · waiting on windows</div>
+              </div>
+            </div>
+            <div class="fab"><i data-lucide="plus"></i>New bid</div>
+            <div class="tabbar"><div><i data-lucide="file-pen-line"></i>Bids</div><div class="on"><i data-lucide="folder-kanban"></i>Projects</div><div><i data-lucide="receipt"></i>Invoices</div><div><i data-lucide="calendar-days"></i>Schedule</div></div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib"><i data-lucide="chevron-left"></i></span><span class="ib"><i data-lucide="more-horizontal"></i></span></div>
+            <div class="body">
+              <div><div class="ttl">Invoices</div><div class="sub">Bill won projects milestone by milestone.</div></div>
+              <div class="card" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:14px">
+                <div><div class="eb" style="font-size:10px">Contract total</div><div class="num" style="font-size:17px;font-weight:600">$14,280</div></div>
+                <div><div class="eb" style="font-size:10px">Invoiced</div><div class="num" style="font-size:17px;font-weight:600">$4,998</div></div>
+                <div><div class="eb" style="font-size:10px">Remaining</div><div class="num" style="font-size:17px;font-weight:600">$9,282</div></div>
+              </div>
+              <div class="card" style="padding:14px">
+                <div class="li"><div><div style="font-weight:500">Mobilization · 10%</div><div class="meta">26-0418-1 · paid Oct 20</div></div><span class="pill p-success">Invoiced</span></div>
+                <div class="li"><div><div style="font-weight:500">Lath · 25%</div><div class="meta">26-0418-2 · sent Oct 29</div></div><span class="pill p-success">Invoiced</span></div>
+                <div class="li"><div><div style="font-weight:500">Scratch Coat · 30%</div><div class="meta num">$4,284.00</div></div><span class="pill p-accent">Ready to Bill</span></div>
+                <div class="li"><div><div style="font-weight:500">Brown Coat · 25%</div><div class="meta num">$3,570.00</div></div><span class="pill p-neutral">Upcoming</span></div>
+                <div class="li"><div><div style="font-weight:500">Finish Coat · 10%</div><div class="meta num">$1,428.00</div></div><span class="pill p-neutral">Upcoming</span></div>
+              </div>
+              <span class="btn ink" style="width:100%"><i data-lucide="receipt"></i>Invoice Scratch Coat · $4,284</span>
+            </div>
+            <div class="tabbar"><div><i data-lucide="file-pen-line"></i>Bids</div><div><i data-lucide="folder-kanban"></i>Projects</div><div class="on"><i data-lucide="receipt"></i>Invoices</div><div><i data-lucide="calendar-days"></i>Schedule</div></div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+      </div>
+    </article>
+
+    <!-- Schedule -->
+    <article class="feature">
+      <div class="copy">
+        <span class="num">AP PLASTERING · SCHEDULE</span>
+        <h3>Who's on which wall, this week.</h3>
+        <p>Won jobs land on the calendar with their crew. Bid dues, walk-throughs, inspections and payments sit next to them as events. "Tap a job to see or update who's working on it."</p>
+        <ul>
+          <li><b>Calendar and agenda</b> views of the same month</li>
+          <li><b>Crew</b> comes from the HR roster, kept by the office</li>
+          <li><b>Bid due dates</b> sync back to the bid in the CRM</li>
+        </ul>
+      </div>
+      <div class="phones one">
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib" style="font-weight:700;font-size:13px">PA</span><span class="ib"><i data-lucide="plus"></i></span></div>
+            <div class="body">
+              <div class="row"><div class="ttl">Schedule</div><div class="chips"><span class="chip on" style="min-height:32px">Calendar</span><span class="chip" style="min-height:32px">Agenda</span></div></div>
+              <div class="card" style="padding:14px">
+                <div class="row" style="margin-bottom:8px"><span class="ib" style="width:34px;height:34px"><i data-lucide="chevron-left" class="s16"></i></span><span class="st">November 2026</span><span class="ib" style="width:34px;height:34px"><i data-lucide="chevron-right" class="s16"></i></span></div>
+                <div class="cal">
+                  <span class="h">S</span><span class="h">M</span><span class="h">T</span><span class="h">W</span><span class="h">T</span><span class="h">F</span><span class="h">S</span>
+                  <span class="t">1</span><span>2<i class="d" style="background:#1976D2"></i></span><span>3<i class="d" style="background:#1976D2"></i></span><span>4<i class="d" style="background:#d97706"></i></span><span>5</span><span>6<i class="d" style="background:#059669"></i></span><span>7</span>
+                  <span>8</span><span>9<i class="d" style="background:#1976D2"></i></span><span>10</span><span>11</span><span>12<i class="d" style="background:#dc2626"></i></span><span>13</span><span>14</span>
+                  <span>15</span><span>16</span><span>17<i class="d" style="background:#1976D2"></i></span><span>18</span><span>19</span><span>20</span><span>21</span>
+                </div>
+              </div>
+              <div class="card" style="padding:6px 14px">
+                <div class="ev"><div class="day"><small>Mon</small><b>2</b></div><div><div style="font-weight:500">Oak Hollow · Scratch Coat</div><div class="meta">Job · 3 crew</div></div><div><span class="av" style="background:#dbeafe;color:#1d4ed8">RC</span><span class="av" style="background:#fef3c7;color:#92400e">JM</span><span class="av" style="background:#dcfce7;color:#166534">EP</span></div></div>
+                <div class="ev"><div class="day"><small>Wed</small><b>4</b></div><div><div style="font-weight:500">City inspection · lath</div><div class="meta">Redlands Bldg B · 9:00 AM</div></div><span class="pill p-warning">Inspection</span></div>
+                <div class="ev"><div class="day"><small>Fri</small><b>6</b></div><div><div style="font-weight:500">Progress payment due</div><div class="meta">26-0418-2 · $3,570</div></div><span class="pill p-success">Payment</span></div>
+                <div class="ev"><div class="day"><small>Thu</small><b>12</b></div><div><div style="font-weight:500">Bid due · Fontana Library</div><div class="meta">2:00 PM</div></div><span class="pill p-danger">Bid due</span></div>
+              </div>
+            </div>
+            <div class="tabbar"><div><i data-lucide="file-pen-line"></i>Bids</div><div><i data-lucide="folder-kanban"></i>Projects</div><div><i data-lucide="receipt"></i>Invoices</div><div class="on"><i data-lucide="calendar-days"></i>Schedule</div></div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+      </div>
+    </article>
+
+    <!-- Floor plans desktop -->
+    <article class="feature" style="grid-template-columns:1fr">
+      <div class="copy" style="max-width:720px">
+        <span class="num">FLOOR PLANS · DESKTOP</span>
+        <h3>Sketch it on site, then attach it to the CRM.</h3>
+        <p>Draw rooms, walls, doors and windows to scale in feet. Shared walls are drawn once, areas add up as you go, and the finished sheet attaches to a property, lead or deal in one tap. On a desktop the same app opens full width with a dark side rail.</p>
+        <ul>
+          <li><b>Keyboard tools</b> that match the CRM takeoff: R room, D door, N window, M measure</li>
+          <li><b>Multiple floors</b>, fixtures and notes on one plan</li>
+          <li><b>Export</b> a clean PNG sheet, saved to the record's Files</li>
+        </ul>
+      </div>
+      <div>
+        <div class="browser">
+          <div class="chrome"><i></i><i></i><i></i><span class="url">apps.pina/apps/floor-plans/908-mesa-verde</span></div>
+          <div class="fit" data-fit="1240">
+            <div class="app" style="width:1240px;height:700px">
+              <div class="desk">
+                <aside class="side"><div class="in">
+                  <div class="brand"><span>PA</span><div><div style="font-size:15px;font-weight:600">Pina Apps</div><div style="font-size:12px;color:#94a3b8">Connected to Pina CRM</div></div></div>
+                  <div class="nav"><div><i data-lucide="layout-grid"></i>My Apps</div></div>
+                  <div><div class="grp">Pinned</div><div class="nav"><div><i data-lucide="hammer"></i>AP Plastering</div><div class="on"><i data-lucide="ruler"></i>Floor Plans</div><div><i data-lucide="calculator"></i>MLS Analyzer</div></div></div>
+                  <div><div class="grp">Apps</div><div class="nav"><div><i data-lucide="user-plus"></i>Quick Lead</div><div><i data-lucide="message-square-text"></i>Texts</div><div><i data-lucide="calendar-check-2"></i>My Day</div><div><i data-lucide="search"></i>Lead Lookup</div></div></div>
+                  <div style="margin-top:auto;display:flex;gap:10px;align-items:center;padding:0 8px"><span style="width:36px;height:36px;border-radius:50%;background:#EFF6FF;color:#1976D2;display:grid;place-items:center;font-size:13px;font-weight:600">RM</span><div style="font-size:13px">Rosa M.<div style="color:#94a3b8;font-size:12px">Estimator</div></div></div>
+                </div></aside>
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 0">
+                    <div style="display:flex;gap:12px;align-items:center"><span class="ib"><i data-lucide="chevron-left"></i></span><div><div style="font-size:20px;font-weight:600">908 Mesa Verde Ct</div><div class="meta">Ground floor · 1,486 sq ft · linked to lead Priya Natarajan</div></div></div>
+                    <div style="display:flex;gap:8px"><span class="btn sec" style="min-height:40px"><i data-lucide="undo-2" class="s16"></i></span><span class="btn sec" style="min-height:40px"><i data-lucide="download" class="s16"></i>Export</span><span class="btn ink" style="min-height:40px"><i data-lucide="paperclip" class="s16"></i>Attach to CRM</span></div>
+                  </div>
+                  <div class="ed">
+                    <div class="tools">
+                      <span><i data-lucide="mouse-pointer-2"></i><em>V</em></span><span><i data-lucide="hand"></i><em>H</em></span><span class="on"><i data-lucide="square"></i><em>R</em></span><span><i data-lucide="minus"></i><em>L</em></span><span><i data-lucide="door-open"></i><em>D</em></span><span><i data-lucide="app-window"></i><em>N</em></span><span><i data-lucide="armchair"></i><em>F</em></span><span><i data-lucide="type"></i><em>T</em></span><span><i data-lucide="ruler"></i><em>M</em></span>
+                    </div>
+                    <div class="canvas">
+                      <svg viewBox="0 0 640 560" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-label="Floor plan with five rooms">
+                        <defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef1f5" stroke-width="1"/></pattern></defs>
+                        <rect width="640" height="560" fill="url(#g)"/>
+                        <g font-family="Inter,sans-serif" text-anchor="middle">
+                          <rect x="80" y="70" width="260" height="210" fill="#EFF6FF"/>
+                          <rect x="340" y="70" width="210" height="140" fill="#fef9ec"/>
+                          <rect x="340" y="210" width="210" height="140" fill="#f0fdf4"/>
+                          <rect x="80" y="280" width="160" height="200" fill="#f5f3ff"/>
+                          <rect x="240" y="280" width="100" height="110" fill="#f1f5f9"/>
+                          <rect x="240" y="390" width="310" height="90" fill="#fdf2f8"/>
+                          <path d="M80 70H550V480H80Z" fill="none" stroke="#16181D" stroke-width="7"/>
+                          <path d="M340 70V350M340 210H550M80 280H340M240 280V480M240 390H550M340 350H550" fill="none" stroke="#16181D" stroke-width="3.5"/>
+                          <!-- door swing -->
+                          <path d="M160 280 h40" stroke="#fff" stroke-width="5"/><path d="M160 280 A40 40 0 0 0 200 320" fill="none" stroke="#64748b" stroke-width="1.5"/><path d="M160 280 L160 320" stroke="#64748b" stroke-width="1.5"/>
+                          <!-- windows -->
+                          <path d="M150 70h80M400 70h90M550 120v60M550 250v60" stroke="#fff" stroke-width="5"/>
+                          <path d="M150 70h80M400 70h90M550 120v60M550 250v60" stroke="#1976D2" stroke-width="2"/>
+                          <text x="210" y="170" font-size="15" font-weight="600" fill="#0f172a">Living</text><text x="210" y="190" font-size="12" fill="#64748b">17' × 14' · 238 sf</text>
+                          <text x="445" y="135" font-size="15" font-weight="600" fill="#0f172a">Kitchen</text><text x="445" y="155" font-size="12" fill="#64748b">14' × 9' · 126 sf</text>
+                          <text x="445" y="275" font-size="15" font-weight="600" fill="#0f172a">Dining</text><text x="445" y="295" font-size="12" fill="#64748b">14' × 9' · 126 sf</text>
+                          <text x="160" y="380" font-size="15" font-weight="600" fill="#0f172a">Bedroom 1</text><text x="160" y="400" font-size="12" fill="#64748b">11' × 13' · 143 sf</text>
+                          <text x="290" y="340" font-size="13" font-weight="600" fill="#0f172a">Bath</text>
+                          <text x="395" y="440" font-size="15" font-weight="600" fill="#0f172a">Bedroom 2</text><text x="395" y="460" font-size="12" fill="#64748b">21' × 6' · 126 sf</text>
+                          <!-- dimension -->
+                          <path d="M80 40H550M80 33v14M550 33v14" stroke="#1976D2" stroke-width="1.5"/><rect x="285" y="30" width="60" height="20" rx="4" fill="#fff"/><text x="315" y="45" font-size="12" font-weight="600" fill="#1976D2">31' 4"</text>
+                          <!-- selection handles on Living -->
+                          <rect x="80" y="70" width="260" height="210" fill="none" stroke="#1976D2" stroke-width="2" stroke-dasharray="6 4"/>
+                          <g fill="#fff" stroke="#1976D2" stroke-width="2"><rect x="75" y="65" width="10" height="10"/><rect x="335" y="65" width="10" height="10"/><rect x="75" y="275" width="10" height="10"/><rect x="335" y="275" width="10" height="10"/></g>
+                        </g>
+                      </svg>
+                      <div style="position:absolute;left:14px;bottom:14px;display:flex;gap:6px"><span class="chip on" style="min-height:32px">Ground floor</span><span class="chip" style="min-height:32px">Upstairs</span><span class="chip" style="min-height:32px"><i data-lucide="plus" class="s14"></i>Add floor</span></div>
+                    </div>
+                    <div class="card" style="display:grid;gap:12px;align-content:start;padding:16px">
+                      <div class="row"><span class="st">Living</span><span class="pill p-accent">Room</span></div>
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <div><span class="lbl">Width</span><div class="inp" style="font-size:14px">17' 0"</div></div>
+                        <div><span class="lbl">Length</span><div class="inp" style="font-size:14px">14' 0"</div></div>
+                      </div>
+                      <div class="inset row"><span class="meta" style="font-size:13px">Area</span><b class="num" style="font-weight:600">238 sq ft</b></div>
+                      <div><span class="lbl">Room type</span><div class="chips" style="flex-wrap:wrap"><span class="chip on" style="min-height:30px;font-size:12px">Living</span><span class="chip" style="min-height:30px;font-size:12px">Bedroom</span><span class="chip" style="min-height:30px;font-size:12px">Kitchen</span><span class="chip" style="min-height:30px;font-size:12px">Bath</span></div></div>
+                      <div class="inset" style="display:grid;gap:6px"><div class="row" style="font-size:13px"><span class="meta" style="font-size:13px">Plan total</span><b class="num" style="font-weight:600">1,486 sq ft</b></div><div class="row" style="font-size:13px"><span class="meta" style="font-size:13px">Rooms</span><b class="num" style="font-weight:600">6</b></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tblock"><div><b>Fig. 5</b></div><div>Floor Plans editor with the desktop side rail</div><div>Scale in feet</div></div>
+      </div>
+    </article>
+
+    <!-- MLS + Quick Lead -->
+    <article class="feature">
+      <div class="copy">
+        <span class="num">MLS ANALYZER · QUICK LEAD</span>
+        <h3>The realty side, in your pocket.</h3>
+        <p>MLS Analyzer runs a property as a flip, rental or wholesale deal with the same math the CRM uses, and scores it Strong, Moderate or Weak. Quick Lead saves a new contact straight to the CRM, with a photo of their business card.</p>
+        <ul>
+          <li><b>Max contract price</b> warning when an offer runs too high</li>
+          <li><b>Duplicate check</b>: "This might already be in the CRM"</li>
+          <li><b>Card photo</b> goes into the lead's Files when you save</li>
+        </ul>
+      </div>
+      <div class="phones">
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib"><i data-lucide="chevron-left"></i></span><span class="ib"><i data-lucide="save"></i></span></div>
+            <div class="body">
+              <div><div class="ttl" style="font-size:24px">2207 Juniper Ln</div><div class="sub">San Bernardino · 3 bd · 2 ba · 1,412 sq ft</div></div>
+              <div class="seg" style="grid-template-columns:repeat(3,1fr)"><span class="on">Flip</span><span>Rental</span><span>Wholesale</span></div>
+              <div class="card" style="display:flex;gap:16px;align-items:center">
+                <div class="ring"><div><b>78</b><div class="meta" style="font-size:10px">score</div></div></div>
+                <div><span class="pill p-success" style="font-size:12px">Strong</span><div class="eb" style="margin-top:8px">Net profit</div><div class="big" style="color:#047857">$78,500</div></div>
+              </div>
+              <div class="card" style="display:grid;gap:10px">
+                <div><span class="lbl">List price</span><div class="inp num">$415,000</div></div>
+                <div><span class="lbl">ARV (after-repair value)</span><div class="inp num">$545,000</div></div>
+                <div><span class="lbl">Offer price</span><div class="inp focus num">$381,500</div></div>
+              </div>
+              <div class="card" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px">
+                <div><div class="eb">Spread</div><div class="num" style="font-size:19px;font-weight:600">$130,000</div></div>
+                <div><div class="eb">Sold comps</div><div class="num" style="font-size:19px;font-weight:600">4</div></div>
+              </div>
+            </div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib"><i data-lucide="chevron-left"></i></span><span class="ib"><i data-lucide="history"></i></span></div>
+            <div class="body">
+              <div><div class="ttl">Quick Lead</div><div class="sub">Saved straight to the CRM</div></div>
+              <div class="card" style="display:grid;gap:12px">
+                <div><span class="lbl">Lead for</span><div class="seg" style="grid-template-columns:1fr 1fr"><span class="on">Pina Realty</span><span>AP Plastering</span></div></div>
+                <div><span class="lbl">Lead type</span><div class="chips"><span class="chip on">Selling</span><span class="chip">Buying</span><span class="chip">Investing</span></div></div>
+                <div><span class="lbl">Name</span><div class="inp">Grant Okafor</div></div>
+                <div><span class="lbl">Phone</span><div class="inp num">(909) 555-0142</div></div>
+              </div>
+              <div style="border-radius:12px;background:#fffbeb;padding:12px 14px;display:flex;gap:10px;color:#92400e"><i data-lucide="alert-triangle"></i><div><div style="font-weight:600;font-size:14px">This might already be in the CRM</div><div style="font-size:13px">Grant Okafor · same phone · lead from Oct 12</div></div></div>
+              <div class="card row" style="padding:12px 14px"><div style="display:flex;gap:12px;align-items:center"><span class="tile"><i data-lucide="camera"></i></span><div><div style="font-weight:500;font-size:14px">Business card</div><div class="meta">Goes into the lead's Files in the CRM when you save.</div></div></div></div>
+              <span class="btn ink" style="width:100%">Save lead</span>
+            </div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================== FLOW ============================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="dim"><i></i><b>The user flow</b><i></i></div>
+    <div class="band-head"><h2>From the site walk to the last payment.</h2><p class="lede">One stucco job through AP Plastering — Field &amp; Bid. The office sees each step in the CRM as it happens.</p></div>
+    <ol class="flow">
+      <li><span class="n">01</span><h4>Open the app</h4><p>Sign in with the CRM login. My Apps shows only the tools you were given.</p><span class="where">My Apps</span></li>
+      <li><span class="n">02</span><h4>Walk the job</h4><p>Type what you see. Scope items, labor and milestones fill in.</p><span class="where">Bids · quick entry</span></li>
+      <li><span class="n">03</span><h4>Send the scope</h4><p>Preview and send the scope of work PDF. The bid appears in the CRM's bid pipeline.</p><span class="where">Bids · PDF</span></li>
+      <li><span class="n">04</span><h4>Mark it won</h4><p>The award creates the job in the CRM with its contract amount and scope.</p><span class="where">Projects</span></li>
+      <li><span class="n">05</span><h4>Schedule the crew</h4><p>Put the job on the calendar and assign plasterers from the roster.</p><span class="where">Schedule</span></li>
+      <li><span class="n">06</span><h4>Bill as you build</h4><p>Invoice each milestone as it's done, plus any signed change orders.</p><span class="where">Invoices</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================== GALLERY ============================== -->
+<section class="band" style="background:var(--ground-2)">
+  <div class="wrap">
+    <div class="dim"><i></i><b>Screens</b><i></i></div>
+    <div class="band-head"><h2>More of the kit.</h2></div>
+    <div class="gallery">
+      <figure>
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib"><i data-lucide="chevron-left"></i></span><span class="ib"><i data-lucide="users"></i></span></div>
+            <div class="body">
+              <div><div class="ttl">My Day</div><div class="sub">Saturday, Nov 1</div></div>
+              <div class="card" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:14px">
+                <div><div class="eb" style="font-size:10px">Due today</div><div class="big" style="font-size:22px">6</div></div>
+                <div><div class="eb" style="font-size:10px">Texts waiting</div><div class="big" style="font-size:22px">3</div></div>
+                <div><div class="eb" style="font-size:10px">Going quiet</div><div class="big" style="font-size:22px;color:#b45309">4</div></div>
+              </div>
+              <div class="card"><div class="st" style="margin-bottom:6px">Follow-ups</div>
+                <div class="li"><div><div style="font-weight:500">Marisol Vega</div><div class="meta">New lead · call back after 3</div></div><span class="pill p-accent">Log call</span></div>
+                <div class="li"><div><div style="font-weight:500">Teresa Bautista</div><div class="meta">Tour this weekend</div></div><span class="pill p-accent">Log call</span></div>
+              </div>
+              <div class="card"><div class="st" style="margin-bottom:6px">Tasks</div>
+                <div class="li"><span style="display:flex;gap:10px;align-items:center"><i data-lucide="circle" style="color:#94a3b8"></i>Send market update to Priya</span></div>
+                <div class="li"><span style="display:flex;gap:10px;align-items:center"><i data-lucide="check-circle-2" style="color:#059669"></i><s style="color:#94a3b8">Order yard sign</s></span></div>
+              </div>
+            </div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+        <figcaption><b>My Day</b> · follow-ups, tasks, leads going quiet</figcaption>
+      </figure>
+      <figure>
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib"><i data-lucide="chevron-left"></i></span><div style="text-align:center"><div style="font-weight:600">Marisol Vega</div><div class="meta">Main line · (909) 555-0100</div></div><span class="ib"><i data-lucide="phone"></i></span></div>
+            <div class="body" style="gap:8px;padding-top:16px">
+              <div class="bubble out">Hi Marisol, this is Dana with Pina Realty. Is now a good time to talk about the house?</div>
+              <div class="bubble in">Yes! After 3 works best.</div>
+              <div class="bubble out">Perfect, I'll call at 3:15.</div>
+              <div class="meta" style="text-align:center;margin-top:6px">Replies go out from the conversation's own line, the same as in Quo.</div>
+            </div>
+            <div style="position:absolute;left:12px;right:12px;bottom:26px;display:flex;gap:8px;align-items:center"><div class="search" style="flex:1">Text message</div><span class="ib" style="background:#1976D2;color:#fff;border:0"><i data-lucide="send"></i></span></div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+        <figcaption><b>Texts</b> · two-way texting on the company lines</figcaption>
+      </figure>
+      <figure>
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib"><i data-lucide="chevron-left"></i></span><span></span></div>
+            <div class="body">
+              <div><div class="ttl">Lead Lookup</div><div class="sub">Find any lead or contact in the CRM</div></div>
+              <div class="search" style="color:#0f172a"><i data-lucide="search" style="color:#94a3b8"></i>bautista</div>
+              <div class="card" style="padding:6px 16px">
+                <div class="li"><div style="display:flex;gap:12px;align-items:center"><span class="tile" style="width:38px;height:38px;border-radius:50%;font-size:12px;font-weight:600">TB</span><div><div style="font-weight:500">Teresa &amp; Luis Bautista</div><div class="meta">Buyer lead · Warm</div></div></div><i data-lucide="chevron-right" style="color:#94a3b8"></i></div>
+                <div class="li"><div style="display:flex;gap:12px;align-items:center"><span class="tile" style="width:38px;height:38px;border-radius:50%;font-size:12px;font-weight:600;background:#f1f5f9;color:#334155">AB</span><div><div style="font-weight:500">Arturo Bautista</div><div class="meta">Contact · lender</div></div></div><i data-lucide="chevron-right" style="color:#94a3b8"></i></div>
+              </div>
+              <div class="card" style="display:grid;gap:10px">
+                <div class="row"><span class="st">Teresa &amp; Luis Bautista</span><span class="pill p-warning">Warm</span></div>
+                <div class="meta" style="font-size:13px">Pre-approved $650k · owner Mia S.</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><span class="btn sec"><i data-lucide="phone" class="s16"></i>Call</span><span class="btn sec"><i data-lucide="message-square" class="s16"></i>Text</span></div>
+              </div>
+            </div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+        <figcaption><b>Lead Lookup</b> · anyone in the CRM, from the road</figcaption>
+      </figure>
+      <figure>
+        <div class="phone"><div class="fit" data-fit="390"><div class="notch"></div>
+          <div class="app" style="width:390px;height:800px"><div class="m">
+            <div class="sbar"><span>9:41</span><span style="display:flex;gap:5px"><i data-lucide="signal" class="s14"></i><i data-lucide="wifi" class="s14"></i><i data-lucide="battery-full" class="s14"></i></span></div>
+            <div class="top"><span class="ib"><i data-lucide="chevron-left"></i></span><span></span></div>
+            <div class="body">
+              <div><div class="ttl">App access</div><div class="sub">Choose who sees each app</div></div>
+              <div class="card" style="padding:6px 16px">
+                <div class="li"><div><div style="font-weight:500">Rosa M.</div><div class="meta">Estimator</div></div><div style="display:flex;gap:4px"><span class="tile dark" style="width:30px;height:30px;border-radius:9px"><i data-lucide="hammer" class="s14"></i></span><span class="tile" style="width:30px;height:30px;border-radius:9px"><i data-lucide="ruler" class="s14"></i></span></div></div>
+                <div class="li"><div><div style="font-weight:500">Dana R.</div><div class="meta">Acquisition rep</div></div><div style="display:flex;gap:4px"><span class="tile" style="width:30px;height:30px;border-radius:9px"><i data-lucide="calculator" class="s14"></i></span><span class="tile" style="width:30px;height:30px;border-radius:9px"><i data-lucide="user-plus" class="s14"></i></span><span class="tile" style="width:30px;height:30px;border-radius:9px"><i data-lucide="message-square-text" class="s14"></i></span></div></div>
+                <div class="li"><div><div style="font-weight:500">Ramon C.</div><div class="meta">Crew lead</div></div><div style="display:flex;gap:4px"><span class="tile dark" style="width:30px;height:30px;border-radius:9px"><i data-lucide="hammer" class="s14"></i></span></div></div>
+              </div>
+              <div class="card" style="display:grid;gap:12px">
+                <div class="st">Ramon C. · AP Plastering — Field &amp; Bid</div>
+                <div class="row"><span>Access</span><span style="width:48px;height:28px;border-radius:999px;background:#1976D2;position:relative;display:block"><i style="position:absolute;right:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;display:block"></i></span></div>
+                <div class="meta" style="font-size:13px">People only see the apps they were given. Admins see all of them.</div>
+              </div>
+            </div>
+            <div class="homebar"></div>
+          </div></div>
+        </div></div>
+        <figcaption><b>App access</b> · admin grants each app per person</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== UI KIT ============================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="dim"><i></i><b>UI kit in context</b><i></i></div>
+    <div class="band-head"><h2>Built for thumbs and sunlight.</h2><p class="lede">White rounded cards on a soft grey canvas. Near-black pill buttons for the main action, the CRM blue for links and selection, and colour only for state. Shadows only on things that float.</p></div>
+    <div class="kit">
+      <div class="sheet">
+        <h3>Colour</h3>
+        <p class="note">Two working colours, one canvas, and three state colours that never carry meaning alone.</p>
+        <div class="swatches">
+          <div class="sw"><i style="background:#16181D"></i><b>Ink</b>#16181D · actions</div>
+          <div class="sw"><i style="background:#1976D2"></i><b>Brand</b>#1976D2 · links, focus</div>
+          <div class="sw"><i style="background:#F1F3F6"></i><b>Canvas</b>#F1F3F6</div>
+          <div class="sw"><i style="background:#ffffff"></i><b>Card</b>#FFFFFF</div>
+          <div class="sw"><i style="background:#ecfdf5"></i><b>Success</b>emerald 50/700</div>
+          <div class="sw"><i style="background:#fffbeb"></i><b>Warning</b>amber 50/800</div>
+        </div>
+      </div>
+      <div class="sheet">
+        <h3>Type</h3>
+        <p class="note">Inter with its alternate digits. Big numbers, short labels.</p>
+        <div class="typescale">
+          <div><code>28 / 600</code><span style="font-size:28px;font-weight:600;letter-spacing:-.02em">Projects</span></div>
+          <div><code>26 / 600 tab</code><span style="font-size:26px;font-weight:600;font-variant-numeric:tabular-nums">$14,280.00</span></div>
+          <div><code>15 / 600</code><span style="font-size:15px;font-weight:600">Scope items</span></div>
+          <div><code>12 / 500</code><span style="font-size:12px;font-weight:500;color:#475569">Quick entry — type what you see on the walk</span></div>
+          <div><code>11 / 600 caps</code><span style="font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#64748b">Estimated man-days</span></div>
+        </div>
+      </div>
+      <div class="sheet full">
+        <h3>Components, as they appear on screen</h3>
+        <p class="note">Every tap target is at least 44px tall. Inputs use 16px text so phones don't zoom.</p>
+        <div class="demo">
+          <div class="app" style="background:transparent">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px">
+              <div class="card" style="display:grid;gap:10px;align-content:start">
+                <div class="eb">Buttons</div>
+                <span class="btn ink">Save lead</span><span class="btn sec">Preview</span><span class="btn acc">Confirm</span>
+              </div>
+              <div class="card" style="display:grid;gap:10px;align-content:start">
+                <div class="eb">Chips and pills</div>
+                <div class="chips" style="flex-wrap:wrap"><span class="chip on">Won 9</span><span class="chip">Waiting 6</span><span class="chip">Lost 3</span></div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="pill p-success">Invoiced</span><span class="pill p-accent">Ready to Bill</span><span class="pill p-neutral">Upcoming</span><span class="pill p-warning">On hold</span><span class="pill p-danger">Bid due</span></div>
+              </div>
+              <div class="card" style="display:grid;gap:10px;align-content:start">
+                <div class="eb">Fields</div>
+                <div><span class="lbl">Job address</span><div class="inp ph">1084 Jaime Dr — GC Name</div></div>
+                <div><span class="lbl">Contract total</span><div class="inp focus num">$14,280.00</div></div>
+              </div>
+              <div class="card" style="display:grid;gap:12px;align-content:start;position:relative;min-height:190px;background:#F1F3F6">
+                <div class="eb">Floating</div>
+                <div class="tabbar" style="position:static;margin-top:auto"><div class="on"><i data-lucide="file-pen-line"></i>Bids</div><div><i data-lucide="folder-kanban"></i>Projects</div><div><i data-lucide="receipt"></i>Invoices</div><div><i data-lucide="calendar-days"></i>Schedule</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CLOSING ============================== -->
+<section class="band" style="background:var(--ink);color:#f3f1ec">
+  <div class="wrap">
+    <div class="dim" style="color:#a3a39d"><i style="background:#a3a39d"></i><b style="color:#fff">What's next</b><i style="background:#a3a39d"></i></div>
+    <div class="band-head"><h2>The roadmap.</h2><p class="lede" style="color:#cfccc4">The catalog grows one tool at a time. Each new app plugs into the same login and the same CRM records.</p></div>
+    <div class="roadmap" style="border-color:#f2b51d">
+      <div style="border-color:#3a3d44"><span class="st" style="color:#a3a39d">Open question</span><h4>Field vs office roles</h4><p style="color:#cfccc4">What field-only users can see and change, and whether they stay out of the full CRM.</p></div>
+      <div style="border-color:#3a3d44"><span class="st" style="color:#a3a39d">Open question</span><h4>Prices in the field</h4><p style="color:#cfccc4">Who sees unit prices on site, and who can override them on a bid.</p></div>
+      <div style="border-color:#3a3d44"><span class="st" style="color:#a3a39d">Open question</span><h4>Sending invoices</h4><p style="color:#cfccc4">Email invoices from the app, or keep handing over the PDF.</p></div>
+      <div style="border-color:#3a3d44"><span class="st" style="color:#a3a39d">Next apps</span><h4>More of the catalog</h4><p style="color:#cfccc4">Admins turn on new tools from the same catalog, with nothing new to install.</p></div>
+    </div>
+    <footer class="credits" style="border-color:#3a3d44;color:#a3a39d">
+      <span><b style="color:#fff">Pina Apps</b> · designed and built in-house for Pina</span>
+      <span>React · TypeScript · Supabase · installable web app</span>
+      <span>Screens redrawn from the app with sample data</span>
+    </footer>
+  </div>
+</section>
+
+<script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+<script>
+(function(){
+  try{ if(window.lucide) window.lucide.createIcons(); }catch(e){}
+  var els=[].slice.call(document.querySelectorAll('[data-fit]'));
+  els.forEach(function(w){ var f=w.firstElementChild; if(f && f.classList.contains('notch')) w.appendChild(f); });
+  function fitOne(w){ var c=w.firstElementChild; if(!c) return; var W=+w.getAttribute('data-fit'); var s=Math.min(1,w.clientWidth/W); c.style.transform='scale('+s+')'; w.style.height=(c.offsetHeight*s)+'px'; }
+  function all(){ els.forEach(fitOne); }
+  all();
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(all); els.forEach(function(w){ro.observe(w);}); }
+  window.addEventListener('load',all);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(all);
+})();
+</script>

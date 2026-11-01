@@ -535,3 +535,186 @@ html:not(.js) .deck-nav { display: none; }
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
   margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line);
 }
+.case-links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ── welcome panel (reel + showcases) ─────────────────────────────────────── */
+
+/* Ad-style layout: the film on the left, the showcases and the way out on
+   the right, sized to fit one screen so nothing scrolls. Below 900px it
+   stacks and scrolls like the other modals. */
+.welcome { width: min(1180px, calc(100% - 24px)); }
+.welcome .case-close { position: absolute; top: 14px; right: 14px; float: none; margin: 0; }
+.welcome h2 { margin-top: 10px; }
+.welcome .case-desc { margin-bottom: 18px; }
+.welcome-grid { display: grid; gap: 28px; padding-top: 28px; }
+.welcome-main, .welcome-side { min-width: 0; }
+.welcome-side { display: flex; flex-direction: column; }
+.welcome-side .welcome-sub { margin-top: 0; }
+.welcome .case-foot {
+  flex-direction: column; align-items: stretch; gap: 10px;
+  margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line);
+}
+.welcome .case-foot .muted-note { text-align: center; }
+.welcome-go { width: 100%; }
+@media (min-width: 900px) {
+  .welcome { overflow: hidden; }
+  .welcome-grid { grid-template-columns: minmax(0, 1.75fr) minmax(290px, 1fr); }
+  /* The side column is capped to the panel height: on short screens only the
+     showcase list scrolls, so the dialog itself never does and the way out
+     stays on screen. 130px = dialog margin + body and grid padding. */
+  .welcome-side {
+    padding: 40px 0 0 28px; border-left: 1px solid var(--line);
+    max-height: calc(100dvh - 130px); min-height: 0;
+  }
+  .welcome-side .sc-grid { flex: 0 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; }
+  .welcome-side .case-foot { margin-top: 14px; flex: none; }
+}
+/* Phones and narrow windows: the panel stacks and scrolls, so the way out is
+   pinned to the bottom of the screen from the first frame. display:contents
+   lets the footer stick to the whole panel instead of only the side column. */
+@media (max-width: 899px) {
+  .welcome-side { display: contents; }
+  .welcome-grid { row-gap: 12px; }
+  .welcome-side .welcome-sub { margin: 14px 0 0; }
+  .welcome .case-foot {
+    position: sticky; bottom: 0; z-index: 4;
+    margin: 0 calc(-1 * clamp(20px, 4vw, 40px)) calc(-1 * clamp(20px, 4vw, 40px));
+    padding: 12px clamp(20px, 4vw, 40px) 14px;
+    background: var(--surface); border-top: 1px solid var(--line);
+    box-shadow: 0 -14px 24px -18px rgb(0 0 0 / .35);
+  }
+  .welcome .case-foot .muted-note { display: none; }
+}
+/* Laptop-height screens: tighter rows and no footnote, so all seven
+   showcases fit without the list scrolling. */
+@media (min-width: 900px) and (max-height: 820px) {
+  .welcome-side { padding-top: 22px; }
+  .welcome-side .welcome-sub { margin-bottom: 8px; }
+  .welcome-side .sc-tile { grid-template-columns: 52px minmax(0, 1fr); padding: 5px 8px; }
+  .welcome-side .sc-thumb { width: 52px; }
+  .welcome-side .sc-name { font-size: 14px; }
+  .welcome-side .sc-note { font-size: 12px; }
+  .welcome-side .case-foot { padding-top: 12px; }
+  .welcome-side .case-foot .muted-note { display: none; }
+}
+.welcome-go {
+  min-height: 52px; padding: 0 28px; font-size: 16px; font-weight: 600;
+  background: var(--accent); color: var(--accent-ink);
+  box-shadow: 0 10px 24px -10px var(--accent);
+}
+.welcome-go:hover { background: var(--ink); color: var(--bg); }
+.welcome-go .ic { width: 18px; height: 18px; transition: transform .2s var(--ease); }
+.welcome-go:hover .ic { transform: translateX(3px); }
+@media (max-width: 520px) { .welcome-go { flex: 1 1 100%; } }
+.welcome-stage { position: relative; width: fit-content; max-width: 100%; margin-inline: auto; }
+.welcome-sound {
+  position: absolute; top: 12px; right: 12px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 14px; border: 0; border-radius: 999px;
+  background: rgb(10 12 12 / .72); color: #fff;
+  font: 500 13px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); cursor: pointer;
+}
+.welcome-sound[hidden] { display: none; }
+.welcome-sound .ic { width: 16px; height: 16px; }
+.welcome-sound:hover { background: rgb(10 12 12 / .9); }
+
+/* ── reel player ── */
+.player { border-radius: var(--radius); overflow: hidden; isolation: isolate; background: #0b0d0c; }
+.player video { cursor: pointer; }
+.player:fullscreen { display: grid; place-items: center; width: 100%; border-radius: 0; }
+.player:fullscreen video { max-height: 100vh; border: 0; border-radius: 0; }
+.pl-big {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: 2;
+  display: grid; place-items: center; width: 76px; height: 76px; border: 0; border-radius: 50%;
+  background: rgb(10 12 12 / .6); color: #fff; cursor: pointer;
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / .18) inset;
+  opacity: 0; scale: .9; pointer-events: none; transition: opacity .25s var(--ease), scale .25s var(--ease), background .2s;
+}
+.pl-big svg { width: 32px; height: 32px; margin-left: 4px; }
+.pl-big:hover { background: var(--accent); }
+.player[data-paused]:not([data-ended]) .pl-big { opacity: 1; scale: 1; pointer-events: auto; }
+.pl-bar {
+  position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 2;
+  display: flex; align-items: center; gap: 10px; padding: 6px 10px;
+  border-radius: 999px; background: rgb(10 12 12 / .62); color: #fff;
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / .12) inset;
+  opacity: 0; translate: 0 8px; transition: opacity .25s var(--ease), translate .25s var(--ease);
+}
+.player:hover .pl-bar, .player:focus-within .pl-bar, .player[data-paused] .pl-bar, .player[data-scrubbing] .pl-bar { opacity: 1; translate: 0 0; }
+@media (hover: none) { .pl-bar { opacity: 1; translate: 0 0; } }
+.player[data-ended] .pl-bar { opacity: 0; pointer-events: none; }
+.pl-btn { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; }
+.pl-btn:hover { background: rgb(255 255 255 / .14); }
+.pl-btn svg { width: 18px; height: 18px; }
+.player[data-paused] .pl-i-pause, .player:not([data-paused]) .pl-i-play,
+.player[data-muted] .pl-i-sound, .player:not([data-muted]) .pl-i-muted { display: none; }
+.pl-time { flex: none; min-width: 34px; font: 500 12px/1 var(--mono); font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.pl-dur { color: rgb(255 255 255 / .6); text-align: right; }
+.pl-track { position: relative; flex: 1; height: 22px; cursor: pointer; touch-action: none; }
+.pl-track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; translate: 0 -50%; border-radius: 4px; background: rgb(255 255 255 / .22); }
+.pl-fill { position: absolute; left: 0; top: 50%; height: 4px; translate: 0 -50%; border-radius: 4px; background: var(--accent); width: 0; }
+.pl-fill::after {
+  content: ""; position: absolute; right: -7px; top: 50%; width: 14px; height: 14px; translate: 0 -50%;
+  border-radius: 50%; background: #fff; box-shadow: 0 0 0 4px rgb(255 255 255 / .18);
+  scale: 0; transition: scale .15s var(--ease);
+}
+.pl-track:hover .pl-fill::after, .pl-track:focus-visible .pl-fill::after, .player[data-scrubbing] .pl-fill::after { scale: 1; }
+.pl-track:hover::before { height: 6px; }
+.pl-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+/* End card: the film finishes on a way into the site instead of looping. */
+.pl-end {
+  position: absolute; inset: 0; z-index: 3;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 24px;
+  text-align: center; color: #fff;
+  background: radial-gradient(ellipse at center, rgb(10 12 12 / .55), rgb(10 12 12 / .85));
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  animation: pl-end-in .45s var(--ease) both;
+}
+.pl-end[hidden] { display: none; }
+.pl-end-eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: rgb(255 255 255 / .7); }
+.pl-end-title { margin-bottom: 16px; font-size: clamp(24px, 3.2vw, 38px); font-weight: 600; letter-spacing: -.03em; line-height: 1.1; }
+.pl-end-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.pl-end .welcome-go { width: auto; }
+.pl-replay { gap: 8px; min-height: 52px; padding: 0 22px; border-color: rgb(255 255 255 / .35); background: transparent; color: #fff; font-size: 15px; }
+.pl-replay:hover { border-color: #fff; background: rgb(255 255 255 / .1); }
+.pl-replay .ic { width: 17px; height: 17px; }
+@keyframes pl-end-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .pl-end { animation: none; } .pl-bar, .pl-big { transition: none; } }
+.welcome-video { margin: 0; clear: both; }
+.welcome-video video {
+  display: block; width: auto; height: auto; max-width: 100%; max-height: min(60dvh, calc(100dvh - 330px)); margin-inline: auto;
+  border-radius: var(--radius); border: 1px solid var(--line); background: #0b0d0c;
+}
+.welcome-video figcaption {
+  display: flex; align-items: center; gap: 8px; margin-top: 10px;
+  font: 500 12px/1.4 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted);
+}
+.wip-dot { width: 7px; height: 7px; border-radius: 50%; background: #e0592a; box-shadow: 0 0 0 3px rgb(224 89 42 / .18); }
+.welcome-sub { margin: 22px 0 12px; font: 500 12.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.sc-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
+@media (max-width: 520px) { .sc-grid { grid-template-columns: 1fr 1fr; gap: 10px; } }
+.sc-tile {
+  display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 8px 8px 12px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg);
+  color: var(--ink); text-decoration: none; transition: border-color .2s, transform .2s var(--ease);
+}
+.sc-tile:hover { border-color: var(--ink); transform: translateY(-2px); }
+.sc-thumb { display: block; aspect-ratio: 16 / 10; margin-bottom: 6px; border-radius: 6px; overflow: hidden; background: var(--bg-alt); }
+.sc-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.sc-name { display: inline-flex; align-items: center; gap: 5px; padding: 0 4px; font-weight: 600; font-size: 15px; letter-spacing: -.01em; }
+.sc-name .ic { width: 13px; height: 13px; color: var(--muted); }
+.sc-note { padding: 0 4px; font-size: 13px; line-height: 1.4; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .sc-tile:hover { transform: none; } }
+/* In the welcome side panel the showcases become a compact list of rows. */
+.welcome-side .sc-grid { grid-template-columns: 1fr; gap: 6px; }
+.welcome-side .sc-tile {
+  display: grid; grid-template-columns: 64px minmax(0, 1fr); grid-template-rows: auto auto;
+  column-gap: 12px; row-gap: 1px; align-items: center; padding: 6px 8px;
+}
+.welcome-side .sc-tile:hover { transform: translateX(2px); }
+.welcome-side .sc-thumb { grid-row: 1 / span 2; width: 64px; margin: 0; }
+.welcome-side .sc-name { align-self: end; padding: 0; font-size: 14.5px; }
+.welcome-side .sc-note { align-self: start; padding: 0; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

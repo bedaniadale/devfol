@@ -152,17 +152,6 @@
       role: ['Mobile Developer', 'UX/UI Designer'], langs: ['React Native', 'Javascript', 'Firebase']
     },
     {
-      title: 'CVL Content Generator',
-      desc: 'A browser-only carousel studio for Complete Vitality Life, a health & longevity brand — one Excel upload becomes a month of on-brand Instagram slides, exported as pixel-exact 1080×1440 PNGs and shared as a live link.',
-      img: 'works/contentgenerator.png', site: CLIENT_ONLY,
-      role: ['Sole Designer & Engineer'], langs: ['React', 'Vite', 'Supabase', 'PostgreSQL', 'xlsx', 'html-to-image', 'JSZip', 'Vercel'],
-      caseStudy: {
-        problem: 'The client publishes educational health content as Instagram carousels — a cover, five to seven body slides, and a call-to-action carrying a required medical disclaimer. The copy was already written in bulk, one post per row in a spreadsheet; everything after that was manual. Slides were laid out by hand in Canva one at a time, type resized per slide because a 12-word slide and a 60-word slide do not fill the same box at the same size, and a 30-post batch meant roughly 200 individual exports, hand-named and hand-foldered into a posting schedule. The bottleneck was never the writing — it was the mechanical distance between a finished spreadsheet and a folder of upload-ready images.',
-        approach: ['Stored a slide as copy plus a template id and rendered it in React at view time, so a 35-carousel project is a few KB of JSON and the PNG only exists at export — produced in the browser, with no render service, queue, or bill that scales with output.', 'Built one Slide component that always draws at true 1080×1440 and scales down with a CSS transform, serving the editor, the thumbnails, the 91-template gallery, the public share view and the hidden export layer — so the export matches the preview by construction rather than by diligence.', 'Made type fit its box automatically: a binary search for the largest size that still fits, eased back off that ceiling so slides do not read as uniformly shouty, with the leftover slack shared out between paragraph gaps instead of one wall of text.', 'Detected workbook shape from the header row rather than asking the user, and wrote the parser on the assumption that real spreadsheets are messy — blank cells, the placeholder markers people actually type, and failures that name the sheet and list the headers it found.', 'Worked around Postgres dropping TOASTed jsonb from the replication payload by bumping a small version integer server-side and treating the realtime event as a doorbell, so an already-open share link updates without a refresh.', 'Downscaled attached images to slide width and moved them to Storage instead of inlining base64, choosing JPEG or PNG by inspecting the alpha channel rather than trusting the file extension.'],
-        outcome: ['A batch that was one-at-a-time manual layout is now upload, pick, export.', 'Brand consistency is enforced by the tool rather than remembered by a person.', 'Export produces the posting schedule directly — correctly named, foldered by day and zero-padded, every PNG exactly 1080×1440.', 'Review became a link that renders the carousel inside Instagram’s own chrome and updates live.', 'Runs on one static deploy plus a free-tier database, because the browser is the render service.']
-      }
-    },
-    {
       title: 'Solstice',
       desc: 'Multi-array solar and battery quoting tool with an auditable calculation trail and five generated PDF documents.',
       img: 'works/solstice.png', site: CLIENT_ONLY,

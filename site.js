@@ -14,15 +14,17 @@
      grid. Order within each group is the order shown. */
   var PROJECTS = [
     {"featured":true,"badge":"University HR portal","title":"Holy Angel University — IDMO employee portal","desc":"Employee portal for Holy Angel University, streamlining HR processes and data management.","img":"works/hauoieidmo.png","site":"hau-oie-idmo.com","role":["Full-Stack Developer","UX/UI Designer"],"langs":["Laravel","Tailwind CSS","MySQL","Hostinger"],"caseStudy":{"problem":"The IDMO managed employee records and HR requests through manual, document-heavy processes that were slow to search, easy to duplicate, and hard to keep consistent.","approach":["Built a centralized Laravel portal with role-based access for HR staff and employees.","Designed clean UX/UI flows so non-technical staff could manage records without training.","Modeled an optimized MySQL schema for fast, reliable lookups.","Deployed and configured production hosting on Hostinger with SSL."],"outcome":["Replaced scattered manual tracking with a single source of truth.","Gave HR and employees fast self-service access to records.","Made employee information searchable in seconds."]},"short":"HAU IDMO Portal"},
-    {"featured":true,"badge":"Real-estate CRM","title":"Pina Management CRM — one portal for a real-estate team","desc":"A custom CRM for a real estate company — manage property listings, client records, and transactions in one place.","img":"works/pina.png","site":CLIENT_ONLY,"role":["Database Administrator","Full-Stack Developer"],"langs":["React","Supabase","Vercel"],"caseStudy":{"problem":"A real estate company tracked listings, clients, and transactions across spreadsheets and disconnected tools — slow and error-prone.","approach":["Built a custom CRM with React and Supabase tailored to their workflow.","Structured the database for listings, clients, and transactions with integrity in mind.","Focused the interface on the team’s daily tasks to reduce friction."],"outcome":["Centralizes listings, clients, and transactions in one portal.","Replaces error-prone spreadsheets with a reliable source of truth.","Speeds up daily operations around the team’s real tasks."]},"short":"Pina CRM"},
-    {"featured":true,"badge":"AI agents","title":"PinaAi — AI agents for a real-estate CRM","desc":"An AI layer built on top of the Pina Management CRM — ask about bids, leads, deals and mail in plain language, get a daily brief, run estimates, and let agents act on the CRM behind an approval gate.","img":"works/pinaai.png","site":"pina-ai.netlify.app","role":["Full-Stack Developer","AI Engineer"],"langs":["React","Supabase","Gemini AI","Netlify"],"caseStudy":{"problem":"The CRM held every listing, client and deal, but getting an answer out of it still meant clicking through screens and reading records one by one. The team wanted to ask the system questions, have it summarise the day, and hand off repetitive follow-ups — without an AI that could quietly change live data.","approach":["Built PinaAi as a separate React app on the same Supabase project as the CRM, so it reads the real listings, leads, deals and mail rather than a copy.","Wired Gemini to the CRM data through a conversation workspace — Ask anything, a Daily brief, an Estimating tool and a Comp Playbook — with every reply showing “what it did” and its cost.","Split agents into Automations and Assistants and put doing behind an Approvals queue: reading is free, any action on CRM data waits for a human to approve it.","Added Usage & cost and Activity views so the office can see exactly what the AI touched and what it spent."],"outcome":["The team asks the CRM questions in plain language instead of digging through screens.","Repetitive follow-ups run as agents, with a human approving every write.","Every answer is traceable — what was read, what was done, and what it cost."]},"short":"PinaAi"},
-    {"featured":true,"badge":"Brand site","title":"The Zepatide — a brand site built on trust","desc":"A professional brand site for medical-grade products — clean, trustworthy design that communicates quality and credibility.","img":"works/zepatide.png","site":"thezepatide.com","role":["Full-Stack Developer","UX/UI Designer"],"langs":["React","Supabase","Hostinger","Cloudflare Pages"],"short":"The Zepatide"},
+    {"featured":true,"showcase":"works/showcase/pina-management-showcase.html","badge":"Real-estate CRM","title":"Pina Management CRM — one portal for a real-estate team","desc":"A custom CRM for a real estate company — manage property listings, client records, and transactions in one place.","img":"works/pina.png","site":CLIENT_ONLY,"role":["Database Administrator","Full-Stack Developer"],"langs":["React","Supabase","Vercel"],"caseStudy":{"problem":"A real estate company tracked listings, clients, and transactions across spreadsheets and disconnected tools — slow and error-prone.","approach":["Built a custom CRM with React and Supabase tailored to their workflow.","Structured the database for listings, clients, and transactions with integrity in mind.","Focused the interface on the team’s daily tasks to reduce friction."],"outcome":["Centralizes listings, clients, and transactions in one portal.","Replaces error-prone spreadsheets with a reliable source of truth.","Speeds up daily operations around the team’s real tasks."]},"short":"Pina CRM"},
+    {"featured":true,"showcase":"works/showcase/pina-ai-showcase.html","badge":"AI agents","title":"PinaAi — AI agents for a real-estate CRM","desc":"An AI layer built on top of the Pina Management CRM — ask about bids, leads, deals and mail in plain language, get a daily brief, run estimates, and let agents act on the CRM behind an approval gate.","img":"works/pinaai.png","site":"pina-ai.netlify.app","role":["Full-Stack Developer","AI Engineer"],"langs":["React","Supabase","Gemini AI","Netlify"],"caseStudy":{"problem":"The CRM held every listing, client and deal, but getting an answer out of it still meant clicking through screens and reading records one by one. The team wanted to ask the system questions, have it summarise the day, and hand off repetitive follow-ups — without an AI that could quietly change live data.","approach":["Built PinaAi as a separate React app on the same Supabase project as the CRM, so it reads the real listings, leads, deals and mail rather than a copy.","Wired Gemini to the CRM data through a conversation workspace — Ask anything, a Daily brief, an Estimating tool and a Comp Playbook — with every reply showing “what it did” and its cost.","Split agents into Automations and Assistants and put doing behind an Approvals queue: reading is free, any action on CRM data waits for a human to approve it.","Added Usage & cost and Activity views so the office can see exactly what the AI touched and what it spent."],"outcome":["The team asks the CRM questions in plain language instead of digging through screens.","Repetitive follow-ups run as agents, with a human approving every write.","Every answer is traceable — what was read, what was done, and what it cost."]},"short":"PinaAi"},
+    {"featured": true, "badge": "AI content studio", "short": "MyContent Studios", "status": "Client", "showcase": "works/showcase/mycontent-studios-showcase.pdf", "title": "MyContent Studios — one studio, six content pipelines", "desc": "A local web app that turns six Claude Code content automations into one calm desk — pick a pipeline, say how many, and review the carousels and reels as they land.", "img": "works/mycontent.png", "site": "", "role": ["Designer", "Full-Stack Developer"], "langs": ["Node.js", "JavaScript", "Claude Code"], "caseStudy": {"problem": "A health creator and their company run their content on six Claude Code playbooks — carousels, talking reels, website reels, topic reels, DM notices and brand carousels. It worked, but every day meant a terminal per pipeline, typing commands from memory, scrolling raw tool output to guess progress, and feedback lost in chat.", "approach": ["Built one launcher on localhost with a month calendar that shows what shipped per pipeline, and a session per browser tab so several pipelines run at once.", "Replaced hand-typed prompts with a guided form that writes the exact command, shows the folder it runs in and the Outputs path it delivers to.", "Ran headless Claude Code in each pipeline’s own folder, turning every tool call into a readable live log matched to the pipeline’s named steps.", "Made review precise: notes pin to a slide, a marked area, the caption or a moment in a reel, then go back to Claude in one job — with Undo from a snapshot.", "Added a Rules tab that writes standing instructions into the playbook, shows the diff, and can put it back."], "outcome": ["Six pipelines, one launcher — 47 sessions opened in its first days.", "A 2-post, 20-slide run finished in 18m 12s with zero questions asked mid-run.", "The day’s Outputs folder holds only deliverables and goes to Google Drive as it is."]}},
+    {"featured": true, "badge": "3D web app", "short": "Konsepto", "status": "Product", "showcase": "works/showcase/konsepto-showcase.html", "title": "Konsepto — dress your motorcycle in 3D", "desc": "A 3D garage for Philippine scooters — riders paint the bike panel by panel and fit real aftermarket parts before they spend a peso.", "img": "works/konsepto.png", "site": "", "role": ["Designer", "Full-Stack Developer"], "langs": ["React", "three.js", "React Three Fiber", "TypeScript", "Vite"], "caseStudy": {"problem": "Scooter riders in the Philippines plan their builds for months from saved Facebook photos and shop quotes, trying to picture a Brembo caliper or a Mutarru CVT cover on their own bike. Nothing shows the whole build at once, in their colour, at the right size.", "approach": ["Rebuilt the Honda Click 125 V3 and Yamaha Aerox 155 V2 to the millimetre from real photos and spec sheets — side photos straightened into 1 px = 1 mm elevations, checked against ground clearance and overall length.", "Shipped the official PH factory paints, plus per-panel custom colour with hue, saturation and brightness sliders and matte, gloss or metallic finishes.", "Grouped 130+ real aftermarket parts across 26 slots the way riders talk about the bike; opening a slot glides the camera to it and moves anything in the way.", "Added five camera views, a turntable with auto-spin, undo/redo on every paint change, on-device saved builds and image export.", "Turned the side panels into pull-up sheets on phones so the bike stays centred and Save stays under the thumb."], "outcome": ["Riders see the whole build on their own bike, in their colour, before buying a part.", "Measured accuracy to about 1 mm against the factory spec sheet.", "Builds are saved on the device and exported as a picture to share with friends and the shop doing the work."]}},
+    {"featured": true, "badge": "2D + 3D home design", "short": "Housewright", "status": "Product", "showcase": "works/showcase/housewright-showcase.html", "title": "Housewright — draw the plan, walk the house", "desc": "A free web app for designing a home — draw the floor plan in 2D, walk it in 3D. Change either and the other follows.", "img": "works/housewright.png", "site": "", "role": ["Product Designer", "Full-Stack Developer"], "langs": ["React", "TypeScript", "three.js", "React Three Fiber", "Tailwind CSS", "three-gpu-pathtracer"], "caseStudy": {"problem": "A homeowner with an idea has two bad options: a paper sketch that drifts off scale and never looks like a house, or professional CAD that takes weeks to learn. A floor plan also can't show light, height, or how rooms open onto each other.", "approach": ["Made the floor plan and the 3D model one house: edit walls, rooms and doors in Plan, 3D or Split view and the other updates.", "Opened New design on five editable modern starter houses, or a blank lot, with real room sizes shown in both views.", "Built a 220+ piece furniture library in 32 groups, plus five cameras from Edit and Dollhouse to Orbit, Walk and Tour.", "Added time-of-day lighting, night renders and path-traced photo renders with three-gpu-pathtracer.", "Kept it account-free: designs save in the browser, with no sign-up or install between the visitor and the first idea."], "outcome": ["Anyone can sketch a house at real sizes and walk through it in minutes.", "Answers questions a plan can't — will the sofa fit, how does the kitchen look at dusk.", "Zero sign-ups or installs to try it."]}},
+    {"featured": true, "badge": "Clinic website", "title": "The Zepatide — a clinic website that sends every visitor to a doctor, not a checkout", "desc": "A live clinic site for prescription-only therapies — a 3D product hero, no prices or cart, every path ending in a free medical assessment, and an editor the clinic runs itself.", "img": "works/zepatide.png", "site": "thezepatide.com", "role": ["Full-Stack Developer", "UX/UI Designer"], "langs": ["React", "Vite", "Tailwind CSS", "Supabase", "three.js", "Cloudflare Pages"], "short": "The Zepatide", "showcase": "works/showcase/thezepatide-showcase.pdf", "caseStudy": {"problem": "The clinic sells compounded, prescription-only weight-loss and wellness therapies, mostly to visitors arriving on phones from Facebook and Messenger. Its older Laravel site had to become one that earns trust, shows the products honestly with no prices or cart, and gets people into a free medical assessment — and the clinic had to be able to edit every word of it themselves.", "approach": ["Rebuilt the site in React with Supabase behind it, first porting the original copy, look and behaviour exactly, then redesigning it section by section.", "Ordered the page so each section answers the visitor's next question: what it is, whether it suits them, whether it works, who's behind it, and how to start.", "Put the signature therapy on a lit 3D pedestal (three.js) that loads after first paint, with the claims in a still column beside it.", "Built a website editor with ten editors covering products, signature picks, results, videos, certificates, team and copy — saved changes go live straight away.", "Added a passcode-gated lab certificate gallery for ongoing clients, and a patient app behind the Patient Portal button for daily logs and nurses' home-visit rounds."], "outcome": ["Live at thezepatide.com: ten sections, zero prices shown, one main action — Take Assessment.", "Every path through the site ends in the free assessment or a conversation with the clinical team.", "The clinic runs every word, product and photo on the site from its own editor."]}},
     {"title":"Kayantabe","desc":"A dynamic volunteerism platform connecting passionate individuals with local community initiatives.","img":"works/kayantabe.png","site":CLIENT_ONLY,"role":["Full-Stack Developer","Project Lead"],"langs":["Laravel","Tailwind CSS","MySQL","Hostinger"],"caseStudy":{"problem":"Local initiatives struggled to reach and coordinate volunteers, relying on fragmented social posts with no central place to discover or manage activities.","approach":["Led the project end-to-end and built it on Laravel.","Created flows for organizations to post initiatives and for volunteers to join.","Designed a responsive, mobile-first UI to make sign-up frictionless.","Structured the data model so organizers could track participation."],"outcome":["Gave volunteers and organizers one platform, replacing scattered posts.","Made it simple for organizations to launch initiatives.","Streamlined sign-ups with far less friction."]}},
     {"title":"IMMFI","desc":"A modern, user-friendly layout using updated design principles — enhancing UX while keeping brand identity across pages.","img":"works/immfi.png","site":"immfi.org","role":["UX/UI Designer","Front-end Developer"],"langs":["Wordpress","Elementor"]},
     {"featured":true,"badge":"Tutoring platform","title":"Umbra","desc":"A web app connecting students and parents with nearby tutors — find, book, and manage tutoring sessions with ease.","img":"works/umbra.png","site":"umbra-app.com","role":["Full-Stack Developer","UX/UI Designer"],"langs":["Laravel","Tailwind CSS","MySQL","Hostinger"]},
     {"title":"SPUR Landing Page","desc":"A responsive landing page showcasing the SPUR mobile app — highlighting features and driving downloads.","img":"works/joinspur.png","site":CLIENT_ONLY,"role":["UX/UI Designer","Full-Stack Developer"],"langs":["React","Supabase","Vercel"]},
     {"title":"SPUR Mobile App","desc":"Find your next game, running partner, or tennis match. A location-based app connecting people who share a passion for sports & fitness.","img":"works/spurapp.png","site":CLIENT_ONLY,"role":["Mobile Developer","UX/UI Designer"],"langs":["React Native","Javascript","Firebase"]},
-    {"title":"CVL Content Generator","short":"CVL Content Generator","desc":"A browser-only carousel studio for Complete Vitality Life, a health & longevity brand — one Excel upload becomes a month of on-brand Instagram slides, exported as pixel-exact 1080×1440 PNGs and shared as a live link.","img":"works/contentgenerator.png","site":CLIENT_ONLY,"role":["Sole Designer & Engineer"],"langs":["React","Vite","Supabase","PostgreSQL","xlsx","html-to-image","JSZip","Vercel"],"caseStudy":{"problem":"The client publishes educational health content as Instagram carousels — a cover, five to seven body slides, and a call-to-action carrying a required medical disclaimer. The copy was already written in bulk, one post per row in a spreadsheet; everything after that was manual. Slides were laid out by hand in Canva one at a time, type resized per slide because a 12-word slide and a 60-word slide do not fill the same box at the same size, and a 30-post batch meant roughly 200 individual exports, hand-named and hand-foldered into a posting schedule. The bottleneck was never the writing — it was the mechanical distance between a finished spreadsheet and a folder of upload-ready images.","approach":["Stored a slide as copy plus a template id and rendered it in React at view time, so a 35-carousel project is a few KB of JSON and the PNG only exists at export — produced in the browser, with no render service, queue, or bill that scales with output.","Built one Slide component that always draws at true 1080×1440 and scales down with a CSS transform, serving the editor, the thumbnails, the 91-template gallery, the public share view and the hidden export layer — so the export matches the preview by construction rather than by diligence.","Made type fit its box automatically: a binary search for the largest size that still fits, eased back off that ceiling so slides do not read as uniformly shouty, with the leftover slack shared out between paragraph gaps instead of one wall of text.","Detected workbook shape from the header row rather than asking the user, and wrote the parser on the assumption that real spreadsheets are messy — blank cells, the placeholder markers people actually type, and failures that name the sheet and list the headers it found.","Worked around Postgres dropping TOASTed jsonb from the replication payload by bumping a small version integer server-side and treating the realtime event as a doorbell, so an already-open share link updates without a refresh.","Downscaled attached images to slide width and moved them to Storage instead of inlining base64, choosing JPEG or PNG by inspecting the alpha channel rather than trusting the file extension."],"outcome":["A batch that was one-at-a-time manual layout is now upload, pick, export.","Brand consistency is enforced by the tool rather than remembered by a person.","Export produces the posting schedule directly — correctly named, foldered by day and zero-padded, every PNG exactly 1080×1440.","Review became a link that renders the carousel inside Instagram’s own chrome and updates live.","Runs on one static deploy plus a free-tier database, because the browser is the render service."]}},
     {"title":"Solstice","desc":"Multi-array solar and battery quoting tool with an auditable calculation trail and five generated PDF documents.","img":"works/solstice.png","site":CLIENT_ONLY,"role":["Frontend Engineer","UX/UI Designer"],"langs":["React","TypeScript","Tailwind CSS","decimal.js","@react-pdf/renderer","Vitest"],"caseStudy":{"problem":"Solar installers quote from spreadsheets nobody fully trusts. Money rounds differently in a browser than it does in Excel, material quantities get estimated rather than derived from real stock lengths, and when a manager discounts a job there is no record of who approved what or why.","approach":["Built the pricing engine as a pure TypeScript module with no React or DOM imports, so the same code runs in the browser and under test against the spreadsheet.","Implemented Excel’s ROUND, CEILING and FLOOR semantics on decimal.js — half away from zero, with a real significance argument for 4.2 m rail stock and half-day crew bookings.","Made every derived figure return its own formula, inputs and rounding note, which gives the on-screen trace panel and the Calculation Trace Sheet PDF for free.","Designed an override flow where a discount stays unapplied until a manager approves it, with the approver and timestamp recorded on the document."],"outcome":["Every figure on screen expands to show the exact formula and inputs that produced it — 106 traced figures in the default state.","27 engine tests pin the Excel rounding rules, equipment-discount isolation and the full override-and-approval lifecycle.","Five audience-specific PDFs generate from a single record: customer quote, materials pick list, internal margin sheet, install job pack and calculation trace sheet."]}},
     {"title":"Rosetta","desc":"Client-side workbench that turns an Excel workbook into a working React form — then proves the numbers still match, to the cent.","img":"works/rosetta.png","site":CLIENT_ONLY,"role":["Frontend Engineer"],"langs":["React","TypeScript","Tailwind CSS","SheetJS","HyperFormula","decimal.js","Zod","Vitest"],"caseStudy":{"problem":"Migrating a business off a spreadsheet is easy to do badly. Anyone can render cells as a form; the hard part is proving the new app returns the same numbers as the file it replaced. Silent failures are the real danger — a #DIV/0! collapsing to a $0 line total looks fine on screen and quietly corrupts the migration.","approach":["Parsed workbooks with SheetJS and classified every cell as input, derived, output or static from its dependency edges, then laid the graph out so calculation order reads left to right.","Wrote a tokenizer, recursive-descent parser and evaluator covering 14 Excel functions, with anything outside that set flagged for manual review rather than guessed at.","Built a parity harness running two independent engines — HyperFormula over the original sheets, my own engine over the generated fields — across five scenarios including scaled quantities, .005 rounding boundaries and forced divide-by-zero.","Carried errors as values rather than null, so a #DIV/0! propagates through SUM the way Excel does instead of coercing to zero."],"outcome":["Both sample workbooks pass green across all five scenarios — 315 cell comparisons on the three-sheet trade quote alone.","Agreement holds to $0.005 between two separately written engines, so a green result is real evidence rather than a tautology.","Exports a complete mapping spec as JSON and CSV, plus the finished record written back into the original Excel layout with formulas and named ranges intact."]}},
     {"title":"Scriptorium","desc":"One job record renders three document templates for two audiences — real vector PDFs generated entirely in the browser.","img":"works/scriptorium.png","site":CLIENT_ONLY,"role":["Frontend Engineer","UX/UI Designer"],"langs":["React","TypeScript","Tailwind CSS","@react-pdf/renderer","Zustand"],"caseStudy":{"problem":"Quoting systems usually keep the customer document and the internal document as two separate templates. They drift. A price gets corrected on one and not the other — or worse, buy prices, margins and supplier names end up in front of the customer.","approach":["Reduced the customer/internal split to a single FIELD_RULES table; templates ask visible(field, audience) instead of deciding for themselves, so one component renders both copies.","Built three paginating PDF templates with repeating table headers, branded chrome and Page n of m, rendered client-side with @react-pdf/renderer — no server, no headless Chrome.","Implemented an acceptance flow with a signature canvas that regenerates the PDF with a signature block and timestamp, moving the record from Quote to Job Order.","Made every save an immutable snapshot, with a field-level version diff across scalars, customer details, dates and per-line changes to quantity, price, cost, supplier and selection."],"outcome":["The two copies cannot drift — 10 shared fields, 2 customer-only and 14 internal-only, all driven from one rule table and one component.","Conditional narrative sections and their money appear and disappear with line-item selection across all three documents at once.","The PDF chrome was lifted wholesale from the Solstice estimator and generalised to an arbitrary job record — the reuse is real, not a story told afterwards."]}},
@@ -70,13 +72,18 @@
   }
   function $(id) { return document.getElementById(id); }
   function icon(name) { return '<svg class="ic" aria-hidden="true"><use href="#i-' + name + '"/></svg>'; }
-  function isLive(p) { return p.site !== CLIENT_ONLY; }
+  function isLive(p) { return !!p.site && p.site !== CLIENT_ONLY; }
+  // Badge text: live sites say Live; the rest say their `status` or Client.
+  function statusLabel(p) { return isLive(p) ? 'Live' : (p.status || 'Client'); }
+  function showcaseLink(p, cls) {
+    return '<a class="' + cls + '" href="' + esc(p.showcase) + '" target="_blank" rel="noopener">Showcase ' + icon('out') + '</a>';
+  }
   function siteLink(p, cls) {
     return '<a class="' + cls + '" href="https://' + esc(p.site) + '" target="_blank" rel="noopener noreferrer">' +
       esc(p.site) + ' ' + icon('out') + '</a>';
   }
   function pill(p) {
-    return isLive(p) ? '<span class="pill pill-live">Live</span>' : '<span class="pill">Client</span>';
+    return '<span class="pill' + (isLive(p) ? ' pill-live' : '') + '">' + statusLabel(p) + '</span>';
   }
   function tags(list) {
     return '<ul class="tags">' + list.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>';
@@ -104,14 +111,14 @@
       var num = String(++n).padStart(2, '0');
       return '<article class="deck-card ' + (n === 1 ? 'is-center' : 'is-back') + '">' +
         '<div class="deck-top"><span><b>' + num + '</b> · ' + esc(p.badge) + '</span>' +
-          '<span class="deck-status' + (isLive(p) ? ' is-live' : '') + '">' + (isLive(p) ? 'Live' : 'Client') + '</span></div>' +
+          '<span class="deck-status' + (isLive(p) ? ' is-live' : '') + '">' + statusLabel(p) + '</span></div>' +
         '<div class="deck-id"><h3>' + esc(p.short || p.title) + '</h3>' +
           '<span class="deck-thumb">' + img(p.img, '', 1600, 900) + '</span></div>' +
         '<p class="deck-desc">' + esc(p.desc) + '</p>' +
         '<p class="deck-stack">' + esc(p.langs.slice(0, 4).join(' · ')) + '</p>' +
         '<div class="deck-actions">' +
           '<button type="button" class="deck-btn" data-case="' + i + '">' + (p.caseStudy ? 'Case study' : 'Details') + ' ' + icon('arrow') + '</button>' +
-          (isLive(p) ? siteLink(p, 'deck-url') : '') +
+          (p.showcase ? showcaseLink(p, 'deck-url') : isLive(p) ? siteLink(p, 'deck-url') : '') +
         '</div>' +
       '</article>';
     }).join('');
@@ -166,7 +173,10 @@
         '<div class="case-sec"><h3>Outcome</h3><ul class="case-out">' + cs.outcome.map(function (o) { return '<li>' + esc(o) + '</li>'; }).join('') + '</ul></div>';
     }
     h += '<div class="case-foot">' +
-      (isLive(p) ? siteLink(p, 'btn btn-ghost') : '<span class="muted-note">Private client project — happy to demo it on a call.</span>') +
+      '<span class="case-links">' +
+        (p.showcase ? showcaseLink(p, 'btn btn-ghost') : '') +
+        (isLive(p) ? siteLink(p, 'btn btn-ghost') : p.showcase ? '' : '<span class="muted-note">Private client project — happy to demo it on a call.</span>') +
+      '</span>' +
       '<a class="btn btn-primary" href="mailto:dale.bedania10@gmail.com?subject=' + encodeURIComponent('Project inquiry (saw ' + (p.short || p.title) + ')') + '">Start a similar project</a>' +
     '</div>';
     return h;
@@ -295,6 +305,162 @@
     dlg.addEventListener('close', syncLock);
   }
 
+  /* Welcome panel: the reel and the product showcases, opened on every page
+     load so a visitor sees the best work first. Any [data-welcome] link
+     reopens it. */
+  var SHOWCASES = [
+    { name: 'Konsepto', note: '3D motorcycle customiser', img: 'works/konsepto.png', href: 'works/showcase/konsepto-showcase.html' },
+    { name: 'Housewright', note: '2D + 3D home design', img: 'works/housewright.png', href: 'works/showcase/housewright-showcase.html' },
+    { name: 'Pina CRM', note: 'Real-estate & plastering platform', img: 'works/pina.png', href: 'works/showcase/pina-management-showcase.html' },
+    { name: 'PinaAi', note: 'AI agents with an approval gate', img: 'works/pinaai.png', href: 'works/showcase/pina-ai-showcase.html' },
+    { name: 'The Zepatide', note: 'A clinic site built on trust', img: 'works/zepatide.png', href: 'works/showcase/thezepatide-showcase.pdf' },
+    { name: 'MyContent Studios', note: 'Six AI content pipelines, one desk', img: 'works/mycontent.png', href: 'works/showcase/mycontent-studios-showcase.pdf' },
+    { name: 'Pina Apps', note: 'Field tools for the CRM', img: 'works/pinaapps.png', href: 'works/showcase/pina-apps-showcase.html' }
+  ];
+
+  function showcaseHtml() {
+    return SHOWCASES.map(function (s) {
+      return '<li><a class="sc-tile" href="' + esc(s.href) + '" target="_blank" rel="noopener">' +
+        '<span class="sc-thumb">' + img(s.img, '', 1600, 900) + '</span>' +
+        '<span class="sc-name">' + esc(s.name) + ' ' + icon('out') + '</span>' +
+        '<span class="sc-note">' + esc(s.note) + '</span>' +
+      '</a></li>';
+    }).join('');
+  }
+
+  function initWelcome() {
+    var dlg = $('welcome');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var video = $('welcomeVideo');
+    var soundBtn = $('welcomeSound');
+    /* Sound is on by default. Browsers refuse unmuted autoplay until the
+       visitor has interacted with the page, so if that play() is rejected we
+       fall back to muted playback, show "Tap for sound", and switch sound on
+       at the first click or key press. */
+    function soundOn() {
+      if (!video) return;
+      video.muted = false;
+      if (soundBtn) soundBtn.hidden = true;
+      if (video.paused && dlg.open) {
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+    }
+    function armSoundOnGesture() {
+      function once(e) {
+        if (e.target === $('welcomeSkip') || e.target === $('welcomeClose')) return;
+        document.removeEventListener('pointerdown', once, true);
+        document.removeEventListener('keydown', once, true);
+        if (dlg.open) soundOn();
+      }
+      document.addEventListener('pointerdown', once, true);
+      document.addEventListener('keydown', once, true);
+    }
+    function playWithSound() {
+      video.muted = false;
+      var p = video.play();
+      if (!p || !p.catch) return;
+      p.catch(function () {
+        video.muted = true;
+        if (soundBtn) soundBtn.hidden = false;
+        var q = video.play();
+        if (q && q.catch) q.catch(function () {});
+        armSoundOnGesture();
+      });
+    }
+    if (soundBtn) soundBtn.addEventListener('click', function (e) { e.stopPropagation(); soundOn(); });
+    if (video) video.addEventListener('volumechange', function () { if (!video.muted && soundBtn) soundBtn.hidden = true; });
+    initPlayer(video, function () { dlg.close(); });
+    function open() {
+      if (dlg.open) return;
+      dlg.showModal();
+      syncLock();
+      dlg.scrollTop = 0;
+      if (video && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) playWithSound();
+    }
+    dlg.addEventListener('close', function () {
+      if (video) video.pause();
+      syncLock();
+    });
+    $('welcomeClose').addEventListener('click', function () { dlg.close(); });
+    $('welcomeSkip').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-welcome]');
+      if (!t) return;
+      e.preventDefault();
+      open();
+    });
+    setTimeout(open, 600);
+  }
+
+  /* The reel's own player: play/pause, a scrubbable progress track, time,
+     mute and full screen. Instead of looping, the film ends on a card that
+     offers the way into the site or another watch. State lives in data-*
+     attributes on #player so the CSS can show the right icons. */
+  function initPlayer(video, onContinue) {
+    var player = $('player');
+    if (!video || !player) return;
+    var track = $('plTrack'), fill = $('plFill'), time = $('plTime'), dur = $('plDur');
+    var end = $('plEnd'), toggle = $('plToggle'), mute = $('plMute'), big = $('plBig');
+    function fmt(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
+    function set(name, on) { if (on) player.setAttribute('data-' + name, ''); else player.removeAttribute('data-' + name); }
+    function play() { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+    function togglePlay() { if (video.paused || video.ended) play(); else video.pause(); }
+    function sync() {
+      set('paused', video.paused); set('muted', video.muted);
+      toggle.setAttribute('aria-label', video.paused ? 'Play' : 'Pause');
+      big.setAttribute('aria-label', video.paused ? 'Play' : 'Pause');
+      mute.setAttribute('aria-label', video.muted ? 'Unmute' : 'Mute');
+    }
+    function progress() {
+      var d = video.duration || 0, pct = d ? (video.currentTime / d) * 100 : 0;
+      fill.style.width = pct + '%';
+      time.textContent = fmt(video.currentTime);
+      track.setAttribute('aria-valuenow', Math.round(pct));
+      track.setAttribute('aria-valuetext', fmt(video.currentTime) + ' of ' + fmt(d));
+    }
+    function showEnd(on) { end.hidden = !on; set('ended', on); }
+
+    video.addEventListener('play', function () { showEnd(false); sync(); });
+    video.addEventListener('pause', sync);
+    video.addEventListener('volumechange', sync);
+    video.addEventListener('timeupdate', progress);
+    video.addEventListener('loadedmetadata', function () { dur.textContent = fmt(video.duration); progress(); });
+    video.addEventListener('ended', function () { showEnd(true); sync(); });
+    if (video.readyState >= 1) dur.textContent = fmt(video.duration);
+
+    video.addEventListener('click', togglePlay);
+    big.addEventListener('click', togglePlay);
+    toggle.addEventListener('click', togglePlay);
+    mute.addEventListener('click', function () { video.muted = !video.muted; if (!video.muted && video.paused && !video.ended) play(); });
+    $('plFull').addEventListener('click', function () {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else if (player.requestFullscreen) player.requestFullscreen().catch(function () {});
+    });
+    $('plReplay').addEventListener('click', function () { video.currentTime = 0; play(); });
+    $('plContinue').addEventListener('click', onContinue);
+
+    // Scrubbing: drag or click anywhere on the track; arrows step 5s.
+    function seekTo(clientX) {
+      var r = track.getBoundingClientRect();
+      var f = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+      if (video.duration) { video.currentTime = f * video.duration; progress(); }
+    }
+    track.addEventListener('pointerdown', function (e) {
+      track.setPointerCapture(e.pointerId); set('scrubbing', true); seekTo(e.clientX);
+      function move(ev) { seekTo(ev.clientX); }
+      function up() { set('scrubbing', false); track.removeEventListener('pointermove', move); track.removeEventListener('pointerup', up); track.removeEventListener('pointercancel', up); }
+      track.addEventListener('pointermove', move); track.addEventListener('pointerup', up); track.addEventListener('pointercancel', up);
+    });
+    track.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault();
+      video.currentTime = Math.min(video.duration || 0, Math.max(0, video.currentTime + (e.key === 'ArrowRight' ? 5 : -5)));
+    });
+    sync();
+  }
+
   /* The page stays locked while any modal is open: a case study can sit on
      top of the all-projects list, and closing it must not unlock the page. */
   function syncLock() {
@@ -360,12 +526,13 @@
      lists exist without JavaScript (crawlers, link previews); boot() renders
      them again so an edit here shows even before prerender.js is re-run. */
   var LISTS = {
-    deck: deckHtml, projectList: projectListHtml, kitList: stackHtml, designList: designHtml
+    deck: deckHtml, projectList: projectListHtml, kitList: stackHtml, designList: designHtml,
+    showcaseList: showcaseHtml
   };
 
   function boot() {
     Object.keys(LISTS).forEach(function (id) { $(id).innerHTML = LISTS[id](); });
-    initDeck(); initCaseDialog(); initLightbox(); initMore(); initNav(); initReveal();
+    initDeck(); initCaseDialog(); initLightbox(); initMore(); initNav(); initReveal(); initWelcome();
     $('year').textContent = new Date().getFullYear();
   }
 
