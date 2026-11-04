@@ -1,0 +1,632 @@
+<meta charset="utf-8">
+<title>TheZepatide Website</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a clinic case file in the site's own clothes — cool bone paper,
+   Fraunces display, medical blue. Browser and phone frames on a 12-col
+   grid; one deep-navy band for the website editor (the clinic's side). */
+:root {
+  --bg: #f7f9fb;
+  --surface: #ffffff;
+  --surface-2: #eef3f8;
+  --surface-3: #e4edf7;
+  --ink: #22303f;
+  --ink-2: #55677a;
+  --ink-3: #66788b;
+  --line: rgba(34, 48, 63, 0.12);
+  --brand: #1e6fb8;
+  --brand-light: #4a90e2;
+  --brand-tint: #e9f1fb;
+  --live: #10b981;
+  --navy-1: #13202c;
+  --navy-2: #22374b;
+  --on-navy: #f2f6fa;
+  --on-navy-2: #a9bccf;
+  --on-navy-accent: #8fc0f2;
+  --frame: #0f1720;
+  --shadow: 0 2px 6px rgba(34,48,63,.06), 0 40px 80px -40px rgba(34,48,63,.45);
+
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --r-lg: 20px; --r-md: 16px; --r-sm: 10px;
+  --max: 1200px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f151c; --surface: #16202a; --surface-2: #1c2834; --surface-3: #22303e;
+    --ink: #e8eef4; --ink-2: #a9b8c7; --ink-3: #8a9bad; --line: rgba(232,238,244,.12);
+    --brand: #6aa8ec; --brand-light: #4a90e2; --brand-tint: #1b2c40; --live: #34d399;
+    --navy-1: #0a1017; --navy-2: #1a2a3b;
+    --frame: #05090d;
+    --shadow: 0 2px 6px rgba(0,0,0,.3), 0 40px 80px -40px rgba(0,0,0,.8);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f151c; --surface: #16202a; --surface-2: #1c2834; --surface-3: #22303e;
+  --ink: #e8eef4; --ink-2: #a9b8c7; --ink-3: #8a9bad; --line: rgba(232,238,244,.12);
+  --brand: #6aa8ec; --brand-light: #4a90e2; --brand-tint: #1b2c40; --live: #34d399;
+  --navy-1: #0a1017; --navy-2: #1a2a3b;
+  --frame: #05090d;
+  --shadow: 0 2px 6px rgba(0,0,0,.3), 0 40px 80px -40px rgba(0,0,0,.8);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--sans); font-size: 16px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: var(--max); margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+@media (max-width: 480px) {
+  .wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+}
+h1, h2, h3 { font-family: var(--serif); font-weight: 560; letter-spacing: -0.02em; text-wrap: balance; margin: 0; line-height: 1.06; font-variation-settings: "opsz" 144; }
+h1 em, h2 em, h3 em { font-style: italic; font-weight: 450; color: var(--brand); }
+p { margin: 0; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--brand);
+}
+.eyebrow.dot::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 3px color-mix(in srgb, var(--live) 22%, transparent); }
+.lede { font-size: 18.5px; color: var(--ink-2); max-width: 58ch; }
+section { padding-block: 104px; }
+@media (max-width: 720px) { section { padding-block: 72px; } }
+
+/* ---------- top ---------- */
+.top { padding-block: 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+.brand { font-family: var(--serif); font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.brand span { color: var(--brand); }
+.top-meta { font-size: 13px; color: var(--ink-3); display: flex; gap: 18px; flex-wrap: wrap; }
+
+/* ---------- hero ---------- */
+.hero { padding-block: 64px 24px; }
+.hero-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px; align-items: end; }
+.hero h1 { font-size: clamp(48px, 7.4vw, 96px); margin-top: 18px; }
+.hero-side { display: flex; flex-direction: column; gap: 22px; }
+.facts-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.facts-row div { padding: 14px 14px 0 0; display: flex; flex-direction: column; gap: 2px; }
+.facts-row b { font-family: var(--serif); font-weight: 560; font-size: 26px; letter-spacing: -0.02em; }
+.facts-row span { font-size: 12.5px; color: var(--ink-3); }
+@media (max-width: 900px) { .hero-head { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+.hero-stage { position: relative; margin-top: 56px; padding-bottom: 40px; }
+.hero-stage .browser { width: 88%; }
+.hero-stage .phone { position: absolute; right: 0; bottom: 0; width: 25%; min-width: 0; }
+@media (max-width: 640px) {
+  .hero-stage .browser { width: 100%; }
+  .hero-stage .phone { position: relative; width: 62%; margin: -80px auto 0; display: block; }
+}
+
+/* ---------- frames ---------- */
+.phone { background: var(--frame); border-radius: 44px; padding: 9px; box-shadow: var(--shadow); max-width: 100%; }
+.phone img { display: block; width: 100%; height: auto; border-radius: 35px; }
+.browser { border-radius: 14px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow); border: 1px solid var(--line); max-width: 100%; }
+.browser-bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--surface-3); display: block; flex: none; }
+.browser-bar span { margin-left: 10px; font-size: 12px; color: var(--ink-3); background: var(--surface); border-radius: 6px; padding: 3px 12px; flex: 1; max-width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.browser img { display: block; width: 100%; height: auto; }
+
+/* ---------- brief ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; }
+.split h2 { font-size: clamp(38px, 4.6vw, 58px); margin-top: 14px; }
+.split .lede { margin-top: 20px; }
+@media (max-width: 860px) { .split { grid-template-columns: minmax(0, 1fr); gap: 36px; } }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 640px) { .cards { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 24px; display: flex; flex-direction: column; gap: 8px; }
+.card h3 { font-size: 22px; }
+.card p { font-size: 15px; color: var(--ink-2); }
+.card .k { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+
+/* ---------- section heads ---------- */
+.section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 56px; }
+.section-head h2 { font-size: clamp(42px, 5.6vw, 72px); margin-top: 14px; }
+.section-head .lede { max-width: 46ch; }
+
+/* ---------- features ---------- */
+.feature { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 56px; align-items: center; padding-block: 52px; }
+.feature + .feature { border-top: 1px solid var(--line); }
+.feature.flip .f-art { order: 2; }
+.feature.flip { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
+.f-copy { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.f-copy .where { font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.f-copy h3 { font-size: clamp(30px, 3.2vw, 42px); }
+.f-copy p { color: var(--ink-2); font-size: 15.5px; }
+.f-copy .quote { font-family: var(--serif); font-size: 21px; line-height: 1.3; color: var(--ink); border-left: 2px solid var(--brand-light); padding-left: 14px; font-weight: 450; }
+.f-art { min-width: 0; position: relative; }
+.f-art.pair { display: grid; grid-template-columns: minmax(0, 1fr) 26%; gap: 20px; align-items: end; }
+.decisions { list-style: none; padding: 0; margin: 2px 0 0; display: flex; flex-direction: column; gap: 8px; }
+.decisions li { font-size: 14.5px; color: var(--ink-2); display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 8px; }
+.decisions li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-light); margin-top: 9px; }
+@media (max-width: 920px) {
+  .feature, .feature.flip { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .feature.flip .f-art { order: 0; }
+}
+@media (max-width: 520px) { .f-art.pair { grid-template-columns: minmax(0, 1fr); } .f-art.pair .phone { width: 60%; margin: 0 auto; } }
+
+/* ---------- mobile strip ---------- */
+.strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; align-items: start; }
+.strip figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.strip figure:nth-child(even) { margin-top: 48px; }
+.strip figcaption { font-size: 13px; color: var(--ink-3); text-align: center; }
+.strip figcaption b { color: var(--ink); font-weight: 600; }
+@media (max-width: 980px) { .strip { grid-template-columns: repeat(3, minmax(0, 1fr)); } .strip figure:nth-child(n+4) { display: none; } }
+@media (max-width: 560px) { .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .strip figure:nth-child(3) { display: none; } }
+
+/* ---------- navy band: editor ---------- */
+.band { background: radial-gradient(120% 80% at 85% 0%, var(--navy-2) 0%, var(--navy-1) 62%); color: var(--on-navy); }
+.band .eyebrow { color: var(--on-navy-accent); }
+.band h2 em, .band h3 em { color: var(--on-navy-accent); }
+.band .lede, .band .f-copy p, .band .decisions li { color: var(--on-navy-2); }
+.band .f-copy .where { color: var(--on-navy-2); }
+.band .feature + .feature { border-top-color: rgba(255,255,255,.1); }
+.band .browser { border-color: rgba(255,255,255,.08); }
+.editor-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.editor-list span { font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05); color: var(--on-navy); }
+
+/* ---------- flow ---------- */
+.flow { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); counter-reset: step; }
+@media (max-width: 1000px) { .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 36px; } }
+@media (max-width: 520px) { .flow { grid-template-columns: minmax(0, 1fr); row-gap: 28px; } }
+.flow li { position: relative; padding-right: 20px; display: flex; flex-direction: column; gap: 10px; }
+.flow li::before {
+  counter-increment: step; content: counter(step, decimal-leading-zero);
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; color: var(--brand);
+  padding-bottom: 12px; border-bottom: 2px solid var(--brand);
+}
+.flow li:not(:last-child)::before { border-image: linear-gradient(90deg, var(--brand) 40px, var(--surface-3) 40px) 1; }
+.flow h3 { font-size: 23px; line-height: 1.15; }
+.flow p { font-size: 14.5px; color: var(--ink-2); }
+.flow .on { font-size: 12px; color: var(--ink-3); }
+
+/* ---------- UI kit ---------- */
+.kit { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+.k-color { grid-column: span 7; } .k-type { grid-column: span 5; } .k-comp { grid-column: span 12; }
+@media (max-width: 960px) { .k-color, .k-type { grid-column: span 12; } }
+.k-label { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 12px; }
+.sw { display: flex; flex-direction: column; gap: 5px; font-size: 12px; color: var(--ink-3); }
+.sw i { display: block; height: 64px; border-radius: var(--r-sm); border: 1px solid var(--line); }
+.sw b { font-size: 13px; color: var(--ink); font-weight: 600; }
+.sw code { font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace; font-size: 11.5px; }
+.note { font-size: 13.5px; color: var(--ink-2); }
+.spec-display { font-family: var(--serif); font-weight: 560; font-size: 54px; line-height: 1.04; letter-spacing: -0.022em; font-variation-settings: "opsz" 144; }
+.spec-row { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 10px; flex-wrap: wrap; }
+.spec-body { font-size: 16px; color: var(--ink-2); }
+
+/* components, rebuilt from landing-clinical.css (kept light in both themes:
+   they show the site as it renders) */
+.specimen { background: #f7f9fb; color: #22303f; border-radius: var(--r-md); padding: 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; border: 1px solid rgba(34,48,63,.08); }
+@media (max-width: 860px) { .specimen { grid-template-columns: minmax(0, 1fr); } }
+.specimen > div { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; min-width: 0; }
+.specimen .cap { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #66788b; }
+.z-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #1e6fb8; }
+.z-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,.2); }
+.z-btn { display: inline-flex; align-items: center; gap: 10px; font: 600 15px var(--sans); padding: 13px 22px; border-radius: 999px; background: #1e6fb8; color: #fff; }
+.z-btn.ghost { background: #fff; color: #22303f; border: 1px solid rgba(34,48,63,.15); }
+.z-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.z-chip { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; padding: 8px 14px; border-radius: 999px; background: #fff; border: 1px solid rgba(34,48,63,.1); color: #22303f; }
+.z-chip.first { background: #e9f1fb; border-color: rgba(30,111,184,.3); color: #175a96; }
+.z-chip svg { width: 15px; height: 15px; }
+.z-rx { font-size: 11px; font-weight: 700; letter-spacing: .14em; padding: 5px 11px; border-radius: 999px; background: #e9f1fb; color: #1e6fb8; text-transform: uppercase; }
+.z-note { display: flex; gap: 10px; font-size: 14px; color: #1e5f9d; background: #e9f1fb; border-radius: 10px; padding: 12px 14px; }
+.z-note svg { flex: none; width: 17px; height: 17px; margin-top: 2px; }
+.z-rating { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #66788b; flex-wrap: wrap; }
+.z-rating .stars { color: #e3a22b; letter-spacing: 2px; font-size: 15px; }
+.z-rating b { font-size: 17px; color: #22303f; }
+.z-pcard { background: #fff; border: 1px solid rgba(34,48,63,.1); border-radius: 16px; overflow: hidden; width: 100%; max-width: 280px; }
+.z-pcard .vis { height: 92px; background: linear-gradient(180deg, #eef3f8, #e4edf7); position: relative; }
+.z-pcard .vis span { position: absolute; left: 12px; top: 12px; }
+.z-pcard .body { padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.z-pcard .nm { font-family: var(--serif); font-weight: 600; font-size: 19px; }
+.z-pcard .ln { font-size: 12.5px; color: #55677a; }
+.z-pcard .ko { font-size: 12px; color: #8496a8; }
+.z-pcard .ft { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: #66788b; border-top: 1px solid rgba(34,48,63,.08); margin-top: 8px; padding-top: 10px; }
+.z-pcard .ft .vw { color: #1e6fb8; }
+
+/* ---------- app section ---------- */
+.app { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 48px; }
+@media (max-width: 920px) { .app { grid-template-columns: minmax(0, 1fr); padding: 28px; gap: 32px; } }
+.app h2 { font-size: clamp(36px, 4.2vw, 54px); margin-top: 14px; }
+.app .lede { margin-top: 16px; font-size: 16.5px; }
+.app-art { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; min-width: 0; }
+.app-art .phone:nth-child(2) { margin-top: 40px; }
+.app-art .phone:nth-child(3) { margin-top: 80px; }
+.app-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.app-pills span { font-size: 13px; padding: 6px 12px; border-radius: 999px; background: var(--brand-tint); color: var(--brand); font-weight: 500; }
+
+/* ---------- closing ---------- */
+.closing-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px; }
+@media (max-width: 900px) { .closing-grid { grid-template-columns: minmax(0, 1fr); } }
+.closing h2 { font-size: clamp(42px, 5.6vw, 72px); margin-top: 14px; }
+.shipped { list-style: none; padding: 0; margin: 28px 0 0; display: flex; flex-direction: column; }
+.shipped li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 20px; padding-block: 16px; border-top: 1px solid var(--line); }
+@media (max-width: 520px) { .shipped li { grid-template-columns: minmax(0, 1fr); gap: 4px; } }
+.shipped .state { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); padding-top: 4px; }
+.shipped b { display: block; font-weight: 600; }
+.shipped p { font-size: 15px; color: var(--ink-2); }
+.credits { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 22px; align-self: start; }
+.credits dl { margin: 0; display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px 16px; font-size: 15px; }
+.credits dt { color: var(--ink-3); font-size: 13px; padding-top: 2px; }
+.credits dd { margin: 0; }
+.credits a { color: var(--brand); text-decoration: none; border-bottom: 1px solid currentColor; }
+.foot { padding-block: 32px 48px; font-size: 13px; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--line); }
+
+a:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 4px; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-stage .browser { animation: rise .9s cubic-bezier(.22,.7,.3,1) both; }
+  .hero-stage .phone { animation: rise 1s .15s cubic-bezier(.22,.7,.3,1) both; }
+  @keyframes rise { from { transform: translateY(24px); } to { transform: none; } }
+}
+</style>
+
+<!-- ============ TOP ============ -->
+<div class="wrap top">
+  <div class="brand">The<span>Zepatide</span></div>
+  <div class="top-meta"><span>Website case study</span><span>thezepatide.com</span><span>2026</span></div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-head">
+      <div>
+        <p class="eyebrow dot">Live at thezepatide.com · Pampanga, Philippines</p>
+        <h1>A clinic website that sends every visitor to <em>a doctor</em>, not a checkout.</h1>
+      </div>
+      <div class="hero-side">
+        <p class="lede">TheZepatide offers compounded, prescription-only weight-loss and wellness therapies. Its website has to earn trust, show the products honestly and get people into a free medical assessment. The clinic also has to be able to edit every word of it themselves.</p>
+        <div class="facts-row">
+          <div><b>10</b><span>page sections</span></div>
+          <div><b>0</b><span>prices shown</span></div>
+          <div><b>1</b><span>main action: Take Assessment</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-stage">
+      <div class="browser">
+        <div class="browser-bar"><i></i><i></i><i></i><span>thezepatide.com</span></div>
+        <img src="shots/s-hero.webp" alt="Homepage hero: Prandex— available only through The Zepatide, with a vial on a pedestal" width="1440" height="900">
+      </div>
+      <div class="phone"><img src="shots/ms-hero.webp" alt="The same hero on a phone" width="390" height="844"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ BRIEF ============ -->
+<section>
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">The brief</p>
+      <h2>Prescription-only products, sold with <em>restraint</em>.</h2>
+      <p class="lede">The clinic had an older Laravel site. I rebuilt it in React with Supabase behind it. First I ported the original copy, look and behaviour exactly, then redesigned it. The products are compounded injectables, so the site can't behave like an online shop.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="k">Visitors</span><h3>Mostly on phones</h3><p>People coming in from Facebook and Messenger, often comparing clinics and unsure whether a therapy suits them.</p></div>
+      <div class="card"><span class="k">The ask</span><h3>Trust before the button</h3><p>Who oversees the care, what each therapy is, and who it isn't for, all shown before anyone is asked to commit.</p></div>
+      <div class="card"><span class="k">Constraint</span><h3>No prices, no cart</h3><p>Every therapy is prescription-gated. Each path ends in the free assessment or a chat with the clinical team.</p></div>
+      <div class="card"><span class="k">Constraint</span><h3>The clinic edits it</h3><p>Products, results, videos, team, contact details and section copy all come from a website editor the clinic runs.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTIONS ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Key features</p>
+        <h2>The page, <em>section by section</em>.</h2>
+      </div>
+      <p class="lede">Each section answers the next question a visitor has, in order: what this is, whether it's safe for them, whether it works, who's behind it and how to start.</p>
+    </div>
+
+    <article class="feature">
+      <div class="f-copy">
+        <span class="where">Hero</span>
+        <h3>One product, <em>in focus</em>.</h3>
+        <p class="quote">“Prandex— available only through The Zepatide.”</p>
+        <p>The signature therapy stands on a lit pedestal and turns in 3D, with the other vials blurred behind it. The light follows the pointer. The claims sit in the still column beside the vial. On a rotating label they'd be unreadable for most of the turn.</p>
+        <ul class="decisions">
+          <li>The 3D vial (three.js) loads after first paint, so it never holds up the page.</li>
+          <li>Under the buttons: “Free, no obligation,” with what actually happens next.</li>
+        </ul>
+      </div>
+      <div class="f-art">
+        <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>thezepatide.com/#home</span></div><img src="shots/s-hero.webp" alt="Hero section with claims and the vial" loading="lazy" width="1440" height="900"></div>
+      </div>
+    </article>
+
+    <article class="feature flip">
+      <div class="f-copy">
+        <span class="where">Signature range</span>
+        <h3>Three therapies <em>we are known for</em>.</h3>
+        <p>NEXAVION™, GLYVION™ and TRIAVION™ each get a full row: a large vial photo, a plain definition, four key features and “Rx only · MD supervised.” The Korean product names are kept, the way they appear on the vials.</p>
+        <p>The clinic chooses which products appear here, in the website editor's “Signature picks.”</p>
+      </div>
+      <div class="f-art pair">
+        <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>thezepatide.com/#signature</span></div><img src="shots/s-signature.webp" alt="Signature range: NEXAVION, GLYVION, TRIAVION" loading="lazy" width="1440" height="1180"></div>
+        <div class="phone"><img src="shots/ms-signature.webp" alt="Signature range on a phone" loading="lazy" width="390" height="844"></div>
+      </div>
+    </article>
+
+    <article class="feature">
+      <div class="f-copy">
+        <span class="where">How it starts · Suitability &amp; safety</span>
+        <h3>Is this appropriate <em>for you</em>?</h3>
+        <p>Three steps come first: take the free assessment, the medical team reviews you, then you start the guided programme. Then the safety section says plainly: “These therapies are not right for everyone.”</p>
+        <p>The precautions (thyroid history, GI effects, pancreatitis) are pulled from the notes attached to each product. They stay in step with the catalogue without anyone copying them over.</p>
+      </div>
+      <div class="f-art">
+        <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>thezepatide.com/#safety</span></div><img src="shots/s-safety.webp" alt="Suitability and safety section with precautions and a note on compounded therapies" loading="lazy" width="1440" height="852"></div>
+      </div>
+    </article>
+
+    <article class="feature flip">
+      <div class="f-copy">
+        <span class="where">Real results</span>
+        <h3>Shown <em>unedited</em>.</h3>
+        <p>Two rows of patient photos and messages scroll in opposite directions. Tap one to open it full size. The clinic adds and removes them in the editor.</p>
+        <p class="quote">“Individual results vary and are not typical or guaranteed.”</p>
+        <p>That disclaimer sits right under the photos, not hidden in the footer.</p>
+      </div>
+      <div class="f-art">
+        <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>thezepatide.com/#results</span></div><img src="shots/s-results.webp" alt="Real Results from Our Products: two scrolling rows of patient photos" loading="lazy" width="1440" height="1040"></div>
+      </div>
+    </article>
+
+    <article class="feature">
+      <div class="f-copy">
+        <span class="where">Product collection · Details drawer</span>
+        <h3>Every product, <em>no price tag</em>.</h3>
+        <p>The collection grid opens into a details drawer: Definition (open by default), Benefits, Precautions and Medical Supervision, one at a time. The only buttons at the bottom are Begin Assessment and Ask on Messenger.</p>
+        <ul class="decisions">
+          <li>Each card says “MD supervised,” and each vial is marked Rx only.</li>
+          <li>On a phone the drawer becomes a full-height sheet.</li>
+        </ul>
+      </div>
+      <div class="f-art pair">
+        <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>thezepatide.com/#products</span></div><img src="shots/s-drawer.webp" alt="Product details drawer for NEXAVION with accordion sections" loading="lazy" width="1440" height="900"></div>
+        <div class="phone"><img src="shots/ms-drawer.webp" alt="Product details on a phone" loading="lazy" width="390" height="844"></div>
+      </div>
+    </article>
+
+    <article class="feature flip">
+      <div class="f-copy">
+        <span class="where">Certificates</span>
+        <h3>Lab results for <em>actual clients</em>.</h3>
+        <p>Certificates for Endotoxin, Purity and Heavy Metals have their own page behind a passcode. The clinic gives the passcode only to ongoing clients. It stays unlocked for the rest of the visit, so moving between the site and the gallery doesn't ask again.</p>
+      </div>
+      <div class="f-art">
+        <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>thezepatide.com/certificates</span></div><img src="shots/s-certgate.webp" alt="Restricted certificates page asking for a passcode" loading="lazy" width="1440" height="900"></div>
+      </div>
+    </article>
+
+    <article class="feature">
+      <div class="f-copy">
+        <span class="where">Team · Telemed</span>
+        <h3>Your care has <em>names behind it</em>.</h3>
+        <p>Placed after the products and results, when the visitor's question becomes “who is actually behind this?” The section shows the physician and the founder with their portraits, credentials and bios. Below them are what to expect and a dated telemed offer: “Now accepting clients for telemed consultation.”</p>
+      </div>
+      <div class="f-art pair">
+        <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>thezepatide.com/#physician</span></div><img src="shots/s-team.webp" alt="Team section with the physician and founder" loading="lazy" width="1440" height="1060"></div>
+        <div class="phone"><img src="shots/ms-team.webp" alt="Team section on a phone" loading="lazy" width="390" height="844"></div>
+      </div>
+    </article>
+
+    <article class="feature flip">
+      <div class="f-copy">
+        <span class="where">Get in touch · Footer</span>
+        <h3>Answered by nurses, <em>not a call centre</em>.</h3>
+        <p>Messenger opens as a scannable QR code on desktop. Phone and email have copy buttons. Clinic hours are listed, and the footer shows whether the clinic is open right now (“Open now · until 10 PM”).</p>
+        <p>The footer repeats the main action: “Start with a free assessment.”</p>
+      </div>
+      <div class="f-art">
+        <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>thezepatide.com/#about</span></div><img src="shots/s-footer.webp" alt="Dark footer with the free assessment call-to-action and clinic hours" loading="lazy" width="1440" height="1030"></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ MOBILE ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">On a phone</p>
+        <h2>Where most visitors <em>actually are</em>.</h2>
+      </div>
+      <p class="lede">Every section reflows to one column with 44px touch targets. The menu becomes a full sheet, and the Take Assessment button stays in the header.</p>
+    </div>
+    <div class="strip">
+      <figure><div class="phone"><img src="shots/ms-hero.webp" alt="Mobile hero" loading="lazy" width="390" height="844"></div><figcaption><b>Hero</b></figcaption></figure>
+      <figure><div class="phone"><img src="shots/ms-menu.webp" alt="Mobile menu" loading="lazy" width="390" height="844"></div><figcaption><b>Menu</b></figcaption></figure>
+      <figure><div class="phone"><img src="shots/ms-products.webp" alt="Mobile product collection" loading="lazy" width="390" height="844"></div><figcaption><b>Collection</b></figcaption></figure>
+      <figure><div class="phone"><img src="shots/ms-signature.webp" alt="Mobile signature row" loading="lazy" width="390" height="844"></div><figcaption><b>Signature</b></figcaption></figure>
+      <figure><div class="phone"><img src="shots/ms-touch.webp" alt="Mobile get in touch" loading="lazy" width="390" height="844"></div><figcaption><b>Get in touch</b></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EDITOR ============ -->
+<section class="band">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Behind the site</p>
+        <h2>A website editor the clinic <em>runs themselves</em>.</h2>
+      </div>
+      <p class="lede">Every section above reads from the database. A banner across the top of the editor says: “You are editing the public site. Saved changes go live straight away.”</p>
+    </div>
+
+    <article class="feature">
+      <div class="f-copy">
+        <span class="where">Editor · Dashboard</span>
+        <h3>Everything on the page, <em>in one list</em>.</h3>
+        <p>The dashboard counts what's live (products, signature picks, testimonials, certificates) and links straight to each editor.</p>
+        <div class="editor-list">
+          <span>Hero section</span><span>Products</span><span>Signature picks</span><span>Testimonials</span><span>Videos</span><span>Certificates</span><span>Physician &amp; founder</span><span>Page sections</span><span>Contact info</span><span>Settings</span>
+        </div>
+      </div>
+      <div class="f-art">
+        <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>/admin/website</span></div><img src="shots/c-dashboard.webp" alt="Website editor dashboard" loading="lazy" width="1440" height="900"></div>
+      </div>
+    </article>
+
+    <article class="feature flip">
+      <div class="f-copy">
+        <span class="where">Editor · Hero section</span>
+        <h3>Type on the left, <em>preview on the right</em>.</h3>
+        <p>Each field says where it appears (“The first thing a visitor reads”), and a live preview shows roughly how it will look. Small notes explain the side effects of a change, for example: “The sub-headline also feeds the care-team section.”</p>
+      </div>
+      <div class="f-art">
+        <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>/admin/website · Hero section</span></div><img src="shots/c-hero.webp" alt="Hero section editor with a live preview" loading="lazy" width="1440" height="900"></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ FLOW ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">The visitor's path</p>
+        <h2>From a Facebook link to <em>a medical review</em>.</h2>
+      </div>
+      <p class="lede">Every path through the site ends in one of two places: the free assessment, or a conversation with the clinical team.</p>
+    </div>
+    <ol class="flow">
+      <li><h3>Land on the hero</h3><p>See the signature therapy, the three claims and “Free, no obligation.”</p><span class="on">#home</span></li>
+      <li><h3>Learn what it is</h3><p>Browse the signature range and open any product for its definition, benefits and precautions.</p><span class="on">#signature · #products</span></li>
+      <li><h3>Check suitability</h3><p>Read the three steps and the safety notes before committing to anything.</p><span class="on">#safety</span></li>
+      <li><h3>See proof &amp; people</h3><p>Unedited results, the doctor and founder by name, lab certificates for clients.</p><span class="on">#results · #physician</span></li>
+      <li><h3>Take the assessment</h3><p>The medical team reviews it before anything is prescribed or dispensed. Or message the clinic first.</p><span class="on">Take Assessment · Let's Chat</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ UI KIT ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">UI kit in context</p>
+        <h2>Calm blue, <em>a clinic's serif</em>.</h2>
+      </div>
+      <p class="lede">The palette keeps the original site's medical blue. The interactive blue is darkened so text and buttons pass WCAG AA. One green marks “open now.”</p>
+    </div>
+    <div class="kit">
+      <div class="panel k-color">
+        <span class="k-label">Colour</span>
+        <div class="swatches">
+          <div class="sw"><i style="background:#f7f9fb"></i><b>Bone</b><code>#f7f9fb</code></div>
+          <div class="sw"><i style="background:#22303f"></i><b>Ink</b><code>#22303f</code></div>
+          <div class="sw"><i style="background:#55677a"></i><b>Ink 2</b><code>#55677a</code></div>
+          <div class="sw"><i style="background:#1e6fb8"></i><b>Brand</b><code>#1e6fb8 · text, buttons</code></div>
+          <div class="sw"><i style="background:#4a90e2"></i><b>Original blue</b><code>#4a90e2 · fills</code></div>
+          <div class="sw"><i style="background:#e9f1fb"></i><b>Brand tint</b><code>#e9f1fb</code></div>
+          <div class="sw"><i style="background:#10b981"></i><b>Live</b><code>#10b981</code></div>
+        </div>
+        <p class="note">The original site's #4a90e2 measures under 4.5:1 for text, so it is kept for fills and accents. Text and buttons use #1e6fb8.</p>
+      </div>
+      <div class="panel k-type">
+        <span class="k-label">Type</span>
+        <div class="spec-display">Your care has names behind it</div>
+        <div class="spec-row"><span>Fraunces 560 · display</span><span>headings only</span></div>
+        <p class="spec-body">Every therapy is prescribed, dosed and monitored by the people below — not by a form.</p>
+        <div class="spec-row"><span>Inter · body &amp; interface</span><span>16px floor on inputs</span></div>
+      </div>
+      <div class="panel k-comp">
+        <span class="k-label">Components, as they render on the site</span>
+        <div class="specimen">
+          <div>
+            <span class="cap">Hero kit</span>
+            <span class="z-eyebrow">Our signature therapy · Pampanga, Philippines</span>
+            <div class="z-chips">
+              <span class="z-chip first"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Exclusive to this practice</span>
+              <span class="z-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>Prescription-gated</span>
+            </div>
+            <div class="z-chips"><span class="z-btn">Take Assessment →</span><span class="z-btn ghost">Let's Chat</span></div>
+          </div>
+          <div>
+            <span class="cap">Reassurance</span>
+            <div class="z-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Free, no obligation. Every patient starts here so the medical team can confirm whether therapy is appropriate before anything is dispensed.</span></div>
+            <div class="z-rating"><span class="stars" aria-hidden="true">★★★★★</span><b>4.7/5</b><span>From our Customer</span><span>· 100+ transformations &amp; counting</span></div>
+          </div>
+          <div>
+            <span class="cap">Product card</span>
+            <div class="z-pcard">
+              <div class="vis"><span class="z-rx">Rx only</span></div>
+              <div class="body">
+                <span class="nm">GLYVION™</span>
+                <span class="ln">Dual-Pathway Metabolic Modulator</span>
+                <span class="ko" lang="ko">이중 경로 대사 조절제</span>
+                <div class="ft"><span>MD supervised</span><span class="vw">View details →</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE APP (one section) ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="app">
+      <div>
+        <p class="eyebrow">Also built for the clinic</p>
+        <h2>The patient app behind <em>“Patient Portal”</em>.</h2>
+        <p class="lede">The Patient Portal button in the site header opens a client-monitoring app I built alongside the site. Clients log their weight and days on their phones. Nurses work the day's injection round from one list. The clinic sees who needs a follow-up. It uses the same brand, database and sign-in as the site.</p>
+        <div class="app-pills"><span>Daily logs &amp; weigh-ins</span><span>Progress &amp; milestones</span><span>Home-visit rounds</span><span>Clinical flags</span></div>
+      </div>
+      <div class="app-art">
+        <div class="phone"><img src="shots/m-home.webp" alt="Patient app home: Maria, you're 8.65 kg lighter than when you started" loading="lazy" width="390" height="844"></div>
+        <div class="phone"><img src="shots/m-progress-chart.webp" alt="Patient app weight chart and milestones" loading="lazy" width="390" height="844"></div>
+        <div class="phone"><img src="shots/m-admin-today.webp" alt="Staff view of today's round on a phone" loading="lazy" width="390" height="844"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<section class="closing" style="padding-top:0">
+  <div class="wrap closing-grid">
+    <div>
+      <p class="eyebrow">What shipped</p>
+      <h2>Live, and in the <em>clinic's hands</em>.</h2>
+      <ul class="shipped">
+        <li><span class="state">Public site</span><div><b>thezepatide.com</b><p>Ten sections, 3D hero, product drawer, results, team, contact. Hosted on Cloudflare Pages.</p></div></li>
+        <li><span class="state">Certificates</span><div><b>/certificates</b><p>Lab certificate gallery behind a client passcode, with a lightbox.</p></div></li>
+        <li><span class="state">Website editor</span><div><b>/admin/website</b><p>Ten editors covering every piece of content on the site. Saved changes go live straight away.</p></div></li>
+        <li><span class="state">Patient app</span><div><b>/portal and the clinic dashboard</b><p>Client logging and progress, home-visit rounds, roster and monitoring.</p></div></li>
+      </ul>
+    </div>
+    <aside class="credits">
+      <span class="k-label">Credits</span>
+      <dl>
+        <dt>Client</dt><dd>TheZepatide, a medically guided weight-loss clinic in Pampanga, Philippines</dd>
+        <dt>Design &amp; build</dt><dd>Dale, full-stack developer · <a href="https://bedaniadale.vercel.app" target="_blank" rel="noopener">bedaniadale.vercel.app</a></dd>
+        <dt>Stack</dt><dd>React 19, Vite, Tailwind 4, Supabase, three.js, Cloudflare Pages</dd>
+        <dt>Type</dt><dd>Fraunces, Inter</dd>
+        <dt>Screens</dt><dd>Site captured from thezepatide.com. Editor and app screens from the built-in demo data.</dd>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<footer class="wrap foot">
+  <span>TheZepatide · thezepatide.com</span>
+  <span>Case study · November 2026</span>
+</footer>
