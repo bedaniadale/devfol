@@ -1,0 +1,5 @@
+# Local-only sources, not used by the live site
+video/
+works/eportfolio-source.html
+works/eportfolio-fonts/
+works/Dale_Bedania_ePortfolio.pdf
