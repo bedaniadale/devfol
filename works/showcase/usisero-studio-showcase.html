@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usisero Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1b2a4a;--ink-2:#40507a;--ink-3:#6b789b;--ink-4:#9aa5c0;
+  --paper:#fbf8f2;--paper-2:#f4efe5;--card:#fffdf9;--line:#e9e2d4;--line-2:#d9d0bd;
+  --sky:#3a9be8;--sky-d:#1f7fcf;--sky-bg:#e2f0fc;
+  --orange:#ff7a1a;--orange-d:#c85a07;--orange-bg:#ffe8d3;
+  --green:#2c8a3e;--green-bg:#ddf2dd;--red:#b3262e;--red-bg:#fbe0e0;
+  --violet:#5a47c2;--violet-bg:#ebe7fb;--gold:#8a5a0a;--gold-bg:#faecc4;
+  --term:#0e1424;--term-2:#161e33;--term-line:#26304d;--term-text:#cdd6ee;
+  --display:"Fredoka",sans-serif;--ui:"Inter",system-ui,sans-serif;--mono:"JetBrains Mono",Consolas,monospace;
+  --sh-1:0 1px 2px rgba(27,42,74,.06),0 2px 6px rgba(27,42,74,.04);
+  --sh-2:0 2px 4px rgba(27,42,74,.06),0 10px 24px rgba(27,42,74,.10);
+  --sh-3:0 6px 14px rgba(27,42,74,.08),0 30px 60px rgba(27,42,74,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#fff;color:var(--ink);font:400 16px/1.6 var(--ui);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;margin:0;letter-spacing:.1px}
+p{margin:0}
+.wrap{width:1240px;margin:0 auto;padding:0 72px}
+section{padding:72px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--sky-d)}
+.eyebrow b{font:600 13px/1 var(--mono);color:var(--ink-4);letter-spacing:0}
+.shead{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:40px}
+.shead h2{font-size:46px;line-height:1.05;margin-top:14px}
+.shead p{color:var(--ink-2);font-size:17px}
+
+/* frames */
+.browser{border-radius:18px;background:var(--card);border:1px solid var(--line-2);box-shadow:var(--sh-3);overflow:hidden}
+.browser .bar{display:flex;align-items:center;gap:7px;height:38px;padding:0 16px;background:var(--paper-2);border-bottom:1px solid var(--line)}
+.browser .bar i{width:11px;height:11px;border-radius:50%;background:var(--line-2)}
+.browser .bar span{margin-left:14px;flex:0 1 320px;height:22px;border-radius:999px;background:var(--card);font:500 12px/22px var(--ui);color:var(--ink-3);padding:0 12px}
+.browser img{width:100%;height:auto}
+.panelshot{border-radius:22px;overflow:hidden;box-shadow:var(--sh-3);border:1px solid var(--line)}
+.panelshot img{width:100%;height:auto}
+.phone{background:var(--ink);border-radius:38px;padding:9px;box-shadow:var(--sh-3)}
+.phone img{width:100%;height:auto;border-radius:30px}
+
+/* hero */
+.hero{padding:56px 0 0}
+.herobox{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:36px;padding:56px 56px 0;overflow:hidden}
+.brandrow{display:flex;align-items:center;gap:14px}
+.mark{width:58px;height:58px;border-radius:50%;background:var(--sky);display:grid;place-items:end center;overflow:hidden}
+.mark img{width:56px;height:auto;margin-bottom:-8px}
+.wordmark{font:600 28px/1 var(--display)}
+.wordmark em{font-style:normal;color:var(--sky-d)}
+.handle{color:var(--ink-3);font-size:15px}
+.herogrid{display:grid;grid-template-columns:1.08fr .92fr;gap:40px;margin-top:44px;align-items:start}
+.hero h1{font-size:68px;line-height:.98;letter-spacing:-.5px}
+.hero h1 span{color:var(--orange)}
+.hero .lede{font-size:19px;color:var(--ink-2);margin-top:22px;max-width:520px}
+.herochips{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+.pill{display:inline-flex;align-items:center;gap:6px;font:500 13px/26px var(--ui);padding:0 12px;border-radius:999px;background:var(--paper-2);color:var(--ink-2);white-space:nowrap}
+.pill.blue{background:var(--sky-bg);color:#1c5c99}.pill.vi{background:var(--violet-bg);color:var(--violet)}
+.pill.gold{background:var(--gold-bg);color:var(--gold)}.pill.or{background:var(--orange-bg);color:var(--orange-d)}
+.pill.em{background:var(--green-bg);color:var(--green)}
+.herothumbs{display:flex;gap:14px;justify-content:flex-end;align-items:flex-start;padding-top:6px}
+.herothumbs .phone{width:150px;padding:6px;border-radius:26px}
+.herothumbs .phone img{border-radius:20px}
+.herothumbs .phone:nth-child(2){margin-top:44px}
+.herothumbs .phone:nth-child(3){margin-top:14px}
+.heroshot{margin:52px -8px 0;position:relative}
+.heroshot .browser{border-radius:18px 18px 0 0;border-bottom:0;max-height:520px}
+.gallery3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+.gallery3 .browser .bar{height:26px;padding:0 10px;gap:5px}.gallery3 .browser .bar i{width:8px;height:8px}
+.gallery3 .browser,.gallery3 .panelshot{box-shadow:var(--sh-2);border-radius:14px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:40px}
+.facts div{padding:22px 24px;border-right:1px solid var(--line)}
+.facts div:last-child{border-right:0}
+.facts b{display:block;font:600 34px/1.1 var(--display)}
+.facts span{color:var(--ink-3);font-size:14px}
+
+/* problem */
+.problem{display:grid;grid-template-columns:1.1fr .9fr;gap:40px}
+.chain{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:26px;background:var(--card);overflow:hidden}
+.chain div{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;padding:14px 22px;border-top:1px solid var(--line)}
+.chain div:first-child{border-top:0}
+.chain i{font:600 14px/1 var(--display);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--paper-2);color:var(--ink-2);font-style:normal}
+.chain b{font-weight:500}
+.chain small{color:var(--ink-3);font-size:13px}
+.who{display:flex;flex-direction:column;gap:18px}
+.quote{background:var(--ink);color:#fff;border-radius:26px;padding:30px 32px;position:relative}
+.quote p{font:500 22px/1.35 var(--display)}
+.quote cite{display:block;margin-top:14px;font:400 14px/1.4 var(--ui);color:#b9c3dd;font-style:normal}
+.quote img{position:absolute;right:20px;top:-34px;width:84px;height:auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px 28px}
+.card h3{font-size:21px;margin-bottom:8px}
+.card p{color:var(--ink-2);font-size:15px}
+.card ul{margin:10px 0 0;padding-left:18px;color:var(--ink-2);font-size:15px}
+.card li{margin:4px 0}
+
+/* features */
+.feature{display:grid;grid-template-columns:.78fr 1.22fr;gap:56px;align-items:center;padding:44px 0;border-top:1px solid var(--line)}
+.feature.flip{grid-template-columns:1.22fr .78fr}
+.feature.flip .ftext{order:2}
+.feature .num{font:600 14px/1 var(--mono);color:var(--orange-d)}
+.feature h3{font-size:34px;line-height:1.08;margin:12px 0 14px}
+.feature p{color:var(--ink-2);font-size:16.5px}
+.feature .ui{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.copyline{margin-top:18px;border-left:3px solid var(--orange-bg);padding-left:14px;color:var(--ink-3);font-size:14.5px}
+.copyline b{color:var(--ink);font-weight:500}
+figure{margin:0}
+figcaption{margin-top:14px;color:var(--ink-3);font-size:13.5px}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 22px 24px;position:relative}
+.step .n{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font:600 16px/1 var(--display)}
+.step.hot .n{background:var(--orange)}
+.step.ok .n{background:var(--green)}
+.step h4{font-size:19px;margin:16px 0 6px}
+.step p{color:var(--ink-2);font-size:14.5px}
+.step img.face{position:absolute;right:16px;top:12px;width:48px;height:auto}
+.flownote{margin-top:18px;display:flex;gap:12px;align-items:center;color:var(--ink-3);font-size:14.5px}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.gallery .wide{grid-column:1 / -1}
+.mobiles{display:grid;grid-template-columns:repeat(2,250px) 1fr;gap:32px;align-items:center;margin-top:36px}
+.mobiles .phone{border-radius:34px;padding:8px}
+.mobiles .phone img{border-radius:27px}
+.mobiles .note h3{font-size:26px;margin-bottom:10px}
+.mobiles .note p{color:var(--ink-2)}
+
+/* engine */
+.engine{background:var(--paper);border:1px solid var(--line);border-radius:36px;padding:56px}
+.engine .shead{margin-bottom:28px}
+.pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:36px}
+.pipe div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 16px 18px}
+.pipe b{display:block;font:600 17px/1.2 var(--display);margin-bottom:4px}
+.pipe span{font-size:13px;color:var(--ink-3);line-height:1.45;display:block}
+.pipe code{font:400 12px var(--mono);color:var(--sky-d)}
+.reels{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.reels .phone{border-radius:30px;padding:7px}
+.reels .phone img{border-radius:24px}
+.reels figcaption{text-align:center}
+.reels figcaption b{display:block;color:var(--ink);font:600 15px/1.3 var(--display);margin-bottom:2px}
+
+/* ui kit */
+.kit{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.kit .card{padding:26px 28px 28px}
+.kit h4{font:600 13px/1 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.sw{border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.sw i{display:block;height:64px}
+.sw div{padding:8px 10px;font-size:12.5px;line-height:1.35}
+.sw div b{display:block;font-weight:500;color:var(--ink)}
+.sw div code{font:400 11.5px var(--mono);color:var(--ink-3)}
+.type .row{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:12px 0;border-top:1px solid var(--line)}
+.type .row:first-of-type{border-top:0;padding-top:0}
+.type small{font:400 12px var(--mono);color:var(--ink-3);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-2);background:var(--card);border-radius:12px;padding:8px 14px;font:500 14px/1.5 var(--ui);color:var(--ink)}
+.btn.primary{background:var(--sky);border-color:var(--sky);color:#fff}
+.btn.orange{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.ghost{border-color:transparent;background:none;color:var(--ink-2)}
+.btn.danger{color:var(--red);border-color:transparent;background:var(--red-bg)}
+.btn.copied{background:var(--green-bg);border-color:var(--green-bg);color:var(--green)}
+.btn svg{width:15px;height:15px}
+.comprow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;font:500 12.5px/24px var(--ui);padding:0 10px;border-radius:999px}
+.chip .d{width:8px;height:8px;border-radius:50%;background:var(--sky)}
+.k-empty{background:var(--paper-2);color:var(--ink-3)}.k-making{background:var(--sky-bg);color:#1c5c99}
+.k-ready{background:var(--orange-bg);color:var(--orange-d)}.k-posted{background:var(--green-bg);color:var(--green)}
+.segpick{display:inline-flex;gap:6px}
+.sc{border:1px solid var(--line-2);background:var(--card);border-radius:999px;padding:5px 13px;font:500 13px/1.4 var(--ui);color:var(--ink-2)}
+.sc.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.tile{width:132px;min-height:150px;display:flex;flex-direction:column;gap:10px;padding:12px;border:1px solid var(--line);background:var(--card);border-radius:20px}
+.tile.on{border-color:var(--ink);box-shadow:var(--sh-2)}
+.tile.blank{border-style:dashed;border-color:var(--line-2);background:transparent}
+.tile .th{display:flex;justify-content:space-between;align-items:center}
+.tile .dn{font-size:12.5px;font-weight:500;color:var(--ink-3)}
+.tile .dd{font:600 21px/1 var(--display);width:34px;height:34px;display:grid;place-items:center;border-radius:50%}
+.tile.today .dd{background:var(--orange);color:#fff}.tile.today .dn{color:var(--orange-d)}
+.tile .thumbs{display:flex;gap:4px;flex:1;align-items:flex-end}
+.tile .thumbs img{width:30px;height:auto;border-radius:6px;border:1px solid var(--line)}
+.tile .add{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;color:var(--ink-3)}
+.tile .add i{width:20px;height:20px;border-radius:50%;border:1.5px dashed var(--ink-4)}
+.tile .chip{align-self:flex-start}
+.tiles{display:flex;gap:10px}
+.faces{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.faces div{text-align:center;font-size:12.5px;color:var(--ink-3)}
+.faces img{width:100%;height:auto;margin-bottom:4px}
+.faces b{display:block;color:var(--ink);font-weight:500}
+.radii{display:flex;gap:12px;align-items:flex-end}
+.radii div{text-align:center;font:400 11.5px/1.4 var(--mono);color:var(--ink-3)}
+.radii i{display:block;width:64px;height:64px;border:2px solid var(--ink);border-right:0;border-bottom:0;margin-bottom:6px;background:var(--sky-bg)}
+.termdemo{background:var(--term);border-radius:18px;padding:16px 18px;font:12.5px/1.75 var(--mono);color:var(--term-text)}
+.termdemo .t{color:#7482a8;margin-right:8px}.termdemo .v{color:#79c0ff}
+.termdemo .say{font-family:var(--ui);color:#eef2ff;margin:6px 0}
+.state{font:500 12px/20px var(--ui);padding:0 9px;border-radius:999px}
+.state.running{background:#1f3a5f;color:#79c0ff}.state.done{background:#1b3a24;color:#7ee787}.state.failed{background:#4a1d1d;color:#ffa198}
+
+/* closing */
+.closing{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.road{display:flex;flex-direction:column;gap:12px}
+.road div{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 20px}
+.road div p{color:var(--ink-2);font-size:14.5px}
+.road div b{display:block;font:600 17px/1.3 var(--display);margin-bottom:2px;color:var(--ink)}
+.credits{background:var(--ink);color:#e6ebf7;border-radius:30px;padding:36px 36px 30px;position:relative;overflow:hidden}
+.credits h3{font-size:30px;color:#fff;margin-bottom:20px}
+.credits dl{margin:0;display:grid;grid-template-columns:130px 1fr;gap:10px 18px;font-size:14.5px}
+.credits dt{color:#9aa5c0}
+.credits dd{margin:0}
+.credits .bye{display:flex;align-items:center;gap:14px;margin-top:28px;padding-top:22px;border-top:1px solid #33456e}
+.credits .bye img{width:64px;height:auto}
+.credits .bye p{font:600 20px/1.3 var(--display);color:#fff}
+.credits .bye small{display:block;font:400 13px var(--ui);color:#9aa5c0}
+footer{padding:28px 0 56px;color:var(--ink-4);font-size:13px;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="herobox">
+      <div class="brandrow">
+        <span class="mark"><img src="shots/usisero/juan/head-smile.png" alt=""></span>
+        <span class="wordmark">Usisero <em>Studio</em></span>
+        <span class="handle">for @usisero on Facebook</span>
+      </div>
+      <div class="herogrid">
+        <div>
+          <span class="eyebrow">Case study · Local web app · 2026</span>
+          <h1 style="margin-top:16px">Pick a day.<br>Press <span>Make.</span><br>Juan does the rest.</h1>
+          <p class="lede">A friendly week planner for a one-person Pinoy Facebook page. Each "Make" starts a headless Claude Code run that researches the topic, writes the Taglish script, builds a 3D world, animates host Juan, renders the video and hands back a post that's ready to paste.</p>
+          <div class="herochips">
+            <span class="pill blue">Alam Mo Ba?</span><span class="pill vi">Paano Kung...?</span><span class="pill gold">Kaya Ba?</span><span class="pill or">Sa Bahay Namin</span>
+          </div>
+        </div>
+        <div class="herothumbs">
+          <div class="phone"><img src="shots/usisero/thumbs/sari-sari.jpg" alt="Thumbnail: sari-sari"></div>
+          <div class="phone"><img src="shots/usisero/thumbs/watawat-baligtad.jpg" alt="Thumbnail: watawat"></div>
+          <div class="phone"><img src="shots/usisero/thumbs/noche-buena-500.jpg" alt="Thumbnail: Noche Buena"></div>
+        </div>
+      </div>
+      <div class="heroshot">
+        <div class="browser"><div class="bar"><i></i><i></i><i></i><span>localhost:4410 · Usisero Studio</span></div>
+          <img src="shots/usisero/01-week.png" alt="Usisero Studio week planner with live Claude terminals"></div>
+      </div>
+    </div>
+    <div class="facts">
+      <div><b>1 click</b><span>from an empty day to a finished, checked video</span></div>
+      <div><b>Up to 3</b><span>videos made in parallel, each in its own live terminal</span></div>
+      <div><b>15–60 s</b><span>vertical 9:16 shorts with video, thumbnail and caption</span></div>
+      <div><b>0 voices</b><span>the story is told by on-screen text and Juan's faces</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow"><b>01</b> The problem</span><h2>One short video a day is a whole production crew's job.</h2></div>
+      <p>Usisero posts relatable, true Pinoy content in natural Taglish. Behind every 30-second reel there's research, a script, a storyboard, a 3D world, music, a render, QA and the Facebook copy. One person can't do all of that every day by hand.</p>
+    </div>
+    <div class="problem">
+      <div class="chain">
+        <div><i>1</i><b>Topic and fact check</b><small>prices, fares, history: real sources, dated</small></div>
+        <div><i>2</i><b>Taglish script</b><small>a hook readable by 2.5 s, max ~9 words per line</small></div>
+        <div><i>3</i><b>Storyboard</b><small>a new world for every topic, never the same set</small></div>
+        <div><i>4</i><b>3D world and Juan's acting</b><small>Remotion + three.js, shots and faces per section</small></div>
+        <div><i>5</i><b>Original music and sfx</b><small>generated per video, normalised to −14 LUFS</small></div>
+        <div><i>6</i><b>Render, stills, QA</b><small>2–3 fix rounds on framing and readability</small></div>
+        <div><i>7</i><b>Thumbnail, title, caption</b><small>then upload and keep track of what's posted</small></div>
+      </div>
+      <div class="who">
+        <div class="quote">
+          <img src="shots/usisero/juan/head-curious.png" alt="">
+          <p>"Make a video" should mean exactly that: one button, then a video I can post.</p>
+          <cite>The brief behind the Studio</cite>
+        </div>
+        <div class="card">
+          <h3>Who it's for</h3>
+          <p>The owner of the Usisero page: a solo creator who plans the week, wants to see the work happening and posts by hand to Facebook. They don't want to live in a terminal.</p>
+          <ul>
+            <li>Plans by <b>day</b>, not by file or folder</li>
+            <li>Wants to <b>watch</b> the work and step in when needed</li>
+            <li>Needs a <b>paste-ready</b> post and a clear "posted" record</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="padding-top:24px">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow"><b>02</b> Key features</span><h2>A planner on top, a production line underneath.</h2></div>
+      <p>Studio is a small Node server and a plain-DOM UI. Every feature maps to one real step of running the page: plan, make, watch, review, post.</p>
+    </div>
+
+    <div class="feature">
+      <div class="ftext">
+        <span class="num">2.1</span>
+        <h3>The week at a glance</h3>
+        <p>Seven day tiles show each day's thumbnails, a green tick on what's posted and one status chip. Today is the orange circle. A blank day just says "Make a video".</p>
+        <div class="ui"><span class="chip k-empty">Empty</span><span class="chip k-making"><span class="d"></span>Making</span><span class="chip k-ready">1 to post</span><span class="chip k-posted">Posted</span></div>
+        <p class="copyline"><b>Nov 9 – 15</b> · 4 videos this week · 1 to post</p>
+      </div>
+      <figure><div class="browser"><div class="bar"><i></i><i></i><i></i><span>localhost:4410</span></div><img src="shots/usisero/01-week.png" alt="Week planner"></div></figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="ftext">
+        <span class="num">2.2</span>
+        <h3>Make 1, 2 or 3 videos at once</h3>
+        <p>For each video, choose a segment or leave it on <b>Auto</b>, and add a topic idea if you have one. The orange button starts one Claude terminal per video and they all run at the same time.</p>
+        <p class="copyline"><b>"Each video gets its own Claude terminal and they all run at the same time."</b> The panel's own hint.</p>
+      </div>
+      <figure><div class="browser"><div class="bar"><i></i><i></i><i></i><span>localhost:4410 · Wednesday, November 11</span></div><img src="shots/usisero/04-make.png" alt="Make panel with two videos"></div></figure>
+    </div>
+
+    <div class="feature">
+      <div class="ftext">
+        <span class="num">2.3</span>
+        <h3>Live terminals, in plain words</h3>
+        <p>The stream-json output of each <code>claude -p</code> run is turned into readable verbs: <span style="color:var(--sky-d)">Writing, Rendering, Checking stills, Looking at</span>. Juan's face shows the run state. A finished run can be continued by typing a message, and runs whose terminal was closed can be brought back.</p>
+        <p class="copyline"><b>"First draft rendered. Fixing framing now..."</b> Claude's own notes appear between the steps.</p>
+      </div>
+      <figure><div class="panelshot"><img src="shots/usisero/05-live.png" alt="Live Claude terminal"></div></figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="ftext">
+        <span class="num">2.4</span>
+        <h3>A card that is the posting checklist</h3>
+        <p>The video plays in a phone frame next to its thumbnail. On the right are the steps you actually do on Facebook: upload, paste the title, paste the caption with hashtags, then mark it as posted. Each one has a Copy button.</p>
+        <p class="copyline"><b>Ask for a change</b> · "make the hook punchier, brighter thumbnail" starts a Claude run that fixes and re-renders just that video.</p>
+      </div>
+      <figure><div class="panelshot"><img src="shots/usisero/02-card.png" alt="Video card with checklist"></div></figure>
+    </div>
+
+    <div class="feature">
+      <div class="ftext">
+        <span class="num">2.5</span>
+        <h3>Posted, with a wink</h3>
+        <p>Ticking "Mark as posted" turns the card green and Juan stamps it with a wink. The day tile gets its tick, and once every video is out the day reads "Everything for this day is posted. Galing!"</p>
+      </div>
+      <figure><div class="panelshot"><img src="shots/usisero/03-posted.png" alt="Posted video card"></div></figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="ftext">
+        <span class="num">2.6</span>
+        <h3>Every script, every segment</h3>
+        <p>All videos lists every spec Juan has a script for, newest first, with its segment and the day it was delivered. It's the easy way to rotate segments and avoid repeating a topic.</p>
+        <p class="copyline"><b>"Every video Juan has a script for, newest first. 10 in total."</b></p>
+      </div>
+      <figure><div class="browser"><div class="bar"><i></i><i></i><i></i><span>localhost:4410 · All videos</span></div><img src="shots/usisero/06-library.png" alt="All videos library"></div></figure>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section style="background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow"><b>03</b> User flow</span><h2>From an empty tile to "Galing!"</h2></div>
+      <p>Eight steps. Only one of them runs on its own, and it's the big one: while Claude makes the video you can close the tab and the work keeps going.</p>
+    </div>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><img class="face" src="shots/usisero/juan/head-smile.png" alt=""><h4>Pick a day</h4><p>Tap a tile in the week strip. Past days are greyed, today is orange.</p></div>
+      <div class="step"><span class="n">2</span><img class="face" src="shots/usisero/juan/head-curious.png" alt=""><h4>Choose segments</h4><p>How many videos, a segment for each (or Auto), an optional topic idea.</p></div>
+      <div class="step hot"><span class="n">3</span><img class="face" src="shots/usisero/juan/head-grin.png" alt=""><h4>Make</h4><p>"Started. You can close this tab; the work keeps going."</p></div>
+      <div class="step"><span class="n">4</span><img class="face" src="shots/usisero/juan/head-curious.png" alt=""><h4>Claude works</h4><p>Research → script → storyboard → 3D world → music → render → stills QA.</p></div>
+      <div class="step"><span class="n">5</span><img class="face" src="shots/usisero/juan/head-laugh.png" alt=""><h4>Review</h4><p>Watch the reel on the card. Not quite right? Ask for a change.</p></div>
+      <div class="step"><span class="n">6</span><img class="face" src="shots/usisero/juan/head-smile.png" alt=""><h4>Upload</h4><p>Upload video.mp4 to the page and set the thumbnail.</p></div>
+      <div class="step"><span class="n">7</span><img class="face" src="shots/usisero/juan/head-grin.png" alt=""><h4>Copy, paste</h4><p>Title and caption with hashtags, one Copy button each.</p></div>
+      <div class="step ok"><span class="n">8</span><img class="face" src="shots/usisero/juan/head-wink.png" alt=""><h4>Mark as posted</h4><p>The card goes green, the tile gets a tick. Galing!</p></div>
+    </div>
+    <div class="flownote"><img src="shots/usisero/juan/head-shocked.png" alt="" style="width:40px;height:auto">If Codex (used only for new Juan sprites) hits its login or usage limit, a red banner explains what to do until a later run succeeds.</div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow"><b>04</b> Screens</span><h2>Desktop first, works on a phone.</h2></div>
+      <p>The layout is tuned for a 1180 px planner on the desktop where the studio runs. Below 1000 px the week strip becomes a swipeable row and each card stacks into a single column.</p>
+    </div>
+    <div class="gallery3">
+      <figure><div class="browser"><div class="bar"><i></i><i></i><i></i></div><img src="shots/usisero/01-week.png" alt="Week with terminals"></div><figcaption>Week · today's three finished runs</figcaption></figure>
+      <figure><div class="browser"><div class="bar"><i></i><i></i><i></i></div><img src="shots/usisero/04-make.png" alt="Make panel"></div><figcaption>Make panel · two videos for Wednesday</figcaption></figure>
+      <figure><div class="panelshot"><img src="shots/usisero/05-live.png" alt="Live terminal"></div><figcaption>Terminals · a Kaya Ba? run in its QA pass</figcaption></figure>
+      <figure><div class="panelshot"><img src="shots/usisero/02-card.png" alt="To post card"></div><figcaption>To post · "Bakit nga ba 'sari-sari'..."</figcaption></figure>
+      <figure><div class="panelshot"><img src="shots/usisero/03-posted.png" alt="Posted card"></div><figcaption>Posted · green card, Juan's wink stamp</figcaption></figure>
+      <figure><div class="browser"><div class="bar"><i></i><i></i><i></i></div><img src="shots/usisero/06-library.png" alt="All videos"></div><figcaption>All videos · 4 segments, 10 scripts</figcaption></figure>
+    </div>
+    <div class="mobiles">
+      <div class="phone"><img src="shots/usisero/07-mobile-week.png" alt="Mobile week"></div>
+      <div class="phone"><img src="shots/usisero/08-mobile-card.png" alt="Mobile video card"></div>
+      <div class="note"><h3>On a phone</h3><p>The week strip scrolls sideways with snap, the handle and legend drop away, and the posting checklist stacks under the two phone previews, so you can check a post from the couch.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGINE (second surface) -->
+<section style="padding-top:8px">
+  <div class="wrap">
+    <div class="engine">
+      <div class="shead">
+        <div><span class="eyebrow"><b>05</b> Under the hood</span><h2>The engine Studio drives</h2></div>
+        <p>Studio's runs call the project's own pipeline, <code style="font-family:var(--mono);font-size:14px">node tools/make.mjs &lt;id&gt; --day</code>. Every video is its own Remotion composition with a 3D world built in code, and the files land in that day's Outputs folder.</p>
+      </div>
+      <div class="pipe">
+        <div><b>Spec</b><span><code>shorts/&lt;id&gt;.json</code><br>scenes, storyboard, sources, thumbnail</span></div>
+        <div><b>World</b><span><code>src/shorts/&lt;id&gt;.tsx</code><br>Stage3D, camera paths, Juan's shots</span></div>
+        <div><b>Music</b><span><code>tools/music.py</code><br>ukulele, marimba, claps, made from the id</span></div>
+        <div><b>Render</b><span>Remotion 4 · three.js<br>captions, transitions, grain</span></div>
+        <div><b>Deliver</b><span><code>video.mp4</code> · <code>thumbnail.jpg</code> · <code>upload.txt</code></span></div>
+      </div>
+      <div class="reels">
+        <figure><div class="phone"><img src="shots/usisero/thumbs/sari-sari.jpg" alt=""></div><figcaption><b>Sari-sari</b>Alam Mo Ba?</figcaption></figure>
+        <figure><div class="phone"><img src="shots/usisero/thumbs/noche-buena-500.jpg" alt=""></div><figcaption><b>P500 Noche Buena</b>Kaya Ba?</figcaption></figure>
+        <figure><div class="phone"><img src="shots/usisero/thumbs/watawat-baligtad.jpg" alt=""></div><figcaption><b>Watawat "war mode"</b>Alam Mo Ba?</figcaption></figure>
+        <figure><div class="phone"><img src="shots/usisero/thumbs/palay-mo.jpg" alt=""></div><figcaption><b>Magtanim ng kanin</b>Paano Kung...?</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UI KIT -->
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow"><b>06</b> UI kit in context</span><h2>Warm paper, navy ink, and Juan as the icon set.</h2></div>
+      <p>From <code style="font-family:var(--mono);font-size:14px">studio/ui/app.css</code>: flat colour and no gradients, hairline borders for structure, and soft shadows only on what is lifted (the selected day, menus, the toast). Sky blue means act, orange means it needs you, green means done.</p>
+    </div>
+    <div class="kit">
+      <div class="card">
+        <h4>Colour</h4>
+        <div class="swatches">
+          <div class="sw"><i style="background:#fbf8f2"></i><div><b>Paper</b><code>#fbf8f2</code></div></div>
+          <div class="sw"><i style="background:#fffdf9"></i><div><b>Card</b><code>#fffdf9</code></div></div>
+          <div class="sw"><i style="background:#e9e2d4"></i><div><b>Line</b><code>#e9e2d4</code></div></div>
+          <div class="sw"><i style="background:#1b2a4a"></i><div><b>Ink</b><code>#1b2a4a</code></div></div>
+          <div class="sw"><i style="background:#3a9be8"></i><div><b>Sky · act</b><code>#3a9be8</code></div></div>
+          <div class="sw"><i style="background:#ff7a1a"></i><div><b>Orange · needs you</b><code>#ff7a1a</code></div></div>
+          <div class="sw"><i style="background:#2c8a3e"></i><div><b>Green · posted</b><code>#2c8a3e</code></div></div>
+          <div class="sw"><i style="background:#0e1424"></i><div><b>Terminal</b><code>#0e1424</code></div></div>
+        </div>
+        <h4 style="margin-top:24px">Segment tones</h4>
+        <div class="comprow"><span class="pill blue">Alam Mo Ba?</span><span class="pill vi">Paano Kung...?</span><span class="pill gold">Kaya Ba?</span><span class="pill or">Sa Bahay Namin</span></div>
+      </div>
+      <div class="card type">
+        <h4>Type</h4>
+        <div class="row"><span style="font:600 40px/1.05 var(--display)">Nov 9 – 15</span><small>Fredoka 600 · headings</small></div>
+        <div class="row"><span style="font:600 23px/1.2 var(--display)">Bakit nga ba "sari-sari" ang tawag sa tindahan?</span><small>Fredoka 600 · 23</small></div>
+        <div class="row"><span style="font:500 14px/1.5 var(--ui)">Upload the video to the Facebook page <span style="color:var(--ink-3);font-weight:400">and set the thumbnail</span></span><small>Inter 500 / 400 · 14</small></div>
+        <div class="row"><span style="font:12.5px/1.6 var(--mono);color:var(--sky-d)">Rendering <span style="color:var(--ink-2)">Render half-size draft of the video</span></span><small>Monospace · feed</small></div>
+        <h4 style="margin-top:24px">Radii</h4>
+        <div class="radii">
+          <div><i style="border-top-left-radius:12px"></i>12 button</div>
+          <div><i style="border-top-left-radius:20px"></i>20 tile</div>
+          <div><i style="border-top-left-radius:22px"></i>22 panel</div>
+          <div><i style="border-top-left-radius:26px"></i>26 card</div>
+          <div><i style="border-top-left-radius:32px"></i>999 pill</div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Components</h4>
+        <div class="comprow">
+          <span class="btn primary"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>Make a video</span>
+          <span class="btn orange">Make 2 videos</span>
+          <span class="btn">Open folder</span>
+          <span class="btn copied"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg>Copied!</span>
+          <span class="btn danger">Delete</span>
+        </div>
+        <div class="comprow">
+          <span class="segpick"><span class="sc">Auto</span><span class="sc">Alam Mo Ba?</span><span class="sc on">Kaya Ba?</span></span>
+        </div>
+        <div class="tiles">
+          <div class="tile today on"><div class="th"><span class="dn">Today</span><span class="dd">9</span></div><div class="thumbs"><img src="shots/usisero/thumbs/noche-buena-500.jpg" alt=""><img src="shots/usisero/thumbs/palay-mo.jpg" alt=""><img src="shots/usisero/thumbs/sari-sari.jpg" alt=""></div><span class="chip k-ready">1 to post</span></div>
+          <div class="tile"><div class="th"><span class="dn">Tue</span><span class="dd">10</span></div><div class="add"></div><span class="chip k-making"><span class="d"></span>Making</span></div>
+          <div class="tile blank"><div class="th"><span class="dn">Wed</span><span class="dd">11</span></div><div class="add"><i></i>Make a video</div><span class="chip k-empty">Empty</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Juan as the state icon</h4>
+        <div class="faces">
+          <div><img src="shots/usisero/juan/head-smile.png" alt=""><b>smile</b>brand</div>
+          <div><img src="shots/usisero/juan/head-curious.png" alt=""><b>curious</b>running</div>
+          <div><img src="shots/usisero/juan/head-grin.png" alt=""><b>grin</b>done</div>
+          <div><img src="shots/usisero/juan/head-shocked.png" alt=""><b>shocked</b>failed</div>
+          <div><img src="shots/usisero/juan/head-confused.png" alt=""><b>confused</b>stopped</div>
+          <div><img src="shots/usisero/juan/head-laugh.png" alt=""><b>laugh</b>in videos</div>
+          <div><img src="shots/usisero/juan/head-wink.png" alt=""><b>wink</b>posted</div>
+        </div>
+        <div class="termdemo" style="margin-top:20px">
+          <div><span class="state running">running</span> <span style="color:#eef2ff;font-family:var(--ui);margin-left:6px">Video · Kaya Ba? · Tuesday, November 10</span></div>
+          <div><span class="t">3:02:58 PM</span><span class="v">Checking stills</span> Render QA stills across the video</div>
+          <div><span class="t">3:04:27 PM</span><span class="v">Looking at</span> _sheet.jpg</div>
+          <div class="say">First draft rendered. Fixing framing now.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section style="padding-top:24px">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow"><b>07</b> What's next</span><h2>Ideas for the next version.</h2></div>
+      <p>Studio already covers the daily loop. These are the gaps that show up when you use it every day.</p>
+    </div>
+    <div class="closing">
+      <div class="road">
+        <div><img src="shots/usisero/juan/head-confused.png" alt="" style="width:44px;height:auto"><div><b>Mobile header polish</b><p>On a 390 px phone the "videos being made" pill pushes the header wider than the screen. Wrap or shorten it there.</p></div></div>
+        <div><img src="shots/usisero/juan/head-curious.png" alt="" style="width:44px;height:auto"><div><b>Segment balance on the week</b><p>Show which segments the week already has, so Auto can rotate on purpose and the planner can see the mix.</p></div></div>
+        <div><img src="shots/usisero/juan/head-grin.png" alt="" style="width:44px;height:auto"><div><b>How did it do?</b><p>Next to "Posted", a place to note reach and comments per video, so the best hooks feed the next topics.</p></div></div>
+      </div>
+      <div class="credits">
+        <h3>Credits</h3>
+        <dl>
+          <dt>Product</dt><dd>Usisero Studio, for the Usisero Facebook page (@usisero)</dd>
+          <dt>App</dt><dd>Node <code style="font-family:var(--mono);font-size:13px">http</code> server + plain-DOM UI, at localhost:4410</dd>
+          <dt>Runs</dt><dd>Claude Code, headless (<code style="font-family:var(--mono);font-size:13px">claude -p</code>, stream-json, Opus)</dd>
+          <dt>Videos</dt><dd>Remotion 4, React Three Fiber, three.js, generated music</dd>
+          <dt>Host</dt><dd>Juan's sprites drawn with Codex, cut out in Python</dd>
+          <dt>Type</dt><dd>Fredoka · Inter</dd>
+        </dl>
+        <div class="bye"><img src="shots/usisero/juan/head-wink.png" alt=""><div><p>Ikaw, ano'ng susunod na video?</p><small>Usisero Studio · case study · November 2026</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="wrap"><span>Usisero Studio · product showcase</span><span>All screenshots are of the running app, Nov 9 2026</span></footer>
+</body>
+</html>

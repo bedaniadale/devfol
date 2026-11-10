@@ -519,8 +519,20 @@ html:not(.js) .deck-nav { display: none; }
 }
 .case-close:hover { border-color: var(--ink); }
 .case-body { padding: clamp(20px, 4vw, 40px); padding-top: 12px; }
-.case-media { margin: 0 0 28px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); clear: both; }
-.case-media img { width: 100%; }
+.case-media { position: relative; margin: 0 0 28px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--bg-alt); clear: both; }
+.case-media img { width: 100%; transition: opacity .35s var(--ease); }
+/* While the screenshot loads: hold a 16:9 slot, hide the image, show a spinner. */
+.case-media.is-loading { aspect-ratio: 16 / 9; }
+.case-media.is-loading img { position: absolute; inset: 0; opacity: 0; }
+.case-loader { display: none; }
+.case-media.is-loading .case-loader {
+  display: block; position: absolute; top: 50%; left: 50%; width: 28px; height: 28px; margin: -14px 0 0 -14px;
+  border: 2px solid var(--line-2); border-top-color: var(--accent); border-radius: 50%;
+  animation: case-spin .8s linear infinite;
+}
+.case-media.is-failed { display: none; }
+@keyframes case-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .case-media.is-loading .case-loader { animation-duration: 2.4s; } .case-media img { transition: none; } }
 .case-meta { font: 500 12.5px/1.4 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
 .case h2 { margin-top: 8px; font-size: clamp(24px, 3vw, 32px); line-height: 1.15; letter-spacing: -.025em; font-weight: 600; }
 .case-desc { margin: 12px 0 18px; color: var(--ink-2); font-size: 17px; }
