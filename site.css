@@ -157,6 +157,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 .hero { padding: clamp(40px, 8vw, 88px) 0 clamp(48px, 6vw, 64px); }
 .hero-in { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 36px; align-items: center; }
+/* Desktop: the hero fills the first screen and its content (copy + stats)
+   sits centred in it. Taller-than-viewport content just grows the block. */
+@media (min-width: 1024px) and (min-height: 600px) {
+  .hero {
+    min-height: 100svh; padding-block: 48px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+}
 .hero-photo { position: relative; margin: 0; border-radius: 18px; overflow: hidden; background: #1b1f22; box-shadow: var(--shadow); }
 .hero-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
 .hero-photo figcaption {
@@ -216,6 +224,35 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* ── sections ─────────────────────────────────────────────────────────────── */
 
 .section { padding: clamp(56px, 7vw, 80px) 0; border-top: 1px solid var(--line); }
+
+/* ── blueprint marks ──────────────────────────────────────────────────────── */
+/* Decoration only, kept at hairline contrast so it adds texture without
+   pulling the eye: a dot grid fixed behind the whole page (content scrolls
+   over it like graph paper), faded out behind the reading column so text
+   never sits on dots, and "+" crop marks where each section's rule meets the
+   content column. */
+:root { --dot: color-mix(in srgb, var(--muted) 34%, transparent); }
+main { position: relative; isolation: isolate; }
+main::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, rgb(0 0 0 / .35) 30%, rgb(0 0 0 / .35) 70%, #000 100%);
+          mask-image: linear-gradient(90deg, #000 0%, rgb(0 0 0 / .35) 30%, rgb(0 0 0 / .35) 70%, #000 100%);
+}
+@media (min-width: 1024px) { main::before { left: var(--side); } }
+.section { position: relative; }
+.section::before, .section::after {
+  content: ''; position: absolute; top: -6px; width: 11px; height: 11px; pointer-events: none;
+  background:
+    linear-gradient(var(--line-2), var(--line-2)) center / 100% 1px no-repeat,
+    linear-gradient(var(--line-2), var(--line-2)) center / 1px 100% no-repeat;
+}
+.section::before { left: calc(max(var(--gutter), 50% - var(--wrap) / 2) - 5px); }
+.section::after { right: calc(max(var(--gutter), 50% - var(--wrap) / 2) - 5px); }
+@media (max-width: 720px) {
+  .section::before, .section::after { display: none; }
+}
 .section-head { margin-bottom: clamp(28px, 4vw, 40px); }
 .eyebrow { font: 500 12.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 .section-head h2, .contact h2 {
@@ -624,11 +661,10 @@ html:not(.js) .deck-nav { display: none; }
   .welcome-side .case-foot .muted-note { display: none; }
 }
 .welcome-go {
-  min-height: 52px; padding: 0 28px; font-size: 16px; font-weight: 600;
-  background: var(--accent); color: var(--accent-ink);
-  box-shadow: 0 10px 24px -10px var(--accent);
+  min-height: 48px; padding: 0 24px; font-size: 15px; font-weight: 600;
+  background: var(--ink); color: var(--bg);
 }
-.welcome-go:hover { background: var(--ink); color: var(--bg); }
+.welcome-go:hover { background: var(--accent); color: var(--accent-ink); }
 .welcome-go .ic { width: 18px; height: 18px; transition: transform .2s var(--ease); }
 .welcome-go:hover .ic { transform: translateX(3px); }
 @media (max-width: 520px) { .welcome-go { flex: 1 1 100%; } }
@@ -718,7 +754,7 @@ html:not(.js) .deck-nav { display: none; }
   display: flex; align-items: center; gap: 8px; margin-top: 10px;
   font: 500 12px/1.4 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted);
 }
-.wip-dot { width: 7px; height: 7px; border-radius: 50%; background: #e0592a; box-shadow: 0 0 0 3px rgb(224 89 42 / .18); }
+.wip-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
 .welcome-sub { margin: 22px 0 12px; font: 500 12.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 .sc-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
 @media (max-width: 520px) { .sc-grid { grid-template-columns: 1fr 1fr; gap: 10px; } }
@@ -734,13 +770,18 @@ html:not(.js) .deck-nav { display: none; }
 .sc-name .ic { width: 13px; height: 13px; color: var(--muted); }
 .sc-note { padding: 0 4px; font-size: 13px; line-height: 1.4; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { .sc-tile:hover { transform: none; } }
-/* In the welcome side panel the showcases become a compact list of rows. */
-.welcome-side .sc-grid { grid-template-columns: 1fr; gap: 6px; }
+/* In the welcome side panel the showcases become a plain list split by
+   hairlines, like the site's own lists, rather than a stack of cards. */
+.welcome-side .sc-grid { grid-template-columns: 1fr; gap: 0; }
+.welcome-side .sc-grid > li + li { border-top: 1px solid var(--line); }
 .welcome-side .sc-tile {
   display: grid; grid-template-columns: 64px minmax(0, 1fr); grid-template-rows: auto auto;
-  column-gap: 12px; row-gap: 1px; align-items: center; padding: 6px 8px;
+  column-gap: 12px; row-gap: 1px; align-items: center; padding: 8px 6px;
+  border: 0; border-radius: var(--radius-sm); background: transparent;
+  transition: background-color .15s;
 }
-.welcome-side .sc-tile:hover { transform: translateX(2px); }
+.welcome-side .sc-tile:hover { transform: none; background: var(--bg-alt); }
+.welcome-side .sc-tile:hover .sc-name .ic { color: var(--ink); }
 .welcome-side .sc-thumb { grid-row: 1 / span 2; width: 64px; margin: 0; }
 .welcome-side .sc-name { align-self: end; padding: 0; font-size: 14.5px; }
 .welcome-side .sc-note { align-self: start; padding: 0; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

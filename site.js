@@ -37,7 +37,7 @@
   ];
 
 
-  /* [name, thesvg.org slug, adapt, variant]. `variant` picks a non-default
+  /* [name, thesvg.org slug or full icon URL, adapt, variant]. `variant` picks a non-default
      file (`light` = dark-ink logo for light grounds; the default is white for
      some brands). `adapt` marks a monochrome-dark logo that
      is inverted in dark mode so it stays visible. */
@@ -47,8 +47,9 @@
     { label: 'Data & cloud', items: [['MySQL','mysql',0,'light'],['PostgreSQL','postgresql'],['MongoDB','mongodb'],['Supabase','supabase'],['Firebase','firebase'],['AWS','aws'],['Azure','microsoft-azure'],['Vercel','vercel',1,'light'],['Railway','railway',1,'light'],['Netlify','netlify'],['Hostinger','hostinger']] },
     { label: 'Mobile', items: [['React Native','react'],['Flutter','flutter'],['Dart','dart'],['Swift','swift']] },
     { label: 'AI & dev tools', items: [['Cursor','cursor',1,'light'],['ChatGPT','openai-chatgpt',1],['Claude','claude'],['Gemini','google-gemini']] },
-    { label: 'Platforms', items: [['WordPress','wordpress'],['Shopify','shopify'],['Stripe','stripe'],['Twilio','twilio'],['Zapier','zapier'],['Postman','postman'],['Jira','jira']] },
-    { label: 'Design', items: [['Figma','figma'],['Photoshop','photoshop'],['Illustrator','illustrator'],['Canva','canva'],['Premiere','premiere']] }
+    { label: 'Automation', items: [['n8n','https://cdn.simpleicons.org/n8n'],['Zapier','zapier'],['Make','make']] },
+    { label: 'Platforms', items: [['WordPress','wordpress'],['Shopify','shopify'],['Stripe','stripe'],['Twilio','twilio'],['Postman','postman'],['Jira','jira']] },
+    { label: 'Design', items: [['Figma','figma'],['Photoshop','photoshop'],['Illustrator','illustrator'],['Canva','canva'],['Premiere','premiere'],['CapCut','capcut',1],['Filmora','wondershare-filmora',1]] }
   ];
 
   /* Logo lookup for the language badges in the project list: every toolkit
@@ -141,7 +142,8 @@
 
   // t = [name, thesvg.org slug, adapt, variant] (see STACK).
   function logo(t, size) {
-    return '<img src="https://thesvg.org/icons/' + esc(t[1]) + '/' + (t[3] || 'default') + '.svg" width="' + size + '" height="' + size + '" alt="" loading="lazy" decoding="async"' +
+    var src = /^https?:/.test(t[1]) ? t[1] : 'https://thesvg.org/icons/' + t[1] + '/' + (t[3] || 'default') + '.svg';
+    return '<img src="' + esc(src) + '" width="' + size + '" height="' + size + '" alt="" loading="lazy" decoding="async"' +
       (t[2] ? ' class="adapt"' : '') + '>';
   }
 
