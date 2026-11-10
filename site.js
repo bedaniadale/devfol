@@ -62,7 +62,11 @@
   };
   STACK.forEach(function (g) { g.items.forEach(function (t) { LOGOS[t[0].toLowerCase()] = t; }); });
 
-  var GRAPHICS = ['dalefuture.png', 'flowg.png', 'artboard-1-100-1.webp', 'welcomeback2.webp', 'finalmem.png', 'meetourteam-2.webp', 'artboard-4-100.webp', 'artboard-6-100.webp'];
+  var GRAPHICS = ['cv-thirty-minutes.webp', 'cv-thirty-book.webp', 'cv-credential-line.webp', 'cv-no-waiting-room.webp', 'cv-find-yourself.webp', 'cv-started-on-the-floor.webp',
+    'dalefuture.png', 'flowg.png', 'artboard-1-100-1.webp', 'finalmem.png', 'artboard-4-100.webp', 'artboard-6-100.webp'];
+  // Short-form reels (works/reels/<name>.mp4 + a .webp poster). They never
+  // autoplay: the grid shows the poster, the viewer waits for a press on play.
+  var REELS = ['diplomat', 'lumen-icemelt', 'lumen-drain-the-sea', 'usisero-watawat'];
 
   /* ─────────────────────────────── helpers ─────────────────────────────── */
 
@@ -154,6 +158,15 @@
       var src = 'works/graphics/' + f;
       return '<li><a href="' + esc(src) + '" target="_blank" rel="noopener noreferrer" data-lb="' + i + '" aria-label="View design ' + (i + 1) + '">' +
         img(src, '', 600, 600) + '</a></li>';
+    }).join('');
+  }
+
+  function reelHtml() {
+    return REELS.map(function (r, k) {
+      var i = GRAPHICS.length + k;
+      return '<li><a href="works/reels/' + esc(r) + '.mp4" target="_blank" rel="noopener noreferrer" data-lb="' + i + '" aria-label="Play reel ' + (k + 1) + '">' +
+        '<img src="works/reels/' + esc(r) + '.webp" alt="" width="540" height="960" loading="lazy" decoding="async">' +
+        '<span class="reel-play" aria-hidden="true"><svg class="ic"><use href="#i-play"/></svg></span></a></li>';
     }).join('');
   }
 
@@ -286,29 +299,51 @@
   function initLightbox() {
     var dlg = $('lightbox');
     if (!dlg || typeof dlg.showModal !== 'function') return;
-    var n = GRAPHICS.length, at = 0;
+    var n = GRAPHICS.length + REELS.length, at = 0;
+    var im = $('lbImg'), vid = $('lbVid');
+
+    // Stops the reel and drops its source so nothing keeps loading.
+    function stopVideo() {
+      if (vid.hidden) return;
+      vid.pause(); vid.removeAttribute('src'); vid.removeAttribute('poster'); vid.load(); vid.hidden = true;
+    }
 
     function show(i) {
       at = (i + n) % n;
-      var src = 'works/graphics/' + GRAPHICS[at];
-      $('lbImg').src = src;
-      $('lbImg').alt = 'Design ' + (at + 1) + ' of ' + n;
+      var reel = at >= GRAPHICS.length, src;
+      stopVideo();
+      if (reel) {
+        var r = REELS[at - GRAPHICS.length];
+        src = 'works/reels/' + r + '.mp4';
+        vid.poster = 'works/reels/' + r + '.webp';
+        vid.src = src; // preload="none" + no autoplay: plays only when pressed
+        vid.setAttribute('aria-label', 'Reel ' + (at - GRAPHICS.length + 1) + ' of ' + REELS.length);
+        vid.hidden = false; im.hidden = true;
+      } else {
+        src = 'works/graphics/' + GRAPHICS[at];
+        im.src = src;
+        im.alt = 'Design ' + (at + 1) + ' of ' + GRAPHICS.length;
+        im.hidden = false;
+      }
       $('lbOpen').href = src;
       $('lbCount').textContent = String(at + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
     }
 
-    $('designList').addEventListener('click', function (e) {
+    function open(e) {
       var a = e.target.closest('[data-lb]');
       if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
       e.preventDefault();
       show(+a.getAttribute('data-lb'));
       dlg.showModal();
       syncLock();
-    });
+    }
+    $('designList').addEventListener('click', open);
+    $('reelList').addEventListener('click', open);
     $('lbPrev').addEventListener('click', function () { show(at - 1); });
     $('lbNext').addEventListener('click', function () { show(at + 1); });
     $('lbClose').addEventListener('click', function () { dlg.close(); });
     dlg.addEventListener('keydown', function (e) {
+      if (e.target === vid) return; // arrows seek the reel while it has focus
       if (e.key === 'ArrowLeft') show(at - 1);
       if (e.key === 'ArrowRight') show(at + 1);
     });
@@ -316,7 +351,7 @@
     dlg.addEventListener('click', function (e) {
       if (e.target === dlg || e.target.classList.contains('lb-stage')) dlg.close();
     });
-    dlg.addEventListener('close', syncLock);
+    dlg.addEventListener('close', function () { stopVideo(); syncLock(); });
   }
 
   /* Welcome panel: the reel and the product showcases, opened on every page
@@ -568,7 +603,7 @@
      lists exist without JavaScript (crawlers, link previews); boot() renders
      them again so an edit here shows even before prerender.js is re-run. */
   var LISTS = {
-    deck: deckHtml, projectList: projectListHtml, kitList: stackHtml, designList: designHtml,
+    deck: deckHtml, projectList: projectListHtml, kitList: stackHtml, designList: designHtml, reelList: reelHtml,
     showcaseList: showcaseHtml
   };
 
