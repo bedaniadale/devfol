@@ -63,11 +63,29 @@
   };
   STACK.forEach(function (g) { g.items.forEach(function (t) { LOGOS[t[0].toLowerCase()] = t; }); });
 
-  var GRAPHICS = ['cv-thirty-minutes.webp', 'cv-thirty-book.webp', 'cv-credential-line.webp', 'cv-no-waiting-room.webp', 'cv-find-yourself.webp', 'cv-started-on-the-floor.webp',
+  var GRAPHICS = ['cv-self.webp', 'cv-thirty-minutes.webp', 'cv-thirty-book.webp', 'cv-credential-line.webp', 'cv-no-waiting-room.webp', 'cv-find-yourself.webp', 'cv-started-on-the-floor.webp',
     'dalefuture.png', 'flowg.png', 'artboard-1-100-1.webp', 'finalmem.png', 'artboard-4-100.webp', 'artboard-6-100.webp'];
   // Short-form reels (works/reels/<name>.mp4 + a .webp poster). They never
   // autoplay: the grid shows the poster, the viewer waits for a press on play.
-  var REELS = ['diplomat', 'lumen-icemelt', 'lumen-drain-the-sea', 'usisero-watawat'];
+  var REELS = ['lumen-one-lifetime', 'lumen-moon-lighthouse', 'lumen-frog', 'lumen-between', 'lumen-daytime-sky',
+    'lumen-inside-the-walls', 'lumen-one-extra', 'diplomat', 'lumen-icemelt', 'lumen-drain-the-sea', 'usisero-watawat'];
+  // Thumbnail sizes (works/graphics/web), so each tile keeps the image's own
+  // shape instead of being cropped to a square. Unlisted files fall back to 3:4.
+  var GRAPHIC_SIZE = {
+    'cv-self': [600, 800], 'cv-thirty-minutes': [600, 800], 'cv-thirty-book': [600, 800], 'cv-credential-line': [600, 800],
+    'cv-no-waiting-room': [600, 800], 'cv-find-yourself': [600, 800], 'cv-started-on-the-floor': [600, 800],
+    'dalefuture': [640, 828], 'flowg': [640, 828], 'finalmem': [640, 665],
+    'artboard-1-100-1': [640, 379], 'artboard-4-100': [640, 379], 'artboard-6-100': [640, 379]
+  };
+  function graphicImg(f) {
+    var d = GRAPHIC_SIZE[f.replace(/\.\w+$/, '')] || [600, 800];
+    return img('works/graphics/' + f, '', d[0], d[1]);
+  }
+  // The welcome panel's AI strip, under the film: these reels, then these
+  // graphics (file names from GRAPHICS), all opening in the design viewer.
+  var AI_REELS = REELS;
+  var AI_GRAPHICS = ['cv-self.webp', 'cv-thirty-minutes.webp', 'cv-no-waiting-room.webp', 'cv-find-yourself.webp',
+    'cv-started-on-the-floor.webp', 'cv-thirty-book.webp', 'cv-credential-line.webp', 'dalefuture.png', 'flowg.png'];
 
   /* ─────────────────────────────── helpers ─────────────────────────────── */
 
@@ -159,7 +177,7 @@
     return GRAPHICS.map(function (f, i) {
       var src = 'works/graphics/' + f;
       return '<li><a href="' + esc(src) + '" target="_blank" rel="noopener noreferrer" data-lb="' + i + '" aria-label="View design ' + (i + 1) + '">' +
-        img(src, '', 600, 600) + '</a></li>';
+        graphicImg(f) + '</a></li>';
     }).join('');
   }
 
@@ -170,6 +188,29 @@
         '<img src="works/reels/' + esc(r) + '.webp" alt="" width="540" height="960" loading="lazy" decoding="async">' +
         '<span class="reel-play" aria-hidden="true"><svg class="ic"><use href="#i-play"/></svg></span></a></li>';
     }).join('');
+  }
+
+  // Welcome panel strip under the film: AI reels (whole 9:16 posters) and
+  // AI graphics, alternating. Both open in the design viewer at their gallery index.
+  function aiHtml() {
+    var reels = AI_REELS.map(function (r, k) {
+      var i = GRAPHICS.length + REELS.indexOf(r);
+      return '<li class="ai-r"><a href="works/reels/' + esc(r) + '.mp4" target="_blank" rel="noopener noreferrer" data-lb="' + i + '" aria-label="Play AI reel ' + (k + 1) + '">' +
+        '<img src="works/reels/' + esc(r) + '.webp" alt="" width="540" height="960" loading="lazy" decoding="async">' +
+        '<span class="reel-play" aria-hidden="true"><svg class="ic"><use href="#i-play"/></svg></span></a></li>';
+    });
+    var pics = AI_GRAPHICS.map(function (f, k) {
+      var i = GRAPHICS.indexOf(f), src = 'works/graphics/' + f;
+      return i < 0 ? '' : '<li class="ai-g"><a href="' + esc(src) + '" target="_blank" rel="noopener noreferrer" data-lb="' + i + '" aria-label="View AI image ' + (k + 1) + '">' +
+        graphicImg(f) + '</a></li>';
+    });
+    pics = pics.filter(Boolean);
+    var out = [];
+    for (var k = 0; k < Math.max(reels.length, pics.length); k++) {
+      if (k < reels.length) out.push(reels[k]);
+      if (k < pics.length) out.push(pics[k]);
+    }
+    return out.join('');
   }
 
   /* ─────────────────────────── case-study dialog ───────────────────────── */
@@ -341,6 +382,11 @@
     }
     $('designList').addEventListener('click', open);
     $('reelList').addEventListener('click', open);
+    $('aiList').addEventListener('click', function (e) {
+      var v = $('welcomeVideo');
+      if (e.target.closest('[data-lb]') && v && !v.paused) v.pause();
+      open(e);
+    });
     $('lbPrev').addEventListener('click', function () { show(at - 1); });
     $('lbNext').addEventListener('click', function () { show(at + 1); });
     $('lbClose').addEventListener('click', function () { dlg.close(); });
@@ -471,6 +517,80 @@
       open();
     });
     setTimeout(open, 600);
+  }
+
+  /* Horizontal strips (design section, welcome panel): prev/next buttons page
+     the track by most of its width. Strips marked [data-auto] also glide on
+     their own in an endless loop: the items are cloned once (hidden from
+     assistive tech and the tab order) and the position wraps at the seam.
+     The glide pauses while hovered, focused or touched, while off screen,
+     for a moment after a button press, and never runs under reduced motion. */
+  function initStrips() {
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+    document.querySelectorAll('.strip').forEach(function (strip) {
+      var track = strip.querySelector('.strip-track');
+      var prev = strip.querySelector('[data-strip="prev"]');
+      var next = strip.querySelector('[data-strip="next"]');
+      if (!track || !prev || !next) return;
+      var auto = strip.hasAttribute('data-auto') && !still.matches;
+      var half = 0, pos = 0, held = 0, hover = false, seen = false, last = 0;
+
+      if (auto) {
+        [].slice.call(track.children).forEach(function (li) {
+          var c = li.cloneNode(true);
+          c.setAttribute('aria-hidden', 'true');
+          c.querySelectorAll('a, button').forEach(function (el) { el.tabIndex = -1; });
+          track.appendChild(c);
+        });
+      }
+      function measure() { half = auto ? track.scrollWidth / 2 : 0; }
+      function sync() {
+        var max = track.scrollWidth - track.clientWidth - 2;
+        strip.classList.toggle('is-static', max <= 0);
+        if (auto) { prev.disabled = next.disabled = false; return; }
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft >= max;
+      }
+      function page(d) {
+        held = performance.now() + 1600;
+        if (auto && half) {
+          // Keep room to move in both directions across the seam.
+          if (d < 0 && track.scrollLeft < track.clientWidth) track.scrollLeft += half;
+          if (d > 0 && track.scrollLeft > half) track.scrollLeft -= half;
+        }
+        track.scrollBy({ left: d * track.clientWidth * 0.85, behavior: still.matches ? 'auto' : 'smooth' });
+      }
+      prev.addEventListener('click', function () { page(-1); });
+      next.addEventListener('click', function () { page(1); });
+      track.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', function () { measure(); sync(); });
+      if ('ResizeObserver' in window) new ResizeObserver(function () { measure(); sync(); }).observe(track);
+      measure(); sync();
+      if (!auto) return;
+
+      strip.addEventListener('pointerenter', function () { hover = true; });
+      strip.addEventListener('pointerleave', function () { hover = false; });
+      track.addEventListener('touchstart', function () { held = performance.now() + 2500; }, { passive: true });
+      track.addEventListener('wheel', function () { held = performance.now() + 1600; }, { passive: true });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { seen = es[0].isIntersecting; }).observe(track);
+      } else seen = true;
+
+      var SPEED = 32; // px per second
+      function tick(t) {
+        var dt = last ? Math.min(t - last, 64) : 0;
+        last = t;
+        var busy = hover || strip.contains(document.activeElement) || t < held || !seen || document.hidden || !half;
+        if (busy) pos = track.scrollLeft;
+        else {
+          pos += SPEED * dt / 1000;
+          if (pos >= half) pos -= half;
+          track.scrollLeft = pos;
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
   }
 
   /* The reel's own player: play/pause, a scrubbable progress track, time,
@@ -606,12 +726,12 @@
      them again so an edit here shows even before prerender.js is re-run. */
   var LISTS = {
     deck: deckHtml, projectList: projectListHtml, kitList: stackHtml, designList: designHtml, reelList: reelHtml,
-    showcaseList: showcaseHtml
+    showcaseList: showcaseHtml, aiList: aiHtml
   };
 
   function boot() {
     Object.keys(LISTS).forEach(function (id) { $(id).innerHTML = LISTS[id](); });
-    initDeck(); initCaseDialog(); initLightbox(); initMore(); initNav(); initReveal(); initWelcome(); initShowcaseViewer();
+    initDeck(); initCaseDialog(); initLightbox(); initMore(); initNav(); initReveal(); initWelcome(); initShowcaseViewer(); initStrips();
     $('year').textContent = new Date().getFullYear();
   }
 

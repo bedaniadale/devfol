@@ -464,11 +464,41 @@ html:not(.js) .deck-nav { display: none; }
   .kit dt { line-height: 1.4; }
 }
 
-.design-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+/* Strips: one horizontal, snap-scrolling row per medium, paged by the
+   prev/next buttons in the head (site.js initStrips). Reels keep their whole
+   9:16 frame; nothing is cropped. */
+.strip + .strip { margin-top: 28px; }
+.strip-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.strip-title { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.strip-nav { display: flex; gap: 6px; }
+.strip.is-static .strip-nav { visibility: hidden; }
+/* Auto-scrolling strips glide continuously (site.js), so snapping is off. */
+.strip[data-auto] .strip-track { scroll-snap-type: none; scrollbar-width: none; }
+.strip[data-auto] .strip-track::-webkit-scrollbar { display: none; }
+.strip-btn {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  cursor: pointer; transition: border-color .2s var(--ease), opacity .2s var(--ease);
+}
+.strip-btn .ic { width: 16px; height: 16px; }
+.strip-btn:hover:not(:disabled) { border-color: var(--ink); }
+.strip-btn:disabled { opacity: .35; cursor: default; }
+.strip-track {
+  list-style: none; margin: 0; padding: 0 0 8px;
+  display: grid; grid-auto-flow: column; grid-template-columns: none; gap: 12px;
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+  scrollbar-width: thin; scrollbar-color: var(--line-2) transparent;
+}
+.strip-track > li { scroll-snap-align: start; min-width: 0; }
+.design-grid.strip-track { display: flex; }
+/* Graphics keep their own shape: one row height, width follows the image. */
+.design-grid.strip-track > li { flex: none; height: clamp(200px, 24vw, 270px); }
+.design-grid.strip-track a { height: 100%; }
+.design-grid.strip-track img { width: auto; height: 100%; aspect-ratio: auto; object-fit: contain; }
+.reel-grid.strip-track { grid-auto-columns: clamp(132px, 16vw, 168px); margin-top: 0; }
 .design-grid a { display: block; border-radius: var(--radius-sm); overflow: hidden; background: var(--surface); border: 1px solid var(--line); }
 .design-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; transition: transform .5s var(--ease); }
 .design-grid a:hover img { transform: scale(1.04); }
-.reel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; }
 .reel-grid a { position: relative; display: block; border-radius: var(--radius-sm); overflow: hidden; background: #0d0f10; border: 1px solid var(--line); }
 .reel-grid img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; transition: transform .5s var(--ease); }
 .reel-grid a:hover img { transform: scale(1.04); }
@@ -479,11 +509,12 @@ html:not(.js) .deck-nav { display: none; }
   transition: scale .25s var(--ease);
 }
 .reel-play .ic { width: 22px; height: 22px; margin-left: 3px; }
+.reel-grid .reel-play { width: 44px; height: 44px; }
+.reel-grid .reel-play .ic { width: 18px; height: 18px; margin-left: 2px; }
 .reel-grid a:hover .reel-play, .reel-grid a:focus-visible .reel-play { scale: 1.08; }
 
 @media (max-width: 860px) {
   .about { grid-template-columns: 1fr; }
-  .design-grid, .reel-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 480px) {
   .xp li, .kit > div { grid-template-columns: 1fr; }
@@ -605,7 +636,27 @@ html:not(.js) .deck-nav { display: none; }
 /* Ad-style layout: the film on the left, the showcases and the way out on
    the right, sized to fit one screen so nothing scrolls. Below 900px it
    stacks and scrolls like the other modals. */
-.welcome { width: min(1180px, calc(100% - 24px)); }
+.welcome { width: min(1320px, calc(100% - 24px)); }
+
+/* AI strip under the film: one row of whole 9:16 reels, then square
+   images, at a height that keeps the panel on one screen. Tiles open the
+   design viewer, where reels play full size. */
+.wl-ai { --ai-h: clamp(118px, calc(100dvh - 742px), 210px); margin-top: 12px; }
+.wl-ai .strip-head { margin-bottom: 8px; }
+.ai-track { display: flex; padding-bottom: 6px; }
+.ai-track > li { flex: none; height: var(--ai-h); }
+.ai-track > .ai-r { width: calc(var(--ai-h) * 9 / 16); }
+.ai-track > .ai-g { width: auto; }
+.ai-track a { position: relative; display: block; height: 100%; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); background: #0d0f10; }
+.ai-track img { width: 100%; height: 100%; transition: transform .5s var(--ease); }
+.ai-r img { aspect-ratio: 9 / 16; }
+.ai-track .ai-g img { width: auto; }
+.ai-track a:hover img { transform: scale(1.04); }
+.ai-track .reel-play { width: 34px; height: 34px; }
+.ai-track .reel-play .ic { width: 14px; height: 14px; margin-left: 2px; }
+.ai-track a:hover .reel-play { scale: 1.08; }
+@media (max-width: 899px) { .wl-ai { --ai-h: 200px; } }
+@media (prefers-reduced-motion: reduce) { .ai-track img { transition: none; } }
 .welcome .case-close { position: absolute; top: 14px; right: 14px; float: none; margin: 0; }
 .welcome h2 { margin-top: 10px; }
 .welcome .case-desc { margin-bottom: 18px; }
