@@ -636,12 +636,19 @@ html:not(.js) .deck-nav { display: none; }
 /* Ad-style layout: the film on the left, the showcases and the way out on
    the right, sized to fit one screen so nothing scrolls. Below 900px it
    stacks and scrolls like the other modals. */
-.welcome { width: min(1320px, calc(100% - 24px)); }
+.welcome {
+  width: min(1320px, calc(100% - 24px));
+  /* One height budget shared by the film and the AI strip, so together they
+     always fit the screen. 330px = dialog margin + header + captions + padding.
+     The strip takes ~30% of it, the film the rest. */
+  --wl-free: calc(100dvh - 330px);
+  --ai-h: clamp(96px, calc(var(--wl-free) * .3), 210px);
+}
 
 /* AI strip under the film: one row of whole 9:16 reels, then square
    images, at a height that keeps the panel on one screen. Tiles open the
    design viewer, where reels play full size. */
-.wl-ai { --ai-h: clamp(118px, calc(100dvh - 742px), 210px); margin-top: 12px; }
+.wl-ai { margin-top: 12px; }
 .wl-ai .strip-head { margin-bottom: 8px; }
 .ai-track { display: flex; padding-bottom: 6px; }
 .ai-track > li { flex: none; height: var(--ai-h); }
@@ -698,6 +705,8 @@ html:not(.js) .deck-nav { display: none; }
     box-shadow: 0 -14px 24px -18px rgb(0 0 0 / .35);
   }
   .welcome .case-foot .muted-note { display: none; }
+  /* Stacked panel scrolls, so the film no longer shares the screen. */
+  .welcome .welcome-video video { max-height: 60dvh; }
 }
 /* Laptop-height screens: tighter rows and no footnote, so all seven
    showcases fit without the list scrolling. */
@@ -798,7 +807,7 @@ html:not(.js) .deck-nav { display: none; }
 @media (prefers-reduced-motion: reduce) { .pl-end { animation: none; } .pl-bar, .pl-big { transition: none; } }
 .welcome-video { margin: 0; clear: both; }
 .welcome-video video {
-  display: block; width: auto; height: auto; max-width: 100%; max-height: min(60dvh, calc(100dvh - 330px)); margin-inline: auto;
+  display: block; width: auto; height: auto; max-width: 100%; max-height: min(60dvh, calc(var(--wl-free) - var(--ai-h))); margin-inline: auto;
   border-radius: var(--radius); border: 1px solid var(--line); background: #0b0d0c;
 }
 .welcome-video figcaption {
