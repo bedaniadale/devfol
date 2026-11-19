@@ -888,3 +888,22 @@ html:not(.js) .deck-nav { display: none; }
 .welcome-fab .ic { width: 16px; height: 16px; }
 body.is-locked .welcome-fab { visibility: hidden; }
 @media (prefers-reduced-motion: reduce) { .welcome-fab:hover { transform: none; } }
+/* Desktop welcome side panel: the column takes the full panel height and the
+   showcase rows stretch to share it, so the list fills the space instead of
+   leaving a blank gap above the footer. Thumbs scale up with the row height. */
+@media (min-width: 900px) {
+  .welcome-side { height: calc(100dvh - 130px); }
+  .welcome-side .sc-grid { flex: 1 1 auto; grid-auto-rows: minmax(58px, 1fr); counter-reset: sc; }
+  .welcome-side .sc-grid > li { display: flex; counter-increment: sc; }
+  .welcome-side .sc-tile {
+    flex: 1; grid-template-columns: 22px clamp(64px, 7vw, 112px) minmax(0, 1fr);
+    column-gap: 14px; padding: 6px 8px;
+  }
+  .welcome-side .sc-tile::before {
+    content: counter(sc, decimal-leading-zero); grid-row: 1 / span 2; align-self: center;
+    font: 500 11px/1 var(--mono); color: var(--muted); letter-spacing: .04em;
+  }
+  .welcome-side .sc-thumb { width: 100%; max-height: 100%; align-self: center; }
+  .welcome-side .sc-name { font-size: 15.5px; }
+  .welcome-side .sc-note { font-size: 13px; }
+}
